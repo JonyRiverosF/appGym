@@ -22,8 +22,8 @@ export class DietasPage implements OnInit {
     this.router.navigate(['/dietas']);
   }
 
-  irEjercicios(){
-    this.router.navigate(['/ejercicios']);
+  irMusculos(){
+    this.router.navigate(['/musculos']);
   }
 
   irNoticias(){

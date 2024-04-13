@@ -30,6 +30,14 @@ const routes: Routes = [
   {
     path: 'noticias',
     loadChildren: () => import('./Pages/noticias/noticias.module').then( m => m.NoticiasPageModule)
+  },
+  {
+    path: 'ejercicio',
+    loadChildren: () => import('./Pages/ejercicio/ejercicio.module').then( m => m.EjercicioPageModule)
+  },
+  {
+    path: 'musculos',
+    loadChildren: () => import('./Pages/musculos/musculos.module').then( m => m.MusculosPageModule)
   }
 ];
 

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-ejercicios',
-  templateUrl: './ejercicios.page.html',
-  styleUrls: ['./ejercicios.page.scss'],
+  selector: 'app-musculos',
+  templateUrl: './musculos.page.html',
+  styleUrls: ['./musculos.page.scss'],
 })
-export class EjerciciosPage implements OnInit {
+export class MusculosPage implements OnInit {
 
   constructor(private router: Router) { 
   }
@@ -32,12 +32,11 @@ export class EjerciciosPage implements OnInit {
     this.router.navigate(['/noticias']);
   }
 
-  irEjercicio(){
-    this.router.navigate(['/ejercicio']);
+  irEjercicios(){
+    this.router.navigate(['/ejercicios']);
   }
 
   ngOnInit() {
   }
-  
 
 }

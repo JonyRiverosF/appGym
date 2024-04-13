@@ -1,0 +1,107 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#" [routerLink]="['/ejercicios']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ejercicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Ejercicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+<!-- Video -->
+<p style="text-align: center;">
+  <ion-card>
+      <ion-card-header>
+        <ion-card-title style="font-size: 20px;color:rgb(255, 255, 255)"><h1>Aperturas con mancuernas</h1></ion-card-title>
+      </ion-card-header>
+    <img alt="Silhouette of mountains" src="assets/icon/gym.jpg" />
+
+    <!-- Boton Guardado -->
+    <div *ngIf="!boton">
+      <ion-card-content>
+        <ion-button color="warning" shape="round" (click)="esconder()">
+          <ion-icon name="bookmark-outline"></ion-icon>
+        </ion-button>
+      </ion-card-content>
+    </div>
+    <div *ngIf="boton">
+      <ion-card-content>
+      </ion-card-content>
+    </div>
+  </ion-card>
+</p>
+
+
+
+<!-- Textarea -->
+<ion-grid>
+  <ion-row>
+    <ion-col size="1"></ion-col>
+    <ion-col size="10">
+      <p style="text-align:center;">
+        <textarea rows="4" cols="30" placeholder="Añade un comentario"></textarea>
+      </p>
+    </ion-col>
+    <ion-col size="1"></ion-col>
+  </ion-row>
+
+  <!-- Boton -->
+  <ion-row>
+    <ion-col size="1"></ion-col>
+    <ion-col size="10">
+      <p style="text-align:center;margin-top: -15px;">
+        <ion-button color="warning"  shape="round">Enviar</ion-button>
+      </p>
+    </ion-col>
+    <ion-col size="1"></ion-col>
+  </ion-row>
+
+  <!-- Comentarios -->
+  
+  
+  
+  
+</ion-grid>
+
+
+
+
+</ion-content>
+
+
+<!--Menu footer-->
+<ion-footer id="footer">
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button>
+          <ion-icon (click)="irPerfil()" name="person-circle-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irMusculos()" name="barbell-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irNoticias()" name="newspaper-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irDietas()" name="clipboard-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irGuardados()" name="bookmark-outline"></ion-icon>
+        </ion-tab-button>
+
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

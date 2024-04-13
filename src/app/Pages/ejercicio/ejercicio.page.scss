@@ -11,11 +11,12 @@ ion-title{
 }
 
 ion-card{
-    --background: rgb(19, 93, 102);  
+    --background: rgb(19, 93, 102);
 }
 
 ion-item{
     --background: rgb(19, 93, 102);
+    --padding-start: 0;
 }
 
 ion-tab-bar{
@@ -29,5 +30,3 @@ ion-tab-button{
 ion-buttons{
   color:rgb(0, 0, 0)
 }
-
-

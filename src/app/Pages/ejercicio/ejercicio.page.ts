@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-ejercicios',
-  templateUrl: './ejercicios.page.html',
-  styleUrls: ['./ejercicios.page.scss'],
+  selector: 'app-ejercicio',
+  templateUrl: './ejercicio.page.html',
+  styleUrls: ['./ejercicio.page.scss'],
 })
-export class EjerciciosPage implements OnInit {
+export class EjercicioPage implements OnInit {
 
-  constructor(private router: Router) { 
-  }
-  
+  boton:boolean=false;
+
+  constructor(private router: Router) { }
 
   irPerfil(){
     this.router.navigate(['/perfil']);
@@ -32,12 +32,11 @@ export class EjerciciosPage implements OnInit {
     this.router.navigate(['/noticias']);
   }
 
-  irEjercicio(){
-    this.router.navigate(['/ejercicio']);
+  esconder(){
+    this.boton=true;
   }
 
   ngOnInit() {
   }
-  
 
 }

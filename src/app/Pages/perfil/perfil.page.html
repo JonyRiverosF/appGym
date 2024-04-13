@@ -63,7 +63,7 @@
                         </ion-col>
                       
                         <ion-col size="6">
-                          <ion-button (click)="modificarA()" color="warning"><ion-icon name="build-outline"></ion-icon></ion-button>
+                          <ion-button (click)="modificarA()" color="warning" shape="round"><ion-icon name="build-outline"></ion-icon></ion-button>
                         </ion-col>
                       </ion-row>
                     </div>
@@ -74,7 +74,7 @@
                           <ion-input label="Altura"  label-placement="floating" [(ngModel)]="altura" [value]="altura" type="number" step="0.1" max="4"></ion-input>
                         </ion-col>
                       <ion-col size="6">
-                        <ion-button (click)="guardarA()" color="warning" ><ion-icon name="checkmark-done-outline"></ion-icon></ion-button>
+                        <ion-button (click)="guardarA()" color="warning" shape="round"><ion-icon name="checkmark-done-outline"></ion-icon></ion-button>
                       </ion-col>
                       </ion-row>
                     </div>
@@ -91,7 +91,7 @@
                         <ion-input label="Peso(kg)" readonly label-placement="floating" [value]="peso" type="number" step="1" max="4"></ion-input>
                       </ion-col>
                       <ion-col size="5">
-                        <ion-button color="warning" (click)="modificarP()"><ion-icon name="build-outline"></ion-icon></ion-button>
+                        <ion-button color="warning" (click)="modificarP()" shape="round"><ion-icon name="build-outline"></ion-icon></ion-button>
                       </ion-col>
                     </ion-row>
                   </div>
@@ -103,7 +103,7 @@
                         <ion-input label="Peso(kg)" label-placement="floating" [(ngModel)]="peso" [value]="peso" type="number" step="1" max="4"></ion-input>
                       </ion-col>
                       <ion-col size="5">
-                        <ion-button (click)="guardarP()" color="warning" ><ion-icon name="checkmark-done-outline"></ion-icon></ion-button>
+                        <ion-button (click)="guardarP()" color="warning" shape="round"><ion-icon name="checkmark-done-outline"></ion-icon></ion-button>
                       </ion-col>
                     </ion-row>
                   </div>
@@ -117,7 +117,7 @@
   
           <!--Cerrar sesion--> 
           </ion-card-subtitle>
-        <ion-button color="warning" [routerLink]="['/home']">Cerrar sesion</ion-button>
+        <ion-button color="warning" [routerLink]="['/home']" shape="round">Cerrar sesion</ion-button>
       </ion-card-content>
     </ion-card>
   </p></div>
@@ -129,7 +129,7 @@
     <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10">
-        <p style="text-align: center;"><ion-button color="warning" (click)="despliegaC()">Despliega</ion-button></p>
+        <p style="text-align: center;"><ion-button color="warning" (click)="despliegaC()" shape="round">Despliega</ion-button></p>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -141,7 +141,7 @@
     <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10">
-      <p style="text-align: center;"><ion-button color="warning" (click)="ocultarV()" >Ocultar</ion-button></p>
+      <p style="text-align: center;"><ion-button color="warning" (click)="ocultarV()" shape="round" >Ocultar</ion-button></p>
       
     <p style="text-align: center;">
       <ion-card>
@@ -152,7 +152,7 @@
         </ion-card-header>
       
         <ion-card-content>
-          <ion-button color="warning" >Pagar</ion-button>
+          <ion-button color="warning" shape="round" >Pagar</ion-button>
         </ion-card-content>
       </ion-card>
     </p>
@@ -210,7 +210,7 @@
         </ion-tab-button>
 
         <ion-tab-button>
-          <ion-icon (click)="irEjercicios()" name="barbell-outline"></ion-icon>
+          <ion-icon (click)="irMusculos()" name="barbell-outline"></ion-icon>
         </ion-tab-button>
 
         <ion-tab-button>
