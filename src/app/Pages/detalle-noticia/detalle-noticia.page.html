@@ -1,49 +1,49 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button default-href="#" [routerLink]="['/ejercicios']"></ion-back-button>
+      <ion-back-button default-href="#" [routerLink]="['/noticias']"></ion-back-button>
     </ion-buttons>
-    <ion-title>Ejercicio</ion-title>
+    <ion-title>detalleNoticia</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Ejercicio</ion-title>
+      <ion-title size="large">detalleNoticia</ion-title>
     </ion-toolbar>
   </ion-header>
 
-
-<!-- Video -->
 <p style="text-align: center;">
   <ion-card>
-      <ion-card-header>
-        <ion-card-title style="font-size: 20px;color:rgb(255, 255, 255)"><h1>Aperturas con mancuernas</h1></ion-card-title>
-      </ion-card-header>
-    <img alt="Silhouette of mountains" src="assets/icon/gym.jpg" />
+    <img alt="Silhouette of mountains" [src]="noticia.img" style="width: 400px; height: 200px;" />
+    <ion-card-header>
+      <ion-card-title><h2 style="color: rgb(248, 247, 247);">{{noticia.titulo}}</h2></ion-card-title>
+     
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p style="color:rgb(243, 243, 243)">{{noticia.detalle}}</p>
 
-    <!-- Boton Guardado -->
-    <div *ngIf="!boton">
-      <ion-card-content>
-        <ion-button color="warning" shape="round" (click)="esconder()">
-          <ion-icon name="bookmark-outline"></ion-icon>
+      <div *ngIf="!boton">
+        <ion-button  color="warning" shape="round" (click)="esconder()">
+          <ion-icon name="heart-outline">
+          </ion-icon>
         </ion-button>
-      </ion-card-content>
-    </div>
-    <div *ngIf="boton">
-      <ion-card-content>
-        <ion-button color="warning" shape="round" (click)="sacar()">
-        <ion-icon name="bookmark-sharp" ></ion-icon>
-      </ion-button>
-      </ion-card-content>
-    </div>
-  </ion-card>
-</p>
+      </div>
+
+      <div *ngIf="boton">
+        <ion-button  color="warning" shape="round" (click)="sacar()">
+          <ion-icon name="heart-sharp">
+          </ion-icon>
+        </ion-button> 
+      </div>
+
+    </ion-card-content>
+  </ion-card></p>
 
 
-
-<!-- Textarea -->
+  <!-- Textarea -->
 <ion-grid>
   <ion-row>
     <ion-col size="1"></ion-col>
@@ -100,10 +100,13 @@
   
 </ion-grid>
 
-
-
-
 </ion-content>
+
+
+
+
+
+
 
 
 <!--Menu footer-->

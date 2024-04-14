@@ -38,6 +38,18 @@ const routes: Routes = [
   {
     path: 'musculos',
     loadChildren: () => import('./Pages/musculos/musculos.module').then( m => m.MusculosPageModule)
+  },
+  {
+    path: 'tipo-dietas',
+    loadChildren: () => import('./Pages/tipo-dietas/tipo-dietas.module').then( m => m.TipoDietasPageModule)
+  },
+  {
+    path: 'dieta',
+    loadChildren: () => import('./Pages/dieta/dieta.module').then( m => m.DietaPageModule)
+  },
+  {
+    path: 'detalle-noticia',
+    loadChildren: () => import('./Pages/detalle-noticia/detalle-noticia.module').then( m => m.DetalleNoticiaPageModule)
   }
 ];
 

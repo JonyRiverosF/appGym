@@ -29,49 +29,7 @@ ion-tab-button{
 }
 
 
-/*Primera foto*/
-.container {
-  position: relative;
-  width: 50%;
-}
-
-.image {
-  display: block;
-  width:150px;
-  height:150px;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: .5s ease;
-  background: rgba(19, 92, 102, 0.402);
-}
-
-.container:hover .overlay {
-  opacity: 1;
-}
-
-.text {
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-}
-
-
-
-
-/*Segunda foto*/
+/*Foto*/
 .container1 {
   position: relative;
 }
@@ -81,8 +39,8 @@ ion-tab-button{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 18px;
-  color: rgba(245, 245, 245, 0.853);
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.853);
 }
 
 .img1 { 

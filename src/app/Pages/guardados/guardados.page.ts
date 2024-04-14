@@ -8,8 +8,31 @@ import { Router } from '@angular/router';
 })
 export class GuardadosPage implements OnInit {
 
+  mostrarEjercicios:boolean=true;
+  mostrarDieta:boolean=false;
+
   constructor(private router: Router) { }
 
+  mostrarEjercicio(){
+    this.mostrarEjercicios=true;
+    this.mostrarDieta=false
+  }
+
+  mostrarDietas(){
+    this.mostrarDieta=true;
+    this.mostrarEjercicios=false;
+  }
+  
+  irTipos(){
+    this.router.navigate(['/dieta']);
+  }
+  
+  
+  
+  
+  
+  
+  
   irPerfil(){
     this.router.navigate(['/perfil']);
   }

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-dietas',
-  templateUrl: './dietas.page.html',
-  styleUrls: ['./dietas.page.scss'],
+  selector: 'app-tipo-dietas',
+  templateUrl: './tipo-dietas.page.html',
+  styleUrls: ['./tipo-dietas.page.scss'],
 })
-export class DietasPage implements OnInit {
+export class TipoDietasPage implements OnInit {
 
   constructor(private router: Router) { }
 
@@ -30,8 +30,8 @@ export class DietasPage implements OnInit {
     this.router.navigate(['/noticias']);
   }
 
-  irTipos(){
-    this.router.navigate(['/tipo-dietas']);
+  irtipos(){
+    this.router.navigate(['/dieta']);
   }
 
   ngOnInit() {

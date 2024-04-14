@@ -11,12 +11,12 @@ ion-title{
 }
 
 ion-card{
-  /*--background: rgb(19, 93, 102);*/  
-  --background: transparent;
+  --background: rgb(19, 93, 102);
 }
 
 ion-item{
   --background: rgb(19, 93, 102);
+  --padding-start: 0;
 }
 
 ion-tab-bar{
@@ -29,22 +29,4 @@ color:rgb(0, 0, 0);
 
 ion-buttons{
 color:rgb(0, 0, 0)
-}
-
-/*Foto*/
-.container1 {
-position: relative;
-}
-
-.center1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 22px;
-  color: rgba(0, 0, 0, 0.853);
-}
-
-.img1 { 
-opacity: 0.6;
 }

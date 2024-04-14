@@ -1,19 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-ejercicio',
-  templateUrl: './ejercicio.page.html',
-  styleUrls: ['./ejercicio.page.scss'],
+  selector: 'app-detalle-noticia',
+  templateUrl: './detalle-noticia.page.html',
+  styleUrls: ['./detalle-noticia.page.scss'],
 })
-export class EjercicioPage implements OnInit {
-
-  boton:boolean=false;
-
-  subComentario:string="";
-
-  comentario:string="";
+export class DetalleNoticiaPage implements OnInit {
 
   comen=[{id:1,
     nombre:"juan",
@@ -36,7 +30,32 @@ export class EjercicioPage implements OnInit {
     img:"assets/icon/maxi.jpg",
     username:"Maxi_Urrejola",mostrar:false}]
 
-  constructor(private router: Router,private toastController: ToastController) { }
+  noticia:any;
+
+  boton:boolean=false;
+
+  subComentario:string="";
+
+  comentario:string="";
+
+  constructor(private router: Router, private activatedRouter:ActivatedRoute,private toastController: ToastController) { 
+    this.activatedRouter.queryParams.subscribe(param =>{
+      if (this.router.getCurrentNavigation()?.extras.state){
+        this.noticia = this.router.getCurrentNavigation()?.extras?.state?.["noticia"];
+      }
+    })
+  }
+
+  esconder(){
+    this.boton=true;
+    this.presentToast("bottom","Me gusta");
+  }
+
+  sacar(){
+    this.boton=false;
+    this.presentToast("bottom","Me gusta eliminado");
+  }
+
 
 
   responder(username:any){
@@ -47,20 +66,6 @@ export class EjercicioPage implements OnInit {
   sub(x:any){
     x.mostrar=false;
   }
-
-  esconder(){
-    this.boton=true;
-    this.presentToast("bottom","Ejercicio Guardado");
-  }
-
-  sacar(){
-    this.boton=false;
-    this.presentToast("bottom","Ejercicio eliminado de tus guardados");
-  }
-
-
-
-
 
 
 
