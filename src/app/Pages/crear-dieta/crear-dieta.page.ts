@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-crear-dieta',
@@ -8,17 +9,51 @@ import { Router } from '@angular/router';
 })
 export class CrearDietaPage implements OnInit {
 
+  crearD:boolean=true;
+  modificarD:boolean=false;
+
+  imagenNueva:any=""
+  video:any
+
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
 
+  CrearDieta(){
+    this.crearD=true;
+    this.modificarD=false;
+  }
+
+  ModificarDieta(){
+    this.modificarD=true;
+    this.crearD=false;
+  }
 
 
-  
 
 
+
+
+
+
+
+  onFileSelectede(event:any) {
+    console.log("Aqui estoy ")
+
+    this.video =(window.URL||window.webkitURL).createObjectURL(event.target.files[0]);}
+    //console.log(this.video)
+
+  takePicture = async () => {
+    const image2 = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source:CameraSource.Photos
+    });
+    this.imagenNueva= image2.dataUrl;
+  };
 
   irPerfil(){
     this.router.navigate(['/perfil-admin']);

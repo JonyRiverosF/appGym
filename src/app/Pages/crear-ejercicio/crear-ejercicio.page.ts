@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-crear-ejercicio',
@@ -7,6 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./crear-ejercicio.page.scss'],
 })
 export class CrearEjercicioPage implements OnInit {
+
+  imagenNueva:any=""
+  video:any
+  crearE:boolean=true;
+  modiE:boolean=false;
 
   constructor(private router: Router) { }
 
@@ -16,10 +22,40 @@ export class CrearEjercicioPage implements OnInit {
 
 
 
+
+
+
+
+
+
   
 
+  CrearEjercicio(){
+    this.crearE=true;
+    this.modiE=false;
+  }
 
+  ModificarEjercicio(){
+    this.modiE=true;
+    this.crearE=false;
+  }
 
+  onFileSelectede(event:any) {
+    console.log("Aqui estoy ")
+
+    this.video =(window.URL||window.webkitURL).createObjectURL(event.target.files[0]);}
+    //console.log(this.video)
+
+  takePicture = async () => {
+    const image2 = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source:CameraSource.Photos
+    });
+    this.imagenNueva= image2.dataUrl;
+  };
+  
   irPerfil(){
     this.router.navigate(['/perfil-admin']);
   }

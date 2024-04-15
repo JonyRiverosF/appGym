@@ -64,25 +64,13 @@ const routes: Routes = [
     loadChildren: () => import('./Pages/crear-noticia/crear-noticia.module').then( m => m.CrearNoticiaPageModule)
   },
   {
-    path: 'modificar-noticia',
-    loadChildren: () => import('./Pages/modificar-noticia/modificar-noticia.module').then( m => m.ModificarNoticiaPageModule)
-  },
-  {
     path: 'crear-dieta',
     loadChildren: () => import('./Pages/crear-dieta/crear-dieta.module').then( m => m.CrearDietaPageModule)
-  },
-  {
-    path: 'modificar-dieta',
-    loadChildren: () => import('./Pages/modificar-dieta/modificar-dieta.module').then( m => m.ModificarDietaPageModule)
   },
   {
     path: 'crear-ejercicio',
     loadChildren: () => import('./Pages/crear-ejercicio/crear-ejercicio.module').then( m => m.CrearEjercicioPageModule)
   },
-  {
-    path: 'modificar-ejercicio',
-    loadChildren: () => import('./Pages/modificar-ejercicio/modificar-ejercicio.module').then( m => m.ModificarEjercicioPageModule)
-  }
 ];
 
 @NgModule({
