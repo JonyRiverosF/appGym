@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>crearNoticia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">crearNoticia</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <p style="text-align: center;">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Creación Noticia</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-item style="--background: rgb(19, 93, 102);">
+          <ion-input label="Titulo" label-placement="floating" placeholder="Ingrese titulo noticia" type="text"></ion-input>
+        </ion-item>
+  
+        <ion-item style="--background: rgb(19, 93, 102);">
+          <ion-input label="Bajada de titulo" label-placement="floating" placeholder="Ingrese bajada de titulo" type="text"></ion-input>
+        </ion-item>
+        <br>
+        <p style="text-align: center;">
+          <ion-button  color="warning" shape="round" (click)="takePicture()" >Seleccione una foto</ion-button> 
+          <br>
+        </p>
+          
+        <div *ngIf="imagenNueva != '' ">
+          <ion-item color="light">
+            <img [src]="imagenNueva" alt="image" style="width: 100%;height: 100%;">
+          </ion-item>
+        </div><br>
+
+        <h2 style="text-align: center;color: rgb(231, 231, 231);">Selccione un video</h2>
+        <p style="color: rgb(245, 242, 242);"><input type="file" id="fie" accept=".mp4" multiple (change)="onFileSelectede($event)"/></p><br>
+        <div *ngIf="video">
+          <video [src]="video" width="320" height="240" controls></video>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </p>
+
+
+<p style="text-align: center;">
+  <ion-card>
+
+    <ion-card-header>
+      <h1 style="text-align: center;color: rgb(255, 255, 255);">Cuerpo de la noticia</h1>
+    </ion-card-header>
+      
+  
+
+    <ion-card-content>
+      <ion-item>
+        <ion-textarea label="Escriba aqui:" label-placement="floating" rows="8"  placeholder="Ingrese Cuerpo de la noticia"></ion-textarea>
+      </ion-item>
+      <ion-button color="warning" shape="round">Crear Noticia</ion-button>
+      <ion-button color="warning" [routerLink]="['/home']" shape="round">Cerrar sesion</ion-button>
+    </ion-card-content>
+
+  </ion-card>
+</p>
+</ion-content>
+
+
+
+<!--Menu footer-->
+<ion-footer id="footer">
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button>
+          <ion-icon (click)="irPerfil()" name="person-circle-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irMusculos()" name="barbell-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irNoticias()" name="newspaper-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irDietas()" name="clipboard-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon name="person-add-outline" (click)="RegistroU()"></ion-icon>
+        </ion-tab-button>
+
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

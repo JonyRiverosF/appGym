@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>crearEjercicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">crearEjercicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>
+
+
+
+<!--Menu footer-->
+<ion-footer id="footer">
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button>
+          <ion-icon (click)="irPerfil()" name="person-circle-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irMusculos()" name="barbell-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irNoticias()" name="newspaper-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irDietas()" name="clipboard-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon name="person-add-outline" (click)="RegistroU()"></ion-icon>
+        </ion-tab-button>
+
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

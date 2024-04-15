@@ -1,0 +1,120 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>registroUser</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">registroUser</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<p style="text-align: center;">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registro Usuario</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-input label="Nombre" label-placement="floating" placeholder="Juan" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Apellido" label-placement="floating" placeholder="Gana" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Rut" label-placement="floating" placeholder="20.989.650" type="number"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Digito Verificador" label-placement="floating" placeholder="4" type="text"></ion-input>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <h3 style="text-align: center;color: rgb(245, 245, 245);">Seleccione algún horario</h3>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">
+            <ion-item style="margin-top: -15px;">
+            <ion-select label="Lun-Mie-Vie" label-placement="floating">
+              <ion-select-option >7:00-8:20</ion-select-option>
+              <ion-select-option >8:30-9:50</ion-select-option>
+              <ion-select-option >10:00-11:20</ion-select-option>
+              <ion-select-option >11:30-12:50</ion-select-option>
+              <ion-select-option >13:00-14:20</ion-select-option>
+              <ion-select-option >14:30-15:50</ion-select-option>
+              <ion-select-option >16:00-17:20</ion-select-option>
+              <ion-select-option >17:30-18:50</ion-select-option>
+              <ion-select-option >19:00-20:20</ion-select-option>
+            </ion-select>
+          </ion-item>
+          </ion-col>
+
+
+          <ion-col size="6">
+            <ion-item style="margin-top: -15px;">
+            <ion-select label="Mar-Jue-Sab" label-placement="floating">
+              <ion-select-option >7:00-8:20</ion-select-option>
+              <ion-select-option >8:30-9:50</ion-select-option>
+              <ion-select-option >10:00-11:20</ion-select-option>
+              <ion-select-option >11:30-12:50</ion-select-option>
+              <ion-select-option >13:00-14:20</ion-select-option>
+              <ion-select-option >14:30-15:50</ion-select-option>
+              <ion-select-option >16:00-17:20</ion-select-option>
+              <ion-select-option >17:30-18:50</ion-select-option>
+              <ion-select-option >19:00-20:20</ion-select-option>
+            </ion-select>
+          </ion-item>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+      <br>
+    <ion-button color="warning" shape="round">Registrar</ion-button>
+
+
+    </ion-card-content>
+  </ion-card>
+</p>
+
+</ion-content>
+
+
+
+
+<!--Menu footer-->
+<ion-footer id="footer">
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button>
+          <ion-icon (click)="irPerfil()" name="person-circle-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irMusculos()" name="barbell-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irNoticias()" name="newspaper-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irDietas()" name="clipboard-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon name="person-add-outline" (click)="RegistroU()"></ion-icon>
+        </ion-tab-button>
+
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>
