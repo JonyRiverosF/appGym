@@ -15,6 +15,14 @@ export class CrearDietaPage implements OnInit {
   imagenNueva:any=""
   video:any
 
+  dietas:any=[{
+    img:"assets/icon/dieta1.png",
+    nombre:"caloricas",
+  },{
+    img:"assets/icon/dieta2.png",
+    nombre:"sin gluten"
+  }]
+
   constructor(private router: Router) { }
 
   ngOnInit() {

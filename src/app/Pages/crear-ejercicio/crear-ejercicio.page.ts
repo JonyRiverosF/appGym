@@ -14,6 +14,17 @@ export class CrearEjercicioPage implements OnInit {
   crearE:boolean=true;
   modiE:boolean=false;
 
+  ejercicios:any=[{
+    id:1,
+    nombreEjercicio:"press banca plano",
+    img:"assets/icon/aperturas.jpg"
+  },{
+    id:2,
+    nombreEjercicio:"press banca inclinado",
+    img:"assets/icon/maxi.jpg"
+  }]
+
+
   constructor(private router: Router) { }
 
   ngOnInit() {

@@ -14,7 +14,18 @@ export class CrearNoticiaPage implements OnInit {
   CrearN:boolean=true;
   ModiN:boolean=false;
 
+  noticia=[{id:1,
+    titulo:"pug se ha encontrado orinando en el gimnasio ",
+    detalle:"en el collar del perro decia su nombre 'maximiliano', se les escapo a unos analistas programadores del duoc uc",
+    img:"assets/icon/maxi.jpg"},
+
+    {id:2
+    ,titulo:"maxi sube videos a tik tok",
+    detalle:"maximiliano urrejola más conocido el adicto a las barras largas(olimpicas)",
+    img:"assets/icon/gym.jpg",}]
+    
   constructor(private router: Router) { }
+  
 
   ngOnInit() {
   }

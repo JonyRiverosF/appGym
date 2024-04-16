@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil-admin',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class PerfilAdminPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private menuCtrl: MenuController,private router: Router) { }
 
   ngOnInit() {
   }
@@ -19,6 +20,10 @@ export class PerfilAdminPage implements OnInit {
   
 
 
+  abrirMenu(){
+    this.menuCtrl.enable(true, 'menuEnd');
+    this.menuCtrl.open('menuEnd');
+  }
 
   irPerfil(){
     this.router.navigate(['/perfil-admin']);

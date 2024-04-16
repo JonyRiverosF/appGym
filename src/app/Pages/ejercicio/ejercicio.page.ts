@@ -35,6 +35,7 @@ export class EjercicioPage implements OnInit {
     comentario:"Quiero hacerlo con ambos (y el ejercicio tambien)",
     img:"assets/icon/maxi.jpg",
     username:"Maxi_Urrejola",mostrar:false}]
+    
 
   constructor(private router: Router,private toastController: ToastController) { }
 
