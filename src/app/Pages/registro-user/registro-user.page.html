@@ -19,20 +19,28 @@
 
     <ion-card-content>
       <ion-item>
-        <ion-input label="Nombre:" label-placement="floating" placeholder="Juan" type="text"></ion-input>
+        <ion-input [(ngModel)]="nombre" label="Nombre:" label-placement="floating" placeholder="Juan" type="text"></ion-input>
       </ion-item>
+      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeName!=''">{{ mensajeName }}</p >
+      <p style="color: rgb(197, 79, 79);"  *ngIf="mensajeNameN!=''">{{ mensajeNameN }}</p >
+      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeNameE!=''">{{ mensajeNameE }}</p >
 
       <ion-item>
-        <ion-input label="Apellido:" label-placement="floating" placeholder="Gana" type="text"></ion-input>
+        <ion-input [(ngModel)]="apellido" label="Apellido:" label-placement="floating" placeholder="Gana" type="text"></ion-input>
       </ion-item>
+      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeApellido!=''">{{ mensajeApellido }}</p>
+      <p   style="color: rgb(197, 79, 79);" *ngIf="mensajeApellidoN!=''">{{ mensajeApellidoN }}</p>
+      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeApellidoE!=''">{{ mensajeApellidoE }}</p>
 
       <ion-item>
-        <ion-input label="Rut:" label-placement="floating" placeholder="20.989.650" type="number"></ion-input>
+        <ion-input [(ngModel)]="rut" label="Rut:" label-placement="floating" placeholder="20.989.650" type="number"></ion-input>
       </ion-item>
+      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeRut">{{ mensajeRut }}</p>
 
       <ion-item>
-        <ion-input label="Digito Verificador:" label-placement="floating" placeholder="4" type="text"></ion-input>
+        <ion-input [(ngModel)]="digitoVerificador" label="Digito Verificador:" label-placement="floating" placeholder="4" type="text"></ion-input>
       </ion-item>
+      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeDigitoVerificador">{{ mensajeDigitoVerificador }}</p>
 
       <ion-grid>
         <ion-row>
@@ -44,7 +52,7 @@
         <ion-row>
           <ion-col size="6">
             <ion-item style="margin-top: -15px;">
-            <ion-select label="Lun-Mie-Vie" label-placement="floating">
+            <ion-select [(ngModel)]="horario1" label="Lun-Mie-Vie" label-placement="floating" cancelText="Cancelar">
               <ion-select-option >7:00-8:20</ion-select-option>
               <ion-select-option >8:30-9:50</ion-select-option>
               <ion-select-option >10:00-11:20</ion-select-option>
@@ -56,12 +64,13 @@
               <ion-select-option >19:00-20:20</ion-select-option>
             </ion-select>
           </ion-item>
+          
           </ion-col>
 
 
           <ion-col size="6">
             <ion-item style="margin-top: -15px;">
-            <ion-select label="Mar-Jue-Sab" label-placement="floating">
+            <ion-select [(ngModel)]="horario2" label="Mar-Jue-Sab" label-placement="floating" cancelText="Cancelar">
               <ion-select-option >7:00-8:20</ion-select-option>
               <ion-select-option >8:30-9:50</ion-select-option>
               <ion-select-option >10:00-11:20</ion-select-option>
@@ -73,11 +82,14 @@
               <ion-select-option >19:00-20:20</ion-select-option>
             </ion-select>
           </ion-item>
+          
           </ion-col>
+
       </ion-row>
+      <p style="text-align: center;color: rgb(197, 79, 79);" *ngIf="mensajeHorario">{{ mensajeHorario }}</p>
     </ion-grid>
       <br>
-    <ion-button color="warning" shape="round">Registrar</ion-button>
+    <ion-button color="warning" shape="round" (click)="verificarRegistro(nombre, apellido, rut, digitoVerificador, horario1, horario2)">Registrar</ion-button>
 
 
     </ion-card-content>
