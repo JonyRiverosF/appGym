@@ -18,6 +18,9 @@ export class HomePage {
   irPerfil(){
     this.router.navigate(['/perfil']);
   }
+  irRecuperar(){
+    this.router.navigate(['/Router']);
+  }
 
   codigoVerificado(){
     //formulario

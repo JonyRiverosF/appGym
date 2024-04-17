@@ -70,7 +70,11 @@ const routes: Routes = [
   {
     path: 'crear-ejercicio',
     loadChildren: () => import('./Pages/crear-ejercicio/crear-ejercicio.module').then( m => m.CrearEjercicioPageModule)
+  },  {
+    path: 'recuperar',
+    loadChildren: () => import('./pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
+
 ];
 
 @NgModule({

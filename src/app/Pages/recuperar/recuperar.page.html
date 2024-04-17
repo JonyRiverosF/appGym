@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>recuperar</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#" [routerLink]="['/home']"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">recuperar</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style="text-align: center;">Ingrese sus datos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input label="Rut:" label-placement="floating"></ion-input>
+      </ion-item>
+      <br>
+      <p style="text-align: center; color: rgb(255, 255, 255);">Elija una pregunta</p>
+      <ion-item>
+        <ion-select label="Preguntas:" label-placement="floating">
+          <ion-select-option >¿Cuál es el nombre de tu mascota?</ion-select-option>
+          <ion-select-option >¿Cuál es tu color favorito?</ion-select-option>
+          <ion-select-option >¿Cuál es tu canción favorita?</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Respuesta:" label-placement="floating"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+

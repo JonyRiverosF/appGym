@@ -19,6 +19,7 @@
           [(ngModel)]="codigo" type="number" max="4" required></ion-input> 
         </ion-item>
       <p style="color: rgb(197, 29, 29);" *ngIf="msj!=''">{{msj}}</p>
+      <h2 style="color: rgb(255, 255, 255);" [routerLink]="['/recuperar']" shape="round">Recuperar mi código <ion-icon style="color: rgb(255, 0, 0);" name="information-circle"></ion-icon></h2>
       </ion-card-subtitle>
       </ion-card-header>
     
