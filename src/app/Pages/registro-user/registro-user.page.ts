@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { ExpressService } from 'src/app/services/express.service';
+
 
 @Component({
   selector: 'app-registro-user',
@@ -40,7 +42,8 @@ export class RegistroUserPage implements OnInit {
   colorItemHorario: string = "light";
   flag:boolean=true;
 
-  constructor(private router: Router,private alertController: AlertController) { }
+  constructor(private router: Router,private alertController: AlertController,  private loadingCtrl: LoadingController
+    ,private toastController: ToastController,private api:ExpressService) { }
 
   ngOnInit() {
   }
@@ -136,9 +139,45 @@ export class RegistroUserPage implements OnInit {
     // REDIRECCIÓN A LOS PLANES DEL GIMNASIO
     if (flag) {
       this.flag =true;
-      this.presentAlert("La barra roja le indicará la seguridad de su contraseña");
+      var formulario = new FormData();
+      formulario.append("nombre",nombre);
+      formulario.append("apellido",apellido);
+      formulario.append("rut",rut);
+      formulario.append("dv",digitoVerificador);
+      formulario.append("horario1","Lun-Mie-Vie "+horario1);
+      formulario.append("horario2","Mar-Jue-Sab "+horario2);
+      //
+      this.loading(60000).then(response=>{
+        response.present();
+        this.api.registroUsuario(formulario).then(res=>res.json()).then(json=>{
+          console.log(json)
+          response.dismiss();
+          this.loading(2000).then(response=>{
+            this.presentToast("bottom","Usuario registrado correctamente",2500);
+          })
+        }).catch(err=>{
+          console.log(err)
+        })
+      })
     }
 }
+
+  loading(duracion:any){
+   return this.loadingCtrl.create({
+      message: 'Cargando...',
+      duration: duracion,
+    })
+  }
+
+async showLoading() {
+  const loading = await this.loadingCtrl.create({
+    message: 'Cargando...',
+    duration: 5000,
+  });
+
+  loading.present();
+}
+
 
 
 //Nombre Errores
@@ -211,10 +250,6 @@ calcularVerificador(rut:string) {
 }
 
 
-
-  
-
-
 async presentAlert(mensaje:string) {
   const alert = await this.alertController.create({
     header: 'Alerta',
@@ -225,7 +260,17 @@ async presentAlert(mensaje:string) {
   await alert.present();
 }
 
+  //Esta es la función de los mensajes
+  async presentToast(position: 'top' | 'middle' | 'bottom',mensaje:string,duracion:number) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: duracion,
+      position: position,
+      color:"dark"
+    });
 
+    await toast.present();
+  }
   irPerfil(){
     this.router.navigate(['/perfil-admin']);
   }

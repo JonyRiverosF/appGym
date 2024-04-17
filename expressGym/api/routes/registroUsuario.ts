@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 const router = express.Router()
 import multer from 'multer';
 const upload = multer({ dest: 'public/videos/' })
@@ -26,9 +26,30 @@ var usuariosSchema = new mongoose.Schema({
 })
 var usuarioModelo = mongoose.model("Usuarios",usuariosSchema)
 
-router.post("/registroUsuario",(req:any,res:any)=>{
-     
+router.post("/registroUsuario",upload.any(),(req:Request,res:Response)=>{
+    usuarioModelo.create({
+        clave:4321,
+        rut:req.body.rut,
+        dv:req.body.digitoVerificador,
+        nombre:req.body.nombre,
+        apellido:req.body.apellido,
+        pregunta:"",
+        respuesta:"",
+        imagen:"",
+        rol:1
+    }).then(response=>{
+        res.status(201).json({
+            mensaje:"Salió todo bien",
+            servidor:req.body
+        })
+    }).catch((error:any)=>{
+        res.status(201).json({
+            mensaje:"Algo salió mal",
+            respuesta:error
+        })
+    })
 
+   // console.log(req)
 })
 
 export default module.exports=router
