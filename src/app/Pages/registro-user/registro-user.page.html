@@ -33,6 +33,20 @@
       <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeApellidoE!=''">{{ mensajeApellidoE }}</p>
 
       <ion-item>
+        <ion-select [(ngModel)]="pregunta" label="Pregunta de seguridad" label-placement="floating" cancelText="Cancelar">
+          <ion-select-option >¿Comida favorita?</ion-select-option>
+          <ion-select-option >¿Nombre de alguna mascota?</ion-select-option>
+          <ion-select-option >¿Dia favorito?</ion-select-option>
+        </ion-select>
+      </ion-item>
+        <p style="color: rgb(197, 79, 79);" *ngIf="mensajePregunta">{{ mensajePregunta }}</p>
+
+      <ion-item>
+        <ion-input [(ngModel)]="respuesta" label="Respuesta:" label-placement="floating" placeholder="adicto a tus besos M." type="text"></ion-input>
+      </ion-item>
+      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeRespuesta">{{ mensajeRespuesta }}</p>
+
+      <ion-item>
         <ion-input [(ngModel)]="rut" label="Rut:" label-placement="floating" placeholder="20.989.650" type="number"></ion-input>
       </ion-item>
       <p style="color: rgb(197, 79, 79);" *ngIf="mensajeRut">{{ mensajeRut }}</p>
@@ -89,7 +103,7 @@
       <p style="text-align: center;color: rgb(197, 79, 79);" *ngIf="mensajeHorario">{{ mensajeHorario }}</p>
     </ion-grid>
       <br>
-    <ion-button color="warning" shape="round" (click)="verificarRegistro(nombre, apellido, rut, digitoVerificador, horario1, horario2)">Registrar</ion-button>
+      <ion-button color="warning" shape="round" (click)="verificarRegistro(nombre, apellido, rut, digitoVerificador, horario1 ,horario2 ,pregunta ,respuesta )">Registrar</ion-button>
 
 
     </ion-card-content>
