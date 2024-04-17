@@ -33,8 +33,8 @@ router.post("/registroUsuario",upload.any(),(req:Request,res:Response)=>{
         dv:req.body.digitoVerificador,
         nombre:req.body.nombre,
         apellido:req.body.apellido,
-        pregunta:"",
-        respuesta:"",
+        pregunta:req.body.pregunta,
+        respuesta:req.body.respuesta,
         imagen:"",
         rol:1
     }).then(response=>{

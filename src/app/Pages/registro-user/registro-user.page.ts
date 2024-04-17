@@ -18,6 +18,8 @@ export class RegistroUserPage implements OnInit {
   digitoVerificador:string="";
   horario1:string="";
   horario2:string="";
+  respuesta:string="";
+  pregunta:string="";
 
 
   //Mensajes
@@ -28,6 +30,9 @@ export class RegistroUserPage implements OnInit {
   mensajeApellido: string = "";
   mensajeApellidoN: string = "";
   mensajeApellidoE: string = "";
+
+  mensajePregunta:string="";
+  mensajeRespuesta:string="";
 
   mensajeRut: string = "";
   mensajeDigitoVerificador: string = "";
@@ -40,6 +45,9 @@ export class RegistroUserPage implements OnInit {
   colorItemRut: string = "light";
   colorItemDigitoVerificador: string = "light";
   colorItemHorario: string = "light";
+  colorItemPregunta:string="light";
+  colorItemRespuesta:string="light";
+
   flag:boolean=true;
 
   constructor(private router: Router,private alertController: AlertController,  private loadingCtrl: LoadingController
@@ -48,7 +56,8 @@ export class RegistroUserPage implements OnInit {
   ngOnInit() {
   }
 
-  verificarRegistro(nombre: string, apellido: string, rut: string, digitoVerificador: string, horario1: string, horario2: string) {
+  verificarRegistro(nombre: string, apellido: string, rut: string, digitoVerificador: string, horario1: string, horario2: string, pregunta: string, respuesta:string) {
+
     //Cada vez que se presione el botón, los mensajes de declararán vacias
     this.mensajeName = "";
     this.mensajeNameN = "";
@@ -57,6 +66,9 @@ export class RegistroUserPage implements OnInit {
     this.mensajeApellido = "";
     this.mensajeApellidoE="";
     this.mensajeApellidoN="";
+    
+    this.mensajePregunta="";
+    this.mensajeRespuesta="";
 
     this.mensajeRut = "";
 
@@ -69,6 +81,8 @@ export class RegistroUserPage implements OnInit {
     this.colorItemRut = "light";
     this.colorItemDigitoVerificador = "light";
     this.colorItemHorario = "light";
+    this.colorItemPregunta= "light";
+    this.colorItemRespuesta= "light";
     
     let flag = true;
 
@@ -133,8 +147,24 @@ export class RegistroUserPage implements OnInit {
       this.colorItemHorario = "danger";
       flag = false;
       
+    } 
+  console.log(horario1);
+
+
+    // VALIDACIÓN DE LOS Pregunta
+    if (pregunta.trim() === "") {
+      this.mensajePregunta = "Seleccione alguna pregunta";
+      this.colorItemHorario = "danger";
+      flag = false;
     }
-    console.log(horario1);
+
+    // VALIDACIÓN DE LOS Respuesta
+    if (respuesta.trim() === "") {
+      this.mensajeRespuesta = "Escriba alguna respuesta a su pregunta";
+      this.colorItemRespuesta = "danger";
+      flag = false;
+    }
+    
 
     // REDIRECCIÓN A LOS PLANES DEL GIMNASIO
     if (flag) {
@@ -146,6 +176,8 @@ export class RegistroUserPage implements OnInit {
       formulario.append("dv",digitoVerificador);
       formulario.append("horario1","Lun-Mie-Vie "+horario1);
       formulario.append("horario2","Mar-Jue-Sab "+horario2);
+      formulario.append("respuesta",respuesta);
+      formulario.append("pregunta",pregunta);
       //
       this.loading(60000).then(response=>{
         response.present();
