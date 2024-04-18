@@ -9,10 +9,20 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 })
 export class CrearNoticiaPage implements OnInit {
 
-  imagenNueva:any=""
+  imagenNueva:any="";
   video:any
+
   CrearN:boolean=true;
+
   ModiN:boolean=false;
+
+  toolbar:boolean=false;
+  formulario:boolean=true;
+
+  modificarD:boolean=false;
+  noticiasM:any;
+
+  sement:string="";
 
   noticia=[{id:1,
     titulo:"pug se ha encontrado orinando en el gimnasio ",
@@ -41,10 +51,6 @@ export class CrearNoticiaPage implements OnInit {
   }
 
 
-
-
-
-
   onFileSelectede(event:any) {
     console.log("Aqui estoy ")
 
@@ -61,23 +67,62 @@ export class CrearNoticiaPage implements OnInit {
     this.imagenNueva= image2.dataUrl;
   };
 
+  regreso(x:any){
+    this.formulario=x[0];
+    this.ModiN=x[0];
+    this.CrearN=x[1];
+    this.toolbar=x[1];
+    this.sement="all";
+  }
+
+  irModificar(x:any){
+    this.formulario=false;
+    this.noticiasM=x;
+    this.toolbar=true;
+  }
+
   irPerfil(){
+    this.CrearN=true;
+    this.formulario=true;
+    this.toolbar=false;
+    this.ModiN=false;
+    this.sement="favorites";
     this.router.navigate(['/perfil-admin']);
   }
 
   RegistroU(){
+    this.CrearN=true;
+    this.formulario=true;
+    this.toolbar=false;
+    this.ModiN=false;
+    this.sement="favorites";
     this.router.navigate(['/registro-user']);
   }
 
   irDietas(){
+    this.CrearN=true;
+    this.formulario=true;
+    this.toolbar=false;
+    this.ModiN=false;
+    this.sement="favorites";
     this.router.navigate(['/crear-dieta']);
   }
 
   irMusculos(){
+    this.CrearN=true;
+    this.formulario=true;
+    this.toolbar=false;
+    this.ModiN=false;
+    this.sement="favorites";
     this.router.navigate(['/crear-ejercicio']);
   }
 
   irNoticias(){
+    this.CrearN=true;
+    this.formulario=true;
+    this.toolbar=false;
+    this.ModiN=false;
+    this.sement="favorites";
     this.router.navigate(['/crear-noticia']);
   }
 

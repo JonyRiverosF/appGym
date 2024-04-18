@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CrearNoticiaPageRoutingModule } from './crear-noticia-routing.module';
 
 import { CrearNoticiaPage } from './crear-noticia.page';
+import { ModificarNoticiasComponent } from 'src/app/components/modificar-noticias/modificar-noticias.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { CrearNoticiaPage } from './crear-noticia.page';
     IonicModule,
     CrearNoticiaPageRoutingModule
   ],
-  declarations: [CrearNoticiaPage]
+  declarations: [CrearNoticiaPage, ModificarNoticiasComponent]
 })
 export class CrearNoticiaPageModule {}

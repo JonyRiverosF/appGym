@@ -70,10 +70,20 @@ const routes: Routes = [
   {
     path: 'crear-ejercicio',
     loadChildren: () => import('./Pages/crear-ejercicio/crear-ejercicio.module').then( m => m.CrearEjercicioPageModule)
-  },  {
-    path: 'recuperar',
-    loadChildren: () => import('./pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
+  {
+    path: 'recuperar',
+    loadChildren: () => import('./Pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
+  },
+  {
+    path: 'modificar-ejercicio',
+    loadChildren: () => import('./Pages/modificar-ejercicio/modificar-ejercicio.module').then( m => m.ModificarEjercicioPageModule)
+  },
+  {
+    path: 'modi-dietas',
+    loadChildren: () => import('./Pages/modi-dietas/modi-dietas.module').then( m => m.ModiDietasPageModule)
+  },
+
 
 ];
 

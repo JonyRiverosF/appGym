@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volverM()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>modificarNoticias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">modificarNoticias</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  
+  <p style="text-align: center;">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Modificar Noticias</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-item style="--background: rgb(19, 93, 102);">
+          <ion-input label="Titulo noticia:" label-placement="floating" [(ngModel)]="info.titulo" type="text"></ion-input>
+        </ion-item>
+  
+        <br>
+        <ion-item>
+          <ion-textarea label="Escriba aqui:" label-placement="floating" rows="8" [(ngModel)]="info.detalle" placeholder="Ingrese Cuerpo de la noticia"></ion-textarea>
+        </ion-item>
+        
+        
+        <p style="text-align: center;">
+          <img alt="Silhouette of mountains" [src]="info.img" style="width: 400px; height: 200px;" />
+          <br>
+        </p>
+
+        <h2 style="text-align: center;color: rgb(231, 231, 231);">Selccione un video</h2>
+        <p style="color: rgb(245, 242, 242);"><input type="file" id="fie" accept=".mp4" multiple (change)="onFileSelectede($event)"/></p><br>
+        <div *ngIf="video">
+          <video [src]="video" width="320" height="240" controls></video>
+        </div>
+        <br>
+        <ion-button color="warning" shape="round" >Modificar Noticias</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </p>
+   
+
+</ion-content> 

@@ -14,13 +14,13 @@ export class CrearEjercicioPage implements OnInit {
   crearE:boolean=true;
   modiE:boolean=false;
 
-  ejercicios:any=[{
+  musculos:any=[{
     id:1,
-    nombreEjercicio:"press banca plano",
-    img:"assets/icon/aperturas.jpg"
+    nombreMusculo:"pecho",
+    img:"assets/icon/pecho.jpg"
   },{
     id:2,
-    nombreEjercicio:"press banca inclinado",
+    nombreMusculo:"triceps",
     img:"assets/icon/maxi.jpg"
   }]
 
@@ -34,7 +34,9 @@ export class CrearEjercicioPage implements OnInit {
 
 
 
-
+  irModificar(){
+    this.router.navigate(['/modificar-ejercicio'])
+  }
 
 
 

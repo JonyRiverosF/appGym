@@ -20,6 +20,8 @@ export class NoticiasPage implements OnInit {
           
   constructor(private router: Router) { }
 
+  ngOnInit() {
+  }
 
   irDetalle(noticia:any){
     let navigationextra:NavigationExtras={
@@ -55,8 +57,5 @@ export class NoticiasPage implements OnInit {
     this.router.navigate(['/noticias']);
   }
   
-
-  ngOnInit() {
-  }
 
 }

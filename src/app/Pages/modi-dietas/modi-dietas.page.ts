@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-
 
 @Component({
-  selector: 'app-crear-dieta',
-  templateUrl: './crear-dieta.page.html',
-  styleUrls: ['./crear-dieta.page.scss'],
+  selector: 'app-modi-dietas',
+  templateUrl: './modi-dietas.page.html',
+  styleUrls: ['./modi-dietas.page.scss'],
 })
-export class CrearDietaPage implements OnInit {
-
+export class ModiDietasPage implements OnInit {
+  
   crearD:boolean=true;
   modificarD:boolean=false;
 
   imagenNueva:any=""
   video:any
+
+  formulario:boolean=true;
+  dietaM:any;
 
   dietas:any=[{
     img:"assets/icon/dieta1.png",
@@ -29,54 +30,37 @@ export class CrearDietaPage implements OnInit {
   ngOnInit() {
   }
 
-
-  CrearDieta(){
-    this.crearD=true;
-    this.modificarD=false;
+  regreso(x:any){
+    this.formulario=x;
   }
 
-  ModificarDieta(){
-    this.modificarD=true;
-    this.crearD=false;
+  irModificar(x:any){
+    this.formulario=false;
+    this.dietaM=x;
   }
-
-  irTipos(){
-    this.router.navigate(['/modi-dietas'])
-  }
-
-
-
-
-
-
-  takePicture = async () => {
-    const image2 = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl,
-      source:CameraSource.Photos
-    });
-    this.imagenNueva= image2.dataUrl;
-  };
-
 
   irPerfil(){
+    this.formulario=true;
     this.router.navigate(['/perfil-admin']);
   }
 
   RegistroU(){
+    this.formulario=true;
     this.router.navigate(['/registro-user']);
   }
 
   irDietas(){
+    this.formulario=true;
     this.router.navigate(['/crear-dieta']);
   }
 
   irMusculos(){
+    this.formulario=true;
     this.router.navigate(['/crear-ejercicio']);
   }
 
   irNoticias(){
+    this.formulario=true;
     this.router.navigate(['/crear-noticia']);
   }
 

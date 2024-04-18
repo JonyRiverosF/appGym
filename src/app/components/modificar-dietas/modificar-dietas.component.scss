@@ -11,8 +11,8 @@ ion-title{
 }
 
 ion-card{
-  --background: rgb(19, 93, 102); 
-  /*--background: transparent;*/
+    --background: rgb(19, 93, 102);
+    /*--background: transparent;*/  
 }
 
 ion-item{
@@ -42,7 +42,7 @@ ion-buttons{
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 22px;
-  color: rgba(253, 253, 253, 0.853);
+  color: rgba(0, 0, 0, 0.853);
 }
 
 .img1 { 
