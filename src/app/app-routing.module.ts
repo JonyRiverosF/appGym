@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./Pages/dietas/dietas.module').then( m => m.DietasPageModule)
   },
   {
-    path: 'ejercicios',
+    path: 'ejercicios/:id',
     loadChildren: () => import('./Pages/ejercicios/ejercicios.module').then( m => m.EjerciciosPageModule)
   },
   {
