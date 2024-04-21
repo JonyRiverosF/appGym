@@ -1,21 +1,147 @@
+/*Parrafo*/
+.parrafo
+{
+  color: rgb(0, 0, 0);
+  font-family: 'Tilt Warp', cursive;
+}
+
+/*Titulo*/
+.titulo{
+  color: rgb(255, 255, 255);
+  font-family: 'Righteous', cursive; 
+  background-color: #000000a9; 
+}
+
 /*Fondo play*/
 .fondoP
 {
-  background-image: url("../img/gymF.png") ;
+  background-image: url("../img/PLAYSTATION/FondoPlay.png") ;
   background-color: rgba(84, 12, 199, 0.555);
   background-repeat: no-repeat;
   background-attachment: fixed;  
   background-size: cover;
 }
 
-.fondoI
+/*Fondo Xbox*/
+.fondoX
 {
-  background-image: url("../img/fondo1.png") ;
+  background-image: url("../img/XBOX/fondo.jpg") ;
+  background-color: rgba(84, 12, 199, 0.555);
   background-repeat: no-repeat;
   background-attachment: fixed;  
   background-size: cover;
 }
 
+/*Fondo Nintendo*/
+.fondoN
+{
+  background-image: url("../img/NINTENDO/fondoNintendo.png") ;
+  background-color: rgba(84, 12, 199, 0.555);
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+}
+
+/*Fondo PC*/
+.fondoPC
+{
+  background-image: url("../img/PC/fondoPC.jpg") ;
+  background-color: rgba(84, 12, 199, 0.555);
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+}
+
+/*Fondo de Pantalla principal*/
+.fondoPP{
+  background-image: url("../img/PantallaPrincipal/fondoPantallaPrincipal.jpg") ;
+  background-color: rgba(84, 12, 199, 0.555);
+}
+
+/*Fondo pantallas de login*/
+.fondoLo{
+  background-color: rgb(98, 247, 247);
+}
+
+/*Fondos de videoJuegos de play*/
+.fondoVJP{
+  background-color: #0062cc;
+}
+/*Fondos de videoJuegos de xbox*/
+.fondoVJX{
+  background-color: rgb(14, 96, 14);
+}
+/*Fondos de videoJuegos de nintendo*/
+.fondoVJN{
+  background-color: rgb(163, 0, 0);
+}
+/*Fondos de videoJuegos de pc*/
+.fondoVJPC{
+  background-color: rgb(2, 155, 142);
+}
+
+/*centrado de imagenes*/
+.img
+{ 
+
+width: 70%;
+max-width: 500px;
+}
+
+/*centrado de pagina*/
+.centrar
+{
+    text-align: center;
+}
+
+/*letra play*/
+.letrap
+{
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto', sans-serif;
+}
+
+/*Letra logins*/
+.letraLo{
+  font-family: 'PT Serif', serif;
+  color: rgb(14, 13, 13);
+  padding-left: 5%;
+}
+
+/*letra nintendo*/
+.letraN
+{
+
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto', sans-serif;
+}
+/*letra xbox*/
+.letraX
+{
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto', sans-serif;
+}
+
+/*letra PC*/
+.letraPC
+{
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto', sans-serif;
+}
+
+/*Letra titulo*/
+.letraT{
+  font-family: 'Lora', serif;
+  background-color: rgb(137, 27, 240);
+  color:rgb(245, 245, 245);
+}
+
+/*Letra VideoJuego*/
+.letraVJ{
+  color: rgba(0, 0, 0, 0.877);
+  font-family: 'PT Sans Narrow', sans-serif;
+
+}
 /*Estilo de tablas*/
 table, th, td {
   border: 2px solid rgb(0, 0, 0);
@@ -23,6 +149,56 @@ table, th, td {
   font-family: 'Josefin Sans', sans-serif;  
 }
 
+/*colocar parrafo a la derecha*/
+
+.derecha{
+  text-align: right;
+}
+
+/*algunas imagenes*/
+.AI{
+  width:300; height:250;
+}
+/*Logo youtube*/
+
+.logoY{
+  width:50px;height:40px;
+
+}
+
+/*Cursor Xbox*/
+
+.cuX{
+  cursor: url(../img/CURSOR/cursor_Xbox1.png),auto; 
+  
+}
+.cuX1{
+  cursor: url(../img/CURSOR/cursor_Xbox.png), auto;
+}
+
+/*Cursor Play*/
+.cuP{
+  cursor: url(../img/CURSOR/cursor_play.png),auto;
+}
+.cuP1{
+  cursor: url(../img/CURSOR/cuP1.png),auto;
+}
+
+/*Cursor PC*/
+.cuPC{
+  cursor: url(../img/CURSOR/cuPC.png),auto;
+}
+.cuPC1{
+  cursor: url(../img/CURSOR/cuPC1.png),auto;
+}
+
+/*Cursor Nintendo*/
+.cuN{
+  cursor: url(../img/CURSOR/cuN.png),auto;
+}
+.cuN1{
+  cursor: url(../img/CURSOR/cuN1.png),auto;
+}
 
 /*Margen iniciar*/
 .margenI{
@@ -132,9 +308,9 @@ body {
 }
 
 .fondoform{
-  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.9);
   padding: 40px 0;
-  box-shadow: 0 0 6px 0 #ffffffe5;
+  box-shadow: 0 0 6px 0 #ffffffcc;
   border-radius: 10px;
 }
 
@@ -231,7 +407,7 @@ input:focus~.barra::before{
 }
 .titulodestacado{
   background:rgba(156, 156, 156, 0.9); 
-  color:rgb(255, 255, 255); 
+  color:white; 
   font-weight:bold; 
   padding:15px; 
   border:3px solid #797777;
@@ -243,7 +419,7 @@ input:focus~.barra::before{
 }
 /* posible slide*/
 .container.gallery-container {
-  background-color: rgba(255, 255, 255, 0.956);
+  background-color: rgba(255, 255, 255, 0.89);
   color: #35373a;
   min-height: 100vh;
   border-radius: 20px;
@@ -307,6 +483,7 @@ input:focus~.barra::before{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  
 
   width: 100%;
 }

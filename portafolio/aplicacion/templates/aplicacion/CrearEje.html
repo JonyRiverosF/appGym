@@ -3,68 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Crear Ejercicios</title>
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
 
 </head>
-<body>
-<div><nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a href=""><h3>DeportesColina</h3></a>
-    <a class="navbar-brand" href=""  style="margin-left: 25px;" >Solicitudes</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<body style="background: rgb(27, 90, 122);">
+
+  <div><nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a href="{% url 'pantalla' %}" ><h3>DeportesColina</h3></a>
+<a class="navbar-brand" href="{% url 'Solicitudes' %}"  style="margin-left: 25px;" >Solicitudes</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active">
+          <a class="nav-link" href="{% url 'Informes' %}">Informes<span
+                  class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Usuarios
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'Registro' %}" >Crear Usuarios</a>
+          <a class="dropdown-item " href="{% url 'ListaUsu' %}">Modificar Usuarios</a>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Ejercicios
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearEjer' %}" >Crear Ejercicios</a>
+          <a class="dropdown-item " href="{% url 'ListaEje' %}">Modificar Ejercicios</a>
+          
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dietas
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearDie' %}" >Crear Dietas</a>
+          <a class="dropdown-item " href="{% url 'ListaDie' %}">Modificar Dietas</a>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Noticias
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearNot' %}" >Crear Noticias</a>
+          <a class="dropdown-item " href="{% url 'ListaNot' %}">Modificar Noticias</a>
+      </div>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'login' %}">Cerrar Sesión<span
+                class="sr-only">(current)</span></a>
+    </li>
     
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+  </ul>
+  
+</nav>
+</div>
+<br>
 
-          <li class="nav-item active">
-              <a class="nav-link" href="">Informes<span
-                      class="sr-only">(current)</span></a>
-          </li>
 
-          <li class="nav-item dropdown active ">
-            <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Usuarios
-            </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-              <a class="dropdown-item " href="" >Crear Usuarios</a>
-              <a class="dropdown-item " href="">Modificar Usuarios</a>
-          </div>
-          </li>
 
-          <li class="nav-item dropdown active ">
-            <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Ejercicios
-            </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-              <a class="dropdown-item " href="" >Crear Ejercicios</a>
-              <a class="dropdown-item " href="">Modificar Ejercicios</a>
+
+    <div class="container" class="fondo">
+      <div class="row" style="margin-top: 20px;">
+          <div class="col-md-12 col-sm-12">
               
-          </div>
-          </li>
+              <form action="" method="POST" id="" name="" class="fondoform" enctype="multipart/form-data">
+                {% csrf_token %}
+                  <h1 class=" letraLo" style="text-align: center;">Crear Ejercicios</h1><br>
+                  <div class="form"></div>
 
-          <li class="nav-item dropdown active ">
-            <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dietas
-            </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-              <a class="dropdown-item " href="" >Crear Dietas</a>
-              <a class="dropdown-item " href="">Modificar Dietas</a>
-          </div>
-          </li>
+                  <div class="grupo">
+                    <input type="text" name="nombreE" id="nombreE" value="{{nombreE}}"><span class="barra" ></span>
+                    <label for=""><h5>Nombre Ejercicio</h5></label>
+                </div>
 
-          <li class="nav-item active">
-              <a class="nav-link disabled" href="">Cerrar Sesion</a>
-          </li>
-        
-      </ul>
-      
-    </nav>
-    </div>
-    <br>
+                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione la miniatura</h3>
+                <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoE" name="fotoE" required/></p>
+                <br>
+
+                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione un video del ejercicio</h3>
+                <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoE" name="videoE" accept=".mp4" required /></p>
+                <br>
+
+                  <!--Para que el admin vea el video no esta listo todavia es lo basico
+                   {% if videoE %}
+                    <div>
+                      <h2 style="text-align: center;color: rgb(231, 231, 231);">Video seleccionado</h2>
+                      <video src="{{ videoE }}" width="320" height="240" controls></video>
+                    </div>
+                  {% endif %}-->
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                    </div>
+                    <div class="col-md-6">
+
+                      <input type="reset" value="Limpiar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                    </div>
+                  </div>
+              </form>
+          </div>
+        </div>
+        <br><br>
+  </div>
 
    
 

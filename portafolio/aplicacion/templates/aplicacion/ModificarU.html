@@ -3,68 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Modificar Usuarios</title>
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
 
 </head>
-<body>
-<div><nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a href=""><h3>DeportesColina</h3></a>
-    <a class="navbar-brand" href=""  style="margin-left: 25px;" >Solicitudes</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<body style="background: rgb(27, 90, 122);">
+
+  <div><nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a href="{% url 'pantalla' %}" ><h3>DeportesColina</h3></a>
+<a class="navbar-brand" href="{% url 'Solicitudes' %}"  style="margin-left: 25px;" >Solicitudes</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active">
+          <a class="nav-link" href="{% url 'Informes' %}">Informes<span
+                  class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Usuarios
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'Registro' %}" >Crear Usuarios</a>
+          <a class="dropdown-item " href="{% url 'ListaUsu' %}">Modificar Usuarios</a>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Ejercicios
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearEjer' %}" >Crear Ejercicios</a>
+          <a class="dropdown-item " href="{% url 'ListaEje' %}">Modificar Ejercicios</a>
+          
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dietas
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearDie' %}" >Crear Dietas</a>
+          <a class="dropdown-item " href="{% url 'ListaDie' %}">Modificar Dietas</a>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Noticias
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearNot' %}" >Crear Noticias</a>
+          <a class="dropdown-item " href="{% url 'ListaNot' %}">Modificar Noticias</a>
+      </div>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'login' %}">Cerrar Sesión<span
+                class="sr-only">(current)</span></a>
+    </li>
     
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+  </ul>
+  
+</nav>
+</div>
+<br>
 
-          <li class="nav-item active">
-              <a class="nav-link" href="">Informes<span
-                      class="sr-only">(current)</span></a>
-          </li>
+    <div class="container">
 
-          <li class="nav-item dropdown active ">
-            <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Usuarios
-            </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-              <a class="dropdown-item " href="" >Crear Usuarios</a>
-              <a class="dropdown-item " href="">Modificar Usuarios</a>
-          </div>
-          </li>
 
-          <li class="nav-item dropdown active ">
-            <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Ejercicios
-            </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-              <a class="dropdown-item " href="" >Crear Ejercicios</a>
-              <a class="dropdown-item " href="">Modificar Ejercicios</a>
-              
-          </div>
-          </li>
+      <form action="" method="POST" enctype="multipart/form-data" class="fondoform" name="formulario">
+          
+          {% csrf_token %}
+  
+          <h1 class="centrar letraLo" style="text-align: center;">Modificar Usuario </h1>
 
-          <li class="nav-item dropdown active ">
-            <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dietas
-            </a>
-            <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-              <a class="dropdown-item " href="" >Crear Dietas</a>
-              <a class="dropdown-item " href="">Modificar Dietas</a>
-          </div>
-          </li>
-
-          <li class="nav-item active">
-              <a class="nav-link disabled" href="">Cerrar Sesion</a>
-          </li>
+          <div class="grupo">
+            <label>ID Usuario</label>
+            <input readonly value="{{ '' }}" type="number" class="form-control" id="idU" name="idU">
+        </div>
         
-      </ul>
-      
-    </nav>
-    </div>
-    <br>
+          <div class="grupo">
+              <label for="" ><h5 style="color: #000000;">Foto de perfil actual</h5></label><br>
+              <img src="{{ datos.foto.url }}"  alt="Avatar" style="width:150px;height:150px;">
+              </div>
+  
+          <div class="grupo">
+              <label>Nombre</label>
+              <input type="text" class="form-control"  required value="{{ nombre }}" id="nombre" name="nombre" ><span class="barra" ></span>
+          </div>
+  
+          <div class="grupo">
+            <label>Apellido</label>
+            <input type="text" class="form-control"  required value="{{ apellido }}" id="apellido" name="apellido" readonly><span class="barra" ></span>
+        </div>
+
+        <div class="grupo">
+          <label>Rut</label>
+          <input type="number" class="form-control"  required value="{{ rut }}" id="rut" name="rut" readonly><span class="barra" ></span>
+      </div>
+
+      <div class="grupo">
+        <label>Dígito Verificador</label>
+        <input type="text" class="form-control"  required value="{{ dv }}" id="dv" name="dv" readonly><span class="barra" ></span>
+      </div>
+
+        <div class="grupo">
+          <label>Horario</label>
+          <input type="date" name="horarioU" id="horarioU" value="{{horarioU}}"><span class="barra" ></span>
+          
+        </div>
+
+          <div class="grupo">
+            <label>Rol</label>
+           <select class="form-control" name="RolC" id="RolC">
+                {% for f in RolesU %}
+                    {% if f.id_rol == usuarioCa.rol.id_rol %}
+                        <option value="{{ f.id_rol }}" selected>{{ f.nombreR }}</option>
+                    {% else %}
+                        <option value="{{ f.id_rol }}">{{ f.nombreR }}</option>
+                    {% endif %}
+                {% endfor %}
+           </select>
+        </div>
+
+          <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+  
+      </form><br><br>
+  
+  </div>
 
    
 

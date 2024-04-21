@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Usuarios</title>
+    <title>Modificar Noticias</title>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -83,73 +83,69 @@
 
 
 
-    <div class="container" class="fondo">
-      <div class="row" style="margin-top: 20px;">
-          <div class="col-md-12 col-sm-12">
-              
-              <form action="" method="POST" id="" name="" class="fondoform" enctype="multipart/form-data">
-                {% csrf_token %}
-                  <h1 class=" letraLo" style="text-align: center;">Regístrar Usuario</h1><br>
-                  <div class="form"></div>
-
-                  <div class="grupo">
-                    <input type="text" name="nombre" id="nombre" value="{{nombre}}"><span class="barra" ></span>
-                    <label for=""><h5>Nombre</h5></label>
-                </div>
-                  
-                <div class="grupo">
-                  <input type="text" name="apellido" id="apellido" value="{{apellido}}"><span class="barra" ></span>
-                  <label for=""><h5>Apellido</h5></label>
-              </div>
-
-              <div class="grupo">
-                <input type="number" name="rut" id="rut" value="" ><span class="barra"></span>
-                <label for=""><h5>Rut</h5></label>
-              </div>
-              <div class="grupo">
-                <input type="text" name="dv" id="dv" value=""><span class="barra" ></span>
-                <label for=""><h5>Dígito Verificador</h5></label>
-              </div>
+    <div class="container">
 
 
-              <div class="grupo">
-                <input type="date" name="horarioU" id="horarioU" value="{{fecha}}"><span class="barra" ></span>
-                <label for=""><h5>Horario</h5></label>
-              </div>
+      <form action="" method="POST" enctype="multipart/form-data" class="fondoform" name="formulario">
+          
+          {% csrf_token %}
+  
+          <h1 class="centrar letraLo" style="text-align: center;">Modificar Noticia </h1>
 
-
-
-                  <div class="form-group">
-                      <label for="exampleFormControlFile1" class="letraLo , cu"><h4>Adjuntar archivo de ficha médica</h4></label>
-                      <h5><input  type="file" class="form-control-file , letraLo , cu1" id="fichaU" name="fichaU" required></h5>
-                    </div><br>
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                    </div>
-                    <div class="col-md-6">
-
-                      <input type="reset" value="Limpiar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                    </div>
-                  </div>
-              </form>
-          </div>
+          <div class="grupo">
+            <label>ID Noticia</label>
+            <input readonly value="{{ '' }}" type="number" class="form-control" id="idN" name="idN">
         </div>
-        <br><br>
-  </div>  
+
+        <div class="grupo">
+          <label>Titulo Noticia</label>
+          <input type="text" class="form-control"  required value="{{ '' }}" id="tituloN" name="tituloN"><span class="barra" ></span>
+      </div>
+
+      <div class="grupo">
+          <label>Bajada de titulo</label>
+          <input type="text" class="form-control" required value="{{ '' }}" id="bajadaN" name="bajadaN">
+      </div>
+  
+          <div class="grupo">
+              <label for="" ><h5 style="color: #000000;">Foto de la noticia actual</h5></label><br>
+              <img src="{{''  }}"  alt="Avatar" style="width:150px;height:150px;">
+              </div>
+  
+              <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione foto nueva de la noticia</h3>
+              <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoN" name="fotoN" required/></p>
+              <br>
+
+              <div class="grupo">
+                <h3 style="color: #000000;text-align: center;">Video de la noticia actual</h3><br>
+                <div class="embed-responsive embed-responsive-16by9">
+                  <video class="embed-responsive-item" src="{{ '' }}" alt="Avatar" controls></video>
+                </div>
+              </div>  
+  
+              <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione video nuevo de la noticia</h3>
+              <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoN" name="videoN" accept=".mp4" required /></p>
+              <br>
+  
+              <div class="grupo" style="text-align: center;">
+                <label for="descN"><h3>Descripción de la Noticia</h3></label><br>
+                <p style="margin-left: 12%;margin-right: 12%;"><textarea class="textarea" style="background-color: rgb(97, 97, 97);color: rgb(255, 255, 255);" rows="6" cols="50" 
+                   name="descN" id="descN" value="{{''}}" required></textarea></p>
+                   <span class="barra"></span>
+              </div>
+  
+         
+  
+          
+          <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+  
+      </form><br><br>
+  
+
+  </div> 
+  
+  
    
-
-
-
-
-
-
-
-
-
-
-    
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
