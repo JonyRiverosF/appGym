@@ -100,7 +100,7 @@
             <th>Dietas</th>
             <TH>Botones</TH>
           </tr>
-          {% for n in ModificarD %}
+          {% for d in ModificarD %}
           <tr>
             <td>
               
@@ -110,6 +110,7 @@
             <td>
               <br><br><a href="{% url 'ModificarDie' d.idD %}" class="btn btn-primary" >Modificar</a><br><br><br>
               <a href="{% url 'eliminarDieta' d.idD %}" class="btn btn-danger">Eliminar</a>
+
             </td>
           </tr>
           {% endfor %}
@@ -119,8 +120,21 @@
   </div>
   </div><br>
 
+<!-- Prueba para eliminar la dieta de otra forma
+  <button onclick="EliminarD({{ d.idD }})" class="btn btn-danger">Eliminar</button>
+  <script>
+    function EliminarD(id) {
+        if (confirm("¿Estás seguro/a de eliminar la dieta con ID " + id + "?")) {
+            alert("Dieta eliminada correctamente.");
+        }
+    }
+  </script>-->
+
+
 
 </div>
+
+
 
 
 

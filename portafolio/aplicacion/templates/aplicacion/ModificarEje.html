@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Ejercicios</title>
 
+<!--JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>  
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
@@ -85,7 +88,7 @@
       <div class="row" style="margin-top: 20px;">
           <div class="col-md-12 col-sm-12">
               
-              <form action="" method="POST" id="" name="" class="fondoform" enctype="multipart/form-data">
+              <form action="" method="POST" id="FormModificarEjercicios" name="FormModificarEjercicios" class="fondoform" enctype="multipart/form-data">
                 {% csrf_token %}
                   <h1 class=" letraLo" style="text-align: center;">Modificar Ejercicios</h1><br>
                   <div class="form"></div>
@@ -97,7 +100,7 @@
                     </div>
 
                   <div class="grupo">
-                    <label>Titulo Noticia</label>
+                    <label>Nombre del Ejercicio</label>
                     <input type="text" name="nombreE" id="nombreE" value="{{nombreE}}"><span class="barra" ></span>
                   </div>
 
@@ -122,15 +125,10 @@
                 <br>
 
                   
-                  <div class="row">
-                    <div class="col-md-6">
-                      <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                    </div>
-                    <div class="col-md-6">
+                <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
 
-                      <input type="reset" value="Limpiar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                    </div>
-                  </div>
+                  <p class="warnings" id="mensaje_ModificarEjercicio"></p>
+                    <p class="warnings " id="mensaje"></p>
               </form>
           </div>
         </div>
@@ -149,7 +147,7 @@
 
 
     
-
+    <script src="/static/aplicacion/Validaciones/Ejercicios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </body>
