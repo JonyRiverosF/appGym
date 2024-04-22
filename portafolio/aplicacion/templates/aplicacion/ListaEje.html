@@ -27,6 +27,10 @@
                   class="sr-only">(current)</span></a>
       </li>
 
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span class="sr-only">(current)</span></a>
+      </li>
+
       <li class="nav-item dropdown active ">
         <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Usuarios
@@ -108,8 +112,10 @@
                 <h5 >{{ '' }}</h5>
             </td>
             <td>
-              <br><br><a href="{% url 'ModificarEje' e.idE %}" class="btn btn-primary" >Modificar</a><br><br><br>
-              <a href="{% url 'eliminarEjercicio' e.idE %}" class="btn btn-danger">Eliminar</a>
+              <p>
+                <br><a href="{% url 'ModificarEje' e.idE %}" class="btn btn-primary" >Modificar</a>
+                <a href="{% url 'eliminarEjercicio' e.idE %}" class="btn btn-danger">Eliminar</a>
+              </p>
             </td>
           </tr>
           {% endfor %}

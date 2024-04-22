@@ -16,6 +16,9 @@ def Solicitudes(request):
 def Informes(request):
     return render(request,"aplicacion/Informes.html")
 
+def Reportes(request):
+    return render(request,"aplicacion/Reportes.html")
+
 
 
 

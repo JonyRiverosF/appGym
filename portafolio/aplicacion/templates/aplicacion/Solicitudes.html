@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitudes</title>
 
+<!--JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>  
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
@@ -25,6 +28,10 @@
       <li class="nav-item active">
           <a class="nav-link" href="{% url 'Informes' %}">Informes<span
                   class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span class="sr-only">(current)</span></a>
       </li>
 
       <li class="nav-item dropdown active ">
@@ -79,11 +86,105 @@
 </div>
 <br>
 
-   
+<div class="container">
 
 
+  <div class="row" style="text-align: center;margin-top: 5%;">
+    
+    <div class="col-md-3 col-sm-4"></div>
+      <div class="col-md-6 col-sm-4">
+          <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Solicitudes de Usuarios</h1><br>
+      </div>
+      <div class="col-md-3 col-sm-4"></div>
+  </div><br>
+
+ 
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table  centrar  letraVJ" style="background-color: rgb(255, 255, 255);" id="table">
+          <tr>
+            <th>Nombre</th>
+            <th>Titulo de la Solicitud</th>
+            <TH>Botones</TH>
+          </tr>
+          
+          <tr>
+            <td>
+              <h4>Vicente Cabello</h4> 
+            </td>
+            <td>
+              <h4>Quiero cambiar mi horario-.-</h4> 
+            </td>
+            <td >
+              <p>
+                <br><a href="#" class="btn btn-primary toggle-response" data-target="response-1">Responder</a>
+                <a href="#" class="btn btn-danger">Eliminar</a>
+              </p>
+            </td>
+          </tr>
+          
+          <tr>
+            <td>
+              <h4>Maximiliano Urrejola</h4> 
+            </td>
+            <td>
+              <h4>Quiero cambiar mi genero</h4> 
+            </td>
+            <td>
+              <p>
+                <br><a href="#" class="btn btn-primary" >Responder</a>
+                <a href="#" class="btn btn-danger">Eliminar</a>
+              </p>
+            </td>
+          </tr>
+      </table>
+    </div>
+  </div><br>
+</div>
+
+<!--Responder La solicitud-->
+<div id="response-1" class="response" style="display:none;">
+  <div class="container">
+    <div class="row" style="text-align: center;">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Titulo de la Solicitud</th>
+              <th>Detalle de la solicitud</th>
+              <th>Respuesta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Quiero cambiar mi horario</td>
+              <td>No tengo tiempo los dias martes ni sabados quiero cambiarme al otro horario como lo hago?</td>
+              <td><textarea class="form-control" rows="5"  required></textarea></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row"> 
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(39, 70, 243); margin-left: auto;">
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+<script>
+  $(document).ready(function() {
+  $(".toggle-response").click(function(e) {
+    e.preventDefault();
+    var target = $(this).data("target");
+    $("#" + target).toggle();
+  });
+});
+</script>
 
 
 
