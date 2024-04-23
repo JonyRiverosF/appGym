@@ -51,39 +51,11 @@ const routes: Routes = [
     path: 'detalle-noticia',
     loadChildren: () => import('./Pages/detalle-noticia/detalle-noticia.module').then( m => m.DetalleNoticiaPageModule)
   },
-  {
-    path: 'perfil-admin',
-    loadChildren: () => import('./Pages/perfil-admin/perfil-admin.module').then( m => m.PerfilAdminPageModule)
-  },
-  {
-    path: 'registro-user',
-    loadChildren: () => import('./Pages/registro-user/registro-user.module').then( m => m.RegistroUserPageModule)
-  },
-  {
-    path: 'crear-noticia',
-    loadChildren: () => import('./Pages/crear-noticia/crear-noticia.module').then( m => m.CrearNoticiaPageModule)
-  },
-  {
-    path: 'crear-dieta',
-    loadChildren: () => import('./Pages/crear-dieta/crear-dieta.module').then( m => m.CrearDietaPageModule)
-  },
-  {
-    path: 'crear-ejercicio',
-    loadChildren: () => import('./Pages/crear-ejercicio/crear-ejercicio.module').then( m => m.CrearEjercicioPageModule)
-  },
+
   {
     path: 'recuperar',
     loadChildren: () => import('./Pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
-  {
-    path: 'modificar-ejercicio',
-    loadChildren: () => import('./Pages/modificar-ejercicio/modificar-ejercicio.module').then( m => m.ModificarEjercicioPageModule)
-  },
-  {
-    path: 'modi-dietas',
-    loadChildren: () => import('./Pages/modi-dietas/modi-dietas.module').then( m => m.ModiDietasPageModule)
-  },
-
 
 ];
 

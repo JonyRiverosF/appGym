@@ -25,102 +25,140 @@
     
   <div id="main-content">
 <!--Foto-->  
-<p style="text-align: center;">
-  <ion-card >
-    <ion-card-header >
-      <ion-grid>
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="assets/icon/maxi.jpg" style="width: 150px;height: 150px;">
-            </div>
-            <div class="flip-card-back">
-              <ion-button color="warning" style="margin-top:25%;" ><ion-icon name="camera-outline"></ion-icon></ion-button>
-            </div>
-          </div>
-        </div>
-      </ion-grid>
-
-      <!--NOMBRE-->  
-        <ion-card-title>Juan Gana</ion-card-title>
-        
-      </ion-card-header>
-    
-      <ion-card-content>
-        <ion-card-subtitle>
-
+    <p style="text-align: center;">
+      <ion-card style="text-align: center;">
+        <ion-card-header >
           <ion-grid>
-            <ion-row>
-  
-  
-              <!--ALTURA--> 
-                <ion-col size="6">
-                  <ion-item>
-                    <div *ngIf="!prueaA">
-                      <ion-row>
-                        <ion-col size="6">
-                          <ion-input label="Altura:" readonly label-placement="floating"  [value]="altura" type="number" max="4" step="0.1"></ion-input>
-                        </ion-col>
-                      
-                        <ion-col size="6">
-                          <ion-button (click)="modificarA()" color="warning" shape="round"><ion-icon name="build-outline"></ion-icon></ion-button>
-                        </ion-col>
-                      </ion-row>
-                    </div>
-  
-                    <div *ngIf="prueaA">
-                      <ion-row>
-                        <ion-col size="6">
-                          <ion-input label="Altura"  label-placement="floating" [(ngModel)]="altura" [value]="altura" type="number" step="0.1" max="4"></ion-input>
-                        </ion-col>
-                      <ion-col size="6">
-                        <ion-button (click)="guardarA()" color="warning" shape="round"><ion-icon name="checkmark-done-outline"></ion-icon></ion-button>
-                      </ion-col>
-                      </ion-row>
-                    </div>
-                  </ion-item>
-                </ion-col>
-  
-                
-              <!--PESO--> 
-              <ion-col size="6">
-                <ion-item> 
-                  <div *ngIf="!prueaP">
-                    <ion-row>
-                      <ion-col size="7"> 
-                        <ion-input label="Peso(kg):" readonly label-placement="floating" [value]="peso" type="number" step="1" max="4"></ion-input>
-                      </ion-col>
-                      <ion-col size="5">
-                        <ion-button color="warning" (click)="modificarP()" shape="round"><ion-icon name="build-outline"></ion-icon></ion-button>
-                      </ion-col>
-                    </ion-row>
-                  </div>
-  
-  
-                  <div *ngIf="prueaP">
-                    <ion-row>
-                      <ion-col size="7">
-                        <ion-input label="Peso(kg)" label-placement="floating" [(ngModel)]="peso" [value]="peso" type="number" step="1" max="4"></ion-input>
-                      </ion-col>
-                      <ion-col size="5">
-                        <ion-button (click)="guardarP()" color="warning" shape="round"><ion-icon name="checkmark-done-outline"></ion-icon></ion-button>
-                      </ion-col>
-                    </ion-row>
-                  </div>
-                </ion-item>
-              </ion-col>
-  
-            </ion-row>
-  
+            <div class="flip-card">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <img src="assets/icon/maxi.jpg" style="width: 150px;height: 150px;">
+                </div>
+                <div class="flip-card-back">
+                  <ion-button color="warning" style="margin-top:25%;" ><ion-icon name="camera-outline"></ion-icon></ion-button>
+                </div>
+              </div>
+            </div>
           </ion-grid>
-  
-  
-          <!--Cerrar sesion--> 
+
+          <!--NOMBRE-->  
+            <ion-card-title>Juan Gana</ion-card-title>
+        </ion-card-header>
+          <ion-card-content>
+            <ion-card-subtitle>
+              <ion-grid>
+                <ion-row>
+                  <!--ALTURA--> 
+                    <ion-col size="6">
+                      <ion-item>
+                        <div *ngIf="!prueaA">
+                          <ion-row>
+                            <ion-col size="6">
+                              <ion-input label="Altura:" readonly label-placement="floating"  [value]="altura" type="number" max="4" step="0.1"></ion-input>
+                            </ion-col>
+                          
+                            <ion-col size="6">
+                              <ion-button (click)="modificarA()" color="warning" shape="round"><ion-icon name="build-outline"></ion-icon></ion-button>
+                            </ion-col>
+                          </ion-row>
+                        </div>
+      
+                        <div *ngIf="prueaA">
+                          <ion-row>
+                            <ion-col size="6">
+                              <ion-input label="Altura"  label-placement="floating" [(ngModel)]="altura" [value]="altura" type="number" step="0.1" max="4"></ion-input>
+                            </ion-col>
+                          <ion-col size="6">
+                            <ion-button (click)="guardarA()" color="warning" shape="round"><ion-icon name="checkmark-done-outline"></ion-icon></ion-button>
+                          </ion-col>
+                          </ion-row>
+                        </div>
+                      </ion-item>
+                    </ion-col>
+      
+                    
+                  <!--PESO--> 
+                  <ion-col size="6">
+                    <ion-item> 
+                      <div *ngIf="!prueaP">
+                        <ion-row>
+                          <ion-col size="7"> 
+                            <ion-input label="Peso(kg):" readonly label-placement="floating" [value]="peso" type="number" step="1" max="4"></ion-input>
+                          </ion-col>
+                          <ion-col size="5">
+                            <ion-button color="warning" (click)="modificarP()" shape="round"><ion-icon name="build-outline"></ion-icon></ion-button>
+                          </ion-col>
+                        </ion-row>
+                      </div>
+      
+      
+                      <div *ngIf="prueaP">
+                        <ion-row>
+                          <ion-col size="7">
+                            <ion-input label="Peso(kg)" label-placement="floating" [(ngModel)]="peso" [value]="peso" type="number" step="1" max="4"></ion-input>
+                          </ion-col>
+                          <ion-col size="5">
+                            <ion-button (click)="guardarP()" color="warning" shape="round"><ion-icon name="checkmark-done-outline"></ion-icon></ion-button>
+                          </ion-col>
+                        </ion-row>
+                      </div>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-button color="warning" (click)="mostrarH()" *ngIf="!mostrarHorario" shape="round">Ver Horario</ion-button>
+                <ion-button color="warning" (click)="esconderH()" *ngIf="mostrarHorario" shape="round">Ocultar Horario</ion-button>
+                <ion-button color="warning" [routerLink]="['/home']" shape="round">Cerrar sesion</ion-button>
+              </ion-grid>
+                    <!--Cerrar sesion--> 
           </ion-card-subtitle>
-        <ion-button color="warning" [routerLink]="['/home']" shape="round">Cerrar sesion</ion-button>
-      </ion-card-content>
-    </ion-card>
-  </p></div>
+              <div *ngIf="mostrarHorario">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="1">
+                    </ion-col>
+                    <ion-col size="10">
+                      <ion-datetime (ionChange)="nya($event)" [(ngModel)]="horarioSeleccionado" [multiple]="true" presentation="date" [min]="fechaActual"
+                      [max]="finMes" locale="es-ES" [disabled]="inhabilitarCalen">
+                      </ion-datetime> 
+                    </ion-col> 
+                    <ion-col size="1">
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+                <br />
+                <ion-item color="light" *ngIf="flag">
+                  <ion-select label="Seleccione hora" label-placement="floating" [(ngModel)]="horaSeleccionada" >
+                    <ion-select-option value="10:00-11:20">10:00-11:20</ion-select-option>
+                    <ion-select-option value="12:00-13:20">12:00-13:20</ion-select-option>
+                    <ion-select-option value="17:30-19:00">17:30-19:00</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-button *ngIf="flag" color="success" (click)="elegirHora()">Continuar</ion-button>
+                <ion-button *ngIf="flag" color="danger" (click)="cancelar()">Cancelar</ion-button>
+
+                <!--Resumen elección de horario-->
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="4" *ngFor="let x of resumen" style="border: 3px groove;">
+                        <h3 style="color: white;">{{x.dia}}</h3>
+                        <h4 style="color: white;">{{x.hora}}</h4>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size="6">
+                      <ion-button color="success" (click)="guardarHorario()" *ngIf="guardarH">Guardar Horario</ion-button>
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-button color="warning" *ngIf="guardarH" (click)="seguirEligiendo()">Modificar Días</ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+
+              </ion-card-content>
+            </ion-card>
+      </p>
+  </div>
 
 <!--Cartera virtual Abrir--> 
 <ion-grid> 
