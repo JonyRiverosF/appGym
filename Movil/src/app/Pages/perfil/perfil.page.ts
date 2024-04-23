@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController, ToastController } from '@ionic/angular';
 
 @Component({
@@ -34,13 +34,31 @@ export class PerfilPage implements OnInit {
   contador:number = 0;
 
   resumen:any=[];
-  constructor(private menuCtrl: MenuController,private router: Router,private toastController: ToastController) { }
+
+  usuario:any;
+  constructor(private menuCtrl: MenuController,private router: Router,private toastController: ToastController,
+    private activatedRouter:ActivatedRoute
+  ) {
+    this.activatedRouter.queryParams.subscribe(param =>{
+      if (this.router.getCurrentNavigation()?.extras.state){
+        this.usuario = this.router.getCurrentNavigation()?.extras?.state?.["usuario"];
+      }
+    })
+   }
 
   ionViewDidEnter(){
     this.fechaActual = this.fecha.toISOString();
     //La línea de abajo es para saber el que número es el último día del mes
-    var fecha = new Date(this.fecha.getFullYear(),this.fecha.getMonth()+1,0)
-    this.finMes = fecha.toISOString()
+    if(this.fecha.getDay() != 7){
+      const restoSemana = 7 - this.fecha.getDay()
+      console.log(this.fecha.getDay() +"---"+this.fecha.getDate())
+      var finSemana = this.fecha.getDate()+restoSemana
+      var fecha = new Date(this.fecha.getFullYear(),this.fecha.getMonth(),finSemana)
+      this.finMes = fecha.toISOString()
+    }else{
+      var fecha = new Date(this.fecha.getFullYear(),this.fecha.getMonth(),this.fecha.getDate()+7)
+      this.finMes = fecha.toISOString()
+    }
  
   }
 
@@ -135,24 +153,16 @@ export class PerfilPage implements OnInit {
    })
    this.mostrarHorario = false
  }
-/*
-  confirmarHorario(){
-    console.log(this.horarioSeleccionado)
-    if(this.horarioSeleccionado.length == 3){
-      this.flag=true;
-    }else{
-       this.presentToast('bottom',"Debe seleccionar solamente 3 días de la semana")
-       this.flag = false;
-    }
-  }
-  cancelar(){
-    this.flag = false;
-  }
+ isWeekday = (dateString: string) => {
+  const date = new Date(dateString);
+  const utcDay = date.getUTCDay();
 
-  resetear(){
-    this.horarioSeleccionado = []
-  }
-*/
+  /**
+   * Date will be enabled if it is not
+   * Sunday or Saturday
+   */
+  return utcDay !== 0;
+};
  mostrarH(){
   this.mostrarHorario = true;
  }

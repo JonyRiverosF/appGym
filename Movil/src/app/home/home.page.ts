@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
+import { ExpressService } from '../services/express.service';
+import { LoadingController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +18,9 @@ export class HomePage {
   //flag
   codigoEncontrado:boolean=false;
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router,private api:ExpressService, private loadingCtrl: LoadingController,
+    private toastController: ToastController
+  ) {}
    
   
   
@@ -45,9 +48,43 @@ export class HomePage {
     this.validado=false;
   }
   if(this.validado){
-    
-    this.router.navigate(['/perfil'])
+    var irLogin = new FormData();
+    irLogin.append("codigo",String(this.codigo))
+    this.loading(60000).then(response=>{
+      response.present();
+      this.api.login(irLogin).then(res=>res.json()).then(json=>{
+        console.log(json)
+        response.dismiss()
+        if(json.usuario.length >0){
+          let navigationExtras:NavigationExtras = {
+            state:{usuario:json.usuario[0]}
+          }
+          
+          this.router.navigate(['/perfil'],navigationExtras)
+        }else{
+          
+          this.presentToast("bottom","Usuario no registrado",2500)
+        }
+      })
+    })
   }
   }
 
+  loading(duracion:any){
+    return this.loadingCtrl.create({
+       message: 'Cargando...',
+       duration: duracion,
+     })
+   }
+   
+  async presentToast(position: 'top' | 'middle' | 'bottom',mensaje:string,duracion:number) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: duracion,
+      position: position,
+      color:"dark"
+    });
+
+    await toast.present();
+  }
 }

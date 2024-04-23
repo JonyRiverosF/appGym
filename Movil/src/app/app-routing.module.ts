@@ -56,6 +56,10 @@ const routes: Routes = [
     path: 'recuperar',
     loadChildren: () => import('./Pages/recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
+  {
+    path: 'registro',
+    loadChildren: () => import('./Pages/registro-user/registro-user.module').then( m => m.RegistroUserPageModule)
+  }
 
 ];
 

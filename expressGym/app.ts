@@ -1,7 +1,8 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import morgan from "morgan";
-import registroUser  from './api/routes/registroUsuario';
+import registroUser  from './api/routes/registro';
+import modificarHorario from "./api/routes/modificar"
 const app = express ();
 
 
@@ -30,6 +31,6 @@ app.use(morgan("dev"))
 
 
 app.use('/creacion',registroUser)
-
+app.use("/modificar",modificarHorario)
 
 export default module.exports = app

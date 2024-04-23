@@ -19,91 +19,45 @@
 
     <ion-card-content>
       <ion-item>
-        <ion-input [(ngModel)]="nombre" label="Nombre:" label-placement="floating" placeholder="Juan" type="text"></ion-input>
+        <ion-label position="floating" style="color: white;">Nombre:</ion-label>
+        <ion-input [(ngModel)]="nombre"  placeholder="Juan" type="text"></ion-input>
       </ion-item>
       <p style="color: rgb(197, 79, 79);" *ngIf="mensajeName!=''">{{ mensajeName }}</p >
       <p style="color: rgb(197, 79, 79);"  *ngIf="mensajeNameN!=''">{{ mensajeNameN }}</p >
       <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeNameE!=''">{{ mensajeNameE }}</p >
 
       <ion-item>
-        <ion-input [(ngModel)]="apellido" label="Apellido:" label-placement="floating" placeholder="Gana" type="text"></ion-input>
+        <ion-label position="floating" style="color: white;">Apellido:</ion-label>
+        <ion-input [(ngModel)]="apellido"  placeholder="Gana" type="text"></ion-input>
       </ion-item>
       <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeApellido!=''">{{ mensajeApellido }}</p>
       <p   style="color: rgb(197, 79, 79);" *ngIf="mensajeApellidoN!=''">{{ mensajeApellidoN }}</p>
       <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeApellidoE!=''">{{ mensajeApellidoE }}</p>
 
       <ion-item>
-        <ion-select [(ngModel)]="pregunta" label="Pregunta de seguridad" label-placement="floating" cancelText="Cancelar">
-          <ion-select-option >¿Comida favorita?</ion-select-option>
-          <ion-select-option >¿Nombre de alguna mascota?</ion-select-option>
-          <ion-select-option >¿Dia favorito?</ion-select-option>
-        </ion-select>
+        <ion-label position="floating" style="color: white;">Número telefónico:</ion-label>
+        <ion-input [(ngModel)]="telefono" placeholder="9 4331 7889" type="number"></ion-input>
       </ion-item>
-        <p style="color: rgb(197, 79, 79);" *ngIf="mensajePregunta">{{ mensajePregunta }}</p>
 
       <ion-item>
-        <ion-input [(ngModel)]="respuesta" label="Respuesta:" label-placement="floating" placeholder="adicto a tus besos M." type="text"></ion-input>
+        <ion-label position="floating" style="color: white;">Correo electrónico</ion-label>
+        <ion-input  [(ngModel)]="correo"  placeholder="a@aa.cl" type="text"></ion-input>
       </ion-item>
-      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeRespuesta">{{ mensajeRespuesta }}</p>
 
       <ion-item>
-        <ion-input [(ngModel)]="rut" label="Rut:" label-placement="floating" placeholder="20.989.650" type="number"></ion-input>
+        <ion-label position="floating" style="color: white;">Rut:</ion-label>
+        <ion-input [(ngModel)]="rut"  placeholder="20.989.650" type="number"></ion-input>
       </ion-item>
-      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeRut">{{ mensajeRut }}</p>
+      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeRut != ''">{{ mensajeRut }}</p>
 
       <ion-item>
-        <ion-input [(ngModel)]="digitoVerificador" label="Digito Verificador:" label-placement="floating" placeholder="4" type="text"></ion-input>
+        <ion-label position="floating" style="color: white;">Dígito verificador:</ion-label>
+        <ion-input [(ngModel)]="digitoVerificador" placeholder="4" type="text"></ion-input>
       </ion-item>
-      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeDigitoVerificador">{{ mensajeDigitoVerificador }}</p>
+      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeDigitoVerificador !=''">{{ mensajeDigitoVerificador }}</p>
 
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12">
-            <h3 style="text-align: center;color: rgb(245, 245, 245);">Selección del horario:</h3>
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col size="6">
-            <ion-item style="margin-top: -15px;">
-            <ion-select [(ngModel)]="horario1" label="Lun-Mie-Vie" label-placement="floating" cancelText="Cancelar">
-              <ion-select-option >7:00-8:20</ion-select-option>
-              <ion-select-option >8:30-9:50</ion-select-option>
-              <ion-select-option >10:00-11:20</ion-select-option>
-              <ion-select-option >11:30-12:50</ion-select-option>
-              <ion-select-option >13:00-14:20</ion-select-option>
-              <ion-select-option >14:30-15:50</ion-select-option>
-              <ion-select-option >16:00-17:20</ion-select-option>
-              <ion-select-option >17:30-18:50</ion-select-option>
-              <ion-select-option >19:00-20:20</ion-select-option>
-            </ion-select>
-          </ion-item>
-          
-          </ion-col>
-
-
-          <ion-col size="6">
-            <ion-item style="margin-top: -15px;">
-            <ion-select [(ngModel)]="horario2" label="Mar-Jue-Sab" label-placement="floating" cancelText="Cancelar">
-              <ion-select-option >7:00-8:20</ion-select-option>
-              <ion-select-option >8:30-9:50</ion-select-option>
-              <ion-select-option >10:00-11:20</ion-select-option>
-              <ion-select-option >11:30-12:50</ion-select-option>
-              <ion-select-option >13:00-14:20</ion-select-option>
-              <ion-select-option >14:30-15:50</ion-select-option>
-              <ion-select-option >16:00-17:20</ion-select-option>
-              <ion-select-option >17:30-18:50</ion-select-option>
-              <ion-select-option >19:00-20:20</ion-select-option>
-            </ion-select>
-          </ion-item>
-          
-          </ion-col>
-
-      </ion-row>
-      <p style="text-align: center;color: rgb(197, 79, 79);" *ngIf="mensajeHorario">{{ mensajeHorario }}</p>
-    </ion-grid>
       <br>
-      <ion-button color="warning" shape="round" (click)="verificarRegistro(nombre, apellido, rut, digitoVerificador, horario1 ,horario2 ,pregunta ,respuesta )">Registrar</ion-button>
+      <ion-button color="warning" shape="round" (click)="verificarRegistro()">Registrar</ion-button>
 
 
     </ion-card-content>
@@ -111,36 +65,3 @@
 </p>
 
 </ion-content>
-
-
-
-
-<!--Menu footer-->
-<ion-footer id="footer">
-  <ion-toolbar>
-    <ion-tabs>
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button>
-          <ion-icon (click)="irPerfil()" name="person-circle-outline"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button>
-          <ion-icon (click)="irMusculos()" name="barbell-outline"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button>
-          <ion-icon (click)="irNoticias()" name="newspaper-outline"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button>
-          <ion-icon (click)="irDietas()" name="clipboard-outline"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button>
-          <ion-icon name="person-add-outline" (click)="RegistroU()"></ion-icon>
-        </ion-tab-button>
-
-      </ion-tab-bar>
-    </ion-tabs>
-  </ion-toolbar>
-</ion-footer>
