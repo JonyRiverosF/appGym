@@ -55,8 +55,58 @@
         <ion-input [(ngModel)]="digitoVerificador" placeholder="4" type="text"></ion-input>
       </ion-item>
       <p style="color: rgb(197, 79, 79);" *ngIf="mensajeDigitoVerificador !=''">{{ mensajeDigitoVerificador }}</p>
-
+     
+      <ion-label position="floating" style="color: white;">¿Tiene ficha médica?</ion-label>  
+      
+        <ion-grid>
+          <ion-row>
+            <ion-col size="5">
+              <ion-item>
+                <ion-label style="color: white;">Si</ion-label>  
+                <ion-checkbox (ionChange)="ficha($event)" [disabled]="flagCheckBoxSi" value="si"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2"></ion-col>
+            <ion-col size="5">
+              <ion-item>
+                <ion-label style="color: white;">No</ion-label>  
+                <ion-checkbox (ionChange)="ficha($event)" [disabled]="flagCheckBoxNo" value="no"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div *ngIf="flagFicha=='si'">
+          <ion-label position="floating" style="color: white;">Adjuntar ficha Médica</ion-label>
+          <input type="file" (change)="adjuntar($event)">
+        </div>
+        <div *ngIf="flagFicha=='no'">
+          <ion-label style="color:white" position="floating">¿Tiene alguna observación médica que afecte a su desempeño en el gimnasio?</ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="5">
+                <ion-item>
+                  <ion-label style="color: white;">Si</ion-label>  
+                  <ion-checkbox (ionChange)="preguntaMedica($event)" [disabled]="flagPreguntaSi" value="si"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+              <ion-col size="2"></ion-col>
+              <ion-col size="5">
+                <ion-item>
+                  <ion-label style="color: white;">No</ion-label>  
+                  <ion-checkbox (ionChange)="preguntaMedica($event)" [disabled]="flagPreguntaNo" value="no"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-item *ngIf="habilitarObservacion">
+             <ion-label position="floating" style="color:white">Detalle su observación médica</ion-label>
+             <ion-textarea rows="2" [(ngModel)]="observacionMedica"></ion-textarea>
+          </ion-item>
+        </div>
+        <p style="color: rgb(197, 79, 79);" *ngIf="mensajeFichas !=''">{{mensajeFichas}}</p>
+  
       <br>
+
       <ion-button color="warning" shape="round" (click)="verificarRegistro()">Registrar</ion-button>
 
 

@@ -16,11 +16,20 @@ export class RegistroUserPage implements OnInit {
   apellido:string="";
   rut:string="";
   digitoVerificador:string="";
-  respuesta:string="";
-  pregunta:string="";
   telefono!:number;
   correo:string="";
+  observacionMedica:string="";
+  fichaMedica:any;
 
+
+  flagFicha:string= "";
+  flagCheckBoxSi:boolean=false;
+  flagCheckBoxNo:boolean= false;
+
+  //flags para la pregunta de observación médica
+  flagPreguntaSi:boolean=false;
+  flagPreguntaNo:boolean= false;
+  habilitarObservacion:boolean=false;
 
   //Mensajes
   mensajeName: string = "";
@@ -36,17 +45,7 @@ export class RegistroUserPage implements OnInit {
   mensajeHorario: string = "";
   mensajeHorario1: string = "";
 
-  mensajePregunta:string="";
-  mensajeRespuesta:string="";
-
-
-  colorItemName: string = "light";
-  colorItemApellido: string = "light";
-  colorItemRut: string = "light";
-  colorItemDigitoVerificador: string = "light";
-  colorItemHorario: string = "light";
-  colorItemPregunta:string="light";
-  colorItemRespuesta:string="light";
+  mensajeFichas:string="";
 
   flag:boolean=true;
 
@@ -58,47 +57,29 @@ export class RegistroUserPage implements OnInit {
 
    verificarRegistro() {
     //Cada vez que se presione el botón, los mensajes de declararán vacias
-    this.mensajeName = "";
-    this.mensajeNameN = "";
-    this.mensajeNameE = "";
+    this.mensajeName = "";this.mensajeNameN = ""; this.mensajeNameE = "";
 
     this.mensajeApellido = "";
     this.mensajeApellidoE="";
     this.mensajeApellidoN="";
 
-    this.mensajeRut = "";
+    this.mensajeRut = ""; this.mensajeDigitoVerificador = "";
+    this.mensajeHorario = "";this.mensajeFichas="";
 
-    this.mensajeDigitoVerificador = "";
-
-    this.mensajeHorario = "";
-
-    this.mensajePregunta="";
-    this.mensajeRespuesta="";
-
-    this.colorItemApellido = "light";
-    this.colorItemName = "light";
-    this.colorItemRut = "light";
-    this.colorItemDigitoVerificador = "light";
-    this.colorItemHorario = "light";
-    this.colorItemPregunta= "light";
-    this.colorItemRespuesta= "light";
    
     let flag = true;
 
      // VALIDACIÓN DEL NOMBRE
      if (this.nombre.trim() === "") {
       this.mensajeName = "El nombre no puede estar vacío";
-      this.colorItemName = "danger";
       flag = false;
     } 
     if (this.tieneNumeros(this.nombre)) {
       this.mensajeNameN = "El nombre no debe contener números";
-      this.colorItemName = "danger";
       flag = false;
     }
     if (this.tieneCaracterEspecial(this.nombre)) {
         this.mensajeNameE = "El nombre no debe contener caracteres especiales";
-        this.colorItemName = "danger";
         flag = false;
     }
     
@@ -106,17 +87,14 @@ export class RegistroUserPage implements OnInit {
     // VALIDACIÓN DEL APELLIDO
     if (this.apellido.trim() === "") {
       this.mensajeApellido = "El apellido no puede estar vacío";
-      this.colorItemApellido = "danger";
       flag = false;
     } 
     if (this.tieneNumerosA(this.apellido)) {
       this.mensajeApellidoN = "El apellido no debe contener números";
-      this.colorItemApellido = "danger";
       flag = false;
     }
     if (this.tieneCaracterEspecialA(this.apellido)) {
       this.mensajeApellidoE = "El apellido no debe contener caracteres especiales";
-      this.colorItemApellido = "danger";
       flag = false;
     }
 
@@ -128,7 +106,6 @@ export class RegistroUserPage implements OnInit {
     // VALIDACIÓN DEL RUT
     if (!this.validarRut(this.rut)) {
       this.mensajeRut = "El RUT debe tener exactamente 8 dígitos";
-      this.colorItemRut = "danger";
       flag = false;
     }
 
@@ -136,7 +113,6 @@ export class RegistroUserPage implements OnInit {
     // VALIDACIÓN DEL DÍGITO VERIFICADOR
     if (this.digitoVerificador.trim() === "") {
       this.mensajeDigitoVerificador = "El digito verificador no puede estar vacio";
-      this.colorItemDigitoVerificador = "danger";
       flag = false;
     }
 
@@ -144,7 +120,11 @@ export class RegistroUserPage implements OnInit {
       this.mensajeDigitoVerificador="Digito verificador incorrecto"
       flag=false
     }
-
+     
+    if((!this.fichaMedica) && this.observacionMedica == ""){
+      this.mensajeFichas = "Debe completar la información de su salud";
+      flag= false;
+    }
     // VALIDACIÓN DE LOS HORARIOS
 
     console.log(flag) 
@@ -158,6 +138,12 @@ export class RegistroUserPage implements OnInit {
       formulario.append("dv",this.digitoVerificador);
       formulario.append("telefono",String(this.telefono));
       formulario.append("correo",this.correo)
+      if(this.fichaMedica){
+        formulario.append("fichaMedica",this.fichaMedica);
+      }else{
+        formulario.append("fichaMedica","");
+      }
+      formulario.append("observacionMedica",this.observacionMedica)
       //
       this.loading(60000).then(response=>{
         response.present();
@@ -174,6 +160,69 @@ export class RegistroUserPage implements OnInit {
     }
 }
 
+ adjuntar(x:any){
+  this.fichaMedica = x.target.files[0];
+  console.log(this.fichaMedica)
+  if(this.fichaMedica.type != "application/pdf" && this.fichaMedica.type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+    this.presentAlert("La ficha médica debe estar en formato PDF o WORD");
+    this.fichaMedica = undefined
+  }
+
+ }
+
+ ficha(x:any){
+  console.log(x.detail)
+  if(x.detail.checked){
+    switch (x.detail.value){
+      case "si":
+          this.flagFicha = "si";
+          this.flagCheckBoxNo = true;
+          break;
+      case "no":
+        this.flagFicha = "no";
+        this.flagCheckBoxSi = true;
+        break;
+    }
+  }else{
+    switch (x.detail.value){
+      case "si":
+          this.flagFicha = "";
+          this.flagCheckBoxNo = false;
+          break;
+      case "no":
+        this.flagFicha = "";
+        this.flagCheckBoxSi = false;
+        break;
+    }
+  }
+ }
+
+ preguntaMedica(x:any){
+  if(x.detail.checked){
+    switch (x.detail.value){
+      case "si":
+        this.habilitarObservacion = true;
+        this.flagPreguntaNo = true;
+          break;
+      case "no":
+        this.habilitarObservacion = false;
+        this.observacionMedica = "No presenta problemas de salud"
+        this.flagPreguntaSi = true;
+        break;
+    }
+  }else{
+    switch (x.detail.value){
+      case "si":
+        this.habilitarObservacion = false;
+        this.flagPreguntaNo = false;
+        break;
+      case "no":
+        this.habilitarObservacion = false;
+        this.flagPreguntaSi = false;
+        break;
+    }
+  }
+ }
   loading(duracion:any){
    return this.loadingCtrl.create({
       message: 'Cargando...',

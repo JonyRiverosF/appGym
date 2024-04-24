@@ -35,10 +35,13 @@
           </ion-grid>
 
           <!--NOMBRE-->  
-            <ion-card-title>{{usuario.nombre}} {{usuario.apellido}}</ion-card-title>
+            <ion-card-title style="color:white">{{usuario.nombre}} {{usuario.apellido}}</ion-card-title>
         </ion-card-header>
           <ion-card-content>
             <ion-card-subtitle>
+              <ion-item>
+                <h4 *ngIf="usuario.fichaMedica!=''" style="color: white;">Tú ficha Médica <span><a target="_blank" [href]="fichaMedica">{{usuario.fichaMedica}}</a></span></h4>
+              </ion-item>
               <ion-grid>
                 <ion-row>
                   <!--ALTURA--> 

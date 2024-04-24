@@ -36,12 +36,15 @@ export class PerfilPage implements OnInit {
   resumen:any=[];
 
   usuario:any;
+  fichaMedica:string="";
+  apiUrl:string = "http://192.168.0.9:3000/creacion/"
   constructor(private menuCtrl: MenuController,private router: Router,private toastController: ToastController,
     private activatedRouter:ActivatedRoute
   ) {
     this.activatedRouter.queryParams.subscribe(param =>{
       if (this.router.getCurrentNavigation()?.extras.state){
         this.usuario = this.router.getCurrentNavigation()?.extras?.state?.["usuario"];
+        this.fichaMedica = this.apiUrl+"fichasMedicas/"+this.usuario.fichaMedica
       }
     })
    }
