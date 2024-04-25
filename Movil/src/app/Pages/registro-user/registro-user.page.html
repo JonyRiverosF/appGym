@@ -38,11 +38,15 @@
         <ion-label position="floating" style="color: white;">Número telefónico:</ion-label>
         <ion-input [(ngModel)]="telefono" placeholder="9 4331 7889" type="number"></ion-input>
       </ion-item>
+      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeTelefono!=''">{{ mensajeTelefono }}</p>
+      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeTelefono2!=''">{{ mensajeTelefono2 }}</p>
 
       <ion-item>
         <ion-label position="floating" style="color: white;">Correo electrónico</ion-label>
         <ion-input  [(ngModel)]="correo"  placeholder="a@aa.cl" type="text"></ion-input>
       </ion-item>
+
+      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeCorreo!=''">{{ mensajeCorreo }}</p>
 
       <ion-item>
         <ion-label position="floating" style="color: white;">Rut:</ion-label>

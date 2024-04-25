@@ -16,7 +16,7 @@ export class RegistroUserPage implements OnInit {
   apellido:string="";
   rut:string="";
   digitoVerificador:string="";
-  telefono!:number;
+  telefono: string = '';
   correo:string="";
   observacionMedica:string="";
   fichaMedica:any;
@@ -45,6 +45,11 @@ export class RegistroUserPage implements OnInit {
   mensajeHorario: string = "";
   mensajeHorario1: string = "";
 
+  mensajeTelefono:string="";
+  mensajeTelefono2:string="";
+
+  mensajeCorreo:string="";
+
   mensajeFichas:string="";
 
   flag:boolean=true;
@@ -62,6 +67,11 @@ export class RegistroUserPage implements OnInit {
     this.mensajeApellido = "";
     this.mensajeApellidoE="";
     this.mensajeApellidoN="";
+
+    this.mensajeTelefono="";
+    this.mensajeTelefono2="";
+
+    this.mensajeCorreo="";
 
     this.mensajeRut = ""; this.mensajeDigitoVerificador = "";
     this.mensajeHorario = "";this.mensajeFichas="";
@@ -98,17 +108,28 @@ export class RegistroUserPage implements OnInit {
       flag = false;
     }
 
-    // VALIDACIÓN DE LOS Pregunta
+    // VALIDACIÓN de Telefono
+    if (!this.validarTelefono(this.telefono)) {
+      this.mensajeTelefono = "El teléfono debe comenzar con 9 y tener exactamente 9 dígitos";
+      flag = false;
+    }
 
+    if (this.telefono.trim() === "") {
+      this.mensajeTelefono2 = "El campo telefono no puede estar vacío";
+      flag = false;
+    } 
 
-    // VALIDACIÓN DE LOS Respuesta
+    // VALIDACIÓN de Correo
+    if (!this.validarCorreo(this.correo)) {
+      this.mensajeCorreo = "Introduce un correo electrónico válido";
+      flag = false;
+    }
     
     // VALIDACIÓN DEL RUT
     if (!this.validarRut(this.rut)) {
       this.mensajeRut = "El RUT debe tener exactamente 8 dígitos";
       flag = false;
     }
-
 
     // VALIDACIÓN DEL DÍGITO VERIFICADOR
     if (this.digitoVerificador.trim() === "") {
@@ -253,8 +274,9 @@ tieneCaracterEspecial(nombre: string): boolean {
   if(nombre==""){
     return true;
   }
-  return /[!@#$%^&*-_(),.?":{}|<>]/.test(nombre);
+  return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(nombre);
 }
+
 
 //Apellido Errores
 tieneNumerosA(apellido: string): boolean {
@@ -268,7 +290,18 @@ tieneCaracterEspecialA(apellido: string): boolean {
   if(apellido==""){
     return true;
   }
-  return /[!@#$%^&*-_(),.?":{}|<>]/.test(apellido);
+  return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(apellido);
+}
+
+//Numero de telefono
+validarTelefono(telefono: string): boolean {
+  return /^9\d{8}$/.test(telefono);
+}
+
+//Correo
+validarCorreo(correo: string): boolean {
+  const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regexCorreo.test(correo);
 }
 
 //Rut
