@@ -5,13 +5,54 @@ const upload = multer({ dest: 'public/videos/' })
 import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
+<<<<<<< Updated upstream
+=======
+import wspClient from "./complementos/wsp";
+
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+
+const accountTransport = require("./account_transport.json");
+
+
+const oauth2Client = new OAuth2(
+    accountTransport.auth.clientId,
+    accountTransport.auth.clientSecret,
+    "https://developers.google.com/oauthplayground",
+);
+oauth2Client.setCredentials({
+    refresh_token: accountTransport.auth.refreshToken,
+    tls: {
+        rejectUnauthorized: false
+    }
+});
+oauth2Client.getAccessToken((err:any, token:any) => {
+    if (err)
+        return console.log(err);;
+    accountTransport.auth.accessToken = token;
+});
+const gmail = google.gmail({version: 'v1',auth: oauth2Client});
+
+
+
+>>>>>>> Stashed changes
 
 router.use(express.static("public"))
 const directoryPath = "./public/videos/"
 
+<<<<<<< Updated upstream
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
     console.log("Conectado registro ts")
+=======
+
+mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
+.then(res=>{
+    console.log("Conectado registro ts")
+    /*wspClient.on("ready",()=>{
+        wspClient.sendMessage("56968426213@c.us","nyaaaaa",).then(res=>{console.log(res)})
+    })*/
+>>>>>>> Stashed changes
 }).catch(err=>{
     console.log("Algo salió mal");
     console.log(err);
@@ -80,6 +121,10 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                         })
                     })
                 }
+<<<<<<< Updated upstream
+=======
+                
+>>>>>>> Stashed changes
            })
         }else{
             usuarioModelo.create({
@@ -108,6 +153,29 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
             })
         }
 
+<<<<<<< Updated upstream
+=======
+        const emailLines = [
+            'From: colinagym3@gmail.com',
+            'To: '+req.body.correo,
+            'Content-type: text/html;charset=iso-8859-1',
+            'MIME-Version: 1.0',
+            'Subject: Codigo de acceso al gimnasio',
+            '',
+            'Bienvenido '+req.body.nombre+' '+req.body.apellido +' al gimnasio municipal de colina. Tú código de acceso es el '+codigo
+          ];
+        
+          const email = emailLines.join('\r\n').trim();
+          const base64Email = Buffer.from(email).toString('base64');
+        
+         gmail.users.messages.send({
+            userId:"colinagym3@gmail.com",
+            requestBody:{
+                raw:base64Email
+            }
+          })
+
+>>>>>>> Stashed changes
     }catch(error:any){
         console.log(error.message)
         res.status(400).json({
@@ -137,4 +205,9 @@ router.post("/login",upload.any(),(req:Request,res:Response)=>{
 
 })
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 export default module.exports=router
