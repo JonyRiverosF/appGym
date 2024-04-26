@@ -5,8 +5,6 @@ const upload = multer({ dest: 'public/videos/' })
 import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
-<<<<<<< Updated upstream
-=======
 import wspClient from "./complementos/wsp";
 
 const { google } = require("googleapis");
@@ -35,16 +33,10 @@ const gmail = google.gmail({version: 'v1',auth: oauth2Client});
 
 
 
->>>>>>> Stashed changes
 
 router.use(express.static("public"))
 const directoryPath = "./public/videos/"
 
-<<<<<<< Updated upstream
-mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
-.then(res=>{
-    console.log("Conectado registro ts")
-=======
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
@@ -52,7 +44,6 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
     /*wspClient.on("ready",()=>{
         wspClient.sendMessage("56968426213@c.us","nyaaaaa",).then(res=>{console.log(res)})
     })*/
->>>>>>> Stashed changes
 }).catch(err=>{
     console.log("Algo salió mal");
     console.log(err);
@@ -121,10 +112,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                         })
                     })
                 }
-<<<<<<< Updated upstream
-=======
                 
->>>>>>> Stashed changes
            })
         }else{
             usuarioModelo.create({
@@ -153,8 +141,6 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
             })
         }
 
-<<<<<<< Updated upstream
-=======
         const emailLines = [
             'From: colinagym3@gmail.com',
             'To: '+req.body.correo,
@@ -175,7 +161,6 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
             }
           })
 
->>>>>>> Stashed changes
     }catch(error:any){
         console.log(error.message)
         res.status(400).json({
@@ -205,9 +190,6 @@ router.post("/login",upload.any(),(req:Request,res:Response)=>{
 
 })
 
-<<<<<<< Updated upstream
-=======
 
 
->>>>>>> Stashed changes
 export default module.exports=router

@@ -1,18 +1,12 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import morgan from "morgan";
-<<<<<<< Updated upstream
-import registroUser  from './api/routes/registro';
-import modificarHorario from "./api/routes/modificar"
-const app = express ();
-=======
 import registroUser from './api/routes/registro';
 import modificarHorario from "./api/routes/modificar"
 const app = express ();
 /*import wspClient from "./api/routes/wsp";
 
 wspClient.initialize()*/
->>>>>>> Stashed changes
 
 
 app.use(bodyParser.urlencoded({extended:false}))
