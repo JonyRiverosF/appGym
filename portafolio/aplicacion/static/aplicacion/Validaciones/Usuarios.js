@@ -6,6 +6,8 @@ $(document).ready(function(){
         var apellidoU = $("#apellido").val();
         var Rut = $("#rut").val();
         var DV = $("#dv").val();
+        var Telefono = $("#telefono").val();
+        var Correo = $("#correo").val();
         var horarioU = $("#horarioU").val();
          
         
@@ -44,6 +46,29 @@ $(document).ready(function(){
             enviar = true;
         }
 
+        //Validar Correo del usuario
+        if(Correo.trim() == ""){
+            msjMostrar += "<br>-El Correo del usuario no puede estar vacío.";
+            enviar = true;
+        }
+
+        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(Correo.trim())) {
+            msjMostrar += "<br>-El Correo del usuario no tiene un formato válido.";
+            enviar = true;
+        }
+
+
+        //Validar Telefono del usuario
+        if(Telefono.trim() == ""){
+            msjMostrar += "<br>-El Teléfono del usuario no puede estar vacío.";
+            enviar = true;
+        }
+
+        if (!/^9\d{8}$/.test(Telefono.trim())) {
+            msjMostrar += "<br>-El Teléfono del usuario debe contener exactamente 9 dígitos y empezar con 9.";
+            enviar = true;
+        }
+ 
         // Validar Horario Del Usuario
         if(horarioU.trim() == ""){
             msjMostrar += "<br>-El horario del usuario no puede estar vacío.";

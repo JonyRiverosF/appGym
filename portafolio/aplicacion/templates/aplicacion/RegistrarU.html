@@ -12,10 +12,39 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
 
-  <style>
-   
-</style>
+<style>
+  /* Estilos para los botones de radio personalizados */
+  .custom-radio-container {
+      text-align: center;
+  }
 
+  .custom-radio {
+      display: inline-block;
+      background-color: #f8f9fa;
+      color: #212529;
+      border: 1px solid #ced4da;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-right: 10px;
+  }
+
+  /* Estilo para el texto dentro del botón */
+  .custom-radio label {
+      margin: 0;
+  }
+
+  /* Ocultar los botones de radio reales */
+  .custom-radio input[type="radio"] {
+      display: none;
+  }
+
+  /* Estilo para el indicador de selección */
+  .custom-radio input[type="radio"]:checked + label {
+      background-color: #007bff;
+      color: white;
+  }
+</style>
 
 </head>
 <body style="background: rgb(27, 90, 122);">
@@ -89,88 +118,169 @@
       
     </nav>
     </div>
-    <br>
+    
 
 
 
 
 
     <div class="container fondo">
-      <div class="row" style="margin-top: 20px;">
-          <div class="col-md-12 col-sm-12">
-              <form action="" method="POST" id="FormUsuarios" name="FormUsuarios" class="fondoform" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  <h1 class=" letraLo" style="text-align: center;">Registrar Usuario</h1><br>
-                  <div class="form"></div>
-
-                  <div class="grupo">
-                      <input type="text" name="nombre" id="nombre" value="{{nombre}}" placeholder="Ej:Juan"><span class="barra"></span>
-                      <label for=""><h5>Nombre</h5></label>
+      <div class="container">
+        <div  class="container">
+          <div  class="container"> <div  class="container">
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-12 col-sm-12">
+                <form action="" method="POST" id="FormUsuarios" name="FormUsuarios" class="fondoform" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1 class="letraLo" style="text-align: center;">Registrar Usuario</h1>
+                    <div class="form"></div>
+    
+                    <div class="row">
+                        <div class="col">
+                            <div class="grupo">
+                                <input type="text" name="nombre" id="nombre" value="{{nombre}}" placeholder="Ej:Juan"><span class="barra"></span>
+                                <label for=""><h5>Nombre</h5></label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="grupo">
+                                <input type="text" name="apellido" id="apellido" value="{{apellido}}" placeholder="Ej:Gana"><span class="barra"></span>
+                                <label for=""><h5>Apellido</h5></label>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col">
+                            <div class="grupo">
+                                <input type="number" name="rut" id="rut" placeholder="Ej:20.458.389"><span class="barra"></span>
+                                <label for=""><h5>Rut</h5></label>
+                            </div>
+                        </div>
+                        <div class="col">
+                          <div class="grupo">
+                              <input type="text" name="dv" id="dv" value="" placeholder="Ej:K"><span class="barra"></span>
+                              <label for=""><h5>Dígito Verificador</h5></label>
+                          </div>
+                      </div>
+                        
+                    </div>
+    
+                    <div class="row">
+                        <div class="col">
+                            <div class="grupo">
+                                <input type="text" name="correo" id="correo" placeholder="Ej:a@a.cl"><span class="barra"></span>
+                                <label for=""><h5>Correo Electrónico</h5></label>
+                            </div>
+                        </div>
+                        <div class="col">
+                          <div class="grupo">
+                              <input type="text" name="telefono" id="telefono" placeholder="Ej:9 6842 6213"><span class="barra"></span>
+                              <label for=""><h5>Teléfono</h5></label>
+                          </div>
+                      </div>
+                        
+                    </div>
+    
+                    <div class="grupo">
+                        <input type="date" name="horarioU" id="horarioU" value="{{horarioU}}"><span class="barra"></span>
+                        <label for=""><h5>Horario</h5></label>
+                    </div>
+    
+                    <div class="grupo" style="text-align: center;">
+                      <div class="grupo" style="text-align: center;">
+                          <label>¿Tienen Ficha Médica?</label>
+                          <div class="custom-radio-container">
+                              <input type="radio" id="fichaSi" name="ficha" value="si" onclick="mostrarFicha()">
+                              <label for="fichaSi" class="custom-radio">Si</label>
+                              
+                              <input type="radio" id="fichaNo" name="ficha" value="no" onclick="ocultarFicha()">
+                              <label for="fichaNo" class="custom-radio">No</label>
+                          </div>
+                      </div>
                   </div>
 
-                  <div class="grupo">
-                      <input type="text" name="apellido" id="apellido" value="{{apellido}}" placeholder="Ej:Gana"><span class="barra"></span>
-                      <label for=""><h5>Apellido</h5></label>
-                  </div>
+                    <div id="fichaMedicaSi" style="display:none;">
+                      
+                      <div class="row">
+                        <div class="col-md-2 col-sm-2"></div>
+                        <div class="col-md-8 col-sm-8"> 
+                          <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                              <div class="form-group">
+                                <label for="exampleFormControlFile1" class="letraLo, cu">Adjuntar archivo de ficha médica</label>
+                                <h5><input type="file" class="form-control-file, letraLo, cu1"  accept="application/pdf"  id="fichaU" name="fichaU" required></h5>
+                              </div> 
+                            </div>
 
-                  <div class="grupo">
-                      <input type="number" name="rut" id="rut" placeholder="Ej:20.458.389"><span class="barra"></span>
-                      <label for=""><h5>Rut </h5></label>
-                  </div>
+                              <div class="col-md-6 col-sm-6">
+                                <a href="/path/al/archivo.pdf" download="archivo.pdf">Descargar ficha médica</a>
+                            </div>
+                          </div>
+                        </div>
 
-                  <div class="grupo">
-                      <input type="text" name="dv" id="dv" value="" placeholder="Ej:K"><span class="barra"></span>
-                      <label for=""><h5>Dígito Verificador</h5></label>
-                  </div>
+                        <div class="col-md-2 col-sm-4"></div>
 
-                  <div class="grupo">
-                      <input type="date" name="horarioU" id="horarioU" value="{{horarioU}}"><span class="barra"></span>
-                      <label for=""><h5>Horario</h5></label>
+                      </div>
                   </div>
-
                   
-                  <div class="grupo">
-                    <p>¿Tienen Ficha Médica?</p>
-                      <input type="radio" name="ficha" id="ConF">
-                      <label for="ConF"><h5>Si</h5></label>
-
-                      <input type="radio" name="ficha" id="sinF">
-                      <label for="sinF"><h5>No</h5></label>
-                  </div>
-
-                  <!--Para validar ficha medica
-                  {% if ficha == "si" %}
-                  <div class="form-group">
-                      <label for="exampleFormControlFile1" class="letraLo, cu"><h4>Adjuntar archivo de ficha médica</h4></label>
-                      <h5><input type="file" class="form-control-file, letraLo, cu1" id="fichaU" name="fichaU" required></h5>
-                  </div><br>
-
-                  {% elif ficha == "no" %}
-                  <div class="grupo">
-                      <input type="text" name="fichaU" id="fichaU" value=""><span class="barra"></span>
-                      <label for=""><h5>Observaciones:</h5></label>
-                  </div><br>
-                  {% endif %}-->
-
-                  <div class="row">
-                      <div class="col-md-6">
-                          <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                      </div>
-                      <div class="col-md-6">
-                          <input type="reset" value="Limpiar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                  <div id="fichaMedicaNo" style="display:none;">
+                      <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                          <div class="grupo">
+                            <input type="text" name="fichaU" id="fichaU" value=""><span class="barra"></span>
+                            <label for=""><h5>Observaciones:</h5></label>
+                        </div>
+                        </div>
+                        <div class="col-md-3"></div>
                       </div>
                   </div>
-                  <p class="warnings" id="mensaje_RegistrarUsuarios"></p>
+                    
+                   
+
+
+    
+                    <div class="row">
+                      <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <p class="warnings" id="mensaje_RegistrarUsuarios"></p>
                     <p class="warnings " id="mensaje"></p>
-              </form>
-          </div>
-      </div>
-      <br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+  </div>
+    
+    </div>
+      <br>
   </div> 
    
 
 
 
+  
+
+
+
+
+  <script>
+    function mostrarFicha() {
+        document.getElementById("fichaMedicaSi").style.display = "block";
+        document.getElementById("fichaMedicaNo").style.display = "none";
+    }
+
+    function ocultarFicha() {
+        document.getElementById("fichaMedicaSi").style.display = "none";
+        document.getElementById("fichaMedicaNo").style.display = "block";
+    }
+</script>
 
 
 
@@ -178,7 +288,8 @@
 
 
 
-    
+
+
     <script src="/static/aplicacion/Validaciones/Usuarios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>

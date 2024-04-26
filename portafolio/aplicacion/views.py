@@ -19,6 +19,9 @@ def Informes(request):
 def Reportes(request):
     return render(request,"aplicacion/Reportes.html")
 
+def VistaComentarios(request):
+    return render(request,"aplicacion/VistaComentarios.html")
+
 
 
 

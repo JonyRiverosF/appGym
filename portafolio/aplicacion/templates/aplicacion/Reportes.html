@@ -87,6 +87,47 @@
 </div>
 <br>
 
+<div class="container" style="background: rgb(17, 67, 89);">
+  <div class="container" > 
+  <div class="container" >
+  <br>
+  
+  <div class="row" style="text-align: center;margin-top: 5%;">
+    
+    <div class="col-md-3 col-sm-4"></div>
+      <div class="col-md-6 col-sm-4">
+          <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Comentarios</h1><br>
+      </div>
+      <div class="col-md-3 col-sm-4"></div>
+  </div><br>
+
+
+
+  <div class="row">
+      <div class="table-responsive">
+      <table class="table">
+          <tr>
+            <th>Nombre </th>
+            <th>Comentario</th>
+            
+          </tr>
+          
+          {% for u in usuarios %}
+          <tr>
+            <td>{{ u.nombreU }} {{ u.apellido }}</td>
+            <td>{{ u.ComentarioU}}</td>
+          </tr>
+          
+          {% endfor %}
+          
+        </table>
+      </div>
+  </div>
+
+
+</div></div></div>
+
+
    
 
 
