@@ -30,9 +30,7 @@
                   class="sr-only">(current)</span></a>
       </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span class="sr-only">(current)</span></a>
-      </li>
+      
 
       <li class="nav-item dropdown active ">
         <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -90,6 +88,9 @@
 
 
     <div class="container" class="fondo">
+      <div class="container">
+      <div class="container">
+      <div class="container">
       <div class="row" style="margin-top: 20px;">
           <div class="col-md-12 col-sm-12">
               
@@ -98,48 +99,55 @@
                   <h1 class=" letraLo" style="text-align: center;">Crear Ejercicios</h1><br>
                   <div class="form"></div>
 
-                  <div class="grupo">
-                    <input type="text" name="nombreE" id="nombreE" value="{{nombreE}}"><span class="barra" ></span>
-                    <label for=""><h5>Nombre Ejercicio</h5></label>
-                </div>
-
-                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione la miniatura</h3>
-                <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoE" name="fotoE" required/></p>
-                <br>
-
-                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione un video del ejercicio</h3>
-                <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoE" name="videoE" accept=".mp4" required /></p>
-                <br>
-
-                  <!--Para que el admin vea el video no esta listo todavia es lo basico
-                   {% if videoE %}
-                    <div>
-                      <h2 style="text-align: center;color: rgb(231, 231, 231);">Video seleccionado</h2>
-                      <video src="{{ videoE }}" width="320" height="240" controls></video>
+                  <div class="row" style="margin-top: -30px;">
+                    <div class="col-md-2 col-sm-2"></div>
+                    <div class="col-md-8 col-sm-8">
+                      <div class="grupo">
+                        <input type="text" name="nombreE" id="nombreE" value="{{nombreE}}"><span class="barra" ></span>
+                        <label for=""><h5>Nombre Ejercicio</h5></label>
+                      </div>
                     </div>
-                  {% endif %}-->
+                    <div class="col-md-2 col-sm-2"></div>
+                  </div>
 
                   <div class="row">
-                    <div class="col-md-6">
+                    
+                    <div class="col-md-6 col-sm-6">
+                      <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione la miniatura</h3>
+                      <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoE" name="fotoE" required/></p>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                      <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione un video del ejercicio</h3>
+                      <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoE" name="videoE" accept=".mp4" required /></p>
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
                       <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
                     </div>
-                    <div class="col-md-6">
-
-                      <input type="reset" value="Limpiar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                    </div>
+                    <div class="col-md-4"></div>
                   </div>
+
                   <p class="warnings" id="mensaje_CrearEjercicio"></p>
                     <p class="warnings " id="mensaje"></p>
 
               </form>
           </div>
         </div>
-        <br><br>
-  </div>
+        <br>
+  </div></div></div></div>
 
    
 
-
+<!--Para que el admin vea el video no esta listo todavia es lo basico
+                   {% if videoE %}
+                    <div>
+                      <h2 style="text-align: center;color: rgb(231, 231, 231);">Video seleccionado</h2>
+                      <video src="{{ videoE }}" width="320" height="240" controls></video>
+                    </div>
+                  {% endif %}-->
 
 
 

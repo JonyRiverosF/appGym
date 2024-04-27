@@ -30,9 +30,7 @@
                       class="sr-only">(current)</span></a>
           </li>
 
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span class="sr-only">(current)</span></a>
-          </li>
+          
     
           <li class="nav-item dropdown active ">
             <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,33 +89,49 @@
 
 
     <div class="container" class="fondo">
-      <div class="row" style="margin-top: 20px;">
-          <div class="col-md-12 col-sm-12">
+      <div class="container">
+        <div class="container">
+          <div class="container">
+            <div class="container">
+          
+      
               
               <form action="" method="POST" id="FormNoticias" name="FormNoticias" class="fondoform" enctype="multipart/form-data">
                 {% csrf_token %}
                   <h1 class=" letraLo" style="text-align: center;">Crear Noticias</h1><br>
                   <div class="form"></div>
 
-                  <div class="grupo">
-                    <input type="text" name="tituloN" id="tituloN" value="{{tituloN}}"><span class="barra" ></span>
-                    <label for=""><h5>Titulo Noticia</h5></label>
-                </div>
+                <div class="row" style="margin-top: -45px;">
+                  <div class="col-md-6 col-sm-6">
+                    <div class="grupo">
+                      <input type="text" name="tituloN" id="tituloN" value="{{tituloN}}"><span class="barra" ></span>
+                      <label for=""><h5>Titulo Noticia</h5></label>
+                    </div>
+                  </div>
                   
-                <div class="grupo">
-                  <input type="text" name="bajadaN" id="bajadaN" value="{{bajadaN}}"><span class="barra" ></span>
-                  <label for=""><h5>Bajada de titulo</h5></label>
-              </div>
+                  <div class="col-md-6 col-sm-6">
+                    <div class="grupo">
+                      <input type="text" name="bajadaN" id="bajadaN" value="{{bajadaN}}"><span class="barra" ></span>
+                      <label for=""><h5>Bajada de titulo</h5></label>
+                    </div>
+                  </div>
+                </div>
 
-            <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione foto de la noticia</h3>
-            <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoN" name="fotoN" required/></p>
-            <br>
+                  
+                <div class="row" style="margin-top: -10px;">
+                  <div class="col-md-6 col-sm-6">
+                    <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione foto de la noticia</h3>
+                    <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoN" name="fotoN" required/></p>
+                  </div>
+                  
+                  <div class="col-md-6 col-sm-6">
+                    <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione video de la noticia</h3>
+                    <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoN" name="videoN" accept=".mp4" required /></p>
+                  </div>
+                </div>
+                
 
-            <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione video de la noticia</h3>
-            <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoN" name="videoN" accept=".mp4" required /></p>
-            <br>
-
-            <div class="grupo" style="text-align: center;">
+            <div class="grupo" style="text-align: center;margin-top: -2px;">
               <label for="descN"><h3>Descripción de la Noticia</h3></label><br>
               <p style="margin-left: 12%;margin-right: 12%;"><textarea class="textarea" style="background-color: rgb(97, 97, 97);color: rgb(255, 255, 255);" rows="6" cols="50" 
                  name="descN" id="descN" >{{ descN }}</textarea></p>
@@ -125,22 +139,19 @@
             </div>
 
                   
-                  <div class="row">
-                    <div class="col-md-6">
-                      <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                    </div>
-                    <div class="col-md-6">
-
-                      <input type="reset" value="Limpiar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                    </div>
-                  </div>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+              </div>
+              <div class="col-md-4"></div>
+            </div>
                   <p class="warnings" id="mensaje_CrearNoticia"></p>
                     <p class="warnings " id="mensaje"></p>
               </form>
-          </div>
-        </div>
-        <br><br>
-  </div>  
+          
+        <br>
+  </div></div></div></div></div>  
    
 
 

@@ -1,10 +1,48 @@
 $(document).ready(function(){
 
     var ficha 
+    var apiUrl = "http://192.168.1.2:3000";
+    var flagCorreo = false;
+    var flagRut = false;
     
     $("#fichaU").change(function(e){
         ficha = e.target.files[0]
     });
+
+    function correoRepetido(correo) {
+        var formulario = new FormData();
+        formulario.append("correo", correo);
+
+        return fetch(apiUrl + "/validaciones/validarCorreo", {
+            method: "POST",
+            body: formulario
+        }).then(res => res.json()).then(respuesta => {
+            if (respuesta.respuesta.length > 0) {
+                flagCorreo = true;
+            } else {
+                flagCorreo = false;
+            }
+            console.log(respuesta);
+        });
+    }
+
+    function rutRepetido(rut) {
+        var formulario = new FormData();
+        formulario.append("rut", rut);
+
+        return fetch(apiUrl + "/validaciones/rutRepetido", {
+            method: "POST",
+            body: formulario
+        }).then(res => res.json()).then(respuesta => {
+            if (respuesta.respuesta.length > 0) {
+                flagRut = true;
+            } else {
+                flagRut = false;
+            }
+            console.log(respuesta);
+        });
+    }
+
 
     //Registrar Usuarios
     $("#FormUsuarios").submit(function(e){
@@ -18,7 +56,6 @@ $(document).ready(function(){
         var observacionesU = $("#observacionesU").val();
         var horarioU = $("#horarioU").val();
          
-        var apiUrl = "http://192.168.1.2:3000/creacion/"
 
         let msjMostrar = "";
         let enviar = false;
@@ -90,8 +127,8 @@ $(document).ready(function(){
             enviar = true;
         }
 
-        if(!/^\d{8}$/.test(Rut)){
-            msjMostrar += "<br>-El rut del usuario debe contener exactamente 8 números.";
+        if(!/^\d{7,}$/.test(Rut)){
+            msjMostrar += "<br>-El rut del usuario debe contener al menos 7 números.";
             enviar = true;
         }
 
@@ -136,54 +173,78 @@ $(document).ready(function(){
             return dvCalculado.toLowerCase() === dv.toLowerCase();
           }
           
-          
-          
-          
 
-
-        if(enviar){
+          if(enviar){
             $("#mensaje_RegistrarUsuarios").html(msjMostrar);
             e.preventDefault();
-        }
-        else{
-            var formulario  = new FormData()
-            formulario.append("nombre",nombreU)
-            formulario.append("apellido",apellidoU)
-            formulario.append("rut",Rut)
-            formulario.append("dv",DV)
-            formulario.append("telefono",Telefono)
-            formulario.append("correo",Correo)
+        } else {
 
-            if (ficha){
-                formulario.append("fichaMedica",ficha)
-            }
-            else{
-                formulario.append("fichaMedica","")
-            }
-
-            if (observacionesU){
-                formulario.append("observacionMedica",observacionesU)
-            }
-            else{
-                formulario.append("observacionMedica","No tienen presenta problemas de salud")
-            }
-
-            formulario.append("rol",1)
-            formulario.append("imagen","")
-            fetch(apiUrl+"/registroUsuario",{
-                method:"POST",body:formulario
-                
-            }).then(res=>{
-                console.log(res)
-                msjMostrar +="Usuario Registrado Correctamente."
-            })
-
-            $("#mensaje_RegistrarUsuarios").html("-Usuario Registrado Correctamente.");
-        }
-    });
+            correoRepetido(Correo).then(() => {
+                console.log("Correo repetido verificado. flagCorreo:", flagCorreo);
+                if (!flagCorreo) {
+                    rutRepetido(Rut).then(() => {
+                        console.log("Rut repetido verificado. flagRut:", flagRut);
+                        if (!flagRut) {
+                            var formulario = new FormData();
+                            formulario.append("nombre", nombreU);
+                            formulario.append("apellido", apellidoU);
+                            formulario.append("rut", Rut);
+                            formulario.append("dv", DV);
+                            formulario.append("telefono", Telefono);
+                            formulario.append("correo", Correo);
+            
+                            if (ficha) {
+                                formulario.append("fichaMedica", ficha);
+                            } else {
+                                formulario.append("fichaMedica", "");
+                            }
+            
+                            if (observacionesU) {
+                                formulario.append("observacionMedica", observacionesU);
+                            } else {
+                                formulario.append("observacionMedica", "No presenta problemas de salud");
+                            }
+            
+                            formulario.append("rol", 1);
+                            formulario.append("imagen", "");
+                            fetch(apiUrl + "/creacion/registroUsuario", {
+                                method: "POST",
+                                body: formulario
+                            }).then(res => {
+                                console.log(res);
+                                msjMostrar += "Usuario Registrado Correctamente.";
+                            });
+            
+                            $("#mensaje_RegistrarUsuarios").html("-Usuario Registrado Correctamente.");
+                        } else {
+                            $("#mensaje_RegistrarUsuarios").html("<br>-El rut ingresado ya está registrado.");
+                        }
+                    }).catch(error => {
+                        console.error("Error al verificar rut repetido:", error);
+                        $("#mensaje_RegistrarUsuarios").html("<br>-Error al verificar rut repetido.");
+                    });
+                } else {
+                    $("#mensaje_RegistrarUsuarios").html("<br>-El correo ingresado ya está registrado.");
+                }
+            }).catch(error => {
+                console.error("Error al verificar correo repetido:", error);
+                $("#mensaje_RegistrarUsuarios").html("<br>-Error al verificar correo repetido.");
 
 
     
+            });
+        }
+        
+        });
+        
+        
+
+
+    
+
+
+
+
 
     //Modificar Usuarios
     $("#FormModiUsuarios").submit(function(e){

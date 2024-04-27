@@ -30,9 +30,7 @@
                   class="sr-only">(current)</span></a>
       </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span class="sr-only">(current)</span></a>
-      </li>
+      
 
       <li class="nav-item dropdown active ">
         <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,39 +95,65 @@
                   <h1 class=" letraLo" style="text-align: center;">Modificar Ejercicios</h1><br>
                   <div class="form"></div>
 
+                <div class="row">
+                  <div class="col">
+                    <div class="grupo">
+                    <label>ID Ejercicio</label>
+                    <input readonly value="{{ '' }}" type="number" class="form-control" id="idE" name="idE">
+                      </div>
+                  </div>
 
-                  <div class="grupo">
-                  <label>ID Ejercicio</label>
-                  <input readonly value="{{ '' }}" type="number" class="form-control" id="idE" name="idE">
+                  <div class="col">
+                    <div class="grupo">
+                      <label>Nombre del Ejercicio</label>
+                      <input type="text" name="nombreE" id="nombreE" value="{{nombreE}}"><span class="barra" ></span>
                     </div>
+                  </div>
+                </div>
+                  
+                <!--{% if Ejercicios.foto != '' %}
+                  <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                    
+                    <div class="grupo">
+                      <label for="" ><h5 style="color: #000000;">Foto del ejercicio actual</h5></label><br>
+                      <img src="{{ usuarios.imagen.url }}"  alt="Avatar" style="width:150px;height:150px;">
+                    </div>
+                  {% endif %}
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>-->
 
+                    <!--
+                {% if Ejercicios.video != '' %}
                   <div class="grupo">
-                    <label>Nombre del Ejercicio</label>
-                    <input type="text" name="nombreE" id="nombreE" value="{{nombreE}}"><span class="barra" ></span>
+                    <label for="" ><h5 style="color: #000000;">Video del Ejercicio actual</h5></label><br>
+                    <div class="embed-responsive embed-responsive-16by9">
+                      <video class="embed-responsive-item" src="{{ '' }}" alt="Avatar" controls></video>
+                    </div>
+                  </div>
+                {% endif %}-->
+
+                <div class="row">
+                  <div class="col">
+                    <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione la miniatura</h3>
+                    <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoE" name="fotoE" required/></p>
                   </div>
 
-                <div class="grupo">
-                  <label for="" ><h5 style="color: #000000;">Foto del ejercicio actual</h5></label><br>
-                  <img src="{{''  }}"  alt="Avatar" style="width:150px;height:150px;">
+                  <div class="col">
+                    <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione un video del ejercicio</h3>
+                    <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoE" name="videoE" accept=".mp4" required /></p>
                   </div>
-                  
-                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione la miniatura</h3>
-                <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoE" name="fotoE" required/></p>
-                <br>
-
-                <div class="grupo">
-                  <h3 style="color: #000000;text-align: center;">Video del Ejercicio actual</h3><br>
-                  <div class="embed-responsive embed-responsive-16by9">
-                    <video class="embed-responsive-item" src="{{ '' }}" alt="Avatar" controls></video>
-                  </div>
-                </div> 
-
-                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione un video del ejercicio</h3>
-                <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoE" name="videoE" accept=".mp4" required /></p>
-                <br>
-
-                  
-                <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                </div><br>
+  
+                <div class="row">
+                  <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
 
                   <p class="warnings" id="mensaje_ModificarEjercicio"></p>
                     <p class="warnings " id="mensaje"></p>

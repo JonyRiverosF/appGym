@@ -29,11 +29,7 @@
           <a class="nav-link" href="{% url 'Informes' %}">Informes<span
                   class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span
-                class="sr-only">(current)</span></a>
-    </li>
-    
+
 
       <li class="nav-item dropdown active ">
         <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -87,68 +83,122 @@
 </div>
 <br>
 
+<!--INFORMES BANCARIOS-->
 <div class="container" style="background: rgb(17, 67, 89);">
   <div class="container" > 
-  <div class="container" >
-  <br>
-
-    <div class="row" style="text-align: center;margin-top: 5%;">
+    <div class="container" >
+      <br>
+      <div class="row" style="text-align: center;margin-top: 5%;">
         <div class="col-md-3 col-sm-4"></div>
         <div class="col-md-6 col-sm-4">
             <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Informes Bancarios</h1><br>
         </div>
         <div class="col-md-3 col-sm-4"></div>
-    </div><br>
-
-    <div class="row" style="text-align: center">
+      </div><br>
+      <div class="row" style="text-align: center">
         <div class="col-md-4 col-sm-4"></div>
         <div class="col-md-4 col-sm-4">
             <input type="button" class="btn btn " id="consultar" value="Consultar" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97);">
         </div>
         <div class="col-md-4 col-sm-4"></div>
-    </div><br>
-
-    <div class="row">
-      <div class="col-md-3 col-sm-3"></div>
-      <div class="col-md-6 col-sm-6">
-          <div class="table-responsive" id="tabla" style="display: none;">
-              <table class="table centrar letraVJ" style="background-color: rgb(255, 255, 255); " id="table">
-                  <tr>
-                      <td colspan="2"><strong>Juan Gana</strong></td>
-                  </tr>
-                  <tr>
-                      <td><strong>Cedula:</strong></td>
-                      <td class="text-left">11.676.436-2</td>
-                  </tr>
-                  <tr>
-                      <td><strong>Banco:</strong></td>
-                      <td class="text-left">Banco Santander</td>
-                  </tr>
-                  <tr>
-                      <td><strong>Cuenta:</strong></td>
-                      <td class="text-left">CTTE. 0102-0146-25-0000404208</td>
-                  </tr>
-                  <tr>
-                      <td><strong>Monto:</strong></td>
-                      <td class="text-left">$15.000</td>
-                  </tr>
-              </table>
-          </div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-3 col-sm-3"></div>
+        <div class="col-md-6 col-sm-6">
+            <div class="table-responsive" id="tablaBancarios" style="display: none;">
+                <table class="table centrar letraVJ" style="background-color: rgb(255, 255, 255); " id="tableBancarios">
+                    <tr>
+                        <td colspan="2"><strong>Juan Gana</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cedula:</strong></td>
+                        <td class="text-left">11.676.436-2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Banco:</strong></td>
+                        <td class="text-left">Banco Santander</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cuenta:</strong></td>
+                        <td class="text-left">CTTE. 0102-0146-25-0000404208</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monto:</strong></td>
+                        <td class="text-left">$15.000</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3"></div>
       </div>
-      <div class="col-md-3 col-sm-3"></div>
+    </div>
   </div>
-      
-</div></div></div>
+</div>
+<br><br><br>
+<!--INFORMES COMENTARIOS-->
+<div class="container" style="background: rgb(17, 67, 89);">
+  <div class="container" > 
+    <div class="container" >
+      <br>
+      <div class="row" style="text-align: center;margin-top: 5%;">
+        <div class="col-md-3 col-sm-4"></div>
+        <div class="col-md-6 col-sm-4">
+            <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Informe de Denuncias de Comentarios</h1><br>
+        </div>
+        <div class="col-md-3 col-sm-4"></div>
+      </div><br>
+      <div class="row" style="text-align: center">
+        <div class="col-md-4 col-sm-4"></div>
+        <div class="col-md-4 col-sm-4">
+            <input type="button" class="btn btn " id="comen" value="Ver Comentarios" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97);">
+        </div>
+        <div class="col-md-4 col-sm-4"></div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-3 col-sm-3"></div>
+        <div class="col-md-6 col-sm-6">
+            <div class="table-responsive" id="tablaComentarios" style="display: none;">
+                <table class="table centrar letraVJ" style="background-color: rgb(255, 255, 255); " id="tableComentarios">
+                  <tr>
+                    <th>Nombre </th>
+                    <th>Comentario</th>
+                  </tr>
+                  
+                  {% for u in usuarios %}
 
+                  <tr>
+                    <td>{{ u.nombreU }} {{ u.apellido }}</td>
+                    <td>{{ u.ComentarioU}}</td>
+                  </tr>
+                  
+                  {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3"></div>
+      </div>
+    </div>
+  </div>
+</div><br><br>
 
-
+<!--INFORMES BANCARIOS-->
 <script>
   $(document).ready(function() {
       $("#consultar").click(function() {
-          $("#tabla").toggle();
+          $("#tablaBancarios").toggle();
       });
   });
 </script>
+
+<!--INFORMES COMENTARIOS-->
+<script>
+  $(document).ready(function() {
+      $("#comen").click(function() {
+          $("#tablaComentarios").toggle();
+      });
+  });
+</script>
+
 
 
 

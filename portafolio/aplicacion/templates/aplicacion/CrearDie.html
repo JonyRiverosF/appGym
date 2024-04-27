@@ -29,9 +29,7 @@
                   class="sr-only">(current)</span></a>
       </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span class="sr-only">(current)</span></a>
-      </li>
+      
 
       <li class="nav-item dropdown active ">
         <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,6 +86,11 @@
 
 
     <div class="container" class="fondo">
+      <div class="container">
+        <div class="container">
+          <div class="container">
+            <div class="container">
+          
       <div class="row" style="margin-top: 20px;">
           <div class="col-md-12 col-sm-12">
               
@@ -96,31 +99,43 @@
                   <h1 class=" letraLo" style="text-align: center;">Crear Dietas</h1><br>
                   <div class="form"></div>
 
-                  <div class="grupo">
-                    <input type="text" name="nombreD" id="nombreD" value="{{nombreD}}"><span class="barra" style="color:red" ></span>
-                    <label for=""><h5>Nombre Dieta</h5></label>
-                </div>
-                  
-                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione imagen de la dieta</h3>
-                <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoD" name="fotoD" required/></p>
-                <br>
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                  <div class="row" style="margin-top: -30px;">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                      <div class="grupo">
+                        <input type="text" name="nombreD" id="nombreD" value="{{nombreD}}"><span class="barra" style="color:red" ></span>
+                        <label for=""><h5>Nombre Dieta</h5></label>
+                      </div>
                     </div>
-                    <div class="col-md-6">
-
-                      <input type="reset" value="Limpiar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                    </div>
+                    <div class="col-md-2"></div>
                   </div>
+
+                  
+                  <div class="row">
+                    <div class="col-md-2 col-sm-2"></div>
+                    <div class="col-md-8 col-sm-8">
+                      <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione imagen de la dieta</h3>
+                      <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoD" name="fotoD" required/></p>
+                      <br>
+                    </div>
+                    <div class="col-md-2 col-sm-2"></div>
+                  </div>
+                
+                <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                    <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
+                
                   <p class="warnings" id="mensaje_CrearDieta"></p>
                     <p class="warnings " id="mensaje"></p>
               </form>
           </div>
         </div>
         <br><br>
-  </div>
+  </div></div></div></div></div>
 
    
 

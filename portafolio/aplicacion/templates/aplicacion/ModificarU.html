@@ -30,9 +30,7 @@
                   class="sr-only">(current)</span></a>
       </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span class="sr-only">(current)</span></a>
-      </li>
+      
 
       <li class="nav-item dropdown active ">
         <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,85 +84,164 @@
 </div>
 <br>
 
+<div class="container">
+  <div class="container">
     <div class="container">
+  <form action="" method="POST" enctype="multipart/form-data" class="fondoform" id="FormModiUsuarios" name="FormModiUsuarios">
+      {% csrf_token %}
+      <h1 class="centrar letraLo" style="text-align: center;">Modificar Usuario </h1>
 
-
-      <form action="" method="POST" enctype="multipart/form-data" class="fondoform" id="FormModiUsuarios" name="FormModiUsuarios">
-          
-          {% csrf_token %}
-  
-          <h1 class="centrar letraLo" style="text-align: center;">Modificar Usuario </h1>
-
-          <div class="grupo">
-            <label>ID Usuario</label>
-            <input readonly value="{{ usuarios.codigo }}" type="text" class="form-control" id="idU" name="idU">
-        </div>
-        {% if usuarios.imagen != '' %}
+      <div class="row" style="margin-top: -15px;">
+        <div class="col-md-4 col-sm-4">
+          {% if usuarios.imagen != '' %}
           <div class="grupo">
               <label for="" ><h5 style="color: #000000;">Foto de perfil actual</h5></label><br>
               <img src="{{ usuarios.imagen.url }}"  alt="Avatar" style="width:150px;height:150px;">
               </div>
         {% endif %}
-  
+        </div>
+        <div class="col-md-4 col-sm-4">
           <div class="grupo">
-              <label>Nombre</label>
-              <input type="text" class="form-control"  required value="{{ usuarios.nombre }}" id="nombre" name="nombre" ><span class="barra" ></span>
+            <label>Codigo Usuario</label>
+            <input type="text" class="form-control"  value="{{ usuarios.codigo }}" id="id" name="id" readonly>
+            <span class="barra"></span>
+        </div>
+        </div>
+        <div class="col-md-4 col-sm-4"></div>
+      </div>
+
+      <div class="row" style="margin-top: -55px;"> 
+          <div class="col">
+              <div class="grupo">
+                  <label>Nombre</label>
+                  <input type="text" class="form-control" required value="{{ usuarios.nombre }}" id="nombre" name="nombre">
+                  <span class="barra"></span>
+              </div>
           </div>
-  
+          <div class="col">
+              <div class="grupo">
+                  <label>Apellido</label>
+                  <input type="text" class="form-control" required value="{{ usuarios.apellido }}" id="apellido" name="apellido">
+                  <span class="barra"></span>
+              </div>
+          </div>
+      </div>
+
+      <div class="row" style="margin-top: -55px;">
+          <div class="col">
+              <div class="grupo">
+                  <label>Rut</label>
+                  <input type="number" class="form-control" required value="{{ usuarios.rut }}" id="rut" name="rut" readonly>
+                  <span class="barra"></span>
+              </div>
+          </div>
+          <div class="col">
+              <div class="grupo">
+                  <label>Dígito Verificador</label>
+                  <input type="text" class="form-control" required value="{{ usuarios.dv }}" id="dv" name="dv" readonly>
+                  <span class="barra"></span>
+              </div>
+          </div>
+      </div>
+
+      <div class="row" style="margin-top: -55px;">
+          <div class="col">
+              <div class="grupo">
+                  <label>Correo</label>
+                  <input type="text" class="form-control" required value="{{ usuarios.correo }}" id="correo" name="correo">
+                  <span class="barra"></span>
+              </div>
+          </div>
+          <div class="col">
+              <div class="grupo">
+                  <label>Teléfono</label>
+                  <input type="number" class="form-control" required value="{{ usuarios.telefono }}" id="telefono" name="telefono">
+                  <span class="barra"></span>
+              </div>
+          </div>
+      </div>
+
+      <div class="row" style="margin-top: -55px;">
+        <div class="col">
           <div class="grupo">
-            <label>Apellido</label>
-            <input type="text" class="form-control"  required value="{{ usuarios.apellido }}" id="apellido" name="apellido" ><span class="barra" ></span>
+            <label>Horario</label>
+            <input type="date" name="horarioU" id="horarioU" value="{{usuarios.horarioU}}" required>
+            <span class="barra"></span>
         </div>
-
-        <div class="grupo">
-          <label>Rut</label>
-          <input type="number" class="form-control"  required value="{{ usuarios.rut }}" id="rut" name="rut" readonly><span class="barra" ></span>
-      </div>
-
-      <div class="grupo">
-        <label>Dígito Verificador</label>
-        <input type="text" class="form-control"  required value="{{ usuarios.dv }}" id="dv" name="dv" readonly><span class="barra" ></span>
-      </div>
-
-        <div class="grupo">
-          <label>Horario</label>
-          <input type="date" name="horarioU" id="horarioU" value="{{usuarios.horarioU}}" required><span class="barra" ></span>
-          
         </div>
-
+        <div class="col">
           <div class="grupo">
             <label>Rol</label>
-            
-           <select class="form-control" name="RolC" id="RolC">
-
-                    {% if usuarios.rol == "1" %}
-                        <option value="{{ usuarios.rol }}" selected>Cliente</option>
-                        <option value="2">Administrador</option>
-                        <option value="3">Administrador de Comunidad</option>
-                    {%  elif usuarios.rol == "2" %}
-                        <option value="{{ usuarios.rol }}" selected>Administrador</option>
-                        <option value="1">Cliente</option>
-                        <option value="3">Administrador de Comunidad</option>
-                        
-                    {%  elif usuarios.rol == "3" %}
-                        <option value="{{ usuarios.rol }}" selected>Administrador de Comunidad</option>
-                        <option value="2">Administrador</option>
-                        <option value="1">Cliente</option>
-                    {% endif %}
-                
-           </select>
+            <select class="form-control" name="RolC" id="RolC">
+                {% if usuarios.rol == "1" %}
+                <option value="1" selected>Cliente</option>
+                <option value="2">Administrador</option>
+                <option value="3">Administrador de Comunidad</option>
+                {% elif usuarios.rol == "2" %}
+                <option value="1">Cliente</option>
+                <option value="2" selected>Administrador</option>
+                <option value="3">Administrador de Comunidad</option>
+                {% elif usuarios.rol == "3" %}
+                <option value="1">Cliente</option>
+                <option value="2">Administrador</option>
+                <option value="3" selected>Administrador de Comunidad</option>
+                {% endif %}
+            </select>
         </div>
+        
+        
+        </div>
+    </div>
 
-          <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-          <p class="warnings" id="mensaje_ModificarUsuarios"></p>
-          <p class="warnings " id="mensaje"></p>
-  
-      </form><br><br>
-  
-  </div>
+      
+    <div class="row">
+      <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+      <p class="warnings" id="mensaje_ModificarUsuarios"></p>
+      <p class="warnings " id="mensaje"></p>
 
-   
+  </form><br>
 
+</div></div></div>
+
+
+ <!--
+  <button onclick="cambiarRol()">Cambiar Rol</button>
+<script>
+  function cambiarRol() {
+      var nuevoRol = document.getElementById('RolC').value;
+      var idUsuario = "{{ usuarios.codigo }}";
+
+      fetch('/cambiar-rol/', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': '{{ csrf_token }}'
+          },
+          body: JSON.stringify({
+              idUsuario: idUsuario,
+              nuevoRol: nuevoRol
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              alert('Rol cambiado exitosamente');
+              // Aquí puedes realizar alguna acción adicional, como recargar la página
+          } else {
+              alert('Error al cambiar el rol');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('Error al cambiar el rol');
+      });
+  }
+</script>-->  
 
 
 

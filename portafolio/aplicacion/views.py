@@ -57,9 +57,6 @@ def Solicitudes(request):
 def Informes(request):
     return render(request,"aplicacion/Informes.html")
 
-def Reportes(request):
-    return render(request,"aplicacion/Reportes.html")
-
 def VistaComentarios(request):
     return render(request,"aplicacion/VistaComentarios.html")
 
@@ -87,11 +84,8 @@ def ListaUsu(request):
 
 def ModificarU(request,id):
 
-    
     Usuarios = usuarios.find_one({"codigo": id})
     
-    print(Usuarios)
-
     contexto = {
         "usuarios": Usuarios
     }
@@ -134,3 +128,10 @@ def ListaNot(request):
 
 def ModificarNot(request):
     return render(request,"aplicacion/ModificarNot.html")
+
+
+
+#No se utilizara Pero por seacaso
+@login_required (login_url= 'login' )
+def Reportes(request):
+    return render(request,"aplicacion/Reportes.html")

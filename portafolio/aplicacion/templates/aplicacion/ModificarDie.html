@@ -30,9 +30,7 @@
                   class="sr-only">(current)</span></a>
       </li>
 
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span class="sr-only">(current)</span></a>
-     </li>
+      
 
       <li class="nav-item dropdown active ">
         <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,6 +86,10 @@
 
 
     <div class="container">
+      <div class="container">
+        <div class="container">
+          <div class="container">
+            <div class="container">
 
 
       <form action="" method="POST" enctype="multipart/form-data" class="fondoform" name="FormModificarDieta" id="FormModificarDieta">
@@ -96,35 +98,59 @@
   
           <h1 class="centrar letraLo" style="text-align: center;">Modificar Dieta </h1>
 
-          <div class="grupo">
-            <label>ID Dieta</label>
-            <input readonly value="{{ '' }}" type="number" class="form-control" id="idD" name="idD">
-        </div>
-
-        <div class="grupo">
-          <label>Nombre Dieta</label>
-          <input type="text" class="form-control"  required value="{{ '' }}" id="nombreD" name="nombreD"><span class="barra" ></span>
-      </div>
-
-          <div class="grupo">
-              <label for="" ><h5 style="color: #000000;">Foto de la dieta actual</h5></label><br>
-              <img src="{{''  }}"  alt="Avatar" style="width:150px;height:150px;">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <div class="grupo">
+                <label>ID Dieta</label>
+                <input readonly value="{{ '' }}" type="number" class="form-control" id="idD" name="idD">
               </div>
-  
-              <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione imagen de la dieta</h3>
-                <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoD" name="fotoD" required/></p>
-                <br>
-  
-         
-  
+            </div>
+              
+              <div class="col-md-6 col-sm-6">
+                <div class="grupo">
+                  <label>Nombre Dieta</label>
+                  <input type="text" class="form-control"  required value="{{ '' }}" id="nombreD" name="nombreD"><span class="barra" ></span>
+                </div>
+              </div>
+          </div>
+
+            <!--<div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                    {% if Dietas.imagen != '' %}
+                  
+                    <div class="grupo">
+                      <label for="" ><h5 style="color: #000000;">Foto de la dieta actual</h5></label><br>
+                      <img src="{{''  }}"  alt="Avatar" style="width:150px;height:150px;">
+                    </div>
+                  {% endif %}
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>-->
+
+                <div class="row">
+                  <div class="col-md-2 col-sm-2"></div>
+                    <div class="col-md-8 col-sm-8">
+                      <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione imagen de la dieta</h3>
+                      <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoD" name="fotoD" required/></p>
+                    </div>
+                    <div class="col-md-2 col-sm-2"></div>
+                </div><br>
           
-          <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                <div class="row">
+                  <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+
           <p class="warnings" id="mensaje_ModificarDieta"></p>
           <p class="warnings " id="mensaje"></p>
-      </form><br><br>
+      </form><br>
   
 
-  </div> 
+  </div></div></div></div></div> 
 
        
 
