@@ -111,10 +111,10 @@
           
           {% for u in usuarios %}
           <tr>
-            <td>{{ u.nombreU }} {{ u.apellido }}</td>
-            <td>{{ u.horarioU}}</td>
+            <td>{{ u.nombre }} {{ u.apellido }}</td>
+            
             <td>
-              <a  href="{% url 'ModificarU' u.idU %}" value="Modificar Perfil" class="btn btn" style="color: rgb(255, 255, 255); background-color: rgb(97, 97, 97);">Modificar</a>
+              <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn" style="color: rgb(255, 255, 255); background-color: rgb(97, 97, 97);">Modificar</a>
             </td>
           </tr>
           

@@ -162,8 +162,7 @@
                               <input type="text" name="dv" id="dv" value="" placeholder="Ej:K"><span class="barra"></span>
                               <label for=""><h5>Dígito Verificador</h5></label>
                           </div>
-                      </div>
-                        
+                        </div>
                     </div>
     
                     <div class="row">
@@ -209,7 +208,7 @@
                             <div class="col-md-6 col-sm-6">
                               <div class="form-group">
                                 <label for="exampleFormControlFile1" class="letraLo, cu">Adjuntar archivo de ficha médica</label>
-                                <h5><input type="file" class="form-control-file, letraLo, cu1"  accept="application/pdf"  id="fichaU" name="fichaU" required></h5>
+                                <h5><input type="file" class="form-control-file, letraLo, cu1"  accept="application/pdf"  id="fichaU" name="fichaU" ></h5>
                               </div> 
                             </div>
 
@@ -222,14 +221,14 @@
                         <div class="col-md-2 col-sm-4"></div>
 
                       </div>
-                  </div>
+                  </div><br>
                   
                   <div id="fichaMedicaNo" style="display:none;">
                       <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                           <div class="grupo">
-                            <input type="text" name="fichaU" id="fichaU" value=""><span class="barra"></span>
+                            <input type="text" name="observacionesU" id="observacionesU" value="" ><span class="barra"></span>
                             <label for=""><h5>Observaciones:</h5></label>
                         </div>
                         </div>
@@ -250,6 +249,8 @@
                     </div>
                     <p class="warnings" id="mensaje_RegistrarUsuarios"></p>
                     <p class="warnings " id="mensaje"></p>
+
+                    
                 </form>
             </div>
         </div>
@@ -280,7 +281,7 @@
         document.getElementById("fichaMedicaSi").style.display = "none";
         document.getElementById("fichaMedicaNo").style.display = "block";
     }
-</script>
+  </script>
 
 
 

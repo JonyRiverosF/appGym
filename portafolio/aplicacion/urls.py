@@ -1,11 +1,14 @@
 from django.contrib import admin
 from django.urls import path
-from .views import pantalla,login,   Solicitudes,Informes,Reportes,VistaComentarios,  Registro,ListaUsu,ModificarU,   CrearEjer,ListaEje,ModificarEjer,   CrearDie,ListaDie,ModificarDie,  CrearNot,ListaNot,ModificarNot
+from .views import pantalla,login,formSesion,OlvidasteContra,   Solicitudes,Informes,Reportes,VistaComentarios,  Registro,ListaUsu,ModificarU,   CrearEjer,ListaEje,ModificarEjer,   CrearDie,ListaDie,ModificarDie,  CrearNot,ListaNot,ModificarNot
 
 urlpatterns =[
 
     path("",login,name="login"),
+    path("formSesion",formSesion,name="formSesion"),
+
     path("pantalla",pantalla,name="pantalla"),
+    path("OlvidasteContra",OlvidasteContra,name="OlvidasteContra"),
     
     path("Solicitudes",Solicitudes,name="Solicitudes"),
     path("Informes",Informes,name="Informes"),
@@ -13,8 +16,11 @@ urlpatterns =[
     path("VistaComentarios",VistaComentarios,name="VistaComentarios"),
 
     path("Registro",Registro,name="Registro"),
+    
+
     path("ListaUsu",ListaUsu,name="ListaUsu"),
-    path("ModificarU",ModificarU,name="ModificarU"),
+
+    path("ModificarU/<id>",ModificarU,name="ModificarU"),
 
     path("CrearEjer",CrearEjer,name="CrearEjer"),
     path("ListaEje",ListaEje,name="ListaEje"),
