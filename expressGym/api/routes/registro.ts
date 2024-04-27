@@ -192,4 +192,8 @@ router.post("/login",upload.any(),(req:Request,res:Response)=>{
 
 
 
-export default module.exports=router
+export default module.exports={
+    registroUser:router,
+    usuarioModelo:usuarioModelo
+} 
+//export default exports.usuariomodelo=usuarioModelo

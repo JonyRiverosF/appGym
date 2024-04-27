@@ -11,12 +11,15 @@ import { ExpressService } from 'src/app/services/express.service';
 })
 export class RegistroUserPage implements OnInit {
 
+
+  //Variable con los usuarios ya registrados
+  usuariosRegistrados:any=[]
   //Variables con el ngModel
   nombre:string="";
   apellido:string="";
   rut:string="";
   digitoVerificador:string="";
-  telefono: string = '';
+  telefono!: number;
   correo:string="";
   observacionMedica:string="";
   fichaMedica:any;
@@ -53,14 +56,15 @@ export class RegistroUserPage implements OnInit {
   mensajeFichas:string="";
 
   flag:boolean=true;
+  flagCorreo:boolean=false;
+  flagRut:boolean=false;
 
   constructor(private router: Router,private alertController: AlertController,  private loadingCtrl: LoadingController
     ,private toastController: ToastController,private api:ExpressService) { }
 
   ngOnInit() {
   }
-
-   verificarRegistro() {
+  async verificarRegistro() {
     //Cada vez que se presione el botón, los mensajes de declararán vacias
     this.mensajeName = "";this.mensajeNameN = ""; this.mensajeNameE = "";
 
@@ -79,6 +83,18 @@ export class RegistroUserPage implements OnInit {
    
     let flag = true;
 
+    await this.correoRepetido(this.correo)
+    if(this.flagCorreo){
+     // this.presentToast("bottom","Correo ya se encuentra registrado",2500);
+      this.mensajeCorreo="El correo registrado ya se encuentra en uso"
+      flag = false;
+    }
+
+    await this.runRepetido(this.rut)
+    if(this.flagRut){
+      this.mensajeRut = "Este rut ya se encuentra registrado"
+      flag=false;
+    }
      // VALIDACIÓN DEL NOMBRE
      if (this.nombre.trim() === "") {
       this.mensajeName = "El nombre no puede estar vacío";
@@ -109,12 +125,12 @@ export class RegistroUserPage implements OnInit {
     }
 
     // VALIDACIÓN de Telefono
-    if (!this.validarTelefono(this.telefono)) {
+    if (!this.validarTelefono(String(this.telefono))) {
       this.mensajeTelefono = "El teléfono debe comenzar con 9 y tener exactamente 9 dígitos";
       flag = false;
     }
 
-    if (this.telefono.trim() === "") {
+    if (String(this.telefono).trim() === "") {
       this.mensajeTelefono2 = "El campo telefono no puede estar vacío";
       flag = false;
     } 
@@ -146,9 +162,13 @@ export class RegistroUserPage implements OnInit {
       this.mensajeFichas = "Debe completar la información de su salud";
       flag= false;
     }
-    // VALIDACIÓN DE LOS HORARIOS
+    // VALIDACIÓN DE LOs correos repetidos
 
-    console.log(flag) 
+
+    
+
+
+     
     // REDIRECCIÓN A LOS PLANES DEL GIMNASIO
     if (flag) {
       this.flag =true;
@@ -173,6 +193,7 @@ export class RegistroUserPage implements OnInit {
           response.dismiss();
           this.loading(2000).then(response=>{
             this.presentToast("bottom","Usuario registrado correctamente",2500);
+            this.router.navigate([''])
           })
         }).catch(err=>{
           console.log(err)
@@ -244,6 +265,36 @@ export class RegistroUserPage implements OnInit {
     }
   }
  }
+
+
+correoRepetido(correo:any){
+  var formulario = new FormData();
+  formulario.append("correo",correo)
+
+   return this.api.correoRepetido(formulario).then(res=>res.json()).then(respuesta=>{     
+      if(respuesta.respuesta.length>0){
+        this.flagCorreo= true;
+      }else{
+         this.flagCorreo= false;
+      }
+      console.log(respuesta)
+ })
+}
+
+runRepetido(run:any){
+  var formulario = new FormData();
+  formulario.append("rut",String(run))
+
+   return this.api.rutRepetido(formulario).then(res=>res.json()).then(respuesta=>{     
+      if(respuesta.respuesta.length>0){
+        this.flagRut= true;
+      }else{
+         this.flagRut= false;
+      }
+      console.log(respuesta)
+ })
+}
+
   loading(duracion:any){
    return this.loadingCtrl.create({
       message: 'Cargando...',
@@ -307,6 +358,7 @@ validarCorreo(correo: string): boolean {
 //Rut
 validarRut(rut: string): boolean {
   // Expresión regular que verifica que el RUT tenga exactamente 8 dígitos
+  return true;
   const regex = /^\d{8}$/;
   return regex.test(rut);
 }

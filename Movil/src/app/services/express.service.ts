@@ -24,5 +24,21 @@ export class ExpressService {
       body:codigo
     })
   }
+   
+
+  //validar repetición de correo
+  correoRepetido(correo:any){ 
+     return fetch(this.apiUrl+"/validaciones/validarCorreo",{
+      method:"POST",
+      body:correo
+     })
+  } 
   
+  rutRepetido(run:any){ 
+    return fetch(this.apiUrl+"/validaciones/rutRepetido",{
+     method:"POST",
+     body:run
+    })
+ } 
+ 
 }
