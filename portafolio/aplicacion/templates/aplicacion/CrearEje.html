@@ -110,8 +110,35 @@
                     <div class="col-md-2 col-sm-2"></div>
                   </div>
 
+
+                  <div class="row" style="margin-top: -60px;">
+                    <div class="col">
+                      <div class="grupo">
+                        <label>Músculos</label>
+                        <select class="form-control" name="RolMusc" id="RolMusc">
+
+                        {% for m in Musculos %}
+                            <option value="{{ m.musculo }}" selected>{{ m.musculo }}</option>
+                        {% endfor %}
+
+                      </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="grupo">
+                        <label>Máquina</label>
+                        <select class="form-control" name="RolMaq" id="RolMaq">
+
+                        {% for m in Maquinas %}
+                          <option value="{{ m.maquina }}" selected>{{ m.maquina }}</option>
+                        {% endfor %}
+
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="row">
-                    
                     <div class="col-md-6 col-sm-6">
                       <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione la miniatura</h3>
                       <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoE" name="fotoE" required/></p>
@@ -120,7 +147,25 @@
                       <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione un video del ejercicio</h3>
                       <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoE" name="videoE" accept=".mp4" required /></p>
                     </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4 col-sm-4">
+                      <div id="portada" >
+
+                      </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5 col-sm-5">
+                      <div id="uwu" >
+
+                      </div>
+                    </div>
+                    
                   </div><br>
+
+                  
 
                   <div class="row">
                     <div class="col-md-4"></div>

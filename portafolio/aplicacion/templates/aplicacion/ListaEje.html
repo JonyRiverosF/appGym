@@ -105,17 +105,17 @@
             <th>Ejercicios</th>
             <TH>Botones</TH>
           </tr>
-          {% for e in ModificarE %}
+          {% for e in listaEje %}
           <tr>
             <td>
               
-              <img src="{{ '' }}" alt="No foto" style="width: 15%;height: 15%;"><BR>
-                <h5 >{{ '' }}</h5>
+              <img src="{{ e.foto }}" alt="No foto" style="width: 15%;height: 15%;"><BR>
+                <h5 >{{ e.Titulo }}</h5>
             </td>
             <td>
               <p>
-                <br><a href="{% url 'ModificarEje' e.idE %}" class="btn btn-primary" >Modificar</a>
-                <a href="{% url 'eliminarEjercicio' e.idE %}" class="btn btn-danger">Eliminar</a>
+                <br><a href="{% url 'ModificarEjer' e.id %}" class="btn btn-primary" >Modificar</a>
+                <a href="" class="btn btn-danger">Eliminar</a>
               </p>
             </td>
           </tr>

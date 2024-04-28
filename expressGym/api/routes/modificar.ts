@@ -5,6 +5,7 @@ const upload = multer({ dest: 'public/videos/' })
 import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
+import EjerciciosModelo from './registro';
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
@@ -30,5 +31,18 @@ router.post("/modificarHorario",upload.any(),(req:Request,res:Response)=>{
     
    // console.log(req)
 })
+
+router.post("/buscarEjercicio/:id",upload.any(),(req:Request,res:Response)=>{
+
+    var id = req.params.id
+    console.log(id)
+    EjerciciosModelo.EjerciciosModelo.find({_id:id}).then(respuesta=>{
+        res.json({
+            respuesta
+        })
+    }).catch (e=>{
+        console.log(e)
+    })
+ })
 
 export default module.exports=router

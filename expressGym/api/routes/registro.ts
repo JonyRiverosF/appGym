@@ -63,6 +63,55 @@ var usuariosSchema = new mongoose.Schema({
 })
 var usuarioModelo = mongoose.model("Usuarios",usuariosSchema)
 
+var EjerciciosSchema = new mongoose.Schema({
+    Titulo:String,
+    video:String,
+    foto:String,
+    tipoMusculo:String,
+    tipoMaquina:String,
+})
+var EjerciciosModelo = mongoose.model("Ejercicios",EjerciciosSchema)
+
+router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
+
+    if(req.files){
+        for(let archivo of req.files){
+            if(archivo.mimetype == "image/jpg" || archivo.mimetype == "image/jpeg" || archivo.mimetype == "image/png"){
+            var portada = archivo.filename;
+            fs.rename(directoryPath + archivo.filename , "./public/imagenes/MiniaturaEjercicios/" + archivo.filename + '.jpg', function(err) {
+                if ( err ) console.log('ERROR: ' + err);
+                })
+            }else{
+            var videosE = archivo.filename ;
+            }
+        }
+    }
+    var insertado={info:"", video:""}
+
+        insertado.info = req.body;
+        insertado.video = req.files;
+
+    EjerciciosModelo.create({
+        Titulo:req.body.Titulo,
+        video:videosE + '.mp4',
+        foto:portada + '.jpg',
+        tipoMusculo:req.body.tipoMusculo,
+        tipoMaquina:req.body.tipoMaquina,
+        
+    }).then(resultado=>{
+        console.log("Insertado !!!!");
+        console.log(resultado)
+    }).catch(error=>{
+        console.log("algo salió mal");
+        console.log(error)
+    })
+    res.status(201).json({
+        message: "Estoy en nyajs post",
+        creaste: insertado
+    })
+    
+});
+
 router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Response)=>{
     try{
         var contador=0;var codigo = "";
@@ -194,6 +243,7 @@ router.post("/login",upload.any(),(req:Request,res:Response)=>{
 
 export default module.exports={
     registroUser:router,
-    usuarioModelo:usuarioModelo
+    usuarioModelo:usuarioModelo,
+    EjerciciosModelo:EjerciciosModelo,
 } 
 //export default exports.usuariomodelo=usuarioModelo

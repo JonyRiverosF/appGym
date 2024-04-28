@@ -24,7 +24,7 @@ urlpatterns =[
 
     path("CrearEjer",CrearEjer,name="CrearEjer"),
     path("ListaEje",ListaEje,name="ListaEje"),
-    path("ModificarEjer",ModificarEjer,name="ModificarEjer"),
+    path("ModificarEjer/<id>",ModificarEjer,name="ModificarEjer"),
 
     path("CrearDie",CrearDie,name="CrearDie"),
     path("ListaDie",ListaDie,name="ListaDie"),

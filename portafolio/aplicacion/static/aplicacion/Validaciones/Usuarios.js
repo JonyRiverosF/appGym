@@ -28,7 +28,7 @@ $(document).ready(function(){
 
     function rutRepetido(rut) {
         var formulario = new FormData();
-        formulario.append("rut", rut);
+        formulario.append("rut", String(rut));
 
         return fetch(apiUrl + "/validaciones/rutRepetido", {
             method: "POST",
@@ -45,7 +45,8 @@ $(document).ready(function(){
 
 
     //Registrar Usuarios
-    $("#FormUsuarios").submit(function(e){
+    $("#FormUsuarios").submit(async function(e){
+        e.preventDefault();
 
         var nombreU = $("#nombre").val();
         var apellidoU = $("#apellido").val();
@@ -56,6 +57,7 @@ $(document).ready(function(){
         var observacionesU = $("#observacionesU").val();
         var horarioU = $("#horarioU").val();
          
+        console.log(document.querySelector('input[name="ficha"]:checked').value)
 
         let msjMostrar = "";
         let enviar = false;
@@ -176,19 +178,21 @@ $(document).ready(function(){
 
           if(enviar){
             $("#mensaje_RegistrarUsuarios").html(msjMostrar);
-            e.preventDefault();
+            
         } else {
 
-            correoRepetido(Correo).then(() => {
+            await correoRepetido (Correo)
                 console.log("Correo repetido verificado. flagCorreo:", flagCorreo);
+                
                 if (!flagCorreo) {
-                    rutRepetido(Rut).then(() => {
+                    await rutRepetido(Rut)
                         console.log("Rut repetido verificado. flagRut:", flagRut);
+                        
                         if (!flagRut) {
                             var formulario = new FormData();
                             formulario.append("nombre", nombreU);
                             formulario.append("apellido", apellidoU);
-                            formulario.append("rut", Rut);
+                            formulario.append("rut",String (Rut));
                             formulario.append("dv", DV);
                             formulario.append("telefono", Telefono);
                             formulario.append("correo", Correo);
@@ -207,34 +211,34 @@ $(document).ready(function(){
             
                             formulario.append("rol", 1);
                             formulario.append("imagen", "");
+
                             fetch(apiUrl + "/creacion/registroUsuario", {
                                 method: "POST",
                                 body: formulario
                             }).then(res => {
                                 console.log(res);
                                 msjMostrar += "Usuario Registrado Correctamente.";
+                                
                             });
             
                             $("#mensaje_RegistrarUsuarios").html("-Usuario Registrado Correctamente.");
+                            $("#nombre")[0].value=""; $("#apellido")[0].value=""; $("#rut")[0].value=undefined; 
+                            $("#dv")[0].value=""; $("#telefono")[0].value=undefined; $("#correo")[0].value="";
+                            $("#fichaU")[0].value="";$("#observacionesU")[0].value="";
+                            document.getElementById("fichaSi").checked=false; document.getElementById("fichaNo").checked=false;
+                            document.getElementById("fichaMedicaSi").style.display="none";
+                            document.getElementById("fichaMedicaNo").style.display="none";
+                            
                         } else {
                             $("#mensaje_RegistrarUsuarios").html("<br>-El rut ingresado ya está registrado.");
+                            
                         }
-                    }).catch(error => {
-                        console.error("Error al verificar rut repetido:", error);
-                        $("#mensaje_RegistrarUsuarios").html("<br>-Error al verificar rut repetido.");
-                    });
-                } else {
-                    $("#mensaje_RegistrarUsuarios").html("<br>-El correo ingresado ya está registrado.");
+                    } else {
+                         $("#mensaje_RegistrarUsuarios").html("<br>-El correo ingresado ya está registrado.");
+                         
+                    }
+                    
                 }
-            }).catch(error => {
-                console.error("Error al verificar correo repetido:", error);
-                $("#mensaje_RegistrarUsuarios").html("<br>-Error al verificar correo repetido.");
-
-
-    
-            });
-        }
-        
         });
         
         

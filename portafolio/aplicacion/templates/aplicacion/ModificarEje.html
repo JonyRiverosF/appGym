@@ -95,45 +95,22 @@
                   <h1 class=" letraLo" style="text-align: center;">Modificar Ejercicios</h1><br>
                   <div class="form"></div>
 
+
                 <div class="row">
                   <div class="col">
                     <div class="grupo">
                     <label>ID Ejercicio</label>
-                    <input readonly value="{{ '' }}" type="number" class="form-control" id="idE" name="idE">
+                    <input readonly value="{{ modificarE.id }}" type="text" class="form-control" id="idE" name="idE">
                       </div>
                   </div>
 
                   <div class="col">
                     <div class="grupo">
                       <label>Nombre del Ejercicio</label>
-                      <input type="text" name="nombreE" id="nombreE" value="{{nombreE}}"><span class="barra" ></span>
+                      <input type="text" name="nombreE" id="nombreE" value="{{modificarE.Titulo}}"><span class="barra" ></span>
                     </div>
                   </div>
                 </div>
-                  
-                <!--{% if Ejercicios.foto != '' %}
-                  <div class="row">
-                  <div class="col-md-4"></div>
-                  <div class="col-md-4">
-                    
-                    <div class="grupo">
-                      <label for="" ><h5 style="color: #000000;">Foto del ejercicio actual</h5></label><br>
-                      <img src="{{ usuarios.imagen.url }}"  alt="Avatar" style="width:150px;height:150px;">
-                    </div>
-                  {% endif %}
-                  </div>
-                  <div class="col-md-4"></div>
-                </div>-->
-
-                    <!--
-                {% if Ejercicios.video != '' %}
-                  <div class="grupo">
-                    <label for="" ><h5 style="color: #000000;">Video del Ejercicio actual</h5></label><br>
-                    <div class="embed-responsive embed-responsive-16by9">
-                      <video class="embed-responsive-item" src="{{ '' }}" alt="Avatar" controls></video>
-                    </div>
-                  </div>
-                {% endif %}-->
 
                 <div class="row">
                   <div class="col">
@@ -147,6 +124,31 @@
                   </div>
                 </div><br>
   
+                
+
+                
+                  <div class="row">
+                  <div class="col-md-6">
+                    {% if Ejercicios.foto != '' %}
+                    <div class="grupo" style="text-align: center;">
+                      <label for="" ><h5 style="color: #000000;">Foto del ejercicio actual</h5></label><br>
+                      <img src="{{ modificarE.foto }}"  alt="Avatar" style="width:150px;height:150px;">
+                    
+                  {% endif %}
+                </div>
+                  </div>
+                  <div class="col-md-6">
+                {% if Ejercicios.video != '' %}
+                    <div class="grupo">
+                      <label for="" ><h5 style="color: #000000;">Video del Ejercicio actual</h5></label><br>
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <video class="embed-responsive-item" src="{{ modificarE.video }}" alt="Avatar" controls></video>
+                      </div>
+                    </div>
+                  {% endif %}
+                  </div>
+                </div>
+
                 <div class="row">
                   <div class="col-md-4"></div>
                     <div class="col-md-4">

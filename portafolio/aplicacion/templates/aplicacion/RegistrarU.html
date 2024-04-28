@@ -13,6 +13,8 @@
 <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
 
 <style>
+  
+
   /* Estilos para los botones de radio personalizados */
   .custom-radio-container {
       text-align: center;
@@ -172,7 +174,7 @@
                         </div>
                         <div class="col">
                           <div class="grupo">
-                              <input type="text" name="telefono" id="telefono" placeholder="Ej:9 6842 6213"><span class="barra"></span>
+                              <input type="number" name="telefono" id="telefono" placeholder="Ej:9 6842 6213"><span class="barra"></span>
                               <label for=""><h5>Teléfono</h5></label>
                           </div>
                       </div>
@@ -188,7 +190,7 @@
                       <div class="grupo" style="text-align: center;">
                           <label>¿Tienen Ficha Médica?</label>
                           <div class="custom-radio-container">
-                              <input type="radio" id="fichaSi" name="ficha" value="si" onclick="mostrarFicha()">
+                              <input type="radio" id="fichaSi" name="ficha" value="si"  onclick="mostrarFicha()">
                               <label for="fichaSi" class="custom-radio">Si</label>
                               
                               <input type="radio" id="fichaNo" name="ficha" value="no" onclick="ocultarFicha()">
@@ -221,7 +223,7 @@
                       </div>
                   </div><br>
                   
-                  <div id="fichaMedicaNo" style="display:none;">
+                  <div id="fichaMedicaNo" style="display:none;margin-top: -100px;">
                       <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
@@ -272,13 +274,16 @@
   <script>
     function mostrarFicha() {
         document.getElementById("fichaMedicaSi").style.display = "block";
-        document.getElementById("fichaMedicaNo").style.display = "none";
+        document.getElementById("fichaMedicaNo").style.display = "none"; 
     }
+
 
     function ocultarFicha() {
         document.getElementById("fichaMedicaSi").style.display = "none";
         document.getElementById("fichaMedicaNo").style.display = "block";
     }
+
+    
   </script>
 
 
