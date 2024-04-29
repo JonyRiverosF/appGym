@@ -1,37 +1,53 @@
 from django.contrib import admin
 from django.urls import path
-from .views import pantalla,login,formSesion,OlvidasteContra,   Solicitudes,Informes,Reportes,VistaComentarios,  Registro,ListaUsu,ModificarU,   CrearEjer,ListaEje,ModificarEjer,   CrearDie,ListaDie,ModificarDie,  CrearNot,ListaNot,ModificarNot
+from .views import pantalla,login,formSesion,OlvidasteContra,   ListaCategorias,CrearMusculos,CrearMaquinas,CrearTiposDietas, Solicitudes,Informes,Reportes,VistaComentarios,  Registro,ListaUsu,ModificarU,   CrearEjer,ListaEje,ModificarEjer,   CrearDie,ListaDie,ModificarDie,  CrearNot,ListaNot,ModificarNot
 
 urlpatterns =[
 
-    path("",login,name="login"),
-    path("formSesion",formSesion,name="formSesion"),
-
+    #Pantalla Principal
     path("pantalla",pantalla,name="pantalla"),
-    path("OlvidasteContra",OlvidasteContra,name="OlvidasteContra"),
-    
+
+
+    #Informes y Comentarios
     path("Solicitudes",Solicitudes,name="Solicitudes"),
     path("Informes",Informes,name="Informes"),
     path("Reportes",Reportes,name="Reportes"),
     path("VistaComentarios",VistaComentarios,name="VistaComentarios"),
 
+
+    #Usuario
+    path("",login,name="login"),
     path("Registro",Registro,name="Registro"),
-    
-
     path("ListaUsu",ListaUsu,name="ListaUsu"),
-
     path("ModificarU/<id>",ModificarU,name="ModificarU"),
+    path("OlvidasteContra",OlvidasteContra,name="OlvidasteContra"),
 
+
+    #Ejercicios
     path("CrearEjer",CrearEjer,name="CrearEjer"),
     path("ListaEje",ListaEje,name="ListaEje"),
     path("ModificarEjer/<id>",ModificarEjer,name="ModificarEjer"),
 
+
+    #Dietas
     path("CrearDie",CrearDie,name="CrearDie"),
     path("ListaDie",ListaDie,name="ListaDie"),
-    path("ModificarDie",ModificarDie,name="ModificarDie"),
+    path("ModificarDie/<id>",ModificarDie,name="ModificarDie"),
 
+
+    #Noticias
     path("CrearNot",CrearNot,name="CrearNot"),
     path("ListaNot",ListaNot,name="ListaNot"),
-    path("ModificarNot",ModificarNot,name="ModificarNot"),
+    path("ModificarNot/<id>",ModificarNot,name="ModificarNot"),
+
+
+    #Categorias
+    path("CrearMusculos",CrearMusculos,name="CrearMusculos"),
+    path("CrearMaquinas",CrearMaquinas,name="CrearMaquinas"),
+    path("CrearTiposDietas",CrearTiposDietas,name="CrearTiposDietas"),
+    path("ListaCategorias",ListaCategorias,name="ListaCategorias"),
+
+    #Forms
+    path("formSesion",formSesion,name="formSesion"),
 
     ]

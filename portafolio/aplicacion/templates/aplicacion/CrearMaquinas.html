@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Maquinas</title>
+
+<!--JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
+
+</head>
+<body style="background: rgb(27, 90, 122);">
+
+  <div><nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a href="{% url 'pantalla' %}" ><h3>DeportesColina</h3></a>
+<a class="navbar-brand" href="{% url 'Solicitudes' %}"  style="margin-left: 25px;" >Solicitudes</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active">
+          <a class="nav-link" href="{% url 'Informes' %}">Informes<span
+                  class="sr-only">(current)</span></a>
+      </li>
+
+      
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Usuarios
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'Registro' %}" >Crear Usuarios</a>
+          <a class="dropdown-item " href="{% url 'ListaUsu' %}">Modificar Usuarios</a>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Ejercicios
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearEjer' %}" >Crear Ejercicios</a>
+          <a class="dropdown-item " href="{% url 'ListaEje' %}">Modificar Ejercicios</a>
+          
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Categorías
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearMusculos' %}" >Crear Músculos</a>
+          <a class="dropdown-item " href="{% url 'CrearMaquinas' %}">Crear Maquinas</a>
+          <a class="dropdown-item " href="{% url 'CrearTiposDietas' %}">Crear Tipo Dietas</a>
+          <a class="dropdown-item " href="{% url 'ListaCategorias' %}">Eliminar Categorías</a>
+          
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dietas
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearDie' %}" >Crear Dietas</a>
+          <a class="dropdown-item " href="{% url 'ListaDie' %}">Modificar Dietas</a>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Noticias
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearNot' %}" >Crear Noticias</a>
+          <a class="dropdown-item " href="{% url 'ListaNot' %}">Modificar Noticias</a>
+      </div>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'login' %}">Cerrar Sesión<span
+                class="sr-only">(current)</span></a>
+    </li>
+    
+  </ul>
+  
+</nav>
+</div>
+<br>
+
+
+
+    <div class="container" class="fondo">
+      <div class="container">
+        <div class="container">
+          <div class="container">
+            <div class="container">
+          
+      <div class="row" style="margin-top: 20px;">
+          <div class="col-md-12 col-sm-12">
+              
+              <form action="" method="POST" id="FormMaquinas" name="FormMaquinas" class="fondoform" enctype="multipart/form-data">
+                {% csrf_token %}
+                  <h1 class=" letraLo" style="text-align: center;">Crear Maquinas</h1><br>
+                  <div class="form"></div>
+
+                  <div class="row" style="margin-top: -30px;">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                      <div class="grupo">
+                        <input type="text" name="nombreMaqui" id="nombreMaqui" value="{{nombreMaqui}}"><span class="barra" style="color:red" ></span>
+                        <label for=""><h5>Nombre Maquina</h5></label>
+                      </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                  </div>
+
+                  
+                  <div class="row">
+                    <div class="col-md-2 col-sm-2"></div>
+                    <div class="col-md-8 col-sm-8">
+                      <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione imagen de la maquina</h3>
+                      <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoMaqui" name="fotoMaqui" required/></p>
+                      <br>
+                    </div>
+                    <div class="col-md-2 col-sm-2"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                      <div id="maquinaF" >
+
+                      </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                  </div><br>
+
+                
+                <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                    <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
+                
+                  <p class="warnings" id="mensaje_CrearMaquina"></p>
+                    <p class="warnings " id="mensaje"></p>
+              </form>
+          </div>
+        </div>
+        <br><br>
+  </div></div></div></div></div>
+
+   
+
+
+
+
+
+
+
+
+
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="/static/aplicacion/Validaciones/Ejercicios.js"></script>
+</body>
+</html>

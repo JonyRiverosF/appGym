@@ -6,7 +6,7 @@ $(document).ready(function(){
     $("#fotoE").change(function(e){
         foto = e.target.files[0]
         var preview = URL.createObjectURL(foto) 
-        $("#portada").html("<img src="+preview+" style='width:200px;height:200px;' >")
+        $("#portada").html("<p style='text-align: center;'><img src="+preview+" style='width:200px;height:200px;' ></p>")
         console.log(foto)
     });
 
@@ -61,6 +61,172 @@ $(document).ready(function(){
             $("#mensaje_CrearEjercicio").html("-Ejercicio Creado Correctamente.");
         }
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#fotoMusc").change(function(e){
+        fotoM = e.target.files[0]
+        var preview = URL.createObjectURL(fotoM) 
+        $("#musculoF").html("<p style='text-align: center;'><img src="+preview+" style='width:200px; height:200px;' ></p>")
+        console.log(fotoM)
+    });
+
+
+    //Creacion de los musculos
+    $("#FormMusculos").submit(function(e){
+        var nombreMusculo = $("#nombreMusc").val();
+
+        let msjMostrar = "";
+        let enviar = false;
+
+        // Validar Nombre Dieta
+        if(nombreMusculo.trim() == ""){
+            msjMostrar += "<br>-El nombre de la dieta no puede estar vacío.";
+            enviar = true;
+        }
+
+        if (/\d/.test(nombreMusculo)){
+            msjMostrar += "<br>-Nombre de dieta inválido, no puede contener números.";
+            enviar = true;
+        }
+
+        if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreMusculo)){
+            msjMostrar += "<br>-Nombre inválido, no debe contener caracteres especiales.";
+            enviar = true;
+        }
+
+        if(enviar){
+            $("#mensaje_CrearMusculo").html(msjMostrar);
+            e.preventDefault();
+        }
+        else{
+
+            var formulario = new FormData();
+                formulario.append("nombre", nombreMusculo);
+                formulario.append("foto", fotoM);
+
+            fetch(apiUrl + "/creacion/CrearMusculo", {
+                method: "POST",
+                body: formulario
+            }).then(res => {
+                console.log(res);
+                msjMostrar += "Musculo Registrado Correctamente."   
+            });
+            $("#mensaje_CrearMusculo").html("-Dieta Creada Correctamente.");
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#fotoMaqui").change(function(e){
+        fotoMa = e.target.files[0]
+        var preview = URL.createObjectURL(fotoMa) 
+        $("#maquinaF").html("<p style='text-align: center;'><img src="+preview+" style='width:200px;height:200px;' ></p>")
+        console.log(fotoMa)
+    });
+
+
+        //Creacion de las maquinas
+    $("#FormMaquinas").submit(function(e){
+        var nombreMaquina = $("#nombreMaqui").val();
+
+        let msjMostrar = "";
+        let enviar = false;
+
+        // Validar Nombre Dieta
+        if(nombreMaquina.trim() == ""){
+            msjMostrar += "<br>-El nombre de la dieta no puede estar vacío.";
+            enviar = true;
+        }
+
+        if (/\d/.test(nombreMaquina)){
+            msjMostrar += "<br>-Nombre de dieta inválido, no puede contener números.";
+            enviar = true;
+        }
+
+        if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreMaquina)){
+            msjMostrar += "<br>-Nombre inválido, no debe contener caracteres especiales.";
+            enviar = true;
+        }
+
+        if(enviar){
+            $("#mensaje_CrearMaquina").html(msjMostrar);
+            e.preventDefault();
+        }
+        else{
+
+
+            var formulario = new FormData();
+                formulario.append("nombre", nombreMaquina);
+                formulario.append("foto", fotoMa);
+
+            fetch(apiUrl + "/creacion/CrearMaquina", {
+                method: "POST",
+                body: formulario
+            }).then(res => {
+                console.log(res);
+                msjMostrar += "Maquina Registrado Correctamente."   
+            });
+            $("#mensaje_CrearMaquina").html("-Maquina Creada Correctamente.");
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

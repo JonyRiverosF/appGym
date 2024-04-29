@@ -52,6 +52,19 @@
               
           </div>
           </li>
+
+          <li class="nav-item dropdown active ">
+            <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categorías
+            </a>
+            <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+              <a class="dropdown-item " href="{% url 'CrearMusculos' %}" >Crear Musculos</a>
+              <a class="dropdown-item " href="{% url 'CrearMaquinas' %}">Crear Maquinas</a>
+              <a class="dropdown-item " href="{% url 'CrearTiposDietas' %}">Crear Tipo Dietas</a>
+              <a class="dropdown-item " href="{% url 'ListaCategorias' %}">Eliminar Categorías</a>
+              
+          </div>
+          </li>
     
           <li class="nav-item dropdown active ">
             <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -117,20 +130,6 @@
                   </div>
                 </div>
 
-                  
-                <div class="row" style="margin-top: -10px;">
-                  <div class="col-md-6 col-sm-6">
-                    <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione foto de la noticia</h3>
-                    <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoN" name="fotoN" required/></p>
-                  </div>
-                  
-                  <div class="col-md-6 col-sm-6">
-                    <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione video de la noticia</h3>
-                    <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoN" name="videoN" accept=".mp4" required /></p>
-                  </div>
-                </div>
-                
-
             <div class="grupo" style="text-align: center;margin-top: -2px;">
               <label for="descN"><h3>Descripción de la Noticia</h3></label><br>
               <p style="margin-left: 12%;margin-right: 12%;"><textarea class="textarea" style="background-color: rgb(97, 97, 97);color: rgb(255, 255, 255);" rows="6" cols="50" 
@@ -138,6 +137,33 @@
                  <span class="barra"></span>
             </div>
 
+            <div class="row" style="margin-top: -10px;">
+              <div class="col-md-6 col-sm-6">
+                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione foto de la noticia</h3>
+                <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoN" name="fotoN" required/></p>
+              </div>
+              
+              <div class="col-md-6 col-sm-6">
+                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione video de la noticia</h3>
+                <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoN" name="videoN" accept=".mp4" required /></p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-1 col-sm-2"></div>
+              <div class="col-md-4 col-sm-5">
+                <div id="ftN" >
+
+                </div>
+              </div>
+              <div class="col-md-2 "></div>
+              <div class="col-md-5 col-sm-5">
+                <div id="vdN" >
+
+                </div>
+              </div>
+              
+            </div><br>
                   
             <div class="row">
               <div class="col-md-4"></div>

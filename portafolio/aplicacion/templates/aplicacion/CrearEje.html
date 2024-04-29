@@ -55,6 +55,19 @@
 
       <li class="nav-item dropdown active ">
         <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Categorías
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearMusculos' %}" >Crear Musculos</a>
+          <a class="dropdown-item " href="{% url 'CrearMaquinas' %}">Crear Maquinas</a>
+          <a class="dropdown-item " href="{% url 'CrearTiposDietas' %}">Crear Tipo Dietas</a>
+          <a class="dropdown-item " href="{% url 'ListaCategorias' %}">Eliminar Categorías</a>
+          
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dietas
         </a>
         <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
@@ -116,9 +129,9 @@
                       <div class="grupo">
                         <label>Músculos</label>
                         <select class="form-control" name="RolMusc" id="RolMusc">
-
+                          <option value="Seleccione algun Músculo" selected >Seleccione algun Músculo</option>
                         {% for m in Musculos %}
-                            <option value="{{ m.musculo }}" selected>{{ m.musculo }}</option>
+                            <option value="{{ m.nombre }}" >{{ m.nombre }}</option>
                         {% endfor %}
 
                       </select>
@@ -128,9 +141,9 @@
                       <div class="grupo">
                         <label>Máquina</label>
                         <select class="form-control" name="RolMaq" id="RolMaq">
-
+                          <option value="Seleccione alguna Maquina" selected >Seleccione alguna Maquina</option>
                         {% for m in Maquinas %}
-                          <option value="{{ m.maquina }}" selected>{{ m.maquina }}</option>
+                          <option value="{{ m.nombre }}" >{{ m.nombre }}</option>
                         {% endfor %}
 
                         </select>
@@ -150,13 +163,13 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-4 col-sm-4">
+                    <div class="col-md-1 col-sm-2"></div>
+                    <div class="col-md-4 col-sm-5">
                       <div id="portada" >
 
                       </div>
                     </div>
-                    <div class="col-md-1"></div>
+                    <div class="col-md-2 "></div>
                     <div class="col-md-5 col-sm-5">
                       <div id="uwu" >
 

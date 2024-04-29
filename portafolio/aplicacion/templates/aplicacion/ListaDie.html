@@ -52,6 +52,19 @@
 
       <li class="nav-item dropdown active ">
         <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Categorías
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearMusculos' %}" >Crear Musculos</a>
+          <a class="dropdown-item " href="{% url 'CrearMaquinas' %}">Crear Maquinas</a>
+          <a class="dropdown-item " href="{% url 'CrearTiposDietas' %}">Crear Tipo Dietas</a>
+          <a class="dropdown-item " href="{% url 'ListaCategorias' %}">Eliminar Categorías</a>
+          
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dietas
         </a>
         <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
@@ -105,17 +118,17 @@
             <th>Dietas</th>
             <TH>Botones</TH>
           </tr>
-          {% for d in ModificarD %}
+          {% for d in listaN %}
           <tr>
             <td>
               
-              <img src="{{ '' }}" alt="No foto" style="width: 15%;height: 15%;"><BR>
-                <h5 >{{ '' }}</h5>
+              <img src="{{ d.foto }}" alt="No foto" style="width: 15%;height: 15%;"><BR>
+                <h5 >{{ d.nombre }}</h5>
             </td>
             <td>
               <p>
-                <br><a href="{% url 'ModificarDie' d.idD %}" class="btn btn-primary" >Modificar</a>
-                <a href="{% url 'eliminarDieta' d.idD %}" class="btn btn-danger">Eliminar</a>
+                <br><a href="{% url 'ModificarDie' d.id %}" class="btn btn-primary" >Modificar</a>
+                <a href="" class="btn btn-danger">Eliminar</a>
               </p>
             </td>
           </tr>

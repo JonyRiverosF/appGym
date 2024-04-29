@@ -9,19 +9,33 @@ from django.contrib.auth.decorators import login_required
 
 mongo=""
 dataBase=""
+
 usuarios=""
+
 musculos=""
 maquinas=""
 ejercicios=""
+
+tipoDietas=""
+dietas=""
+
+noticia=""
 
 apiUrl = "http://192.168.1.2:3000";
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 dataBase = mongo["colinaGym"]
 usuarios = dataBase["usuarios"]
+
+ejercicios = dataBase["ejercicios"]
 musculos = dataBase["musculos"]
 maquinas = dataBase["maquinas"]
-ejercicios = dataBase["ejercicios"]
+
+tipoDietas = dataBase["tipodietas"]
+dietas = dataBase["dietas"]
+
+noticia = dataBase["noticia"]
+
 
 print("Connected to the MongoDB database!")
 
@@ -73,14 +87,11 @@ def VistaComentarios(request):
 
 
 
+
+
+
 def Registro(request):
     return render(request,"aplicacion/RegistrarU.html")
-
-
-
-    
-        
-
 
 def ListaUsu(request):
 
@@ -160,13 +171,55 @@ def ModificarEjer(request, id):
 
 
 def CrearDie(request):
-    return render(request,"aplicacion/CrearDie.html")
+
+    tipoDieta = tipoDietas.find({})
+
+    contexto = {
+        "Tipos":tipoDieta
+    }
+
+    return render(request,"aplicacion/CrearDie.html",contexto)
 
 def ListaDie(request):
-    return render(request,"aplicacion/ListaDie.html")
 
-def ModificarDie(request):
-    return render(request,"aplicacion/ModificarDie.html")
+    listaD = dietas.find({})
+
+    uwu=[]
+
+    for x in listaD:
+        x["foto"] = apiUrl+'/creacion/imagenes/Dietas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+        
+    print(uwu)
+    contexto = {
+        "listaD": uwu
+    }
+
+    return render(request,"aplicacion/ListaDie.html",contexto)
+
+def ModificarDie(request, id):
+
+    
+    tipoDieta = tipoDietas.find({})
+
+    response = requests.post("http://192.168.1.2:3000/modificar/buscarDietas/" + id) 
+
+    owo= response.json()
+    
+    print(owo["respuesta"][0])
+
+    owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
+    owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/MiniaturaEjercicios/'+ owo["respuesta"][0]["foto"]
+    owo["respuesta"][0]["video"] =  apiUrl+'/creacion/videos/'+ owo["respuesta"][0]["video"]
+
+    print(owo)
+    contexto = {
+        "modificarD": owo["respuesta"][0],
+        "Tipos":tipoDieta
+    }
+
+    return render(request,"aplicacion/ModificarDie.html",contexto)
 
 
 
@@ -175,10 +228,86 @@ def CrearNot(request):
     return render(request,"aplicacion/CrearNot.html")
 
 def ListaNot(request):
-    return render(request,"aplicacion/ListaNot.html")
 
-def ModificarNot(request):
-    return render(request,"aplicacion/ModificarNot.html")
+    listaN = noticia.find({})
+
+    uwu=[]
+
+    for x in listaN:
+        x["foto"] = apiUrl+'/creacion/imagenes/FotosNoticia/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+        
+    print(uwu)
+    contexto = {
+        "listaN": uwu
+    }
+
+    return render(request,"aplicacion/ListaNot.html",contexto)
+
+def ModificarNot(request, id):
+
+    response = requests.post("http://192.168.1.2:3000/modificar/buscarNoticia/" + id) 
+
+    owo= response.json()
+    
+    print(owo["respuesta"][0])
+
+    owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
+    owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/FotosNoticia/'+ owo["respuesta"][0]["foto"]
+    owo["respuesta"][0]["video"] =  apiUrl+'/creacion/videos/'+ owo["respuesta"][0]["video"]
+
+    print(owo)
+    contexto = {
+        "modificarN": owo["respuesta"][0]
+    }
+
+    return render(request,"aplicacion/ModificarNot.html",contexto)
+
+
+
+def CrearMusculos(request):
+    return render(request,"aplicacion/CrearMusculos.html")
+
+def CrearMaquinas(request):
+    return render(request,"aplicacion/CrearMaquinas.html")
+
+def CrearTiposDietas(request):
+    return render(request,"aplicacion/CrearTiposDietas.html")
+
+def ListaCategorias(request):
+
+    Musculos = musculos.find({})
+    Maquinas = maquinas.find({})
+    tipodietas = tipoDietas.find({})
+
+    uwu=[]
+    owo=[]
+    hola=[]
+
+    for x in Musculos:
+        x["foto"] = apiUrl+'/creacion/imagenes/fotosMusculos/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+
+    for x in Maquinas:
+        x["foto"] = apiUrl+'/creacion/imagenes/fotoMaquinas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        owo.append(x)
+
+    for x in tipodietas:
+        x["foto"] = apiUrl+'/creacion/imagenes/TipoDietas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        hola.append(x)
+        
+    contexto = {
+        "Musculos": uwu,
+        "Maquinas": owo,
+        "tipoD": hola,
+    }
+
+    return render(request,"aplicacion/ListaCategorias.html",contexto)
+
 
 
 

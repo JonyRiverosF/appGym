@@ -6,6 +6,8 @@ import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
 import EjerciciosModelo from './registro';
+import NoticiaModelo from './registro';
+import DietasModelo from './registro';
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
@@ -14,6 +16,8 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
     console.log("Algo salió mal");
     console.log(err);
 })
+
+const directoryPath = "./public/videos/"
 
 var horariosElegidos = new mongoose.Schema({
     rutUsuario:String,
@@ -44,5 +48,40 @@ router.post("/buscarEjercicio/:id",upload.any(),(req:Request,res:Response)=>{
         console.log(e)
     })
  })
+
+ router.post("/buscarNoticia/:id",upload.any(),(req:Request,res:Response)=>{
+
+    var id = req.params.id
+    console.log(id)
+    NoticiaModelo.NoticiaModelo.find({_id:id}).then(respuesta=>{
+        res.json({
+            respuesta
+        })
+    }).catch (e=>{
+        console.log(e)
+    })
+ })
+
+ router.post("/buscarDietas/:id",upload.any(),(req:Request,res:Response)=>{
+
+    var id = req.params.id
+    console.log(id)
+    DietasModelo.DietasModelo.find({_id:id}).then(respuesta=>{
+        res.json({
+            respuesta
+        })
+    }).catch (e=>{
+        console.log(e)
+    })
+ })
+
+
+ 
+
+
+
+
+
+
 
 export default module.exports=router

@@ -250,63 +250,112 @@ $(document).ready(function(){
 
 
 
-    //Modificar Usuarios
-    $("#FormModiUsuarios").submit(function(e){
-        var nombreU = $("#nombre").val();
-        var apellidoU = $("#apellido").val();
-        var horarioU = $("#horarioU").val();
-
-        let msjMostrar = "";
-        let enviar = false;
-
-        // Validar Nombre Usuario
-        if(nombreU.trim() == ""){
-            msjMostrar += "<br>-El nombre del usuario no puede estar vacío.";
-            enviar = true;
-        }
-
-        if (/\d/.test(nombreU)){
-            msjMostrar += "<br>-Nombre del usuario inválido, no puede contener números.";
-            enviar = true;
-        }
-
-        if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreU)){
-            msjMostrar += "<br>-Nombre del usuario inválido, no debe contener caracteres especiales.";
-            enviar = true;
-        }
-
-        // Validar Apellido Usuario
-        if(apellidoU.trim() == ""){
-            msjMostrar += "<br>-El apellido del usuario no puede estar vacío.";
-            enviar = true;
-        }
-
-        if (/\d/.test(apellidoU)){
-            msjMostrar += "<br>-Apellido del usuario inválido, no puede contener números.";
-            enviar = true;
-        }
-
-        if (/[!@#$%^&*(),.?":{}|<>]/.test(apellidoU)){
-            msjMostrar += "<br>-Apellido del usuario inválido, no debe contener caracteres especiales.";
-            enviar = true;
-        }
-
-        // Validar Horario Del Usuario
-        if(horarioU.trim() == ""){
-            msjMostrar += "<br>-El horario del usuario no puede estar vacío.";
-            enviar = true;
-        }
-
-
-
-        if(enviar){
-            $("#mensaje_ModificarUsuarios").html(msjMostrar);
+        $("#FormModiUsuarios").submit(function(e){
             e.preventDefault();
-        }
-        else{
-            $("#mensaje_ModificarUsuarios").html("-Usuario Modificado Correctamente.");
-        }
-    });
+        
+            var idUsuario = $("#id").val();
+            var nombreU = $("#nombre").val();
+            var apellidoU = $("#apellido").val();
+            var telefonoU = $("#telefono").val();
+            var correoU = $("#correo").val();
+            var rolU = $("#RolU").val();
+        
+            let msjMostrar = "";
+            let enviar = false;
+        
+            // Validar Nombre Usuario
+            if(nombreU.trim() == ""){
+                msjMostrar += "<br>-El nombre del usuario no puede estar vacío.";
+                enviar = true;
+            }
+        
+            if (/\d/.test(nombreU)){
+                msjMostrar += "<br>-Nombre del usuario inválido, no puede contener números.";
+                enviar = true;
+            }
+        
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreU)){
+                msjMostrar += "<br>-Nombre del usuario inválido, no debe contener caracteres especiales.";
+                enviar = true;
+            }
+        
+            // Validar Apellido Usuario
+            if(apellidoU.trim() == ""){
+                msjMostrar += "<br>-El apellido del usuario no puede estar vacío.";
+                enviar = true;
+            }
+        
+            if (/\d/.test(apellidoU)){
+                msjMostrar += "<br>-Apellido del usuario inválido, no puede contener números.";
+                enviar = true;
+            }
+        
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(apellidoU)){
+                msjMostrar += "<br>-Apellido del usuario inválido, no debe contener caracteres especiales.";
+                enviar = true;
+            }
+        
+            //Validar Correo del usuario
+            if(correoU.trim() == ""){
+                msjMostrar += "<br>-El Correo del usuario no puede estar vacío.";
+                enviar = true;
+            }
+        
+            if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(correoU.trim())) {
+                msjMostrar += "<br>-El Correo del usuario no tiene un formato válido.";
+                enviar = true;
+            }
+        
+            //Validar Telefono del usuario
+            if(telefonoU.trim() == ""){
+                msjMostrar += "<br>-El Teléfono del usuario no puede estar vacío.";
+                enviar = true;
+            }
+        
+            if (!/^9\d{8}$/.test(telefonoU.trim())) {
+                msjMostrar += "<br>-El Teléfono del usuario debe contener exactamente 9 dígitos y empezar con 9.";
+                enviar = true;
+            }
+        
+            if(enviar){
+                $("#mensaje_ModificarUsuarios").html(msjMostrar);
+            } else {
+                fetch('/modificar/modificarUsuario/'+ idUsuario, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "nombre": nombreU,
+                        "apellido": apellidoU,
+                        "telefono": telefonoU,
+                        "correo": correoU,
+                        "rol": rolU
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al modificar el usuario');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    $("#mensaje_ModificarUsuarios").html("-Usuario Modificado Correctamente.");
+                    // Aquí podrías realizar otras acciones después de modificar al usuario, como actualizar la vista
+                })
+                .catch(error => {
+                    console.error(error);
+                    $("#mensaje_ModificarUsuarios").html("Error al modificar el usuario.");
+                });
+            }
+
+            
+        });
+
+
+
+
 
 
 
@@ -388,10 +437,10 @@ $(document).ready(function(){
             e.preventDefault();
         }
         else{
-            $("#mensaje_RecuperarContra").html("-Recuperación exitosa.");
-        }
-          
-
-    });
+                $("#mensaje_ModificarUsuarios").html("Error al modificar el usuario.");
+            }
+        });
+    
+    
 
 });

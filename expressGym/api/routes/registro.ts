@@ -112,6 +112,238 @@ router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
     
 });
 
+
+var NoticiaSchema = new mongoose.Schema({
+    tituloN:String,
+    bajadaN:String,
+    fechaC:String,
+    descN:String,
+    video:String,
+    foto:String,
+    
+})
+
+var NoticiaModelo = mongoose.model("noticia",NoticiaSchema)
+
+router.post("/CrearNoticia",upload.array("video"),(req:any,res:Response)=>{
+
+    if(req.files){
+        for(let archivo of req.files){
+            if(archivo.mimetype == "image/jpg" || archivo.mimetype == "image/jpeg" || archivo.mimetype == "image/png"){
+            var fotoN = archivo.filename;
+            fs.rename(directoryPath + archivo.filename , "./public/imagenes/FotosNoticia/" + archivo.filename + '.jpg', function(err) {
+                if ( err ) console.log('ERROR: ' + err);
+                })
+            }else{
+            var videoN = archivo.filename ;
+            }
+        }
+    }
+    var insertado={info:"", video:""}
+
+        insertado.info = req.body;
+        insertado.video = req.files;
+
+        NoticiaModelo.create({
+        tituloN:req.body.tituloN,
+        bajadaN:req.body.bajadaN,
+        fechaC:req.body.fechaC,
+        descN:req.body.descN,
+        video:videoN + '.mp4',
+        foto:fotoN + '.jpg',
+        
+        
+    }).then(resultado=>{
+        console.log("Insertado !!!!");
+        console.log(resultado)
+    }).catch(error=>{
+        console.log("algo salió mal");
+        console.log(error)
+    })
+    res.status(201).json({
+        message: "Estoy en nyajs post",
+        creaste: insertado
+    })
+    
+});
+
+var musculosSchema = new mongoose.Schema({
+    nombre: String,
+    foto: String
+});
+
+var MusculoModelo = mongoose.model("Musculos", musculosSchema);
+
+router.post("/CrearMusculo", upload.single("foto"), (req: any, res: Response) => {
+
+    if (!req.file || !req.file.mimetype.includes("image")) {
+        return res.status(400).json({ error: "Archivo inválido. Debe ser una imagen." });
+    }
+
+    var foto = req.file.filename;
+    fs.rename(directoryPath + req.file.filename, "./public/imagenes/fotosMusculos/" + req.file.filename + '.jpg', function(err) {
+        if (err) {
+            console.log('ERROR al renombrar archivo: ' + err);
+            return res.status(500).json({ error: "Error al procesar el archivo." });
+        }
+
+        var insertado = {
+            info: req.body
+        };
+
+        MusculoModelo.create({
+            nombre: req.body.nombre,
+            foto: foto + '.jpg'
+        }).then(resultado => {
+            console.log("Insertado !!!");
+            console.log(resultado);
+            res.status(201).json({
+                message: "Estoy en nyajs post",
+                creaste: insertado
+            });
+        }).catch(error => {
+            console.log("Algo salió mal al insertar:");
+            console.log(error);
+            res.status(500).json({ error: "Error al insertar en la base de datos." });
+        });
+    });
+});
+
+
+var tipoDietasSchema = new mongoose.Schema({
+    nombre: String,
+    foto: String
+});
+
+var TipoDietasModelo = mongoose.model("tipoDietas", tipoDietasSchema);
+
+router.post("/CrearTipoDietas", upload.single("foto"), (req: any, res: Response) => {
+
+    if (!req.file || !req.file.mimetype.includes("image")) {
+        return res.status(400).json({ error: "Archivo inválido. Debe ser una imagen." });
+    }
+
+    var foto = req.file.filename;
+    fs.rename(directoryPath + req.file.filename, "./public/imagenes/TipoDietas/" + req.file.filename + '.jpg', function(err) {
+        if (err) {
+            console.log('ERROR al renombrar archivo: ' + err);
+            return res.status(500).json({ error: "Error al procesar el archivo." });
+        }
+
+        var insertado = {
+            info: req.body
+        };
+
+        TipoDietasModelo.create({
+            nombre: req.body.nombre,
+            foto: foto + '.jpg'
+        }).then(resultado => {
+            console.log("Insertado !!!");
+            console.log(resultado);
+            res.status(201).json({
+                message: "Estoy en nyajs post",
+                creaste: insertado
+            });
+        }).catch(error => {
+            console.log("Algo salió mal al insertar:");
+            console.log(error);
+            res.status(500).json({ error: "Error al insertar en la base de datos." });
+        });
+    });
+});
+
+
+var MaquinasSchema = new mongoose.Schema({
+    nombre: String,
+    foto: String
+});
+
+var MaquinasModelo = mongoose.model("maquinas", MaquinasSchema);
+
+router.post("/CrearMaquina", upload.single("foto"), (req: any, res: Response) => {
+
+    if (!req.file || !req.file.mimetype.includes("image")) {
+        return res.status(400).json({ error: "Archivo inválido. Debe ser una imagen." });
+    }
+
+    var foto = req.file.filename;
+    fs.rename(directoryPath + req.file.filename, "./public/imagenes/fotoMaquinas/" + req.file.filename + '.jpg', function(err) {
+        if (err) {
+            console.log('ERROR al renombrar archivo: ' + err);
+            return res.status(500).json({ error: "Error al procesar el archivo." });
+        }
+
+        var insertado = {
+            info: req.body
+        };
+
+        MaquinasModelo.create({
+            nombre: req.body.nombre,
+            foto: foto + '.jpg'
+        }).then(resultado => {
+            console.log("Insertado !!!");
+            console.log(resultado);
+            res.status(201).json({
+                message: "Estoy en nyajs post",
+                creaste: insertado
+            });
+        }).catch(error => {
+            console.log("Algo salió mal al insertar:");
+            console.log(error);
+            res.status(500).json({ error: "Error al insertar en la base de datos." });
+        });
+    });
+});
+
+var DietasSchema = new mongoose.Schema({
+    nombre: String,
+    tipoD:String,
+    foto: String,
+    
+});
+
+var DietasModelo = mongoose.model("dietas", DietasSchema);
+
+router.post("/CrearDietas", upload.single("foto"), (req: any, res: Response) => {
+
+    if (!req.file || !req.file.mimetype.includes("image")) {
+        return res.status(400).json({ error: "Archivo inválido. Debe ser una imagen." });
+    }
+
+    var foto = req.file.filename;
+    fs.rename(directoryPath + req.file.filename, "./public/imagenes/Dietas/" + req.file.filename + '.jpg', function(err) {
+        if (err) {
+            console.log('ERROR al renombrar archivo: ' + err);
+            return res.status(500).json({ error: "Error al procesar el archivo." });
+        }
+
+        var insertado = {
+            info: req.body
+        };
+
+        DietasModelo.create({
+            nombre: req.body.nombre,
+            tipoD: req.body.tipoD,
+            foto: foto + '.jpg'
+            
+        }).then(resultado => {
+            console.log("Insertado !!!");
+            console.log(resultado);
+            res.status(201).json({
+                message: "Estoy en nyajs post",
+                creaste: insertado
+            });
+        }).catch(error => {
+            console.log("Algo salió mal al insertar:");
+            console.log(error);
+            res.status(500).json({ error: "Error al insertar en la base de datos." });
+        });
+    });
+});
+
+
+
+
 router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Response)=>{
     try{
         var contador=0;var codigo = "";
@@ -245,5 +477,7 @@ export default module.exports={
     registroUser:router,
     usuarioModelo:usuarioModelo,
     EjerciciosModelo:EjerciciosModelo,
+    NoticiaModelo:NoticiaModelo,
+    DietasModelo:DietasModelo,
 } 
 //export default exports.usuariomodelo=usuarioModelo

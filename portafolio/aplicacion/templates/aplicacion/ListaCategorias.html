@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias Registradas</title>
+
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
+
+</head>
+<body style="background: rgb(27, 90, 122);">
+
+  <div><nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a href="{% url 'pantalla' %}" ><h3>DeportesColina</h3></a>
+<a class="navbar-brand" href="{% url 'Solicitudes' %}"  style="margin-left: 25px;" >Solicitudes</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active">
+          <a class="nav-link" href="{% url 'Informes' %}">Informes<span
+                  class="sr-only">(current)</span></a>
+      </li>
+
+      
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Usuarios
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'Registro' %}" >Crear Usuarios</a>
+          <a class="dropdown-item " href="{% url 'ListaUsu' %}">Modificar Usuarios</a>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Ejercicios
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearEjer' %}" >Crear Ejercicios</a>
+          <a class="dropdown-item " href="{% url 'ListaEje' %}">Modificar Ejercicios</a>
+          
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Categorías
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearMusculos' %}" >Crear Musculos</a>
+          <a class="dropdown-item " href="{% url 'CrearMaquinas' %}">Crear Maquinas</a>
+          <a class="dropdown-item " href="{% url 'CrearTiposDietas' %}">Crear Tipo Dietas</a>
+          <a class="dropdown-item " href="{% url 'ListaCategorias' %}">Eliminar Categorías</a>
+          
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dietas
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearDie' %}" >Crear Dietas</a>
+          <a class="dropdown-item " href="{% url 'ListaDie' %}">Modificar Dietas</a>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Noticias
+        </a>
+        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+          <a class="dropdown-item " href="{% url 'CrearNot' %}" >Crear Noticias</a>
+          <a class="dropdown-item " href="{% url 'ListaNot' %}">Modificar Noticias</a>
+      </div>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'login' %}">Cerrar Sesión<span
+                class="sr-only">(current)</span></a>
+    </li>
+    
+  </ul>
+  
+</nav>
+</div>
+<br>
+
+
+<div class="container" style="background: rgb(17, 67, 89);">
+<div class="container" > 
+  <div class="container">
+    <br>
+    <div class="row" style="text-align: center;margin-top: 5%;">
+      <div class="col-md-3 col-sm-4"></div>
+      <div class="col-md-6 col-sm-4">
+        <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Eliminar Categorías</h1><br>
+      </div>
+      <div class="col-md-3 col-sm-4"></div>
+    </div><br>
+  
+    <div class="row">
+      <div class="col-md-6">
+          <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
+          <select id="filtro" class="form-control">
+              <option value="todos" selected>Seleccione categoría</option>
+              <option value="musculos">Músculos</option>
+              <option value="maquinas">Máquinas</option>
+              <option value="dietas">Tipo Dietas</option>
+          </select>
+      </div>
+  </div><br>
+  
+  <div class="row">
+      <div class="table-responsive">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Nombre</th>
+                      <th>Boton</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for m in Musculos %}
+                  <tr class="musculos" style="display: none;">
+                      <td>
+                          <img src="{{ m.foto }}" alt="No foto" style="width: 15%;height: 15%;"><br>
+                          <h5>{{ m.nombre }}</h5>
+                      </td>
+                      <td>
+                          <p style="text-align: center;">
+                              <a href="" class="btn btn-danger">Eliminar</a>
+                          </p>
+                      </td>
+                  </tr>
+                  {% endfor %}
+  
+                  {% for maquina in Maquinas %}
+                  <tr class="maquinas" style="display: none;">
+                      <td>
+                          <img src="{{ maquina.foto }}" alt="No foto" style="width: 15%;height: 15%;"><br>
+                          <h5>{{ maquina.nombre }}</h5>
+                      </td>
+                      <td>
+                          <p style="text-align: center;">
+                              <a href="" class="btn btn-danger">Eliminar</a>
+                          </p>
+                      </td>
+                  </tr>
+                  {% endfor %}
+  
+                  {% for dieta in tipoD %}
+                  <tr class="dietas" style="display: none;">
+                      <td>
+                          <img src="{{ dieta.foto }}" alt="No foto" style="width: 15%;height: 15%;"><br>
+                          <h5>{{ dieta.nombre }}</h5>
+                      </td>
+                      <td>
+                          <p style="text-align: center;">
+                              <a href="" class="btn btn-danger">Eliminar</a>
+                          </p>
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div><br>
+  
+  <script>
+      document.getElementById('filtro').addEventListener('change', function() {
+          var filtro = this.value;
+          var filas = document.querySelectorAll('tr');
+  
+          filas.forEach(function(fila) {
+              if (filtro === 'todos' || fila.classList.contains(filtro)) {
+                  fila.style.display = 'table-row';
+              } else {
+                  fila.style.display = 'none';
+              }
+          });
+      });
+  </script>
+  
+
+  
+
+
+
+ 
+
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>

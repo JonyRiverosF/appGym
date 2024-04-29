@@ -52,6 +52,19 @@
               
           </div>
           </li>
+
+          <li class="nav-item dropdown active ">
+            <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categorías
+            </a>
+            <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
+              <a class="dropdown-item " href="{% url 'CrearMusculos' %}" >Crear Musculos</a>
+              <a class="dropdown-item " href="{% url 'CrearMaquinas' %}">Crear Maquinas</a>
+              <a class="dropdown-item " href="{% url 'CrearTiposDietas' %}">Crear Tipo Dietas</a>
+              <a class="dropdown-item " href="{% url 'ListaCategorias' %}">Eliminar Categorías</a>
+              
+          </div>
+          </li>
     
           <li class="nav-item dropdown active ">
             <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -106,7 +119,7 @@
               <div class="col-md-4">
                 <div class="grupo">
                   <label>ID Noticia</label>
-                  <input readonly value="{{ '' }}" type="number" class="form-control" id="idN" name="idN">
+                  <input readonly value="{{ modificarN.id }}" type="number" class="form-control" id="idN" name="idN">
                 </div>
               </div>
               <div class="col-md-4"></div>
@@ -117,39 +130,26 @@
             <div class="col-md-6">
               <div class="grupo">
                 <label>Titulo Noticia</label>
-                <input type="text" class="form-control"  required value="{{ '' }}" id="tituloN" name="tituloN"><span class="barra" ></span>
+                <input type="text" class="form-control"  required value="{{ modificarN.tituloN }}" id="tituloN" name="tituloN"><span class="barra" ></span>
               </div>
             </div>
 
               <div class="col-md-6">
                 <div class="grupo">
                   <label>Bajada de titulo</label>
-                  <input type="text" class="form-control" required value="{{ '' }}" id="bajadaN" name="bajadaN">
+                  <input type="text" class="form-control" required value="{{ modificarN.bajadaN }}" id="bajadaN" name="bajadaN">
                 </div>
               </div>
           </div>
 
-        <!--{% if Noticias.foto != '' %}
-                  <div class="row">
-                  <div class="col-md-4"></div>
-                  <div class="col-md-4">
-                    <div class="grupo">
-                      <label for="" ><h5 style="color: #000000;">Foto de la noticia actual</h5></label><br>
-                      <img src="{{''  }}"  alt="Avatar" style="width:150px;height:150px;">
-                    </div>
-                  {% endif %}
-                  </div>
-                  <div class="col-md-4"></div>
-                </div>-->
-  
-         <!--{% if Noticias.video != '' %}
-                <div class="grupo">
-                  <h3 style="color: #000000;text-align: center;">Video de la noticia actual</h3><br>
-                  <div class="embed-responsive embed-responsive-16by9">
-                    <video class="embed-responsive-item" src="{{ '' }}" alt="Avatar" controls></video>
-                  </div>
-                </div> 
-              {% endif %}-->
+          <div class="row">
+            <div class="col-md-4"></div>
+              <div class="col-md-4">
+                  <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+              </div>
+              <div class="col-md-4"></div>
+          </div>
+
 
               <div class="row">
                 <div class="col-md-6">
@@ -166,18 +166,32 @@
               <div class="grupo" style="text-align: center;margin-top: -18px;">
                 <label for="descN"><h3>Descripción de la Noticia</h3></label><br>
                 <p style="margin-left: 12%;margin-right: 12%;"><textarea class="textarea" style="background-color: rgb(97, 97, 97);color: rgb(255, 255, 255);" rows="6" cols="50" 
-                   name="descN" id="descN" value="{{''}}" required></textarea></p>
+                   name="descN" id="descN" value="{{ modificarN.descN }}" required></textarea></p>
                    <span class="barra"></span>
               </div>
-  
-              <div class="row">
-                <div class="col-md-4"></div>
-                  <div class="col-md-4">
-                      <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
-                  </div>
-                  <div class="col-md-4"></div>
-              </div>
 
+              <div class="row">
+                <div class="col-md-6">
+                  {% if noticia.foto != '' %}
+                  <div class="grupo" style="text-align: center;">
+                    <label for="" ><h5 style="color: #000000;">Foto de la noticia actual</h5></label><br>
+                    <img src="{{ modificarN.foto }}"  alt="Avatar" style="width:150px;height:150px;">
+                {% endif %}
+
+              </div>
+                </div>
+                <div class="col-md-6">
+              {% if noticia.video != '' %}
+                  <div class="grupo">
+                    <label for="" ><h5 style="color: #000000;">Video de la noticia actual</h5></label><br>
+                    <div class="embed-responsive embed-responsive-16by9">
+                      <video class="embed-responsive-item" src="{{ modificarN.video }}" alt="Avatar" controls></video>
+                    </div>
+                  </div>
+                {% endif %}
+                </div>
+              </div>
+  
           <p class="warnings" id="mensaje_ModificarNoticia"></p>
           <p class="warnings " id="mensaje"></p>
       </form><br>
