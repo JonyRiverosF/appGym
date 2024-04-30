@@ -115,7 +115,7 @@
             <div class="col-md-6 col-sm-6">
               <div class="grupo">
                 <label>ID Dieta</label>
-                <input readonly value="{{ modificarD.id }}" type="number" class="form-control" id="idD" name="idD">
+                <input type="text" class="form-control"  required value="{{ modificarD.id }}" id="nombreD" name="nombreD" readonly><span class="barra" ></span>
               </div>
             </div>
               
@@ -146,20 +146,21 @@
               </select>
               </div>
             </div>
+          </div>
 
+          <div class="row">
+            <div class="col-md-12">
+              {% if dieta.foto != '' %}
+              <div class="grupo" style="text-align: center;">
+                <label for="" ><h5 style="color: #000000;">Foto de la Dieta Actual</h5></label><br>
+                <img src="{{ modificarD.foto }}"  alt="Avatar" style="width:150px;height:150px;">
+              </div>
+            {% endif %}
+          
+            </div>
           </div>
           
-                <div class="row">
-                  <div class="col-md-4"></div>
-                  <div class="col-md-4">
-                    {% if dieta.foto != '' %}
-                    <div class="grupo" style="text-align: center;">
-                      <label for="" ><h5 style="color: #000000;">Foto de la dieta actual</h5></label><br>
-                      <img src="{{ modificarD.foto }}"  alt="Avatar" style="width:150px;height:150px;">
-                    {% endif %}
-                  </div>
-                  <div class="col-md-4"></div>
-                </div>
+                
                 
           
                 <div class="row">

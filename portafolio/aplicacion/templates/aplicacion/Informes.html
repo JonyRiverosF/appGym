@@ -107,113 +107,95 @@
       <div class="row" style="text-align: center;margin-top: 5%;">
         <div class="col-md-3 col-sm-4"></div>
         <div class="col-md-6 col-sm-4">
-            <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Informes Bancarios</h1><br>
+            <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Informes</h1><br>
         </div>
         <div class="col-md-3 col-sm-4"></div>
       </div><br>
-      <div class="row" style="text-align: center">
-        <div class="col-md-4 col-sm-4"></div>
-        <div class="col-md-4 col-sm-4">
-            <input type="button" class="btn btn " id="consultar" value="Consultar" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97);">
-        </div>
-        <div class="col-md-4 col-sm-4"></div>
-      </div><br>
-      <div class="row">
-        <div class="col-md-3 col-sm-3"></div>
-        <div class="col-md-6 col-sm-6">
-            <div class="table-responsive" id="tablaBancarios" style="display: none;">
-                <table class="table centrar letraVJ" style="background-color: rgb(255, 255, 255); " id="tableBancarios">
-                    <tr>
-                        <td colspan="2"><strong>Juan Gana</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cedula:</strong></td>
-                        <td class="text-left">11.676.436-2</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Banco:</strong></td>
-                        <td class="text-left">Banco Santander</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cuenta:</strong></td>
-                        <td class="text-left">CTTE. 0102-0146-25-0000404208</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Monto:</strong></td>
-                        <td class="text-left">$15.000</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-3"></div>
-      </div>
-    </div>
-  </div>
-</div>
-<br><br><br>
-<!--INFORMES COMENTARIOS-->
-<div class="container" style="background: rgb(17, 67, 89);">
-  <div class="container" > 
-    <div class="container" >
-      <br>
-      <div class="row" style="text-align: center;margin-top: 5%;">
-        <div class="col-md-3 col-sm-4"></div>
-        <div class="col-md-6 col-sm-4">
-            <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Informe de Denuncias de Comentarios</h1><br>
-        </div>
-        <div class="col-md-3 col-sm-4"></div>
-      </div><br>
-      <div class="row" style="text-align: center">
-        <div class="col-md-4 col-sm-4"></div>
-        <div class="col-md-4 col-sm-4">
-            <input type="button" class="btn btn " id="comen" value="Ver Comentarios" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97);">
-        </div>
-        <div class="col-md-4 col-sm-4"></div>
-      </div><br>
-      <div class="row">
-        <div class="col-md-3 col-sm-3"></div>
-        <div class="col-md-6 col-sm-6">
-            <div class="table-responsive" id="tablaComentarios" style="display: none;">
-                <table class="table centrar letraVJ" style="background-color: rgb(255, 255, 255); " id="tableComentarios">
-                  <tr>
-                    <th>Nombre </th>
-                    <th>Comentario</th>
-                  </tr>
-                  
-                  {% for u in usuarios %}
 
+
+
+      <div class="row">
+      <div class="col-md-6">
+          <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
+          <select id="filtro" class="form-control">
+              <option value="todos" selected>Seleccione categoría</option>
+              <option value="bancacios">Informes Bancarios</option>
+              <option value="comentarios">Informes Comentarios</option>
+              <option value="cupos">Informes Cupos</option>
+          </select>
+      </div>
+  </div><br>
+  
+  <div class="row">
+      <div class="table-responsive">
+          <table class="table">
+              <thead>
                   <tr>
-                    <td>{{ u.nombreU }} {{ u.apellido }}</td>
-                    <td>{{ u.ComentarioU}}</td>
+                      <th>Nombre</th>
+                      <th>Boton</th>
                   </tr>
-                  
+              </thead>
+              <tbody>
+                  {% for m in Musculos %}
+                  <tr class="bancacios" style="display: none;">
+                      <td>
+                          <img src="{{ m.foto }}" alt="No foto" style="width: 15%;height: 15%;"><br>
+                          <h5>{{ m.nombre }}</h5>
+                      </td>
+                      <td>
+                          <p style="text-align: center;">
+                              <a href="" class="btn btn-danger">Eliminar</a>
+                          </p>
+                      </td>
+                  </tr>
                   {% endfor %}
-                </table>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-3"></div>
+  
+                  {% for maquina in Maquinas %}
+                  <tr class="comentarios" style="display: none;">
+                      <td>
+                          <img src="{{ maquina.foto }}" alt="No foto" style="width: 15%;height: 15%;"><br>
+                          <h5>{{ maquina.nombre }}</h5>
+                      </td>
+                      <td>
+                          <p style="text-align: center;">
+                              <a href="" class="btn btn-danger">Eliminar</a>
+                          </p>
+                      </td>
+                  </tr>
+                  {% endfor %}
+  
+                  {% for dieta in tipoD %}
+                  <tr class="cupos" style="display: none;">
+                      <td>
+                          <img src="{{ dieta.foto }}" alt="No foto" style="width: 15%;height: 15%;"><br>
+                          <h5>{{ dieta.nombre }}</h5>
+                      </td>
+                      <td>
+                          <p style="text-align: center;">
+                              <a href="" class="btn btn-danger">Eliminar</a>
+                          </p>
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
       </div>
-    </div>
-  </div>
-</div><br><br>
-
-<!--INFORMES BANCARIOS-->
-<script>
-  $(document).ready(function() {
-      $("#consultar").click(function() {
-          $("#tablaBancarios").toggle();
+  </div><br>
+  
+  <script>
+      document.getElementById('filtro').addEventListener('change', function() {
+          var filtro = this.value;
+          var filas = document.querySelectorAll('tr');
+  
+          filas.forEach(function(fila) {
+              if (filtro === 'todos' || fila.classList.contains(filtro)) {
+                  fila.style.display = 'table-row';
+              } else {
+                  fila.style.display = 'none';
+              }
+          });
       });
-  });
-</script>
-
-<!--INFORMES COMENTARIOS-->
-<script>
-  $(document).ready(function() {
-      $("#comen").click(function() {
-          $("#tablaComentarios").toggle();
-      });
-  });
-</script>
+  </script>
 
 
 

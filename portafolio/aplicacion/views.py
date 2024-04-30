@@ -2,10 +2,11 @@ import requests
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from pymongo import MongoClient
-from django.contrib.auth.hashers import check_password
-from django.contrib.auth import authenticate,login, logout
+from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+
 
 mongo=""
 dataBase=""
@@ -24,6 +25,7 @@ noticia=""
 apiUrl = "http://192.168.1.2:3000";
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
+
 dataBase = mongo["colinaGym"]
 usuarios = dataBase["usuarios"]
 
@@ -34,7 +36,7 @@ maquinas = dataBase["maquinas"]
 tipoDietas = dataBase["tipodietas"]
 dietas = dataBase["dietas"]
 
-noticia = dataBase["noticia"]
+noticia = dataBase["noticias"]
 
 
 print("Connected to the MongoDB database!")
@@ -42,7 +44,8 @@ print("Connected to the MongoDB database!")
 
 # Create your views here.
 def pantalla(request):
-    return render(request,"aplicacion/inicio.html")
+    return render(request, "aplicacion/inicio.html")
+
 
 def login(request):
     logout(request)
@@ -207,11 +210,10 @@ def ModificarDie(request, id):
 
     owo= response.json()
     
-    print(owo["respuesta"][0])
 
     owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
     owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/MiniaturaEjercicios/'+ owo["respuesta"][0]["foto"]
-    owo["respuesta"][0]["video"] =  apiUrl+'/creacion/videos/'+ owo["respuesta"][0]["video"]
+    
 
     print(owo)
     contexto = {
