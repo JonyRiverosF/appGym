@@ -8,7 +8,7 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://192.168.0.9:3000";
+  private  apiUrl="http://192.168.0.13:3000";
 
   //Registro Usuario
   registroUsuario(informacion:any){
@@ -24,8 +24,20 @@ export class ExpressService {
       body:codigo
     })
   }
-   
 
+  guardarHorario(formulario:any){
+    return fetch(this.apiUrl+"/creacion/crearHorario",{
+      method:"POST",
+      body:formulario
+    })
+  }
+   
+  horariosTomados(rut:any){
+    return fetch(this.apiUrl+"/validaciones/horariosTomados",{
+      method:"POST",
+      body:rut
+    })
+  }
   //validar repetición de correo
   correoRepetido(correo:any){ 
      return fetch(this.apiUrl+"/validaciones/validarCorreo",{
@@ -40,5 +52,11 @@ export class ExpressService {
      body:run
     })
  } 
+
+   traerHorarios(){
+    return fetch(this.apiUrl+"/validaciones/traerHorarios",{
+      method:"GET"
+    })
+   }
  
 }

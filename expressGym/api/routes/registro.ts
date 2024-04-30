@@ -6,6 +6,7 @@ import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
 import wspClient from "./complementos/wsp";
+import horas from "./horas"
 
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -48,6 +49,10 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
     console.log("Algo salió mal");
     console.log(err);
 })
+
+
+
+
 var usuariosSchema = new mongoose.Schema({
     codigo:String,
     rut:String,
@@ -71,6 +76,48 @@ var EjerciciosSchema = new mongoose.Schema({
     tipoMaquina:String,
 })
 var EjerciciosModelo = mongoose.model("Ejercicios",EjerciciosSchema)
+
+var horariosElegidos = new mongoose.Schema({
+    rutUsuario:String,
+    horarios:Array,
+    fechaInscripcion:Date,
+    vigencia:Boolean
+
+})
+var horariosElegidosModelo = mongoose.model("HorariosElegidos",horariosElegidos)
+
+var horariosSchema = new mongoose.Schema({
+    fecha:Date,
+    horas:Array,
+    vigencia:Boolean
+})
+
+var horariosModelo = mongoose.model("horarios",horariosSchema)
+
+var fechaHoy = new Date();
+    let contador = 1;
+    if(fechaHoy.getDay() == 0){
+        while(contador < 7){
+            horariosModelo.create({
+                fecha:new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador),
+                horas:horas,
+                vigencia:true
+            }).then(res=>{
+                console.log(res)
+            }).catch(e=>{
+                console.log("error");
+                console.log(e)
+            })
+            contador++
+    }
+        /*reg.dia=(new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador))
+        reg.vigencia=true
+        reg.horas = horas
+        total.push(reg)
+        contador++
+        reg={dia:{},vigencia:true,horas:[{}]}*/
+    }
+
 
 router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
 
@@ -472,6 +519,60 @@ router.post("/login",upload.any(),(req:Request,res:Response)=>{
 })
 
 
+router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
+
+    //Horario Uno
+    var diaEscogidoU = JSON.parse(req.body.horarioUno).dia
+    var horaEscogidaU = JSON.parse(req.body.horarioUno).hora
+    for(let i=0;i<diaEscogidoU.horas.length;i++){
+        if(diaEscogidoU.horas[i].hora == horaEscogidaU.hora){
+            diaEscogidoU.horas[i].cuposElegidos +=1
+        }
+    }
+    //Horario Dos
+    var diaEscogidoD = JSON.parse(req.body.horarioDos).dia
+    var horaEscogidaD = JSON.parse(req.body.horarioDos).hora
+    for(let i=0;i<diaEscogidoD.horas.length;i++){
+        if(diaEscogidoD.horas[i].hora == horaEscogidaD.hora){
+            diaEscogidoD.horas[i].cuposElegidos +=1
+        }
+    }
+    //Horario Tres
+    var diaEscogidoT = JSON.parse(req.body.horarioTres).dia
+    var horaEscogidaT = JSON.parse(req.body.horarioTres).hora
+    for(let i=0;i<diaEscogidoT.horas.length;i++){
+        if(diaEscogidoT.horas[i].hora == horaEscogidaT.hora){
+            diaEscogidoT.horas[i].cuposElegidos +=1
+        }
+    }
+
+    await horariosElegidosModelo.create({
+         rutUsuario:req.body.rut,
+         horarios:[
+            {fecha:diaEscogidoU.fecha,hora:horaEscogidaU.hora},
+            {fecha:diaEscogidoD.fecha,hora:horaEscogidaD.hora},
+            {fecha:diaEscogidoT.fecha,hora:horaEscogidaT.hora}
+        ],
+        fechaInscripcion:new Date(),
+        vigencia:true
+    }).then(res=>{console.log("Insertado horarios elegidos")}).catch((e:any)=>{console.log(e)})
+
+    await horariosModelo.findByIdAndUpdate(diaEscogidoU._id,diaEscogidoU).then(res=>{console.log("Modificadp H1")})
+    .catch((e:any)=>{console.log(e)})
+
+    await horariosModelo.findByIdAndUpdate(diaEscogidoD._id,diaEscogidoD).then(res=>{console.log("Modificadp H2")})
+    .catch((e:any)=>{console.log(e)})
+
+    await horariosModelo.findByIdAndUpdate(diaEscogidoT._id,diaEscogidoT).then(res=>{console.log("Modificadp H3")})
+    .catch((e:any)=>{console.log(e)})
+
+    res.status(201).json({
+        respuesta:[diaEscogidoU,diaEscogidoD,diaEscogidoT]
+    })
+   // console.log([diaEscogidoU,diaEscogidoD,diaEscogidoT])
+
+})
+
 
 export default module.exports={
     registroUser:router,
@@ -479,5 +580,7 @@ export default module.exports={
     EjerciciosModelo:EjerciciosModelo,
     NoticiaModelo:NoticiaModelo,
     DietasModelo:DietasModelo,
+    horariosElegidosModelo,
+    horariosModelo,
 } 
 //export default exports.usuariomodelo=usuarioModelo

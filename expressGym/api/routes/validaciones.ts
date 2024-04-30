@@ -9,6 +9,9 @@ import wspClient from "./complementos/wsp";
 import modeloUsuario from "./registro"
 
 var usuarioModelo = modeloUsuario.usuarioModelo
+var horariosElegidosModelo = modeloUsuario.horariosElegidosModelo
+
+
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
@@ -41,4 +44,24 @@ router.post("/rutRepetido",upload.any(),(req:Request,res:Response)=>{
         console.log(error);
      })
 })
+
+router.get("/traerHorarios",(req:Request,res:Response)=>{
+    modeloUsuario.horariosModelo.find({}).then(respuesta=>{
+       res.status(200).json({
+           respuesta
+       })
+    }).catch(e=>{
+       console.log(e)
+    })
+})
+
+router.post("/horariosTomados",upload.any(),(req:Request,res:Response)=>{
+    horariosElegidosModelo.find({rutUsuario:req.body.rut}).then(resp=>{
+        res.status(201).json({
+            resp
+        })
+    })
+    console.log(req.body.rut)
+})
+
 export default module.exports=router

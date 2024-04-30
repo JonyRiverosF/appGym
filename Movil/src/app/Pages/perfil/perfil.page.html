@@ -70,7 +70,8 @@
                 <br />
                 <ion-item color="light" *ngIf="flag">
                   <ion-select label="Seleccione hora" label-placement="floating" [(ngModel)]="horaSeleccionada" >
-                    <ion-select-option value="7:00-8:20">7:00-8:20</ion-select-option>
+                    <ion-select-option *ngFor="let x of horasPorElegir[0].horas" [value]="x">{{x.hora}}</ion-select-option>
+                  <!--  <ion-select-option value="7:00-8:20">7:00-8:20</ion-select-option>
                     <ion-select-option value="8:30-9:50">8:30-9:50</ion-select-option>
                     <ion-select-option value="10:00-11:20">10:00-11:20</ion-select-option>
                     <ion-select-option value="11:30-12:50">11:30-12:50</ion-select-option>
@@ -78,7 +79,7 @@
                     <ion-select-option value="14:30-15:50">14:30-15:50</ion-select-option>
                     <ion-select-option value="16:00-17:20">16:00-17:20</ion-select-option>
                     <ion-select-option value="17:30-18:50">17:30-18:50</ion-select-option>
-                    <ion-select-option value="19:00-20:20">19:00-20:20</ion-select-option>
+                    <ion-select-option value="19:00-20:20">19:00-20:20</ion-select-option>--->
                   </ion-select>
                 </ion-item>
                 <ion-button *ngIf="flag" color="success" (click)="elegirHora()">Continuar</ion-button>
@@ -86,6 +87,7 @@
 
                 <!--Resumen elección de horario-->
                 <ion-grid>
+                  <h3 style="color: white;">Resumen</h3>
                   <ion-row>
                     <ion-col size="4" *ngFor="let x of resumen" style="border: 3px groove;">
                         <h3 style="color: white;">{{x.dia}}</h3>
