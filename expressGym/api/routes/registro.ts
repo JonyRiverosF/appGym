@@ -7,6 +7,7 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 import wspClient from "./complementos/wsp";
 import horas from "./horas"
+import modelos from "./modelos"
 
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -68,14 +69,6 @@ var usuariosSchema = new mongoose.Schema({
 })
 var usuarioModelo = mongoose.model("Usuarios",usuariosSchema)
 
-var EjerciciosSchema = new mongoose.Schema({
-    Titulo:String,
-    video:String,
-    foto:String,
-    tipoMusculo:String,
-    tipoMaquina:String,
-})
-var EjerciciosModelo = mongoose.model("Ejercicios",EjerciciosSchema)
 
 var horariosElegidos = new mongoose.Schema({
     rutUsuario:String,
@@ -95,21 +88,21 @@ var horariosSchema = new mongoose.Schema({
 var horariosModelo = mongoose.model("horarios",horariosSchema)
 
 var fechaHoy = new Date();
-    let contador = 1;
-    if(fechaHoy.getDay() == 0){
-        while(contador < 7){
-            horariosModelo.create({
-                fecha:new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador),
-                horas:horas,
-                vigencia:true
-            }).then(res=>{
-                console.log(res)
-            }).catch(e=>{
-                console.log("error");
-                console.log(e)
-            })
-            contador++
-    }
+let contador = 1;
+if(fechaHoy.getDay() == 0){
+    while(contador < 7){
+        horariosModelo.create({
+            fecha:new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador),
+            horas:horas,
+            vigencia:true
+        }).then(res=>{
+            console.log(res)
+        }).catch(e=>{
+            console.log("error");
+            console.log(e)
+        })
+        contador++
+}
         /*reg.dia=(new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador))
         reg.vigencia=true
         reg.horas = horas
@@ -138,7 +131,7 @@ router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
         insertado.info = req.body;
         insertado.video = req.files;
 
-    EjerciciosModelo.create({
+    modelos.EjerciciosModelo.create({
         Titulo:req.body.Titulo,
         video:videosE + '.mp4',
         foto:portada + '.jpg',
@@ -214,12 +207,7 @@ router.post("/CrearNoticia",upload.array("video"),(req:any,res:Response)=>{
     
 });
 
-var musculosSchema = new mongoose.Schema({
-    nombre: String,
-    foto: String
-});
 
-var MusculoModelo = mongoose.model("Musculos", musculosSchema);
 
 router.post("/CrearMusculo", upload.single("foto"), (req: any, res: Response) => {
 
@@ -238,7 +226,7 @@ router.post("/CrearMusculo", upload.single("foto"), (req: any, res: Response) =>
             info: req.body
         };
 
-        MusculoModelo.create({
+        modelos.MusculoModelo.create({
             nombre: req.body.nombre,
             foto: foto + '.jpg'
         }).then(resultado => {
@@ -300,12 +288,6 @@ router.post("/CrearTipoDietas", upload.single("foto"), (req: any, res: Response)
 });
 
 
-var MaquinasSchema = new mongoose.Schema({
-    nombre: String,
-    foto: String
-});
-
-var MaquinasModelo = mongoose.model("maquinas", MaquinasSchema);
 
 router.post("/CrearMaquina", upload.single("foto"), (req: any, res: Response) => {
 
@@ -324,7 +306,7 @@ router.post("/CrearMaquina", upload.single("foto"), (req: any, res: Response) =>
             info: req.body
         };
 
-        MaquinasModelo.create({
+        modelos.MaquinasModelo.create({
             nombre: req.body.nombre,
             foto: foto + '.jpg'
         }).then(resultado => {
@@ -577,7 +559,6 @@ router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
 export default module.exports={
     registroUser:router,
     usuarioModelo:usuarioModelo,
-    EjerciciosModelo:EjerciciosModelo,
     NoticiaModelo:NoticiaModelo,
     DietasModelo:DietasModelo,
     horariosElegidosModelo,

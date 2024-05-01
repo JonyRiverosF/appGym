@@ -4,6 +4,7 @@ import morgan from "morgan";
 import registroUser from './api/routes/registro';
 import modificarHorario from "./api/routes/modificar"
 import validaciones from "./api/routes/validaciones"
+import consultas from "./api/routes/consultas"
 const app = express ();
 /*import wspClient from "./api/routes/wsp";
 
@@ -37,5 +38,6 @@ app.use(morgan("dev"))
 app.use('/creacion',registroUser.registroUser)
 app.use("/modificar",modificarHorario)
 app.use("/validaciones",validaciones)
+app.use("/consultas",consultas)
 
 export default module.exports = app

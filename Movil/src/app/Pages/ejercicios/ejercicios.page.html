@@ -25,11 +25,11 @@
 
 
     <!--Lista de videos-->
-    <div *ngFor="let x of EjerciciosPorMostrar">
-      <ion-card style="text-align: center;">
-        <img [src]="x.img" alt="Cinque Terre" class="img1">
+    <div *ngFor="let x of ejercicios">
+      <ion-card style="text-align: center;" (click)="verDetalle(x)">
+        <img [src]="x.foto" alt="Cinque Terre" class="img1">
         <ion-card-content>
-            <h1 class="center1">{{x.titulo}}</h1>
+            <h1 class="center1">{{x.Titulo}}</h1>
         </ion-card-content>
       </ion-card>
     </div>

@@ -5,7 +5,7 @@ const upload = multer({ dest: 'public/videos/' })
 import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
-import EjerciciosModelo from './registro';
+import modelos from "./modelos";
 import NoticiaModelo from './registro';
 import DietasModelo from './registro';
 
@@ -29,7 +29,7 @@ router.post("/buscarEjercicio/:id",upload.any(),(req:Request,res:Response)=>{
 
     var id = req.params.id
     console.log(id)
-    EjerciciosModelo.EjerciciosModelo.find({_id:id}).then(respuesta=>{
+    modelos.EjerciciosModelo.find({_id:id}).then(respuesta=>{
         res.json({
             respuesta
         })

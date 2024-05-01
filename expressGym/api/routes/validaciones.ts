@@ -61,7 +61,6 @@ router.post("/horariosTomados",upload.any(),(req:Request,res:Response)=>{
             resp
         })
     })
-    console.log(req.body.rut)
 })
 
 export default module.exports=router

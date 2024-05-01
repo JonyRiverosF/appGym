@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { ExpressService } from 'src/app/services/express.service';
 
 @Component({
   selector: 'app-ejercicio',
@@ -8,6 +9,11 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./ejercicio.page.scss'],
 })
 export class EjercicioPage implements OnInit {
+
+ 
+  ///
+  apiUrl:string = "http://192.168.0.13:3000/creacion/"
+  ///
 
   boton:boolean=false;
 
@@ -36,10 +42,22 @@ export class EjercicioPage implements OnInit {
     img:"assets/icon/maxi.jpg",
     username:"Maxi_Urrejola",mostrar:false}]
     
+  
+    id:string = "";
+    ejercicio:any={};
+  constructor(private router: Router,private toastController: ToastController,private api:ExpressService,
+    private activatedRouter:ActivatedRoute) { }
 
-  constructor(private router: Router,private toastController: ToastController) { }
-
-
+  ionViewWillEnter(){
+    this.id = String(this.activatedRouter.snapshot.paramMap.get('id'))
+    this.api.detalleEjercicio(this.id).then(res=>res.json()).then(res=>{
+      this.ejercicio = res
+      this.ejercicio.foto = this.apiUrl+"imagenes/MiniaturaEjercicios/"+this.ejercicio.foto
+      this.ejercicio.video = this.apiUrl+"videos/"+this.ejercicio.video
+      console.log(this.ejercicio)
+    })
+  }
+  
   responder(username:any){
     username.mostrar=true;
     this.subComentario="@"+username.username+" "
@@ -61,7 +79,9 @@ export class EjercicioPage implements OnInit {
 
 
 
-
+  regresar(){
+    this.router.navigate(['/ejercicios/'+String(this.activatedRouter.snapshot.paramMap.get('musculo'))])
+  }
 
 
 

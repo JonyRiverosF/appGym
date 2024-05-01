@@ -38,19 +38,12 @@ export class PerfilPage implements OnInit {
   horarios:any;
   horasPorElegir:any=[];
 
-  usuario:any;
+  usuario:any={};
   fichaMedica:string="";
   apiUrl:string = "http://192.168.0.13:3000/creacion/"
   constructor(private menuCtrl: MenuController,private router: Router,private toastController: ToastController,
     private activatedRouter:ActivatedRoute,private api:ExpressService
-  ) {
-    this.activatedRouter.queryParams.subscribe(param =>{
-      if (this.router.getCurrentNavigation()?.extras.state){
-        this.usuario = this.router.getCurrentNavigation()?.extras?.state?.["usuario"];
-        this.fichaMedica = this.apiUrl+"fichasMedicas/"+this.usuario.fichaMedica
-      }
-    })
-   }
+  ) {}
 
   ionViewDidEnter(){
     try{
@@ -77,6 +70,8 @@ export class PerfilPage implements OnInit {
   }
 
   ionViewWillEnter(){
+    this.usuario = JSON.parse(String(localStorage.getItem("idUser")))
+    this.fichaMedica = this.apiUrl+"fichasMedicas/"+this.usuario.fichaMedica
     var formulario = new FormData()
     formulario.append("rut",String(this.usuario.rut))
     this.api.traerHorarios().then(res=>res.json()).then(horarios=>{

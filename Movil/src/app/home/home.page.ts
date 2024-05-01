@@ -22,7 +22,9 @@ export class HomePage {
     private toastController: ToastController
   ) {}
    
-  
+  ionViewWillEnter(){
+    localStorage.clear()
+  }
   
   irRecuperar(){
     this.router.navigate(['/recuperar'])
@@ -56,11 +58,8 @@ export class HomePage {
         console.log(json)
         response.dismiss()
         if(json.usuario.length >0){
-          let navigationExtras:NavigationExtras = {
-            state:{usuario:json.usuario[0]}
-          }
-          
-          this.router.navigate(['/perfil'],navigationExtras)
+          localStorage.setItem("idUser",JSON.stringify(json.usuario[0]))
+          this.router.navigate(['/perfil'])
         }else{
           
           this.presentToast("bottom","Usuario no registrado",2500)

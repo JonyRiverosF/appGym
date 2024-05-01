@@ -10,6 +10,43 @@ export class ExpressService {
 
   private  apiUrl="http://192.168.0.13:3000";
 
+
+  //GET
+  traerHorarios(){
+    return fetch(this.apiUrl+"/validaciones/traerHorarios",{
+      method:"GET"
+    })
+   }
+ 
+  traerMusculos(){
+    return fetch(this.apiUrl+"/consultas/traerMusculos",{
+      method:"GET"
+    })
+  }
+
+  traerMaquinas(){
+    return fetch(this.apiUrl+"/consultas/traerMaquinas",{
+      method:"GET"
+    })
+  }
+
+  traerEjerciciosPorMusculo(musculo:string){
+    return fetch(this.apiUrl+"/consultas/ejerciciosPorMusculos/"+musculo,{
+      method:"GET"
+    })
+  }
+
+  traerEjerciciosPorMaquina(maquina:string){
+    return fetch(this.apiUrl+"/consultas/ejerciciosPorMaquina/"+maquina,{
+      method:"GET"
+    })
+  }
+
+  detalleEjercicio(id:any){
+    return fetch(this.apiUrl+"/consultas/detalleEjercicio/"+id,{
+      method:"GET"
+    })
+  }
   //Registro Usuario
   registroUsuario(informacion:any){
     return fetch(this.apiUrl+"/creacion/registroUsuario",{
@@ -53,10 +90,4 @@ export class ExpressService {
     })
  } 
 
-   traerHorarios(){
-    return fetch(this.apiUrl+"/validaciones/traerHorarios",{
-      method:"GET"
-    })
-   }
- 
 }
