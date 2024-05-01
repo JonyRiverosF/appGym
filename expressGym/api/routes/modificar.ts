@@ -19,17 +19,6 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
 
 const directoryPath = "./public/videos/"
 
-var horariosElegidos = new mongoose.Schema({
-    rutUsuario:String,
-    horarios:{
-        horarioUno:{fecha:String,hora:String},
-        horarioDos:{fecha:String,hora:String},
-        horarioTres:{fecha:String,hora:String}
-    },
-    fechaInscripcion:String
-
-})
-var horariosElegidosModelo = mongoose.model("HorariosElegidos",horariosElegidos)
 
 router.post("/modificarHorario",upload.any(),(req:Request,res:Response)=>{
     
