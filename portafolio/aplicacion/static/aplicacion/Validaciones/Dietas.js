@@ -25,16 +25,6 @@ $(document).ready(function(){
             enviar = true;
         }
 
-        if (/\d/.test(nombreDieta)){
-            msjMostrar += "<br>-Nombre de dieta inválido, no puede contener números.";
-            enviar = true;
-        }
-
-        if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreDieta)){
-            msjMostrar += "<br>-Nombre inválido, no debe contener caracteres especiales.";
-            enviar = true;
-        }
-
         if(enviar){
             $("#mensaje_CrearDieta").html(msjMostrar);
             e.preventDefault();
