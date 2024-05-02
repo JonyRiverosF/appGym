@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button default-href="#" [routerLink]="['/tipo-dietas']"></ion-back-button>
+      <ion-back-button default-href="#" (click)="volver()"></ion-back-button>
     </ion-buttons>
     <ion-title>dieta</ion-title>
   </ion-toolbar>
@@ -17,21 +17,21 @@
   <p style="text-align: center;">
     <ion-card>
         <ion-card-header>
-          <ion-card-title style="font-size: 20px;color:rgb(255, 255, 255)"><h1>Dieta 1</h1></ion-card-title>
+          <ion-card-title style="font-size: 20px;color:rgb(255, 255, 255)"><h1>{{dieta.nombre}}</h1></ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <ion-grid>
           <ion-row>
             <ion-col size="1"></ion-col>
             <ion-col size="10"> 
-              <img src="assets/icon/dieta1.png" alt="W3Schools" width="300px" height="220px">
+              <img [src]="dieta.foto" alt="W3Schools" width="300px" height="220px">
             </ion-col>
             <ion-col size="1"></ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="1"></ion-col>
             <ion-col size="10"> 
-              <a href="assets/icon/dieta1.png" download><ion-button color="warning" shape="round">Descargar</ion-button></a>
+              <a [href]="dieta.foto" target="_blank" type="image/jpg" download="uwu"><ion-button color="warning" shape="round">Descargar</ion-button></a>
               <div *ngIf="!boton"><ion-button color="warning" shape="round" (click)="esconder()">
               <ion-icon name="bookmark-outline"></ion-icon></ion-button></div>
 

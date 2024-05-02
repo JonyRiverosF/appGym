@@ -12,12 +12,12 @@
   </ion-header>
 
 
-<div *ngFor="let x of noticia">
+<div *ngFor="let x of noticias">
   <p style="text-align: center;">
-  <ion-card (click)="irDetalle(x)">
-    <img alt="Silhouette of mountains" [src]="x.img" style="width: 400px; height: 200px;" />
+  <ion-card (click)="irDetalle(x._id)">
+    <img alt="Silhouette of mountains" [src]="x.foto" style="width: 400px; height: 200px;" />
     <ion-card-header>
-      <ion-card-title>{{x.titulo}}</ion-card-title>
+      <ion-card-title style="color:white">{{x.tituloN}}</ion-card-title>
     </ion-card-header>
   </ion-card></p>
 </div>  

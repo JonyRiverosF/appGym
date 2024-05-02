@@ -16,15 +16,15 @@
 
 <p style="text-align: center;">
   <ion-card>
-    <img alt="Silhouette of mountains" [src]="noticia.img" style="width: 400px; height: 200px;" />
+    <img alt="Silhouette of mountains" [src]="noticia.foto" style="width: 400px; height: 200px;" />
     <ion-card-header>
-      <ion-card-title><h2 style="color: rgb(248, 247, 247);">{{noticia.titulo}}</h2></ion-card-title>
-     
+      <h1 style="color:white">{{noticia.tituloN}}</h1>
     </ion-card-header>
   
     <ion-card-content>
-      <p style="color:rgb(243, 243, 243)">{{noticia.detalle}}</p>
+      <h4 style="color:rgb(243, 243, 243)">{{noticia.descN}}</h4>
 
+      <video [src]="noticia.video" controls style="max-width: 70%;max-height: 50%;"></video>
       <div *ngIf="!boton">
         <ion-button  color="warning" shape="round" (click)="esconder()">
           <ion-icon name="heart-outline">

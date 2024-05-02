@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { ExpressService } from 'src/app/services/express.service';
 
 @Component({
   selector: 'app-dieta',
@@ -9,10 +10,32 @@ import { ToastController } from '@ionic/angular';
 })
 export class DietaPage implements OnInit {
 
+  ///
+  apiUrl:string = ""
+  ///
+  dietaId:string="";
   boton:boolean=false;
-
-  constructor(private router: Router,private toastController: ToastController) { }
+  dieta:any={};link:any;
+  constructor(private router: Router,private toastController: ToastController,private api:ExpressService,
+    private activatedRouter:ActivatedRoute,    private loadingCtrl: LoadingController) { }
   
+  ionViewWillEnter(){
+    this.apiUrl = this.api.urlApi
+    this.dietaId = String(this.activatedRouter.snapshot.paramMap.get('id'))
+    this.loading(20000).then(response=>{
+      response.present();
+      this.api.detalleDieta(this.dietaId).then(res=>res.json()).then(res=>{
+        this.dieta = res
+        this.dieta.foto = this.apiUrl+"imagenes/Dietas/"+this.dieta.foto
+        response.dismiss();
+        //console.log(this.dieta)
+      })
+    })
+  }
+
+  volver(){
+    this.router.navigate(['/tipo-dietas/'+String(this.activatedRouter.snapshot.paramMap.get('tipoDieta'))])
+  }
   esconder(){
     this.boton=true;
     this.presentToast("bottom","Dieta guardada");
@@ -24,17 +47,12 @@ export class DietaPage implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
+  loading(duracion:any){
+    return this.loadingCtrl.create({
+       message: 'Cargando...',
+       duration: duracion,
+     })
+   }
 
 
   async presentToast(position:'bottom',msg:string) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
 
 @Component({
@@ -9,29 +10,34 @@ import { ExpressService } from 'src/app/services/express.service';
 })
 export class MusculosPage implements OnInit {
   ///
-  apiUrl:string = "http://192.168.0.13:3000/creacion/"
+  apiUrl:string = ""
   ///
   IngreMusculos:boolean=true;
   IngreMaquinas:boolean=false;
 
   listaMusculos:any;
   listaMaquinas:any;
-  constructor(private router: Router,private api:ExpressService) { 
+  constructor(private router: Router,private api:ExpressService, private loadingCtrl: LoadingController) { 
   }
 
   ionViewWillEnter(){
-     this.api.traerMusculos().then(res=>res.json()).then(res=>{
-       this.listaMusculos = res.respuesta
-       for(let musc of this.listaMusculos){
-        musc.foto = this.apiUrl+"/imagenes/fotosMusculos/"+musc.foto
-       }
-     })
-     this.api.traerMaquinas().then(res=>res.json()).then(res=>{
-      this.listaMaquinas = res.respuesta
-      for(let maq of this.listaMaquinas){
-        maq.foto = this.apiUrl+"/imagenes/fotoMaquinas/"+maq.foto
-       }
-     })
+    this.apiUrl = this.api.urlApi
+    this.loading(30000).then(async response=>{
+      response.present();
+      await this.api.traerMusculos().then(res=>res.json()).then(res=>{
+        this.listaMusculos = res.respuesta
+        for(let musc of this.listaMusculos){
+         musc.foto = this.apiUrl+"/imagenes/fotosMusculos/"+musc.foto
+        }
+      })
+     await this.api.traerMaquinas().then(res=>res.json()).then(res=>{
+       this.listaMaquinas = res.respuesta
+       for(let maq of this.listaMaquinas){
+         maq.foto = this.apiUrl+"/imagenes/fotoMaquinas/"+maq.foto
+        }
+      })
+      response.dismiss()
+    })
   }
 
 
@@ -54,6 +60,13 @@ export class MusculosPage implements OnInit {
   }
 
 
+  loading(duracion:any){
+    return this.loadingCtrl.create({
+       message: 'Cargando...',
+       duration: duracion,
+     })
+   }
+   
   
 
   irPerfil(){

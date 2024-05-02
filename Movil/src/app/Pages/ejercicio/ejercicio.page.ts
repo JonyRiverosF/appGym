@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class EjercicioPage implements OnInit {
 
  
   ///
-  apiUrl:string = "http://192.168.0.13:3000/creacion/"
+  apiUrl:string = "";
   ///
 
   boton:boolean=false;
@@ -46,15 +46,20 @@ export class EjercicioPage implements OnInit {
     id:string = "";
     ejercicio:any={};
   constructor(private router: Router,private toastController: ToastController,private api:ExpressService,
-    private activatedRouter:ActivatedRoute) { }
+    private activatedRouter:ActivatedRoute,private loadingCtrl: LoadingController) { }
 
   ionViewWillEnter(){
+    this.apiUrl = this.api.urlApi
     this.id = String(this.activatedRouter.snapshot.paramMap.get('id'))
-    this.api.detalleEjercicio(this.id).then(res=>res.json()).then(res=>{
-      this.ejercicio = res
-      this.ejercicio.foto = this.apiUrl+"imagenes/MiniaturaEjercicios/"+this.ejercicio.foto
-      this.ejercicio.video = this.apiUrl+"videos/"+this.ejercicio.video
-      console.log(this.ejercicio)
+    this.loading(30000).then(response=>{
+      response.present();
+      this.api.detalleEjercicio(this.id).then(res=>res.json()).then(res=>{
+        this.ejercicio = res
+        this.ejercicio.foto = this.apiUrl+"imagenes/MiniaturaEjercicios/"+this.ejercicio.foto
+        this.ejercicio.video = this.apiUrl+"videos/"+this.ejercicio.video
+        response.dismiss();
+       // console.log(this.ejercicio)
+      })
     })
   }
   
@@ -83,7 +88,12 @@ export class EjercicioPage implements OnInit {
     this.router.navigate(['/ejercicios/'+String(this.activatedRouter.snapshot.paramMap.get('musculo'))])
   }
 
-
+  loading(duracion:any){
+    return this.loadingCtrl.create({
+       message: 'Cargando...',
+       duration: duracion,
+     })
+   }
 
   irPerfil(){
     this.router.navigate(['/perfil']);

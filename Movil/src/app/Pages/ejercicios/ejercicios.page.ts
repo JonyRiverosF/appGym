@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ExpressService } from 'src/app/services/express.service';
 export class EjerciciosPage implements OnInit {
 
   ///
-  apiUrl:string = "http://192.168.0.13:3000/creacion/"
+  apiUrl:string = ""
   ///
 
   id:string="";
@@ -21,7 +22,9 @@ export class EjerciciosPage implements OnInit {
 
   criterioEscogido:string="";
   flag:boolean=true;
-  constructor(private router: Router,private activatedRouter:ActivatedRoute,private api:ExpressService) {
+  constructor(private router: Router,private activatedRouter:ActivatedRoute,private api:ExpressService,
+    private loadingCtrl: LoadingController) {
+
     this.activatedRouter.queryParams.subscribe(param =>{
       if (this.router.getCurrentNavigation()?.extras.state){
         this.flag = this.router.getCurrentNavigation()?.extras?.state?.["flag"];
@@ -31,28 +34,34 @@ export class EjerciciosPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    switch (localStorage.getItem("flagMaqMus")){
-      case "false":
-        this.criterioEscogido =  String(this.activatedRouter.snapshot.paramMap.get('id'))
-        this.api.traerEjerciciosPorMusculo(this.criterioEscogido).then(res=>res.json()).then(res=>{
-          this.ejercicios = res.respuesta
-          for(let musc of this.ejercicios){
-            musc.foto = this.apiUrl+"/imagenes/MiniaturaEjercicios/"+musc.foto
-           }
-          console.log(this.ejercicios )
-        })
-        break;
-      case "true":
-        this.criterioEscogido =  String(this.activatedRouter.snapshot.paramMap.get('id'))
-        this.api.traerEjerciciosPorMaquina(this.criterioEscogido).then(res=>res.json()).then(res=>{
-          this.ejercicios = res
-          for(let musc of this.ejercicios){
-            musc.foto = this.apiUrl+"/imagenes/MiniaturaEjercicios/"+musc.foto
-           }
-          console.log(this.ejercicios )
-        })
-        break;
-    }
+    this.apiUrl = this.api.urlApi
+    this.loading(30000).then(async response=>{
+      response.present();
+      switch (localStorage.getItem("flagMaqMus")){
+        case "false":
+          this.criterioEscogido =  String(this.activatedRouter.snapshot.paramMap.get('id'))
+          this.api.traerEjerciciosPorMusculo(this.criterioEscogido).then(res=>res.json()).then(res=>{
+            this.ejercicios = res.respuesta
+            for(let musc of this.ejercicios){
+              musc.foto = this.apiUrl+"/imagenes/MiniaturaEjercicios/"+musc.foto
+             }
+             response.dismiss();
+            //console.log(this.ejercicios)
+          })
+          break;
+        case "true":
+          this.criterioEscogido =  String(this.activatedRouter.snapshot.paramMap.get('id'))
+          this.api.traerEjerciciosPorMaquina(this.criterioEscogido).then(res=>res.json()).then(res=>{
+            this.ejercicios = res
+            for(let musc of this.ejercicios){
+              musc.foto = this.apiUrl+"/imagenes/MiniaturaEjercicios/"+musc.foto
+             }
+             response.dismiss()
+            //console.log(this.ejercicios )
+          })
+          break;
+      }
+    })
     //this.filtrarEjercicios(id);
   }
 
@@ -69,6 +78,15 @@ export class EjerciciosPage implements OnInit {
   verDetalle(x:any){
      this.router.navigate(['/ejercicio/'+this.criterioEscogido+"/"+x._id])
   }
+
+
+  loading(duracion:any){
+    return this.loadingCtrl.create({
+       message: 'Cargando...',
+       duration: duracion,
+     })
+   }
+   
 
   irPerfil(){
     this.router.navigate(['/perfil']);

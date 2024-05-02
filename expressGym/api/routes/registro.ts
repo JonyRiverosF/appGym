@@ -52,46 +52,11 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
 })
 
 
-
-
-var usuariosSchema = new mongoose.Schema({
-    codigo:String,
-    rut:String,
-    dv:String,
-    nombre:String,
-    apellido:String,
-    telefono:Number,
-    correo:String,
-    imagen:String,
-    fichaMedica:String,
-    observacionMedica:String,
-    rol:String
-})
-var usuarioModelo = mongoose.model("Usuarios",usuariosSchema)
-
-
-var horariosElegidos = new mongoose.Schema({
-    rutUsuario:String,
-    horarios:Array,
-    fechaInscripcion:Date,
-    vigencia:Boolean
-
-})
-var horariosElegidosModelo = mongoose.model("HorariosElegidos",horariosElegidos)
-
-var horariosSchema = new mongoose.Schema({
-    fecha:Date,
-    horas:Array,
-    vigencia:Boolean
-})
-
-var horariosModelo = mongoose.model("horarios",horariosSchema)
-
 var fechaHoy = new Date();
 let contador = 1;
 if(fechaHoy.getDay() == 0){
     while(contador < 7){
-        horariosModelo.create({
+        modelos.horariosModelo.create({
             fecha:new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador),
             horas:horas,
             vigencia:true
@@ -153,17 +118,7 @@ router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
 });
 
 
-var NoticiaSchema = new mongoose.Schema({
-    tituloN:String,
-    bajadaN:String,
-    fechaC:String,
-    descN:String,
-    video:String,
-    foto:String,
-    
-})
 
-var NoticiaModelo = mongoose.model("noticia",NoticiaSchema)
 
 router.post("/CrearNoticia",upload.array("video"),(req:any,res:Response)=>{
 
@@ -184,7 +139,7 @@ router.post("/CrearNoticia",upload.array("video"),(req:any,res:Response)=>{
         insertado.info = req.body;
         insertado.video = req.files;
 
-        NoticiaModelo.create({
+        modelos.NoticiaModelo.create({
         tituloN:req.body.tituloN,
         bajadaN:req.body.bajadaN,
         fechaC:req.body.fechaC,
@@ -245,13 +200,6 @@ router.post("/CrearMusculo", upload.single("foto"), (req: any, res: Response) =>
 });
 
 
-var tipoDietasSchema = new mongoose.Schema({
-    nombre: String,
-    foto: String
-});
-
-var TipoDietasModelo = mongoose.model("tipoDietas", tipoDietasSchema);
-
 router.post("/CrearTipoDietas", upload.single("foto"), (req: any, res: Response) => {
 
     if (!req.file || !req.file.mimetype.includes("image")) {
@@ -269,7 +217,7 @@ router.post("/CrearTipoDietas", upload.single("foto"), (req: any, res: Response)
             info: req.body
         };
 
-        TipoDietasModelo.create({
+        modelos.tipoDietasModelo.create({
             nombre: req.body.nombre,
             foto: foto + '.jpg'
         }).then(resultado => {
@@ -324,14 +272,7 @@ router.post("/CrearMaquina", upload.single("foto"), (req: any, res: Response) =>
     });
 });
 
-var DietasSchema = new mongoose.Schema({
-    nombre: String,
-    tipoD:String,
-    foto: String,
-    
-});
 
-var DietasModelo = mongoose.model("dietas", DietasSchema);
 
 router.post("/CrearDietas", upload.single("foto"), (req: any, res: Response) => {
 
@@ -340,7 +281,7 @@ router.post("/CrearDietas", upload.single("foto"), (req: any, res: Response) => 
     }
 
     var foto = req.file.filename;
-    fs.rename(directoryPath + req.file.filename, "./public/imagenes/Dietas/" + req.file.filename + '.jpg', function(err) {
+    fs.rename(directoryPath + req.file.filename, "./public/imagenes/Dietas/" + req.file.filename+".jpg", function(err) {
         if (err) {
             console.log('ERROR al renombrar archivo: ' + err);
             return res.status(500).json({ error: "Error al procesar el archivo." });
@@ -350,10 +291,10 @@ router.post("/CrearDietas", upload.single("foto"), (req: any, res: Response) => 
             info: req.body
         };
 
-        DietasModelo.create({
+        modelos.DietasModelo.create({
             nombre: req.body.nombre,
             tipoD: req.body.tipoD,
-            foto: foto + '.jpg'
+            foto: foto+".jpg"
             
         }).then(resultado => {
             console.log("Insertado !!!");
@@ -397,7 +338,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                 if(err){
                    console.log(err)
                 }else{
-                    usuarioModelo.create({
+                    modelos.usuarioModelo.create({
                         codigo:codigo,
                         rut:req.body.rut,
                         dv:req.body.dv,
@@ -425,7 +366,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                 
            })
         }else{
-            usuarioModelo.create({
+            modelos.usuarioModelo.create({
                 codigo:codigo,
                 rut:req.body.rut,
                 dv:req.body.dv,
@@ -482,7 +423,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
 })
 
 router.post("/login",upload.any(),(req:Request,res:Response)=>{
-    usuarioModelo.find({codigo:req.body.codigo}).exec().then(resultado=>{
+    modelos.usuarioModelo.find({codigo:req.body.codigo}).exec().then(resultado=>{
         if(resultado.length > 0){                
             res.status(201).json({
                 usuario:resultado
@@ -528,7 +469,7 @@ router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
         }
     }
 
-    await horariosElegidosModelo.create({
+    await modelos.horariosElegidosModelo.create({
          rutUsuario:req.body.rut,
          horarios:[
             {fecha:diaEscogidoU.fecha,hora:horaEscogidaU.hora},
@@ -539,13 +480,13 @@ router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
         vigencia:true
     }).then(res=>{console.log("Insertado horarios elegidos")}).catch((e:any)=>{console.log(e)})
 
-    await horariosModelo.findByIdAndUpdate(diaEscogidoU._id,diaEscogidoU).then(res=>{console.log("Modificadp H1")})
+    await modelos.horariosModelo.findByIdAndUpdate(diaEscogidoU._id,diaEscogidoU).then(res=>{console.log("Modificadp H1")})
     .catch((e:any)=>{console.log(e)})
 
-    await horariosModelo.findByIdAndUpdate(diaEscogidoD._id,diaEscogidoD).then(res=>{console.log("Modificadp H2")})
+    await modelos.horariosModelo.findByIdAndUpdate(diaEscogidoD._id,diaEscogidoD).then(res=>{console.log("Modificadp H2")})
     .catch((e:any)=>{console.log(e)})
 
-    await horariosModelo.findByIdAndUpdate(diaEscogidoT._id,diaEscogidoT).then(res=>{console.log("Modificadp H3")})
+    await modelos.horariosModelo.findByIdAndUpdate(diaEscogidoT._id,diaEscogidoT).then(res=>{console.log("Modificadp H3")})
     .catch((e:any)=>{console.log(e)})
 
     res.status(201).json({
@@ -557,11 +498,6 @@ router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
 
 
 export default module.exports={
-    registroUser:router,
-    usuarioModelo:usuarioModelo,
-    NoticiaModelo:NoticiaModelo,
-    DietasModelo:DietasModelo,
-    horariosElegidosModelo,
-    horariosModelo,
+    registroUser:router
 } 
 //export default exports.usuariomodelo=usuarioModelo

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuController, ToastController } from '@ionic/angular';
+import { LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
 
 @Component({
@@ -40,12 +40,13 @@ export class PerfilPage implements OnInit {
 
   usuario:any={};
   fichaMedica:string="";
-  apiUrl:string = "http://192.168.0.13:3000/creacion/"
+  apiUrl:string = ""
   constructor(private menuCtrl: MenuController,private router: Router,private toastController: ToastController,
-    private activatedRouter:ActivatedRoute,private api:ExpressService
+    private activatedRouter:ActivatedRoute,private api:ExpressService, private loadingCtrl: LoadingController
   ) {}
 
   ionViewDidEnter(){
+    this.apiUrl = this.api.urlApi
     try{
       this.fechaActual = this.fecha.toISOString();
       const finDeMEs = new Date(this.fecha.getFullYear(),this.fecha.getMonth(),0)
@@ -74,31 +75,40 @@ export class PerfilPage implements OnInit {
     this.fichaMedica = this.apiUrl+"fichasMedicas/"+this.usuario.fichaMedica
     var formulario = new FormData()
     formulario.append("rut",String(this.usuario.rut))
-    this.api.traerHorarios().then(res=>res.json()).then(horarios=>{
-      this.horarios = horarios.respuesta
-      console.log(this.horarios)
+    this.loading(30000).then(response=>{
+      response.present();
+
+      this.api.traerHorarios().then(res=>res.json()).then(async horarios=>{
+        this.horarios = horarios.respuesta
+        //console.log(this.horarios)
+        await this.api.actualizarHorario(this.usuario.rut).then(res=>res.json()).then(res=>{
+          console.log(res)
+        })
+        await this.api.horariosTomados(formulario).then(res=>res.json()).then(tomados=>{
+          var dias = []
+          if(tomados.resp.length>0){
+            for(let x of tomados.resp[0].horarios){
+              dias.push(x.fecha)
+            }
+            //console.log(dias)
+            this.horarioSeleccionado = dias
+            for(let x of tomados.resp[0].horarios){
+              this.resumen.push({
+                dia:new Date(x.fecha).toLocaleString("es-ES",{month:"long",year:"numeric",day:"numeric",weekday:"short",timeZone:"UTC"}),
+                hora:x.hora,
+                fechaOriginal:x.fecha
+              })
+            }
+            this.inhabilitarCalen=true;this.flag=false;this.guardarH=false;this.contador=this.horarioSeleccionado.length
+            //console.log(this.resumen)
+          }else{
+            this.horarioSeleccionado=undefined
+          }
+          response.dismiss()
+        })
+      })
     })
-    this.api.horariosTomados(formulario).then(res=>res.json()).then(tomados=>{
-      var dias = []
-      if(tomados.resp.length>0){
-        for(let x of tomados.resp[0].horarios){
-          dias.push(x.fecha)
-        }
-        //console.log(dias)
-        this.horarioSeleccionado = dias
-        for(let x of tomados.resp[0].horarios){
-          this.resumen.push({
-            dia:new Date(x.fecha).toLocaleString("es-ES",{month:"long",year:"numeric",day:"numeric",weekday:"short",timeZone:"UTC"}),
-            hora:x.hora,
-            fechaOriginal:x.fecha
-          })
-        }
-        this.inhabilitarCalen=true;this.flag=false;this.guardarH=false;this.contador=this.horarioSeleccionado.length
-        //console.log(this.resumen)
-      }else{
-        this.horarioSeleccionado=undefined
-      }
-    })
+
   }
   nya(x:any){
     
@@ -229,6 +239,15 @@ export class PerfilPage implements OnInit {
    */
   return utcDay !== 0;
 };
+
+loading(duracion:any){
+  return this.loadingCtrl.create({
+     message: 'Cargando...',
+     duration: duracion,
+   })
+ }
+ 
+
  mostrarH(){
   this.mostrarHorario = true;
  }

@@ -20,9 +20,18 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
 const directoryPath = "./public/videos/"
 
 
-router.post("/modificarHorario",upload.any(),(req:Request,res:Response)=>{
-    
-   // console.log(req)
+router.put("/modificarHorario/:id",(req:Request,res:Response)=>{
+    var id = req.params.id;
+    const fecha = new Date();
+    if(fecha.getDay() == 0){
+        modelos.horariosElegidosModelo.findOneAndUpdate({rutUsuario:id,vigencia:true},{
+            vigencia:false
+        }).exec().then(respuesta=>{
+            res.status(201).json({msg:"Modificado!!",respuesta})
+        })
+    }else{
+        res.status(201).json("Aún está vigente el horario")
+    }
 })
 
 router.post("/buscarEjercicio/:id",upload.any(),(req:Request,res:Response)=>{
@@ -42,7 +51,7 @@ router.post("/buscarEjercicio/:id",upload.any(),(req:Request,res:Response)=>{
 
     var id = req.params.id
     console.log(id)
-    NoticiaModelo.NoticiaModelo.find({_id:id}).then(respuesta=>{
+    modelos.NoticiaModelo.find({_id:id}).then(respuesta=>{
         res.json({
             respuesta
         })
@@ -55,7 +64,7 @@ router.post("/buscarEjercicio/:id",upload.any(),(req:Request,res:Response)=>{
 
     var id = req.params.id
     console.log(id)
-    DietasModelo.DietasModelo.find({_id:id}).then(respuesta=>{
+    modelos.DietasModelo.find({_id:id}).then(respuesta=>{
         res.json({
             respuesta
         })

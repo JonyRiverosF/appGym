@@ -30,16 +30,10 @@
         <ion-grid>
     
           <ion-row>
-            <ion-col size="6" class="container1" (click)="irtipos()">
-              <img src="assets/icon/maxi.jpg" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
-              <h1 class="center1">dieta 1</h1>
-          </ion-col>
-
-          <ion-col size="6" class="container1">
-            <img src="assets/icon/maxi.jpg" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
-            <h1 class="center1">dieta 2</h1>
-        </ion-col>
-          
+            <ion-col size="6" style="text-align: center;" class="container1" (click)="irtipos(x._id)" *ngFor="let x of dietas">
+              <img [src]="x.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
+              <h1 class="center1">{{x.nombre}}</h1>
+            </ion-col>   
             
           </ion-row>
 

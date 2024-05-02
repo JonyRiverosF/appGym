@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { ExpressService } from 'src/app/services/express.service';
 
 @Component({
   selector: 'app-detalle-noticia',
@@ -30,19 +31,34 @@ export class DetalleNoticiaPage implements OnInit {
     img:"assets/icon/maxi.jpg",
     username:"Maxi_Urrejola",mostrar:false}]
 
-  noticia:any;
+  noticia:any={};
 
   boton:boolean=false;
+
+  idNoticia:string="";
+
+  apiUrl:string="";
 
   subComentario:string="";
 
   comentario:string="";
 
-  constructor(private router: Router, private activatedRouter:ActivatedRoute,private toastController: ToastController) { 
-    this.activatedRouter.queryParams.subscribe(param =>{
-      if (this.router.getCurrentNavigation()?.extras.state){
-        this.noticia = this.router.getCurrentNavigation()?.extras?.state?.["noticia"];
-      }
+  constructor(private router: Router, private activatedRouter:ActivatedRoute,private toastController: ToastController,
+    private api:ExpressService,private loadingCtrl: LoadingController
+  ) {}
+
+  ionViewWillEnter(){
+    this.apiUrl = this.api.urlApi
+    this.idNoticia = String(this.activatedRouter.snapshot.paramMap.get('id'))
+    this.loading(20000).then(response=>{
+      response.present();
+      this.api.detalleNoticia(this.idNoticia).then(res=>res.json()).then(res=>{
+        this.noticia = res;
+        this.noticia.foto = this.apiUrl+"imagenes/FotosNoticia/"+this.noticia.foto
+        this.noticia.video = this.apiUrl+"videos/"+this.noticia.video
+        response.dismiss()
+        //console.log(this.noticia)
+      })
     })
   }
 
@@ -67,6 +83,13 @@ export class DetalleNoticiaPage implements OnInit {
     x.mostrar=false;
   }
 
+
+  loading(duracion:any){
+    return this.loadingCtrl.create({
+       message: 'Cargando...',
+       duration: duracion,
+     })
+   }
 
 
   irPerfil(){

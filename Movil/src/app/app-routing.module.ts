@@ -40,15 +40,15 @@ const routes: Routes = [
     loadChildren: () => import('./Pages/musculos/musculos.module').then( m => m.MusculosPageModule)
   },
   {
-    path: 'tipo-dietas',
+    path: 'tipo-dietas/:tipoDieta',
     loadChildren: () => import('./Pages/tipo-dietas/tipo-dietas.module').then( m => m.TipoDietasPageModule)
   },
   {
-    path: 'dieta',
+    path: 'dieta/:tipoDieta/:id',
     loadChildren: () => import('./Pages/dieta/dieta.module').then( m => m.DietaPageModule)
   },
   {
-    path: 'detalle-noticia',
+    path: 'detalle-noticia/:id',
     loadChildren: () => import('./Pages/detalle-noticia/detalle-noticia.module').then( m => m.DetalleNoticiaPageModule)
   },
 

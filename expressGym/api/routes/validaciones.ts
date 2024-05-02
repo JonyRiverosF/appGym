@@ -6,10 +6,10 @@ import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
 import wspClient from "./complementos/wsp";
-import modeloUsuario from "./registro"
+import modelos from "./modelos"
 
-var usuarioModelo = modeloUsuario.usuarioModelo
-var horariosElegidosModelo = modeloUsuario.horariosElegidosModelo
+var usuarioModelo = modelos.usuarioModelo
+var horariosElegidosModelo = modelos.horariosElegidosModelo
 
 
 
@@ -46,7 +46,7 @@ router.post("/rutRepetido",upload.any(),(req:Request,res:Response)=>{
 })
 
 router.get("/traerHorarios",(req:Request,res:Response)=>{
-    modeloUsuario.horariosModelo.find({}).then(respuesta=>{
+    modelos.horariosModelo.find({}).then(respuesta=>{
        res.status(200).json({
            respuesta
        })
@@ -56,7 +56,7 @@ router.get("/traerHorarios",(req:Request,res:Response)=>{
 })
 
 router.post("/horariosTomados",upload.any(),(req:Request,res:Response)=>{
-    horariosElegidosModelo.find({rutUsuario:req.body.rut}).then(resp=>{
+    horariosElegidosModelo.find({rutUsuario:req.body.rut,vigencia:true}).then(resp=>{
         res.status(201).json({
             resp
         })

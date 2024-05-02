@@ -25,23 +25,12 @@
     <ion-card>
       <ion-card-content>
         <ion-grid>
-    
           <ion-row>
-            <ion-col size="6" class="container1" (click)="irTipos()">
-              <img src="assets/icon/maxi.jpg" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
-              <h1 class="center1">calorícas</h1>
-          </ion-col>
-
-          <ion-col size="6" class="container1">
-            <img src="assets/icon/maxi.jpg" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
-            <h1 class="center1">sin gluten</h1>
-        </ion-col>
-          
-            
+            <ion-col size="6" class="container1" (click)="irTipos(x.nombre)" *ngFor="let x of tipoDietas" style="text-align: center;">
+              <img [src]="x.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
+              <h1 class="center1">{{x.nombre}}</h1>
+            </ion-col>
           </ion-row>
-
-          
-
         </ion-grid> 
       </ion-card-content>
     </ion-card>

@@ -8,10 +8,19 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://192.168.0.13:3000";
+  private  apiUrl="http://192.168.0.8:3000";
+
+  public urlApi = "http://192.168.0.8:3000/creacion/"
 
 
   //GET
+
+  traerNoticias(){
+    return fetch(this.apiUrl+"/consultas/traerNoticias",{
+      method:"GET"
+    })
+  }
+
   traerHorarios(){
     return fetch(this.apiUrl+"/validaciones/traerHorarios",{
       method:"GET"
@@ -30,6 +39,18 @@ export class ExpressService {
     })
   }
 
+  traerTipoDietas(){
+    return fetch(this.apiUrl+"/consultas/traerTipoDietas",{
+      method:"GET"
+    })
+  }
+
+  traerDietasPorTipo(tipo:string){
+    return fetch(this.apiUrl+"/consultas/dietasPorTipo/"+tipo,{
+      method:"GET"
+    })
+  }
+
   traerEjerciciosPorMusculo(musculo:string){
     return fetch(this.apiUrl+"/consultas/ejerciciosPorMusculos/"+musculo,{
       method:"GET"
@@ -44,6 +65,18 @@ export class ExpressService {
 
   detalleEjercicio(id:any){
     return fetch(this.apiUrl+"/consultas/detalleEjercicio/"+id,{
+      method:"GET"
+    })
+  }
+
+  detalleDieta(id:any){
+    return fetch(this.apiUrl+"/consultas/detalleDieta/"+id,{
+      method:"GET"
+    })
+  }
+
+  detalleNoticia(id:any){
+    return fetch(this.apiUrl+"/consultas/detalleNoticia/"+id,{
       method:"GET"
     })
   }
@@ -89,5 +122,11 @@ export class ExpressService {
      body:run
     })
  } 
+ //
+ actualizarHorario(id:string){
+  return fetch(this.apiUrl+"/modificar/modificarHorario/"+id,{
+    method:"PUT"
+  })
+ }
 
 }

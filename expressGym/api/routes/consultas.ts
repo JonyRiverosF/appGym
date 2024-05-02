@@ -12,6 +12,12 @@ import modelos from "./modelos"
 const directoryPath = "./public/videos/"
 
 
+router.get("/traerNoticias",(req:Request,res:Response)=>{
+    modelos.NoticiaModelo.find({}).exec().then(respuesta=>{
+        res.status(200).json(respuesta)
+    })
+})
+
 router.get("/traerMusculos",(req:Request,res:Response)=>{
    modelos.MusculoModelo.find({}).then((respuesta)=>{
     res.status(200).json({
@@ -25,6 +31,19 @@ router.get("/traerMaquinas",(req:Request,res:Response)=>{
         res.status(200).json({
             respuesta
         })
+    })
+})
+
+router.get("/traerTipoDietas",(req:Request,res:Response)=>{
+    modelos.tipoDietasModelo.find({}).exec().then(respuesta=>{
+        res.status(200).json(respuesta)
+    })
+})
+
+router.get("/dietasPorTipo/:tipo",(req:Request,res:Response)=>{
+    var tipoDieta = req.params.tipo
+    modelos.DietasModelo.find({tipoD:tipoDieta}).exec().then(respuesta=>{
+        res.status(200).json(respuesta)
     })
 })
 
@@ -50,6 +69,20 @@ router.get("/detalleEjercicio/:id",(req:Request,res:Response)=>{
         res.status(200).json(
             respuesta
         )
+    })
+})
+
+router.get("/detalleDieta/:id",(req:Request,res:Response)=>{
+    var id = req.params.id
+    modelos.DietasModelo.findById(id).exec().then(respuesta=>{
+        res.status(200).json(respuesta)
+    })
+})
+
+router.get("/detalleNoticia/:id",(req:Request,res:Response)=>{
+    var id = req.params.id
+    modelos.NoticiaModelo.findById(id).exec().then(respuesta=>{
+        res.status(200).json(respuesta)
     })
 })
 export default module.exports = router;

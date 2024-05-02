@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { ExpressService } from 'src/app/services/express.service';
 
 @Component({
   selector: 'app-noticias',
@@ -8,33 +10,41 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class NoticiasPage implements OnInit {
 
-  noticia=[{id:1,
-          titulo:"pug se ha encontrado orinando en el gimnasio ",
-          detalle:"en el collar del perro decia su nombre 'maximiliano', se les escapo a unos analistas programadores del duoc uc",
-          img:"assets/icon/maxi.jpg"},
+  apiUrl:string="";
+  noticias:any;
+  constructor(private router: Router,private api:ExpressService,private loadingCtrl: LoadingController) { }
 
-          {id:2
-          ,titulo:"maxi sube videos a tik tok",
-          detalle:"maximiliano urrejola más conocido el adicto a las barras largas(olimpicas)",
-          img:"assets/icon/gym.jpg",}]
-          
-  constructor(private router: Router) { }
+  ionViewWillEnter(){
+    this.apiUrl = this.api.urlApi;
+    this.loading(20000).then(response=>{
+      response.present();
+      this.api.traerNoticias().then(res=>res.json()).then(res=>{
+        this.noticias = res;
+        for(let x of this.noticias){
+          x.foto = this.apiUrl+"imagenes/FotosNoticia/"+x.foto
+        }
+        response.dismiss()
+        //console.log(this.noticias)
+      })
+    })
+  }
 
   ngOnInit() {
   }
 
-  irDetalle(noticia:any){
-    let navigationextra:NavigationExtras={
-      state:{
-        noticia:noticia
-    }
-  }
-    this.router.navigate(['/detalle-noticia'],navigationextra)
+  irDetalle(id:any){
+
+    this.router.navigate(['/detalle-noticia/'+id])
   }
 
 
 
-
+  loading(duracion:any){
+    return this.loadingCtrl.create({
+       message: 'Cargando...',
+       duration: duracion,
+     })
+   }
 
 
   irPerfil(){
