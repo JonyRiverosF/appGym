@@ -87,7 +87,10 @@ router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
                 if ( err ) console.log('ERROR: ' + err);
                 })
             }else{
-            var videosE = archivo.filename ;
+            var videosE = archivo.filename;
+            fs.rename(directoryPath + archivo.filename , directoryPath + archivo.filename + '.mp4', function(err) {
+                if ( err ) console.log('ERROR: ' + err);
+                })
             }
         }
     }
@@ -105,14 +108,17 @@ router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
         
     }).then(resultado=>{
         console.log("Insertado !!!!");
-        console.log(resultado)
+        res.status(201).json({
+            message: "Estoy en nyajs post",
+            creaste: insertado
+        })
     }).catch(error=>{
         console.log("algo salió mal");
         console.log(error)
-    })
-    res.status(201).json({
-        message: "Estoy en nyajs post",
-        creaste: insertado
+        res.status(201).json({
+            message: "Algo salió mal",
+            creaste: error
+        })
     })
     
 });
@@ -130,7 +136,10 @@ router.post("/CrearNoticia",upload.array("video"),(req:any,res:Response)=>{
                 if ( err ) console.log('ERROR: ' + err);
                 })
             }else{
-            var videoN = archivo.filename ;
+            var videoN = archivo.filename;
+            fs.rename(directoryPath + archivo.filename , directoryPath + archivo.filename + '.mp4', function(err) {
+                if ( err ) console.log('ERROR: ' + err);
+                })
             }
         }
     }
@@ -151,13 +160,17 @@ router.post("/CrearNoticia",upload.array("video"),(req:any,res:Response)=>{
     }).then(resultado=>{
         console.log("Insertado !!!!");
         console.log(resultado)
+        res.status(201).json({
+            message: "Noticia Insertada!!!",
+            creaste: resultado
+        })
     }).catch(error=>{
         console.log("algo salió mal");
         console.log(error)
-    })
-    res.status(201).json({
-        message: "Estoy en nyajs post",
-        creaste: insertado
+        res.status(201).json({
+            message: "Algo salió mal",
+            creaste: error
+        })
     })
     
 });
@@ -497,7 +510,5 @@ router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
 })
 
 
-export default module.exports={
-    registroUser:router
-} 
+export default module.exports=router
 //export default exports.usuariomodelo=usuarioModelo

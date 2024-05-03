@@ -64,6 +64,37 @@ export class RegistroUserPage implements OnInit {
 
   ngOnInit() {
   }
+
+  ar(x:any){
+    //var valorExaminar = (x.target.value)
+    
+    if (this.rut.charAt(this.rut.length-1).toLowerCase() != "k"){
+       if(isNaN(Number(this.rut.charAt(this.rut.length-1))) || this.rut.charAt(this.rut.length-1).toLowerCase() == " "){ 
+           this.rut = this.rut.slice(0,this.rut.length-1)
+        }
+    }
+   // console.log(this.rut)
+    if(this.rut.length >= 8){
+      if(this.rut.length == 10){
+        var dv = this.rut.charAt(this.rut.length-1);var dvAnterior = this.rut.charAt(this.rut.length-2);
+        var rutAntesGuion = this.rut.slice(0,this.rut.length-3);
+        this.rut = rutAntesGuion+dvAnterior+"-"+dv
+        
+      }else{
+        if(this.rut.charAt(this.rut.length-1)=="-"){
+          var dv = this.rut.charAt(this.rut.length-2)
+          var rutAntesGuion = this.rut.slice(0,this.rut.length-2);
+          this.rut = rutAntesGuion +"-"+dv;
+        }else{
+          if(!this.rut.includes("-")){
+            var dv = this.rut.charAt(this.rut.length-1)
+            var rutAntesGuion = this.rut.slice(0,this.rut.length-1);
+            this.rut = rutAntesGuion +"-"+dv;
+          }
+        }
+      }
+    }
+  }
   async verificarRegistro() {
     //Cada vez que se presione el botón, los mensajes de declararán vacias
     this.mensajeName = "";this.mensajeNameN = ""; this.mensajeNameE = "";
@@ -142,19 +173,18 @@ export class RegistroUserPage implements OnInit {
     }
     
     // VALIDACIÓN DEL RUT
-    if (!this.validarRut(this.rut)) {
+    /*if (!this.validarRut(this.rut)) {
       this.mensajeRut = "El RUT debe tener exactamente 8 dígitos";
       flag = false;
-    }
+    }*/
 
     // VALIDACIÓN DEL DÍGITO VERIFICADOR
     if (this.digitoVerificador.trim() === "") {
-      this.mensajeDigitoVerificador = "El digito verificador no puede estar vacio";
       flag = false;
     }
 
     if(this.calcularVerificador(this.rut)!=this.digitoVerificador){
-      this.mensajeDigitoVerificador="Digito verificador incorrecto"
+      this.mensajeRut="El rut ingresado no es válido"
       flag=false
     }
      
@@ -277,7 +307,7 @@ correoRepetido(correo:any){
       }else{
          this.flagCorreo= false;
       }
-      console.log(respuesta)
+     // console.log(respuesta)
  })
 }
 
@@ -291,7 +321,7 @@ runRepetido(run:any){
       }else{
          this.flagRut= false;
       }
-      console.log(respuesta)
+     // console.log(respuesta)
  })
 }
 
@@ -365,34 +395,43 @@ validarRut(rut: string): boolean {
 
 //DV
 calcularVerificador(rut:string) {
-  rut = rut.toString();
-  let sum = 0;
-  let mul = 2;
-
-  let i = rut.length;
-  while (i--) {
-    sum = sum + parseInt(rut.charAt(i)) * mul;
-    if (mul % 7 === 0) {
-      mul = 2;
-    } else {
-      mul++;
+  var dve = rut.charAt(rut.length-1)
+  this.digitoVerificador = dve
+  if(rut.length < 9){
+    return null
+  }else{ 
+      rut = rut.slice(0,rut.length-2)
+      //console.log(rut)
+      rut = rut.toString();
+      let sum = 0;
+      let mul = 2;
+    
+      let i = rut.length;
+      while (i--) {
+        sum = sum + parseInt(rut.charAt(i)) * mul;
+        if (mul % 7 === 0) {
+          mul = 2;
+        } else {
+          mul++;
+        }
+      }
+    
+      const res = sum % 11;
+    
+      if (res === 0) {
+        console.log(res);
+        return '0';
+      } else if (res === 1) {
+        console.log(res);
+        return 'k';
+      }
+    
+      const resto = 11 - res;
+      const dv = resto.toString();
+      console.log(dv);
+      return dv;
+           
     }
-  }
-
-  const res = sum % 11;
-
-  if (res === 0) {
-    console.log(res);
-    return '0';
-  } else if (res === 1) {
-    console.log(res);
-    return 'k';
-  }
-
-  const resto = 11 - res;
-  const dv = resto.toString();
-  console.log(dv);
-  return dv;
 }
 
 

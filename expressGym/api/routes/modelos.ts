@@ -3,7 +3,6 @@ import mongoose, { Mongoose } from "mongoose";
 var usuariosSchema = new mongoose.Schema({
     codigo:String,
     rut:String,
-    dv:String,
     nombre:String,
     apellido:String,
     telefono:Number,
@@ -11,6 +10,8 @@ var usuariosSchema = new mongoose.Schema({
     imagen:String,
     fichaMedica:String,
     observacionMedica:String,
+    estado:String,
+    codigoSeguridad:String,
     rol:String
 })
 var usuarioModelo = mongoose.model("Usuarios",usuariosSchema)
