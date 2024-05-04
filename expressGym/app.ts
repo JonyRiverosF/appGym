@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import morgan from "morgan";
-import registroUser from './api/routes/registro';
+import registros from './api/routes/registro';
 import modificarHorario from "./api/routes/modificar"
 import validaciones from "./api/routes/validaciones"
 import consultas from "./api/routes/consultas"
@@ -35,7 +35,7 @@ app.use(function (req, res, next) {
 app.use(morgan("dev"))
 
 
-app.use('/creacion',registroUser.registroUser)
+app.use('/creacion',registros)
 app.use("/modificar",modificarHorario)
 app.use("/validaciones",validaciones)
 app.use("/consultas",consultas)
