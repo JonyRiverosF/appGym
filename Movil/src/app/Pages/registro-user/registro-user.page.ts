@@ -179,9 +179,7 @@ export class RegistroUserPage implements OnInit {
     }*/
 
     // VALIDACIÓN DEL DÍGITO VERIFICADOR
-    if (this.digitoVerificador.trim() === "") {
-      flag = false;
-    }
+
 
     if(this.calcularVerificador(this.rut)!=this.digitoVerificador){
       this.mensajeRut="El rut ingresado no es válido"
@@ -222,8 +220,11 @@ export class RegistroUserPage implements OnInit {
           console.log(json)
           response.dismiss();
           this.loading(2000).then(response=>{
-            this.presentToast("bottom","Usuario registrado correctamente",2500);
-            this.router.navigate([''])
+            response.present()
+            this.router.navigate(["/confirmar-registro"],{state:{"infoUsuario":json.insertado}})
+            this.presentAlert("Se ha enviado un código de seguridad al correo "+this.correo+". Debes ingresar "+
+            "el código para corroborar tu identidad y finalizar con el registro.")
+            response.dismiss()
           })
         }).catch(err=>{
           console.log(err)

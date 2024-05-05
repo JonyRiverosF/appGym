@@ -59,7 +59,11 @@ const routes: Routes = [
   {
     path: 'registro',
     loadChildren: () => import('./Pages/registro-user/registro-user.module').then( m => m.RegistroUserPageModule)
+  },  {
+    path: 'confirmar-registro',
+    loadChildren: () => import('./Pages/confirmar-registro/confirmar-registro.module').then( m => m.ConfirmarRegistroPageModule)
   }
+
 
 ];
 

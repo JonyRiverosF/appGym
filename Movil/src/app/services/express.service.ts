@@ -129,4 +129,11 @@ export class ExpressService {
   })
  }
 
+ validarUsuario(form:any){
+  return fetch(this.apiUrl+"/validaciones/validarUsuario",{
+    method:"POST",
+    body:form
+  })
+ }
+
 }

@@ -76,13 +76,6 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
     console.log(err);
 })
 
-
-        /*reg.dia=(new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador))
-        reg.vigencia=true
-        reg.horas = horas
-        total.push(reg)
-        contador++
-        reg={dia:{},vigencia:true,horas:[{}]}*/
     
 
 
@@ -425,7 +418,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
             'To: '+req.body.correo,
             'Content-type: text/html;charset=iso-8859-1',
             'MIME-Version: 1.0',
-            'Subject: Codigo de acceso al gimnasio',
+            'Subject: Codigo de seguridad',
             '',
             'Bienvenido al gimnasio de Colina, para finalizar con tu registro debes ingresar el código de seguridad '+
             'en la aplicación. Cuando se verifique su identidad, podrás acceder a la App con tu correo electrónico o '+

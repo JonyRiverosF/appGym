@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Confirmar Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">confirmarRegistro</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card style="text-align: center;">
+    <ion-card-header>
+      <ion-card-title>Ingresa tu código de seguridad</ion-card-title>
+      <ion-card-subtitle style="color: white;">(Código enviado al correo {{infoUsuario.correo}})</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating" style="color: white;">Código de Seguridad</ion-label>
+        <ion-input [(ngModel)]="codigoSeg" placeholder="Ej: 3241" type="number"></ion-input>
+      </ion-item>
+      <ion-button (click)="validarUsuario()" color="warning">Verificar Identidad</ion-button>
+      <br />
+      <p style="color:white;">Recuerda revisar la bandeja de spam 
+        en la eventualidad de no encontrar el código en la bandeja principal
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

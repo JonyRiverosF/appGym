@@ -19,6 +19,9 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
 
 const directoryPath = "./public/videos/"
 
+router.get("/uwu",(req:Request,res:Response)=>{
+    console.log(req);
+})
 
 router.put("/modificarHorario/:id",(req:Request,res:Response)=>{
     var id = req.params.id;
