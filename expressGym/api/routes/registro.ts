@@ -43,38 +43,47 @@ const directoryPath = "./public/videos/"
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
     console.log("Conectado registro ts")
-    /*wspClient.on("ready",()=>{
-        wspClient.sendMessage("56968426213@c.us","nyaaaaa",).then(res=>{console.log(res)})
-    })*/
+    var fechaHoy = new Date();
+    let contador = 1;
+    if(fechaHoy.getDay() == 0){
+         modelos.horariosModelo.find({vigencia:true}).exec().then(async (resp:any)=>{
+            if(resp.length>1){
+                for(let x of resp){
+                    const fechaHorario = new Date(x.fecha) 
+                    if(fechaHorario < fechaHoy){
+                        await modelos.horariosModelo.updateOne({fecha:x.fecha},{vigencia:false}).exec()
+                    }
+                } 
+            }else{
+                while(contador < 7){
+                    modelos.horariosModelo.create({
+                            fecha:new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador),
+                            horas:horas,
+                            vigencia:true
+                        }).then(res=>{
+                            console.log(res)
+                        }).catch(e=>{
+                            console.log("error");
+                            console.log(e)
+                        })
+                    contador++
+                }
+              }
+            })
+        } 
 }).catch(err=>{
     console.log("Algo salió mal");
     console.log(err);
 })
 
 
-var fechaHoy = new Date();
-let contador = 1;
-if(fechaHoy.getDay() == 0){
-    while(contador < 7){
-        modelos.horariosModelo.create({
-            fecha:new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador),
-            horas:horas,
-            vigencia:true
-        }).then(res=>{
-            console.log(res)
-        }).catch(e=>{
-            console.log("error");
-            console.log(e)
-        })
-        contador++
-}
         /*reg.dia=(new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+contador))
         reg.vigencia=true
         reg.horas = horas
         total.push(reg)
         contador++
         reg={dia:{},vigencia:true,horas:[{}]}*/
-    }
+    
 
 
 router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
@@ -330,14 +339,17 @@ router.post("/CrearDietas", upload.single("foto"), (req: any, res: Response) => 
 router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Response)=>{
     try{
         var contador=0;var codigo = "";
+        var codigoSeguridad="";
         while(contador < 4){
            codigo += String(Math.floor(Math.random()*10))
+           codigoSeguridad += String(Math.floor(Math.random()*10))
            contador++;
+
         }
-        console.log(req.body)
+       /* console.log(req.body)
         console.log("------")
         console.log(req.file)
-        console.log("------")
+        console.log("------")*/
         if(req.file){
             var extension="";
             switch (req.file.mimetype){
@@ -354,13 +366,14 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                     modelos.usuarioModelo.create({
                         codigo:codigo,
                         rut:req.body.rut,
-                        dv:req.body.dv,
                         nombre:req.body.nombre,
                         apellido:req.body.apellido,
                         correo:req.body.correo,
                         telefono:parseInt(req.body.telefono),
                         imagen:"",
                         fichaMedica:req.file?.filename+extension,
+                        estado:"Por confirmar código de seguridad",
+                        codigoSeguridad:codigoSeguridad,
                         observacionMedica:"",
                         rol:1
                     }).then(response=>{
@@ -389,6 +402,8 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                 telefono:parseInt(req.body.telefono),
                 imagen:"",
                 fichaMedica:"",
+                estado:"Por confirmar código de seguridad",
+                codigoSeguridad:codigoSeguridad,
                 observacionMedica:req.body.observacionMedica,
                 rol:1
             }).then(response=>{
@@ -412,7 +427,9 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
             'MIME-Version: 1.0',
             'Subject: Codigo de acceso al gimnasio',
             '',
-            'Bienvenido '+req.body.nombre+' '+req.body.apellido +' al gimnasio municipal de colina. Tú código de acceso es el '+codigo
+            'Bienvenido al gimnasio de Colina, para finalizar con tu registro debes ingresar el código de seguridad '+
+            'en la aplicación. Cuando se verifique su identidad, podrás acceder a la App con tu correo electrónico o '+
+            'con una clave de acceso que se te enviará al correo. Tú código de seguridad es: '+codigoSeguridad
           ];
         
           const email = emailLines.join('\r\n').trim();
