@@ -1,3 +1,4 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
@@ -45,20 +46,31 @@ export class EjercicioPage implements OnInit {
   
     id:string = "";
     ejercicio:any={};
+    videoName:string="";
+    fotoName:string="";
   constructor(private router: Router,private toastController: ToastController,private api:ExpressService,
     private activatedRouter:ActivatedRoute,private loadingCtrl: LoadingController) { }
 
   ionViewWillEnter(){
+    this.boton = false;
     this.apiUrl = this.api.urlApi
     this.id = String(this.activatedRouter.snapshot.paramMap.get('id'))
-    this.loading(30000).then(response=>{
+    this.loading(30000).then(async response=>{
       response.present();
-      this.api.detalleEjercicio(this.id).then(res=>res.json()).then(res=>{
+      await this.api.detalleEjercicio(this.id).then(res=>res.json()).then(res=>{
         this.ejercicio = res
+        this.videoName = this.ejercicio.video;this.fotoName = this.ejercicio.foto
         this.ejercicio.foto = this.apiUrl+"imagenes/MiniaturaEjercicios/"+this.ejercicio.foto
         this.ejercicio.video = this.apiUrl+"videos/"+this.ejercicio.video
-        response.dismiss();
        // console.log(this.ejercicio)
+      })
+      await this.api.buscarGuardados(JSON.parse(String(localStorage.getItem("idUser"))).rut).then(res=>res.json()).then(res=>{
+        for(let x of res){
+          if(x.idArchivo == this.ejercicio._id){
+            this.boton = true;
+          }
+        }
+        response.dismiss();
       })
     })
   }
@@ -72,20 +84,43 @@ export class EjercicioPage implements OnInit {
     x.mostrar=false;
   }
 
-  esconder(){
-    this.boton=true;
-    this.presentToast("bottom","Ejercicio Guardado");
+  guardar(){
+    var formulario = new FormData();
+    formulario.append("rut",JSON.parse(String(localStorage.getItem("idUser"))).rut)
+    formulario.append("archivo",this.fotoName);
+    formulario.append("idAr",this.ejercicio._id);
+    formulario.append("titulo",this.ejercicio.Titulo);
+    formulario.append("tipo","ejercicio")
+    this.loading(20000).then(response=>{
+      response.present();
+      this.api.guardarMultimedia(formulario).then(res=>res.json()).then(res=>{
+        this.presentToast("bottom","Ejercicio Guardado");
+        this.boton=true;
+        response.dismiss();
+      })
+    })
   }
 
-  sacar(){
-    this.boton=false;
-    this.presentToast("bottom","Ejercicio eliminado de tus guardados");
+  quitarGuardado(){
+    this.loading(20000).then(response=>{
+      response.present();
+      this.api.quitarGuardado(this.ejercicio._id,JSON.parse(String(localStorage.getItem("idUser"))).rut).then(res=>res.json())
+      .then(res=>{
+        this.boton=false;
+        this.presentToast("bottom","Ejercicio eliminado de tus guardados");
+        response.dismiss()
+      })
+    })
   }
 
 
 
   regresar(){
-    this.router.navigate(['/ejercicios/'+String(this.activatedRouter.snapshot.paramMap.get('musculo'))])
+    if(String(this.activatedRouter.snapshot.paramMap.get('musculo')) == "guardados"){
+      this.router.navigate(['guardados'])
+    }else{
+      this.router.navigate(['/ejercicios/'+String(this.activatedRouter.snapshot.paramMap.get('musculo'))])
+    }
   }
 
   loading(duracion:any){

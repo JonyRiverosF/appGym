@@ -87,6 +87,15 @@ var horariosSchema = new mongoose.Schema({
 
 var horariosModelo = mongoose.model("horarios",horariosSchema)
 
+var guardadosSchema = new mongoose.Schema({
+    rutUsuario:String,
+    archivoGuardado:String,
+    titulo:String,
+    idArchivo:String,
+    tipoArchivo:String
+})
+var guardadosModelo = mongoose.model("guardados",guardadosSchema)
+
 export default module.exports = {MusculoModelo,EjerciciosModelo,MaquinasModelo,tipoDietasModelo,DietasModelo,
-    NoticiaModelo,usuarioModelo,horariosElegidosModelo,horariosModelo
+    NoticiaModelo,usuarioModelo,horariosElegidosModelo,horariosModelo,guardadosModelo
 }

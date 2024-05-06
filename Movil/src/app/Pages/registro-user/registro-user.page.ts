@@ -65,8 +65,13 @@ export class RegistroUserPage implements OnInit {
   ngOnInit() {
   }
 
+
   ar(x:any){
-    //var valorExaminar = (x.target.value)
+    console.log(x.data)
+    if((isNaN(x.data) && x.data.toLowerCase() != "k") || x.data == " "){
+      var d = this.rut.split(x.data)
+      this.rut = d[0]+d[1]
+    }
     
     if (this.rut.charAt(this.rut.length-1).toLowerCase() != "k"){
        if(isNaN(Number(this.rut.charAt(this.rut.length-1))) || this.rut.charAt(this.rut.length-1).toLowerCase() == " "){ 
@@ -77,7 +82,14 @@ export class RegistroUserPage implements OnInit {
     if(this.rut.length >= 8){
       if(this.rut.length == 10){
         var dv = this.rut.charAt(this.rut.length-1);var dvAnterior = this.rut.charAt(this.rut.length-2);
-        var rutAntesGuion = this.rut.slice(0,this.rut.length-3);
+        if(dvAnterior == "-"){
+          dvAnterior = this.rut.charAt(this.rut.length-3)
+          console.log(dv);console.log(dvAnterior)
+          var rutAntesGuion = this.rut.slice(0,this.rut.length-3);
+        }else{
+          console.log(dv);console.log(dvAnterior)
+          var rutAntesGuion = this.rut.slice(0,this.rut.length-3);
+        }
         this.rut = rutAntesGuion+dvAnterior+"-"+dv
         
       }else{
@@ -90,8 +102,18 @@ export class RegistroUserPage implements OnInit {
             var dv = this.rut.charAt(this.rut.length-1)
             var rutAntesGuion = this.rut.slice(0,this.rut.length-1);
             this.rut = rutAntesGuion +"-"+dv;
+          }else{
+            var dv = this.rut.slice(this.rut.length-2,this.rut.length);
+            var rutAntesGuion = this.rut.slice(0,this.rut.length-2);
+            console.log(dv);console.log(rutAntesGuion)
+            this.rut = rutAntesGuion +dv;
           }
         }
+      }
+    }else{
+      if(this.rut.includes("-")){
+        var a = this.rut.split("-");
+        this.rut = a[0]+a[1]
       }
     }
   }

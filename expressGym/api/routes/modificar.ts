@@ -6,8 +6,7 @@ import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
 import modelos from "./modelos";
-import NoticiaModelo from './registro';
-import DietasModelo from './registro';
+
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
@@ -114,6 +113,14 @@ router.post("/buscarEjercicio/:id",upload.any(),(req:Request,res:Response)=>{
         console.log(e)
     })
  })
+
+router.delete("/eliminarGuardado/:id/:rut",(req:Request,res:Response)=>{
+    modelos.guardadosModelo.findOneAndDelete({idArchivo:req.params.id,rutUsuario:req.params.rut}).exec().then(respuesta=>{
+        res.status(200).json(respuesta)
+    }).catch(error=>{
+        console.log(error)
+    })
+})
 
 
  

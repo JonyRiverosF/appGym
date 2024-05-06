@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button default-href="#" (click)="volver()"></ion-back-button>
+      <ion-back-button default-href="#" (click)="regresar()"></ion-back-button>
     </ion-buttons>
     <ion-title>dieta</ion-title>
   </ion-toolbar>
@@ -32,10 +32,10 @@
             <ion-col size="1"></ion-col>
             <ion-col size="10"> 
               <a [href]="dieta.foto" target="_blank" type="image/jpg" download="uwu"><ion-button color="warning" shape="round">Descargar</ion-button></a>
-              <div *ngIf="!boton"><ion-button color="warning" shape="round" (click)="esconder()">
+              <div *ngIf="!boton"><ion-button color="warning" shape="round" (click)="guardar()">
               <ion-icon name="bookmark-outline"></ion-icon></ion-button></div>
 
-              <div *ngIf="boton"><ion-button color="warning" shape="round" (click)="mostrarB()">
+              <div *ngIf="boton"><ion-button color="warning" shape="round" (click)="quitarGuardado()">
                 <ion-icon name="bookmark-sharp" ></ion-icon></ion-button></div>
             </ion-col>
             <ion-col size="1"></ion-col>

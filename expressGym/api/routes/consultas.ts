@@ -5,9 +5,6 @@ const upload = multer({ dest: 'public/videos/' })
 import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
-import EjerciciosModelo from './registro';
-import NoticiaModelo from './registro';
-import DietasModelo from './registro';
 import modelos from "./modelos"
 const directoryPath = "./public/videos/"
 
@@ -83,6 +80,15 @@ router.get("/detalleNoticia/:id",(req:Request,res:Response)=>{
     var id = req.params.id
     modelos.NoticiaModelo.findById(id).exec().then(respuesta=>{
         res.status(200).json(respuesta)
+    })
+})
+
+router.get("/traerGuardados/:id",(req:Request,res:Response)=>{
+    var rut = req.params.id
+    modelos.guardadosModelo.find({rutUsuario:rut}).exec().then(respuesta=>{
+        res.status(200).json(respuesta)
+    }).catch(error=>{
+        console.log(error)
     })
 })
 export default module.exports = router;

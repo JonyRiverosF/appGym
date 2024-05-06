@@ -446,21 +446,39 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
 })
 
 router.post("/login",upload.any(),(req:Request,res:Response)=>{
-    modelos.usuarioModelo.find({codigo:req.body.codigo}).exec().then(resultado=>{
-        if(resultado.length > 0){                
-            res.status(201).json({
-                usuario:resultado
-            })
-                
-        }else{
-            res.status(201).json({
-                usuario:[]
-            })
-        }
-    }).catch(error=>{
-        console.log("algo salió mal");
-        console.log(error);
-    })
+    if(isNaN(req.body.codigo)){
+        modelos.usuarioModelo.find({correo:req.body.codigo}).exec().then(resultado=>{
+            if(resultado.length > 0){                
+                res.status(201).json({
+                    usuario:resultado
+                })
+                    
+            }else{
+                res.status(201).json({
+                    usuario:[]
+                })
+            }
+        }).catch(error=>{
+            console.log("algo salió mal");
+            console.log(error);
+        })
+    }else{
+        modelos.usuarioModelo.find({codigo:req.body.codigo}).exec().then(resultado=>{
+            if(resultado.length > 0){                
+                res.status(201).json({
+                    usuario:resultado
+                })
+                    
+            }else{
+                res.status(201).json({
+                    usuario:[]
+                })
+            }
+        }).catch(error=>{
+            console.log("algo salió mal");
+            console.log(error);
+        })
+    }
 
 })
 
@@ -519,6 +537,21 @@ router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
 
 })
 
+router.post("/guardarMultimedia",upload.any(),(req:Request,res:Response)=>{
+    modelos.guardadosModelo.create({
+        rutUsuario:req.body.rut,
+        archivoGuardado:req.body.archivo,
+        titulo:req.body.titulo,
+        idArchivo:req.body.idAr,
+        tipoArchivo:req.body.tipo
+    }).then(respuesta=>{
+        res.status(201).json({
+            respuesta
+        })
+    }).catch(error=>{
+        console.log(error)
+    })
+})
 
 export default module.exports=router
 //export default exports.usuariomodelo=usuarioModelo

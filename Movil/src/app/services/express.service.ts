@@ -80,6 +80,18 @@ export class ExpressService {
       method:"GET"
     })
   }
+
+  buscarGuardados(rut:any){
+    return fetch(this.apiUrl+"/consultas/traerGuardados/"+rut,{
+      method:"GET"
+    })
+  }
+
+  quitarGuardado(id:any,rut:any){
+    return fetch(this.apiUrl+"/modificar/eliminarGuardado/"+id+"/"+rut,{
+      method:"DELETE"
+    })
+  }
   //Registro Usuario
   registroUsuario(informacion:any){
     return fetch(this.apiUrl+"/creacion/registroUsuario",{
@@ -102,6 +114,12 @@ export class ExpressService {
     })
   }
    
+  guardarMultimedia(form:any){
+    return fetch(this.apiUrl+"/creacion/guardarMultimedia",{
+      method:"POST",
+      body:form
+    })
+  }
   horariosTomados(rut:any){
     return fetch(this.apiUrl+"/validaciones/horariosTomados",{
       method:"POST",

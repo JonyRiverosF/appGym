@@ -28,12 +28,12 @@
       <video [src]="ejercicio.video" controls style="max-width: 70%;max-height: 50%;"></video>
       <!-- Boton Guardado -->
       <div *ngIf="!boton">
-          <ion-button color="warning" shape="round" (click)="esconder()">
+          <ion-button color="warning" shape="round" (click)="guardar()">
             <ion-icon name="bookmark-outline"></ion-icon>
           </ion-button>
       </div>
         <div *ngIf="boton">
-            <ion-button color="warning" shape="round" (click)="sacar()">
+            <ion-button color="warning" shape="round" (click)="quitarGuardado()">
               <ion-icon name="bookmark-sharp" ></ion-icon>
             </ion-button>
         </div>
