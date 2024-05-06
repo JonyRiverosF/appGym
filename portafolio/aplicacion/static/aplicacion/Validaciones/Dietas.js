@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var apiUrl = "http://192.168.1.2:3000";
+    var apiUrl = "http://192.168.1.7:3000";
 
 
 
@@ -110,6 +110,30 @@ $(document).ready(function(){
                 msjMostrar += "Tipo de dieta Registrado Correctamente."   
             });
             $("#mensaje_TipoDietas").html("-Tipo de dieta Creada Correctamente.");
+        }
+    });
+
+
+
+    //Modificacion tipos de dietas
+    $("#FormModificarTD").submit(function(e){
+        var nombreDieta = $("#nombreD").val();
+
+        let msjMostrar = "";
+        let enviar = false;
+
+        // Validar Nombre Dieta
+        if(nombreDieta.trim() == ""){
+            msjMostrar += "<br>-El nombre de la dieta no puede estar vacío.";
+            enviar = true;
+        }
+
+        if(enviar){
+            $("#mensaje_ModificarTD").html(msjMostrar);
+            e.preventDefault();
+        }
+        else{
+            $("#mensaje_ModificarTD").html("-Dieta Modificada Correctamente.");
         }
     });
 

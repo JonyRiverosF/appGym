@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios Registrados</title>
+    <title>Modificar Grupos Musculares</title>
+
+    <!--JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <!-- Bootstrap CSS -->
 <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
@@ -314,13 +317,13 @@ nav > ul > li > ul > li > ul:before {
           <li><a href="{% url 'pantalla' %}"></a></li>
           <li><a href="{% url 'Solicitudes' %}">Solicitudes</a></li>
           <li><a href="{% url 'Informes' %}">Informes</a></li>
-          <li><a id="selected">Usuarios</a>
+          <li><a>Usuarios</a>
             <ul>
               <li><a href="{% url 'Registro' %}">Crear Usuarios</a></li>
               <li><a href="{% url 'ListaUsu' %}">Modificar Usuarios</a></li>
             </ul>
           </li>
-          <li><a>Categorías</a>
+          <li><a id="selected">Categorías</a>
             <ul>
               <li><a >Máquinas</a>
 
@@ -372,57 +375,82 @@ nav > ul > li > ul > li > ul:before {
     </div>
   </div>
 <br>
-
     
-
-<div class="container" style="background: rgb(17, 67, 89);">
-  <div class="container" > 
-  <div class="container" >
-  <br>
+    <div class="container">
+        <div class="container">
+          <div class="container">
+            <div class="container">
+              <div class="container">
   
-  <div class="row" style="text-align: center;margin-top: 5%;">
-    
-    <div class="col-md-3 col-sm-4"></div>
-      <div class="col-md-6 col-sm-4">
-          <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Modificar Usuarios</h1><br>
-      </div>
-      <div class="col-md-3 col-sm-4"></div>
-  </div><br>
-
-
-
-  <div class="row">
-      <div class="table-responsive">
-      <table class="table">
-          <tr>
-            <th>Nombre </th>
-            <th>Horario</th>
-            <th>Boton</th>
-          </tr>
-          
-          {% for u in usuarios %}
-          <tr>
-            <td>{{ u.nombre }} {{ u.apellido }}</td>
+  
+        <form action="" method="POST" enctype="multipart/form-data" class="fondoform" name="FormModificarDieta" id="FormModificarDieta">
             
-            <td>
-              <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn" style="color: rgb(255, 255, 255); background-color: rgb(97, 97, 97);">Modificar</a>
-            </td>
-          </tr>
-          
-          {% endfor %}
-          
-        </table>
-      </div>
-  </div>
+            {% csrf_token %}
+    
+            <h1 class="centrar letraLo" style="text-align: center;">Modificar Grupo Muscular </h1>
+  
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+                <div class="grupo">
+                  <label>ID Grupo Muscular</label>
+                  <input type="text" class="form-control"  required value="{{ modificarMusculos.id }}" id="nombreD" name="nombreD" readonly><span class="barra" ></span>
+                </div>
+              </div>
+                
+                <div class="col-md-6 col-sm-6">
+                  <div class="grupo">
+                    <label>Nombre Grupo Muscular</label>
+                    <input type="text" class="form-control"  required value="{{ modificarMusculos.nombre }}" id="nombreD" name="nombreD"><span class="barra" ></span>
+                  </div>
+                </div>
+            </div>
+  
+            <div class="row">
+                <div class="col-md-3"></div>
+              <div class="col-md-6 col-sm-6">
+                <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione imagen del Grupo Muscular</h3>
+                <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoD" name="fotoD" required/></p>
+                <br>
+              </div>
+              <div class="col-md-3"></div>
+            </div>
+  
+            <div class="row">
+              <div class="col-md-12">
+                {% if musculos.foto != '' %}
+                <div class="grupo" style="text-align: center;">
+                  <label for="" ><h5 style="color: #000000;">Foto del Grupo Muscular Actual</h5></label><br>
+                  <img src="{{ modificarMusculos.foto }}"  alt="Avatar" style="width:150px;height:150px;">
+                </div>
+              {% endif %}
+            
+              </div>
+            </div>
+            
+                  
+                  
+            
+                  <div class="row">
+                    <div class="col-md-4"></div>
+                      <div class="col-md-4">
+                          <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(97, 97, 97); margin-left: auto;">
+                      </div>
+                      <div class="col-md-4"></div>
+                  </div>
+  
+            <p class="warnings" id="mensaje_ModificarMusculo"></p>
+            <p class="warnings " id="mensaje"></p>
+        </form><br>
+    
+  
+    </div></div></div></div></div> 
+  
 
 
-  </div></div></div>
 
 
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="/static/aplicacion/Validaciones/Ejercicios.js"></script>
 </body>
 </html>

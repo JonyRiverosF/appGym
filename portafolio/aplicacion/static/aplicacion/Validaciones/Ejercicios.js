@@ -1,7 +1,7 @@
 //Creacion de la noticia 
 $(document).ready(function(){
 
-    var apiUrl = "http://192.168.1.2:3000";
+    var apiUrl = "http://192.168.1.7:3000";
 
     $("#fotoE").change(function(e){
         foto = e.target.files[0]
@@ -132,7 +132,36 @@ $(document).ready(function(){
     });
 
 
+    //Modificacion de los Musculos
+    $("#FormModificarMusculos").submit(function(e){    
+        var nombreEjercicio = $("#nombreE").val();
+        
+        
+        let msjMostrar = "";
+        let enviar = false;
 
+        // Validar Nombre Ejercicio
+        if(nombreEjercicio.trim() == ""){
+            msjMostrar += "<br>-El nombre del ejercicio no puede estar vacío.";
+            enviar = true;
+        }
+
+        if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreEjercicio)){
+            msjMostrar += "<br>-Nombre del ejercicio inválido, no debe contener caracteres especiales.";
+            enviar = true;
+        }
+
+        if(enviar){
+            $("#mensaje_ModificarMusculo").html(msjMostrar);
+            e.preventDefault();
+        }
+        else{
+            $("#mensaje_ModificarMusculo").html("-Ejercicio Modificado Correctamente.");
+
+
+
+        }
+    });
 
 
 
@@ -215,7 +244,36 @@ $(document).ready(function(){
 
 
 
+    //Modificacion de las maquinas
+    $("#FormModificarMaquinas").submit(function(e){    
+        var nombreEjercicio = $("#nombreE").val();
+        var idE = $("#idE").val();
+        
+        let msjMostrar = "";
+        let enviar = false;
 
+        // Validar Nombre Ejercicio
+        if(nombreEjercicio.trim() == ""){
+            msjMostrar += "<br>-El nombre del ejercicio no puede estar vacío.";
+            enviar = true;
+        }
+
+        if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreEjercicio)){
+            msjMostrar += "<br>-Nombre del ejercicio inválido, no debe contener caracteres especiales.";
+            enviar = true;
+        }
+
+        if(enviar){
+            $("#mensaje_ModificarMaquina").html(msjMostrar);
+            e.preventDefault();
+        }
+        else{
+            $("#mensaje_ModificarMaquina").html("-Ejercicio Modificado Correctamente.");
+
+
+
+        }
+    });
 
 
 

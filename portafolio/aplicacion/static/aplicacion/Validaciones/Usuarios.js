@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     var ficha 
-    var apiUrl = "http://192.168.1.2:3000";
+    var apiUrl = "http://192.168.1.7:3000";
     var flagCorreo = false;
     var flagRut = false;
     
@@ -51,13 +51,11 @@ $(document).ready(function(){
         var nombreU = $("#nombre").val();
         var apellidoU = $("#apellido").val();
         var Rut = $("#rut").val();
-        var DV = $("#dv").val();
         var Telefono = $("#telefono").val();
         var Correo = $("#correo").val();
         var observacionesU = $("#observacionesU").val();
         var horarioU = $("#horarioU").val();
          
-        console.log(document.querySelector('input[name="ficha"]:checked').value)
 
         let msjMostrar = "";
         let enviar = false;
@@ -129,51 +127,50 @@ $(document).ready(function(){
             enviar = true;
         }
 
-        if(!/^\d{7,}$/.test(Rut)){
-            msjMostrar += "<br>-El rut del usuario debe contener al menos 7 números.";
+        if (!validarRut(Rut)) {
+            msjMostrar += "<br>-El rut del usuario no es válido.";
             enviar = true;
         }
 
-        if (!enviar) {
-            if (!validarRut($("#rut").val(), $("#dv").val())) {
-              msjMostrar += "<br>-El RUT ingresado no es válido.";
-              enviar = true;
+        function validarRut(rut) {
+            // Verificar si el RUT está en blanco
+            if (rut.trim() === "") {
+                return false;
             }
-          } 
-
-        // Validar Dígito Verificador del Usuario
-        if (DV.trim() == "") {
-            msjMostrar += "<br>-El dígito verificador del usuario no puede estar vacío.";
-            enviar = true;
-        }
-  
-        if (!/^\d$|^k$/i.test(DV)) {
-            msjMostrar += "<br>-El dígito verificador del usuario debe ser un número entre 0 y 9 o la letra 'k' (mayúscula o minúscula).";
-            enviar = true;
+        
+            // Separar el cuerpo del RUT del dígito verificador
+            var rutCompleto = rut.split("-");
+            var cuerpo = rutCompleto[0].replace(/\./g, "");
+            var dv = rutCompleto[1];
+        
+            // Validar el cuerpo del RUT
+            if (cuerpo.length < 7) {
+                return false;
+            }
+        
+            // Calcular el dígito verificador esperado
+            var suma = 0;
+            var multiplo = 2;
+        
+            for (var i = 1; i <= cuerpo.length; i++) {
+                var index = multiplo * parseInt(cuerpo.charAt(cuerpo.length - i));
+                suma += index;
+        
+                if (multiplo < 7) {
+                    multiplo += 1;
+                } else {
+                    multiplo = 2;
+                }
+            }
+        
+            var dvEsperado = 11 - (suma % 11);
+            dvEsperado = (dvEsperado === 11) ? 0 : (dvEsperado === 10) ? "K" : dvEsperado.toString();
+        
+            // Validar el dígito verificador
+            return dvEsperado === dv.toUpperCase();
         }
      
-        function validarRut(rut, dv) {
-            rut = rut.replace(".", "").replace(".", "").replace("-", "");
-          
-            if (!/^\d+$/.test(rut) || !/^[0-9kK]{1}$/.test(dv)) {
-              return false;
-            }
-          
-            let suma = 0;
-            let multiplo = 2;
-            for (let i = rut.length - 1; i >= 0; i--) {
-              suma += parseInt(rut.charAt(i)) * multiplo;
-              if (multiplo < 7) {
-                multiplo += 1;
-              } else {
-                multiplo = 2;
-              }
-            }
-            let dvEsperado = 11 - (suma % 11);
-            let dvCalculado = dvEsperado == 10 ? "k" : dvEsperado.toString();
-          
-            return dvCalculado.toLowerCase() === dv.toLowerCase();
-          }
+        
           
 
           if(enviar){
@@ -193,7 +190,6 @@ $(document).ready(function(){
                             formulario.append("nombre", nombreU);
                             formulario.append("apellido", apellidoU);
                             formulario.append("rut",String (Rut));
-                            formulario.append("dv", DV);
                             formulario.append("telefono", Telefono);
                             formulario.append("correo", Correo);
             
@@ -222,7 +218,7 @@ $(document).ready(function(){
                             });
             
                             $("#mensaje_RegistrarUsuarios").html("-Usuario Registrado Correctamente.");
-                            $("#nombre")[0].value=""; $("#apellido")[0].value=""; $("#rut")[0].value=undefined; 
+                            $("#nombre")[0].value=""; $("#apellido")[0].value=""; $("#rut")[0].value=""; 
                             $("#dv")[0].value=""; $("#telefono")[0].value=undefined; $("#correo")[0].value="";
                             $("#fichaU")[0].value="";$("#observacionesU")[0].value="";
                             document.getElementById("fichaSi").checked=false; document.getElementById("fichaNo").checked=false;
@@ -240,6 +236,7 @@ $(document).ready(function(){
                     
                 }
         });
+        
         
         
 

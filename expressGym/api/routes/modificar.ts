@@ -76,6 +76,45 @@ router.post("/buscarEjercicio/:id",upload.any(),(req:Request,res:Response)=>{
     })
  })
 
+ router.post("/buscarTipoDietas/:id",upload.any(),(req:Request,res:Response)=>{
+
+    var id = req.params.id
+    console.log(id)
+    modelos.tipoDietasModelo.find({_id:id}).then(respuesta=>{
+        res.json({
+            respuesta
+        })
+    }).catch (e=>{
+        console.log(e)
+    })
+ })
+
+ router.post("/buscarMaquinas/:id",upload.any(),(req:Request,res:Response)=>{
+
+    var id = req.params.id
+    console.log(id)
+    modelos.MaquinasModelo.find({_id:id}).then(respuesta=>{
+        res.json({
+            respuesta
+        })
+    }).catch (e=>{
+        console.log(e)
+    })
+ })
+
+ router.post("/buscarMusculos/:id",upload.any(),(req:Request,res:Response)=>{
+
+    var id = req.params.id
+    console.log(id)
+    modelos.MusculoModelo.find({_id:id}).then(respuesta=>{
+        res.json({
+            respuesta
+        })
+    }).catch (e=>{
+        console.log(e)
+    })
+ })
+
 
  
 

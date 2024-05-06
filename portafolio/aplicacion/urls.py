@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import pantalla,login,formSesion,OlvidasteContra,   ListaCategorias,CrearMusculos,CrearMaquinas,CrearTiposDietas, Solicitudes,Informes,Reportes,VistaComentarios,  Registro,ListaUsu,ModificarU,   CrearEjer,ListaEje,ModificarEjer,   CrearDie,ListaDie,ModificarDie,  CrearNot,ListaNot,ModificarNot
+from .views import pantalla,login,formSesion,OlvidasteContra,   ListaCategorias,CrearMusculos,CrearMaquinas,CrearTiposDietas, Solicitudes,Informes,Reportes,VistaComentarios,  Registro,ListaUsu,ModificarU,   CrearEjer,ListaEje,ModificarEjer,   CrearDie,ListaDie,ModificarDie,  CrearNot,ListaNot,ModificarNot, ListaMaquinas,ListaTipoDietas,ListaMusculos, ModificarMusculos,ModificarTipoD,ModificarMaquinas
 
 urlpatterns =[
 
@@ -41,13 +41,27 @@ urlpatterns =[
     path("ModificarNot/<id>",ModificarNot,name="ModificarNot"),
 
 
-    #Categorias
+    #Crear Categorias
     path("CrearMusculos",CrearMusculos,name="CrearMusculos"),
     path("CrearMaquinas",CrearMaquinas,name="CrearMaquinas"),
     path("CrearTiposDietas",CrearTiposDietas,name="CrearTiposDietas"),
-    path("ListaCategorias",ListaCategorias,name="ListaCategorias"),
+
+
+    #Listas Categorias
+    path("ListaMaquinas",ListaMaquinas,name="ListaMaquinas"),
+    path("ListaTipoDietas",ListaTipoDietas,name="ListaTipoDietas"),
+    path("ListaMusculos",ListaMusculos,name="ListaMusculos"),
+
+
+    #Modificar Categorias
+    path("ModificarMusculos/<id>",ModificarMusculos,name="ModificarMusculos"),
+    path("ModificarTipoD/<id>",ModificarTipoD,name="ModificarTipoD"),
+    path("ModificarMaquinas/<id>",ModificarMaquinas,name="ModificarMaquinas"),
 
     #Forms
     path("formSesion",formSesion,name="formSesion"),
 
+
+
+    path("ListaCategorias",ListaCategorias,name="ListaCategorias"),
     ]

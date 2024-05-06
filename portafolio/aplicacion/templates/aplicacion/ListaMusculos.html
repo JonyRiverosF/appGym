@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios Registrados</title>
+    <title>Lista de grupo musculares</title>
+
+    <!--JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <!-- Bootstrap CSS -->
 <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
@@ -314,13 +317,13 @@ nav > ul > li > ul > li > ul:before {
           <li><a href="{% url 'pantalla' %}"></a></li>
           <li><a href="{% url 'Solicitudes' %}">Solicitudes</a></li>
           <li><a href="{% url 'Informes' %}">Informes</a></li>
-          <li><a id="selected">Usuarios</a>
+          <li><a>Usuarios</a>
             <ul>
               <li><a href="{% url 'Registro' %}">Crear Usuarios</a></li>
               <li><a href="{% url 'ListaUsu' %}">Modificar Usuarios</a></li>
             </ul>
           </li>
-          <li><a>Categorías</a>
+          <li><a id="selected">Categorías</a>
             <ul>
               <li><a >Máquinas</a>
 
@@ -372,57 +375,70 @@ nav > ul > li > ul > li > ul:before {
     </div>
   </div>
 <br>
-
     
 
-<div class="container" style="background: rgb(17, 67, 89);">
-  <div class="container" > 
-  <div class="container" >
-  <br>
-  
-  <div class="row" style="text-align: center;margin-top: 5%;">
-    
-    <div class="col-md-3 col-sm-4"></div>
-      <div class="col-md-6 col-sm-4">
-          <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Modificar Usuarios</h1><br>
-      </div>
-      <div class="col-md-3 col-sm-4"></div>
-  </div><br>
 
 
-
-  <div class="row">
-      <div class="table-responsive">
-      <table class="table">
-          <tr>
-            <th>Nombre </th>
-            <th>Horario</th>
-            <th>Boton</th>
-          </tr>
+    <div class="container" style="background: rgb(17, 67, 89);">
+        <div class="container" > 
+        <div class="container" >
+        <br>
+      
+      
+        <div class="row" style="text-align: center;margin-top: 5%;">
           
-          {% for u in usuarios %}
-          <tr>
-            <td>{{ u.nombre }} {{ u.apellido }}</td>
-            
-            <td>
-              <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn" style="color: rgb(255, 255, 255); background-color: rgb(97, 97, 97);">Modificar</a>
-            </td>
-          </tr>
-          
-          {% endfor %}
-          
+          <div class="col-md-3 col-sm-4"></div>
+            <div class="col-md-6 col-sm-4">
+                <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Modificar Grupos Musculares</h1><br>
+            </div>
+            <div class="col-md-3 col-sm-4"></div>
+        </div><br>
+      
+       
+        <div class="row">
+            <div class="table-responsive">
+            <table class="table  centrar  letraVJ" style="background-color: rgb(255, 255, 255);" id="table">
+                <tr>
+                  <th>Dietas</th>
+                  <TH>Botones</TH>
+                </tr>
+                {% for d in Musculos %}
+                <tr>
+                  <td>
+                    
+                    <img src="{{ d.foto }}" alt="No foto" style="width: 15%;height: 15%;"><BR>
+                      <h5 >{{ d.nombre }}</h5>
+                  </td>
+                  <td>
+                    <p>
+                      <br><a href="{% url 'ModificarMusculos' d.id %}" class="btn btn-primary" >Modificar</a>
+                      <a href="" class="btn btn-danger">Eliminar</a>
+                    </p>
+                  </td>
+                </tr>
+                {% endfor %}   
         </table>
-      </div>
-  </div>
+        </div>
+        </div><br>
+      
+      <!-- Prueba para eliminar la dieta de otra forma
+        <button onclick="EliminarD({{ d.idD }})" class="btn btn-danger">Eliminar</button>
+        <script>
+          function EliminarD(id) {
+              if (confirm("¿Estás seguro/a de eliminar la dieta con ID " + id + "?")) {
+                  alert("Dieta eliminada correctamente.");
+              }
+          }
+        </script>-->
+      
+      
+      
+      </div></div></div>
 
 
-  </div></div></div>
 
 
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </body>
 </html>
