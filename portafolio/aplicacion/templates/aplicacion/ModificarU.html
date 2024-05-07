@@ -424,16 +424,16 @@ nav > ul > li > ul > li > ul:before {
           <div class="col">
               <div class="grupo">
                   <label>Rut</label>
-                  <input type="number" class="form-control" required value="{{ usuarios.rut }}" id="rut" name="rut" readonly>
+                  <input type="text" class="form-control" required value="{{ usuarios.rut }}" id="rut" name="rut" readonly>
                   <span class="barra"></span>
               </div>
           </div>
           <div class="col">
-              <div class="grupo">
-                  <label>Dígito Verificador</label>
-                  <input type="text" class="form-control" required value="{{ usuarios.dv }}" id="dv" name="dv" readonly>
-                  <span class="barra"></span>
-              </div>
+            <div class="grupo">
+              <label>Horario</label>
+                <input type="date" name="horarioU" id="horarioU" value="{{usuarios.horarioU}}" required>
+                <span class="barra"></span>
+            </div>
           </div>
       </div>
 
@@ -455,14 +455,8 @@ nav > ul > li > ul > li > ul:before {
       </div>
 
       <div class="row" style="margin-top: -55px;">
-        <div class="col">
-          <div class="grupo">
-            <label>Horario</label>
-            <input type="date" name="horarioU" id="horarioU" value="{{usuarios.horarioU}}" required>
-            <span class="barra"></span>
-        </div>
-        </div>
-        <div class="col">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
           <div class="grupo">
             <label>Rol</label>
             <select class="form-control" name="RolU" id="RolU">
@@ -481,7 +475,7 @@ nav > ul > li > ul > li > ul:before {
                 {% endif %}
             </select>
         </div>
-        
+        <div class="col-md-4"></div>
         
         </div>
     </div>
@@ -535,6 +529,7 @@ nav > ul > li > ul > li > ul:before {
       });
   }
 </script>-->  
+
 
 
 

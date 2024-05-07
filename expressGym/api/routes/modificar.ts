@@ -122,6 +122,103 @@ router.delete("/eliminarGuardado/:id/:rut",(req:Request,res:Response)=>{
     })
 })
 
+router.put("/modificarUsuario/:id",upload.any(),(req:Request,res:Response)=>{
+    var id = req.params.id
+
+    modelos.usuarioModelo.findOneAndUpdate({rut:id}, {
+        nombre:req.body.nombre,
+        apellido:req.body.apellido,
+        telefono:req.body.telefono,
+        correo:req.body.correo,
+        rol:req.body.rol,
+        
+    }).then(respuesta=>{
+        res.status(200).json(respuesta)
+    }).catch(error=>{
+        console.log(error)
+    })
+
+})
+
+router.put("/modificarEjercicio/:id", upload.array("video"), (req: any, res: Response) => {
+    var id = req.params.id
+    var portadaNueva = ""
+    var VideoNuevo = ""
+
+    modelos.EjerciciosModelo.findById(id).exec().then(respuesta => {
+
+        if (req.files) {
+            for (let archivo of req.files) {
+                if (archivo.mimetype == "image/jpg" || archivo.mimetype == "image/jpeg" || archivo.mimetype == "image/png") {
+                    var portada = archivo.filename;
+                    fs.rename(directoryPath + archivo.filename, "./public/imagenes/MiniaturaEjercicios/" + archivo.filename + '.jpg', function (err) {
+                        if (err) {
+                            console.log('ERROR: ' + err);
+                        } else {
+
+                            portadaNueva = archivo.filename
+                            fs.unlink("./public/imagenes/MiniaturaEjercicios/" + respuesta?.foto, function (error) {
+                                if (error) {
+                                    console.log("Algo salio mal eliminando la foto")
+                                    console.log(error)
+                                } else {
+                                    modelos.EjerciciosModelo.findByIdAndUpdate(id, {
+                                        foto: portadaNueva + '.jpg'
+
+                                    }).exec().then(respuesta => {
+                                        console.log("foto modificada")
+                                    }).catch(error => {
+                                        console.log("es la foto")
+                                        console.log(error)
+                                    })
+                                }
+                            })
+                        }
+                    })
+                } else {
+                    VideoNuevo = archivo.filename;
+                    fs.rename(directoryPath + archivo.filename, directoryPath + archivo.filename + '.mp4', function (err) {
+                        if (err) {
+
+                            console.log('ERROR: ' + err);
+
+                        } else {
+
+                            VideoNuevo = archivo.filename 
+
+                            fs.unlink("./public/videos/" + respuesta?.video, function (error) {
+                                if (error) {
+                                    console.log("Algo salio mal eliminando en el video")
+                                    console.log(error)
+                                } else {
+                                    modelos.EjerciciosModelo.findByIdAndUpdate(id, {
+                                        video: VideoNuevo + '.mp4'
+
+                                    }).exec().then(respuesta => {
+                                        console.log("video modificado")
+                                    }).catch(error => {
+                                        console.log("es el video")
+                                        console.log(error)
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        }
+
+        modelos.EjerciciosModelo.findByIdAndUpdate(id, {
+            Titulo: req.body.titulo
+        }).exec().then(respuesta => {
+            res.status(201).json(respuesta)
+        })
+    })
+
+})
+
+
+
 
  
 

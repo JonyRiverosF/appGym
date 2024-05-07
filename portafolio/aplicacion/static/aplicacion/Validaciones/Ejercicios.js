@@ -186,12 +186,7 @@ $(document).ready(function(){
 
 
 
-    $("#fotoMaqui").change(function(e){
-        fotoMa = e.target.files[0]
-        var preview = URL.createObjectURL(fotoMa) 
-        $("#maquinaF").html("<p style='text-align: center;'><img src="+preview+" style='width:200px;height:200px;' ></p>")
-        console.log(fotoMa)
-    });
+   
 
 
         //Creacion de las maquinas
@@ -242,7 +237,12 @@ $(document).ready(function(){
 
 
 
-
+    $("#fotoMaqui").change(function(e){
+        fotoMa = e.target.files[0]
+        var preview = URL.createObjectURL(fotoMa) 
+        $("#maquinaF").html("<p style='text-align: center;'><img src="+preview+" style='width:200px;height:200px;' ></p>")
+        console.log(fotoMa)
+    });
 
     //Modificacion de las maquinas
     $("#FormModificarMaquinas").submit(function(e){    
@@ -292,14 +292,27 @@ $(document).ready(function(){
 
 
 
+    $("#fotoEM").change(function(e){
+        fotoEM = e.target.files[0]
+        var preview = URL.createObjectURL(fotoEM) 
+        $("#fotoJ")[0].src=preview
+        $("#labelE")[0].innerHTML="Nueva Miniatura"
+    });
 
-    
+
+    $("#videoEM").change(function(e){
+        videoEM = e.target.files[0]
+        var preview = URL.createObjectURL(videoEM) 
+        $("#labelM")[0].innerHTML="Nuevo video del Ejercicio"
+        $("#VideoJ")[0].src=preview
+    });
 
 
     //Modificacion de los Ejercicios
-    $("#FormModificarEjercicios").submit(function(e){    
+    $("#FormModificarEjercicios").submit(function(e){
+        e.preventDefault();    
         var nombreEjercicio = $("#nombreE").val();
-        var idE = $("#idE").val();
+        var IDe = $("#idE").val();
         
         let msjMostrar = "";
         let enviar = false;
@@ -320,9 +333,23 @@ $(document).ready(function(){
             e.preventDefault();
         }
         else{
-            $("#mensaje_ModificarEjercicio").html("-Ejercicio Modificado Correctamente.");
+            var formulario = new FormData();
+                    formulario.append("titulo", nombreEjercicio);
+                    formulario.append("video", videoEM);
+                    formulario.append("video", fotoEM);
+                    
 
+                fetch( apiUrl + '/modificar/modificarEjercicio/'+ IDe, {
+                    method: 'PUT',
+                    body: formulario
+                }).then(respuesta=>{
+                    respuesta.json()
 
+                }).then(respuesta=>{
+                    $("#mensaje_ModificarEjercicio").html("-Ejercicio Modificado Correctamente.");
+                    console.log(respuesta)
+                }) 
+            
 
         }
     });

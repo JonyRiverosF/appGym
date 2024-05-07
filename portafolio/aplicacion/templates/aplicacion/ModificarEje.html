@@ -408,12 +408,12 @@ nav > ul > li > ul > li > ul:before {
                 <div class="row">
                   <div class="col">
                     <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione la miniatura</h3>
-                    <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoE" name="fotoE" required/></p>
+                    <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoEM" name="fotoEM" /></p>
                   </div>
 
                   <div class="col">
                     <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione un video del ejercicio</h3>
-                    <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoE" name="videoE" accept=".mp4" required /></p>
+                    <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoEM" name="videoEM" accept=".mp4"  /></p>
                   </div>
                 </div><br>
   
@@ -422,23 +422,31 @@ nav > ul > li > ul > li > ul:before {
                 
                   <div class="row">
                   <div class="col-md-6">
-                    {% if Ejercicios.foto != '' %}
-                    <div class="grupo" style="text-align: center;">
-                      <label for="" ><h5 style="color: #000000;">Foto del ejercicio actual</h5></label><br>
-                      <img src="{{ modificarE.foto }}"  alt="Avatar" style="width:150px;height:150px;">
                     
-                  {% endif %}
-                </div>
+                    {% if Ejercicios.foto != '' %}
+
+                    <div class="grupo" style="text-align: center;" >
+                      <label for="" ><h5 style="color: #000000;" id="labelE">Foto del ejercicio actual</h5></label><br>
+                      <img id="fotoJ" src="{{ modificarE.foto }}"  alt="Avatar" style="width:150px;height:150px;">
+                    </div>
+
+                      {% endif %}    
+
                   </div>
+                       
+
                   <div class="col-md-6">
                 {% if Ejercicios.video != '' %}
+
                     <div class="grupo">
-                      <label for="" ><h5 style="color: #000000;">Video del Ejercicio actual</h5></label><br>
+                      <label for="" ><h5 style="color: #000000;" id="labelM">Video del Ejercicio actual</h5></label><br>
                       <div class="embed-responsive embed-responsive-16by9">
-                        <video class="embed-responsive-item" src="{{ modificarE.video }}" alt="Avatar" controls></video>
+                        <video id="VideoJ" class="embed-responsive-item" src="{{ modificarE.video }}" alt="Avatar" controls></video>
                       </div>
                     </div>
+
                   {% endif %}
+
                   </div>
                 </div>
 

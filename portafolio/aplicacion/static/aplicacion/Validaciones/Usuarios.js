@@ -248,14 +248,14 @@ $(document).ready(function(){
 
 
         $("#FormModiUsuarios").submit(function(e){
-            e.preventDefault();
-        
-            var idUsuario = $("#id").val();
+            
             var nombreU = $("#nombre").val();
             var apellidoU = $("#apellido").val();
             var telefonoU = $("#telefono").val();
             var correoU = $("#correo").val();
+            var rutU = $("#rut").val();
             var rolU = $("#RolU").val();
+
         
             let msjMostrar = "";
             let enviar = false;
@@ -317,37 +317,24 @@ $(document).ready(function(){
             if(enviar){
                 $("#mensaje_ModificarUsuarios").html(msjMostrar);
             } else {
-                fetch('/modificar/modificarUsuario/'+ idUsuario, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "nombre": nombreU,
-                        "apellido": apellidoU,
-                        "telefono": telefonoU,
-                        "correo": correoU,
-                        "rol": rolU
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error al modificar el usuario');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    $("#mensaje_ModificarUsuarios").html("-Usuario Modificado Correctamente.");
-                    // Aquí podrías realizar otras acciones después de modificar al usuario, como actualizar la vista
-                })
-                .catch(error => {
-                    console.error(error);
-                    $("#mensaje_ModificarUsuarios").html("Error al modificar el usuario.");
-                });
-            }
+                var formulario = new FormData();
+                    formulario.append("nombre", nombreU);
+                    formulario.append("apellido", apellidoU);
+                    formulario.append("telefono", telefonoU);
+                    formulario.append("correo", correoU);
+                    formulario.append("rol", rolU);
 
-            
+                fetch( apiUrl + '/modificar/modificarUsuario/'+ rutU, {
+                    method: 'PUT',
+                    body: formulario
+                }).then(respuesta=>{
+                    respuesta.json()
+
+                }).then(respuesta=>{
+                    $("#mensaje_ModificarUsuarios").html("-Usuario Modificado Correctamente.");
+                    console.log(respuesta)
+                }) 
+            }   
         });
 
 
