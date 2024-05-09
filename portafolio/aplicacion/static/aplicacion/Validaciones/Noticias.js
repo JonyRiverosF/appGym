@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var apiUrl = "http://192.168.1.7:3000";
+    var apiUrl = "http://192.168.1.6:3000";
 
 
     $("#fotoN").change(function(e){
@@ -104,15 +104,33 @@ $(document).ready(function(){
 
 
 
+    $("#fotoNM").change(function(e){
+        fotoNM = e.target.files[0]
+        var preview = URL.createObjectURL(fotoNM) 
+        $("#fotoNoM")[0].src=preview
+        $("#labelN")[0].innerHTML="Nueva foto de la noticia"
+    });
 
+
+    $("#videoNM").change(function(e){
+        videoNM = e.target.files[0]
+        var preview = URL.createObjectURL(videoNM) 
+        $("#labelMN")[0].innerHTML="Nuevo video de la noticia"
+        $("#videoNoM")[0].src=preview
+    });
 
 
     //Modificacion de la noticia
     $("#FormModificarNoticia").submit(function(e){
-
+        e.preventDefault();  
         var nombreNoticia = $("#tituloN").val();
         var bajadaNoticia = $("#bajadaN").val();
         var desNoticia = $("#descN").val();
+        var idNoticia = $("idN").val();
+
+        let fechaM = new Date();
+        let ordenado = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
+        let fechaNM = fechaM.toLocaleDateString('es-ES', ordenado);
         
         let msjMostrar = "";
         let enviar = false;
@@ -123,21 +141,12 @@ $(document).ready(function(){
             enviar = true;
         }
 
-        if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreNoticia)){
-            msjMostrar += "<br>-Nombre de la noticia inválido, no debe contener caracteres especiales.";
-            enviar = true;
-        }
-
         // Validar Bajada De Noticia
         if(bajadaNoticia.trim() == ""){
             msjMostrar += "<br>-El nombre de la bajada de noticia no puede estar vacío.";
             enviar = true;
         }
 
-        if (/[!@#$%^&*(),.?":{}|<>]/.test(bajadaNoticia)){
-            msjMostrar += "<br>-Nombre de la bajada de noticia inválido, no debe contener caracteres especiales.";
-            enviar = true;
-        }
 
         // Validar Cuerpo de la Noticia
         if(desNoticia.trim() == ""){
@@ -150,7 +159,26 @@ $(document).ready(function(){
             e.preventDefault();
         }
         else{
-            $("#mensaje_ModificarNoticia").html("-Noticia Creada Correctamente.");
+            var formulario = new FormData();
+            formulario.append("tituloN", nombreNoticia);
+            formulario.append("bajadaN", bajadaNoticia);
+            formulario.append("fechaC", fechaNM);
+            formulario.append("descN", desNoticia);
+            formulario.append("video", videoNM);
+            formulario.append("video", fotoNM);
+            
+
+        fetch( apiUrl + '/modificar/modificarNoticia/'+ idNoticia, {
+            method: 'PUT',
+            body: formulario
+        }).then(respuesta=>{
+            respuesta.json()
+
+        }).then(respuesta=>{
+            $("#mensaje_ModificarNoticia").html("-Noticia Actualizada Correctamente.");
+            console.log(respuesta);
+        })  
         }
     });
+
 });

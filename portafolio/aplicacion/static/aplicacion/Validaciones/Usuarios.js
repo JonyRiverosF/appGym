@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     var ficha 
-    var apiUrl = "http://192.168.1.7:3000";
+    var apiUrl = "http://192.168.1.6:3000";
     var flagCorreo = false;
     var flagRut = false;
     

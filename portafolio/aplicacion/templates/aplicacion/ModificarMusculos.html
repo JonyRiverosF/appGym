@@ -383,7 +383,7 @@ nav > ul > li > ul > li > ul:before {
               <div class="container">
   
   
-        <form action="" method="POST" enctype="multipart/form-data" class="fondoform" name="FormModificarDieta" id="FormModificarDieta">
+        <form action="" method="POST" enctype="multipart/form-data" class="fondoform" name="FormModificarMusculos" id="FormModificarMusculos">
             
             {% csrf_token %}
     
@@ -393,7 +393,7 @@ nav > ul > li > ul > li > ul:before {
               <div class="col-md-6 col-sm-6">
                 <div class="grupo">
                   <label>ID Grupo Muscular</label>
-                  <input type="text" class="form-control"  required value="{{ modificarMusculos.id }}" id="nombreD" name="nombreD" readonly><span class="barra" ></span>
+                  <input type="text" class="form-control"  required value="{{ modificarMusculos.id }}" id="idM" name="idM" readonly><span class="barra" ></span>
                 </div>
               </div>
                 
@@ -419,8 +419,8 @@ nav > ul > li > ul > li > ul:before {
               <div class="col-md-12">
                 {% if musculos.foto != '' %}
                 <div class="grupo" style="text-align: center;">
-                  <label for="" ><h5 style="color: #000000;">Foto del Grupo Muscular Actual</h5></label><br>
-                  <img src="{{ modificarMusculos.foto }}"  alt="Avatar" style="width:150px;height:150px;">
+                  <label for="" ><h5 style="color: #000000;" id="ModiL">Foto del Grupo Muscular Actual</h5></label><br>
+                  <img id="modiV" src="{{ modificarMusculos.foto }}"  alt="Avatar" style="width:150px;height:150px;">
                 </div>
               {% endif %}
             

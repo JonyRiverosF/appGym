@@ -1,7 +1,7 @@
 //Creacion de la noticia 
 $(document).ready(function(){
 
-    var apiUrl = "http://192.168.1.7:3000";
+    var apiUrl = "http://192.168.1.6:3000";
 
     $("#fotoE").change(function(e){
         foto = e.target.files[0]
@@ -132,9 +132,26 @@ $(document).ready(function(){
     });
 
 
+
+
+
+
+
+
+    $("#fotoD").change(function(e){
+        fotoMM = e.target.files[0]
+        var preview = URL.createObjectURL(fotoMM) 
+        $("#modiV")[0].src=preview
+        $("#ModiL")[0].innerHTML="Nueva foto del grupo muscular"
+    });
+
+    
     //Modificacion de los Musculos
-    $("#FormModificarMusculos").submit(function(e){    
-        var nombreEjercicio = $("#nombreE").val();
+    $("#FormModificarMusculos").submit(function(e){
+        e.preventDefault();    
+        var nombreEjercicio = $("#nombreD").val();
+        var idM = $("#idM").val();
+        
         
         
         let msjMostrar = "";
@@ -156,7 +173,21 @@ $(document).ready(function(){
             e.preventDefault();
         }
         else{
-            $("#mensaje_ModificarMusculo").html("-Ejercicio Modificado Correctamente.");
+            var formulario = new FormData();
+                    formulario.append("nombre", nombreEjercicio);
+                    formulario.append("foto", fotoMM);
+
+                fetch( apiUrl + '/modificar/modificarMusculo/'+ idM, {
+                    method: 'PUT',
+                    body: formulario
+                }).then(respuesta=>{
+                    respuesta.json()
+
+                }).then(respuesta=>{
+                    $("#mensaje_ModificarMusculo").html("-Ejercicio Modificado Correctamente.");
+                    console.log(respuesta)
+                })  
+            
 
 
 

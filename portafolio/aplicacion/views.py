@@ -22,7 +22,7 @@ dietas=""
 
 noticia=""
 
-apiUrl = "http://192.168.1.7:3000"
+apiUrl = "http://192.168.1.6:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 

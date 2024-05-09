@@ -394,14 +394,19 @@ nav > ul > li > ul > li > ul:before {
           <h1 class="centrar letraLo" style="text-align: center;">Modificar Noticia </h1>
 
           <div class="row" style="margin-top: -15px;">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="grupo">
                 <label>ID Noticia</label>
                 <input type="text" class="form-control"  required value="{{ modificarN.id }}" id="idN" name="idN" readonly><span class="barra" ></span>
               </div>
             </div>
-              <div class="col-md-4"></div>
+            <div class="col-md-6">
+              <div class="grupo">
+                <label>Fecha de la noticia</label>
+                <input type="text" class="form-control"  required value="{{ modificarN.fechaC }}" id="idN" name="idN" readonly><span class="barra" ></span>
+              </div>
+            </div>
+              
           </div>
 
           
@@ -424,19 +429,19 @@ nav > ul > li > ul > li > ul:before {
               <div class="row">
                 <div class="col-md-6">
                   <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione foto nueva de la noticia</h3>
-                  <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoN" name="fotoN" required/></p>
+                  <p style="color: rgb(245, 242, 242);"><input  accept="image/*, .png, .jpeg, .jpg"  type="file" class="form-control-file , letraLo , cu1" id="fotoNM" name="fotoNM" required/></p>
                 </div>
     
                   <div class="col-md-6">
                     <h3 style="text-align: center;color: rgb(0, 0, 0);">Seleccione video nuevo de la noticia</h3>
-                    <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoN" name="videoN" accept=".mp4" required /></p>
+                    <p style="color: rgb(245, 242, 242);"><input  class="form-control-file , letraLo , cu1" type="file" id="videoNM" name="videoNM" accept=".mp4" required /></p>
                   </div>
               </div><br>
   
               <div class="grupo" style="text-align: center;margin-top: -18px;">
                 <label for="descN"><h3>Descripción de la Noticia</h3></label><br>
                 <textarea class="textarea" style="background-color: rgb(97, 97, 97);color: rgb(255, 255, 255);" rows="6" cols="50" 
-                   name="descN" id="descN" value="{{ modificarN.descN }}" required></textarea>
+                   name="descN" id="descN" required>{{ modificarN.descN }}</textarea>
                    <span class="barra"></span>
               </div>
 
@@ -444,8 +449,8 @@ nav > ul > li > ul > li > ul:before {
                 <div class="col-md-6">
                   {% if noticias.foto != '' %}
                   <div class="grupo" style="text-align: center;">
-                    <label for="" ><h5 style="color: #000000;">Foto de la noticia actual</h5></label><br>
-                    <img src="{{ modificarN.foto }}"  alt="Avatar" style="width:150px;height:150px;">
+                    <label for="" ><h5 style="color: #000000;" id="labelN">Foto de la noticia actual</h5></label><br>
+                    <img id="fotoNoM" src="{{ modificarN.foto }}"  alt="Avatar" style="width:150px;height:150px;">
                 {% endif %}
 
               </div>
@@ -453,9 +458,9 @@ nav > ul > li > ul > li > ul:before {
                 <div class="col-md-6">
               {% if noticias.video != '' %}
                   <div class="grupo">
-                    <label for="" ><h5 style="color: #000000;">Video de la noticia actual</h5></label><br>
+                    <label for="" ><h5 style="color: #000000;" id="labelMN">Video de la noticia actual</h5></label><br>
                     <div class="embed-responsive embed-responsive-16by9">
-                      <video class="embed-responsive-item" src="{{ modificarN.video }}" alt="Avatar" controls></video>
+                      <video id="videoNoM" class="embed-responsive-item" src="{{ modificarN.video }}" alt="Avatar" controls></video>
                     </div>
                   </div>
                 {% endif %}

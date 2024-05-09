@@ -218,6 +218,141 @@ router.put("/modificarEjercicio/:id", upload.array("video"), (req: any, res: Res
 })
 
 
+router.put("/modificarNoticia/:id", upload.array("video"), (req: any, res: Response) => {
+    var id = req.params.id
+    var portadaNueva = ""
+    var VideoNuevo = ""
+
+    modelos.NoticiaModelo.findById(id).exec().then(respuesta => {
+
+        if (req.files) {
+            for (let archivo of req.files) {
+                if (archivo.mimetype == "image/jpg" || archivo.mimetype == "image/jpeg" || archivo.mimetype == "image/png") {
+                    var portada = archivo.filename;
+                    fs.rename(directoryPath + archivo.filename, "./public/imagenes/FotosNoticia/" + archivo.filename + '.jpg', function (err) {
+                        if (err) {
+                            console.log('ERROR: ' + err);
+                        } else {
+
+                            portadaNueva = archivo.filename
+                            fs.unlink("./public/imagenes/FotosNoticia/" + respuesta?.foto, function (error) {
+                                if (error) {
+                                    console.log("Algo salio mal eliminando la foto")
+                                    console.log(error)
+                                } else {
+                                    modelos.NoticiaModelo.findByIdAndUpdate(id, {
+                                        foto: portadaNueva + '.jpg'
+
+                                    }).exec().then(respuesta => {
+                                        console.log("foto modificada")
+                                    }).catch(error => {
+                                        console.log("es la foto")
+                                        console.log(error)
+                                    })
+                                }
+                            })
+                        }
+                    })
+                } else {
+                    VideoNuevo = archivo.filename;
+                    fs.rename(directoryPath + archivo.filename, directoryPath + archivo.filename + '.mp4', function (err) {
+                        if (err) {
+
+                            console.log('ERROR: ' + err);
+
+                        } else {
+
+                            VideoNuevo = archivo.filename 
+
+                            fs.unlink("./public/videos/" + respuesta?.video, function (error) {
+                                if (error) {
+                                    console.log("Algo salio mal eliminando en el video")
+                                    console.log(error)
+                                } else {
+                                    modelos.NoticiaModelo.findByIdAndUpdate(id, {
+                                        video: VideoNuevo + '.mp4'
+
+                                    }).exec().then(respuesta => {
+                                        console.log("video modificado")
+                                    }).catch(error => {
+                                        console.log("es el video")
+                                        console.log(error)
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        }
+
+        modelos.NoticiaModelo.findByIdAndUpdate(id, {
+            tituloN: req.body.tituloN,
+            bajadaN: req.body.bajadaN,
+            fechaC: req.body.fechaC,
+            descN: req.body.descN,
+
+        }).exec().then(respuesta => {
+            res.status(201).json(respuesta)
+        })
+    })
+
+})
+
+router.put("/modificarMusculo/:id", upload.single("foto"), (req: any, res: Response) => {
+    var id = req.params.id;
+
+    modelos.MusculoModelo.findById(id).exec().then(respuesta => {
+        if (!respuesta) {
+            return res.status(404).json({ mensaje: "Músculo no encontrado" });
+        }
+
+        // Actualizar la foto si se seleccionó una nueva
+        if (req.file) {
+            var archivo = req.file;
+            if (archivo.mimetype == "image/jpg" || archivo.mimetype == "image/jpeg" || archivo.mimetype == "image/png") {
+                fs.rename(directoryPath + archivo.filename, "./public/imagenes/fotosMusculos/" + respuesta.foto + '.jpg', function (err) {
+                    if (err) {
+                        console.log('ERROR: ' + err);
+                        return res.status(500).json({ mensaje: "Error al guardar la nueva foto" });
+                    } else {
+                        // Actualizar el músculo con los nuevos datos
+                        modelos.MusculoModelo.findByIdAndUpdate(id, {
+                            nombre: req.body.nombre,
+                            foto: respuesta.foto
+                        }).exec().then(respuesta => {
+                            res.status(201).json(respuesta);
+                        }).catch(error => {
+                            console.log("Error al actualizar el músculo");
+                            console.log(error);
+                            res.status(500).json({ mensaje: "Error al actualizar el músculo" });
+                        });
+                    }
+                });
+            } else {
+                return res.status(400).json({ mensaje: "El archivo subido no es una imagen válida" });
+            }
+        } else {
+            // No se subió una nueva foto, simplemente actualizar el músculo con los nuevos datos
+            modelos.MusculoModelo.findByIdAndUpdate(id, {
+                nombre: req.body.nombre,
+                foto: respuesta.foto
+            }).exec().then(respuesta => {
+                res.status(201).json(respuesta);
+            }).catch(error => {
+                console.log("Error al actualizar el músculo");
+                console.log(error);
+                res.status(500).json({ mensaje: "Error al actualizar el músculo" });
+            });
+        }
+    }).catch(error => {
+        console.log("Error al buscar el músculo");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al buscar el músculo" });
+    });
+});
+
+
 
 
  
