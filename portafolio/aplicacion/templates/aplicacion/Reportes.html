@@ -11,126 +11,18 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
-<body style="background: rgb(27, 90, 122);">
+<body style="background: #095a5c;" >
 
-  <div><nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a href="{% url 'pantalla' %}" ><h3>DeportesColina</h3></a>
-<a class="navbar-brand" href="{% url 'Solicitudes' %}"  style="margin-left: 25px;" >Solicitudes</a>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
-
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-  <ul class="navbar-nav mr-auto">
-
-      <li class="nav-item active">
-          <a class="nav-link" href="{% url 'Informes' %}">Informes<span class="sr-only">
-            (current)</span></a>
-      </li>
-
-      <li class="nav-item active">
-            <a class="nav-link" href="{% url 'Reportes' %}">Reportes<span class="sr-only">
-              (current)</span></a>
-      </li>
-
-      <li class="nav-item dropdown active ">
-        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Usuarios
-        </a>
-        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-          <a class="dropdown-item " href="{% url 'Registro' %}" >Crear Usuarios</a>
-          <a class="dropdown-item " href="{% url 'ListaUsu' %}">Modificar Usuarios</a>
-      </div>
-      </li>
-
-      <li class="nav-item dropdown active ">
-        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Ejercicios
-        </a>
-        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-          <a class="dropdown-item " href="{% url 'CrearEjer' %}" >Crear Ejercicios</a>
-          <a class="dropdown-item " href="{% url 'ListaEje' %}">Modificar Ejercicios</a>
-          
-      </div>
-      </li>
-
-      <li class="nav-item dropdown active ">
-        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dietas
-        </a>
-        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-          <a class="dropdown-item " href="{% url 'CrearDie' %}" >Crear Dietas</a>
-          <a class="dropdown-item " href="{% url 'ListaDie' %}">Modificar Dietas</a>
-      </div>
-      </li>
-
-      <li class="nav-item dropdown active ">
-        <a class="nav-link dropdown-toggle cuPC1"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Noticias
-        </a>
-        <div class="dropdown-menu " aria-labelledby="navbarDropdown">           
-          <a class="dropdown-item " href="{% url 'CrearNot' %}" >Crear Noticias</a>
-          <a class="dropdown-item " href="{% url 'ListaNot' %}">Modificar Noticias</a>
-      </div>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'login' %}">Cerrar Sesión<span
-                class="sr-only">(current)</span></a>
-    </li>
-    
-  </ul>
   
-</nav>
-</div>
-<br>
 
-<div class="container" style="background: rgb(17, 67, 89);">
-  <div class="container" > 
-  <div class="container" >
-  <br>
   
-  <div class="row" style="text-align: center;margin-top: 5%;">
+
     
-    <div class="col-md-3 col-sm-4"></div>
-      <div class="col-md-6 col-sm-4">
-          <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Comentarios</h1><br>
-      </div>
-      <div class="col-md-3 col-sm-4"></div>
-  </div><br>
-
-
-
-  <div class="row">
-      <div class="table-responsive">
-      <table class="table">
-          <tr>
-            <th>Nombre </th>
-            <th>Comentario</th>
-            
-          </tr>
-          
-          
-          <tr>
-            <td>{{ u.nombreU }} {{ u.apellido }}</td>
-            <td>{{ u.ComentarioU}}</td>
-          </tr>
-          
-          
-          
-        </table>
-      </div>
-  </div>
-
-
-</div></div></div>
-
-
-   
-
-
+    
+  
 
 
 
