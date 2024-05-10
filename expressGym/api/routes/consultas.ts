@@ -77,9 +77,16 @@ router.get("/detalleDieta/:id",(req:Request,res:Response)=>{
 })
 
 router.get("/detalleNoticia/:id",(req:Request,res:Response)=>{
-    var id = req.params.id
-    modelos.NoticiaModelo.findById(id).exec().then(respuesta=>{
-        res.status(200).json(respuesta)
+    var id = req.params.id; var noticia:any,comentarios:any
+    modelos.NoticiaModelo.findById(id).exec().then(async respuesta=>{
+        noticia = respuesta
+        await modelos.comentariosModel.find({idNoticia:id}).exec().then(respuesta=>{
+            comentarios = respuesta; 
+            res.status(200).json({
+                noticia,comentarios
+            })
+        })
+        //res.status(200).json(respuesta)
     })
 })
 

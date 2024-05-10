@@ -15,9 +15,9 @@
       <ion-card-header>
         <ion-card-title>Inicio de sesión</ion-card-title>
         <ion-card-subtitle><ion-item>
-          <ion-input label="Código de acceso o correo electrónico:" label-placement="floating" 
-          placeholder="Ej: 3412 o miCorreo@dominio.cl" 
-          [(ngModel)]="codigo" type="text" required></ion-input> 
+          <ion-input label="Aprete aquí para escribir" label-placement="floating" 
+          placeholder="Escriba su código de acceso o correo" 
+          [(ngModel)]="codigo" type="text"></ion-input> 
         </ion-item>
       <p style="color: rgb(197, 29, 29);" *ngIf="msj!=''">{{msj}}</p>
       <h4 style="color: rgb(255, 255, 255);" (click)="irRecuperar()" shape="round">Recuperar mi código <ion-icon style="color: rgb(254, 254, 254);" name="information-circle"></ion-icon></h4>

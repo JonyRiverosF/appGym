@@ -65,58 +65,20 @@ export class RegistroUserPage implements OnInit {
   ngOnInit() {
   }
 
+  ar(){
+    var rutInput = this.rut.trim().replace(/[^\dkK]/g, "");
 
-  ar(x:any){
-    console.log(x.data)
-    if((isNaN(x.data) && x.data.toLowerCase() != "k") || x.data == " "){
-      var d = this.rut.split(x.data)
-      this.rut = d[0]+d[1]
-    }
-    
-    if (this.rut.charAt(this.rut.length-1).toLowerCase() != "k"){
-       if(isNaN(Number(this.rut.charAt(this.rut.length-1))) || this.rut.charAt(this.rut.length-1).toLowerCase() == " "){ 
-           this.rut = this.rut.slice(0,this.rut.length-1)
-        }
-    }
-   // console.log(this.rut)
-    if(this.rut.length >= 8){
-      if(this.rut.length == 10){
-        var dv = this.rut.charAt(this.rut.length-1);var dvAnterior = this.rut.charAt(this.rut.length-2);
-        if(dvAnterior == "-"){
-          dvAnterior = this.rut.charAt(this.rut.length-3)
-          console.log(dv);console.log(dvAnterior)
-          var rutAntesGuion = this.rut.slice(0,this.rut.length-3);
-        }else{
-          console.log(dv);console.log(dvAnterior)
-          var rutAntesGuion = this.rut.slice(0,this.rut.length-3);
-        }
-        this.rut = rutAntesGuion+dvAnterior+"-"+dv
-        
-      }else{
-        if(this.rut.charAt(this.rut.length-1)=="-"){
-          var dv = this.rut.charAt(this.rut.length-2)
-          var rutAntesGuion = this.rut.slice(0,this.rut.length-2);
-          this.rut = rutAntesGuion +"-"+dv;
-        }else{
-          if(!this.rut.includes("-")){
-            var dv = this.rut.charAt(this.rut.length-1)
-            var rutAntesGuion = this.rut.slice(0,this.rut.length-1);
-            this.rut = rutAntesGuion +"-"+dv;
-          }else{
-            var dv = this.rut.slice(this.rut.length-2,this.rut.length);
-            var rutAntesGuion = this.rut.slice(0,this.rut.length-2);
-            console.log(dv);console.log(rutAntesGuion)
-            this.rut = rutAntesGuion +dv;
-          }
-        }
-      }
-    }else{
-      if(this.rut.includes("-")){
-        var a = this.rut.split("-");
-        this.rut = a[0]+a[1]
-      }
+    if (rutInput.length >= 8) {
+        var rutParteNumerica = rutInput.slice(0, -1).replace(/\D/g, "");
+        var rutDV = rutInput.slice(-1).toUpperCase(); 
+
+        var rutFormateado = rutParteNumerica.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "-" + rutDV; 
+        this.rut = rutFormateado;
+    } else {
+        this.rut = rutInput;
     }
   }
+ 
   async verificarRegistro() {
     //Cada vez que se presione el botón, los mensajes de declararán vacias
     this.mensajeName = "";this.mensajeNameN = ""; this.mensajeNameE = "";

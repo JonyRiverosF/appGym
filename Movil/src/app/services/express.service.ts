@@ -8,9 +8,9 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://10.32.157.122:3000";
+  private  apiUrl="http://192.168.0.8:3000";
 
-  public urlApi = "http://10.32.157.122:3000/creacion/"
+  public urlApi = "http://192.168.0.8:3000/creacion/"
 
 
   //GET
@@ -126,6 +126,13 @@ export class ExpressService {
       body:rut
     })
   }
+  
+  insertarComentario(form:any){
+    return fetch(this.apiUrl+"/creacion/insertarComentario",{
+      method:"POST",
+      body:form
+    })
+  }
   //validar repetición de correo
   correoRepetido(correo:any){ 
      return fetch(this.apiUrl+"/validaciones/validarCorreo",{
@@ -141,6 +148,7 @@ export class ExpressService {
     })
  } 
  //
+
  actualizarHorario(id:string){
   return fetch(this.apiUrl+"/modificar/modificarHorario/"+id,{
     method:"PUT"

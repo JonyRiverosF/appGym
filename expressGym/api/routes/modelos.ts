@@ -24,6 +24,26 @@ var musculosSchema = new mongoose.Schema({
 var MusculoModelo = mongoose.model("Musculos", musculosSchema);
 
 
+var comentarioSchema = new mongoose.Schema({
+    descripcion:String,
+    idNoticia:String,
+    creadorDelComentario:{
+        id:String,
+        nombre:String,
+        fotoPerfil:String
+    },
+    respuesta:{
+        idComentarioPrincipal:String,
+        respuestaPara:{
+            idReceptor:String,
+            nombreReceptor:String
+        }
+    }
+
+});
+
+var comentariosModel = mongoose.model("Comentarios",comentarioSchema);
+
 var EjerciciosSchema = new mongoose.Schema({
     Titulo:String,
     video:String,
@@ -97,5 +117,5 @@ var guardadosSchema = new mongoose.Schema({
 var guardadosModelo = mongoose.model("guardados",guardadosSchema)
 
 export default module.exports = {MusculoModelo,EjerciciosModelo,MaquinasModelo,tipoDietasModelo,DietasModelo,
-    NoticiaModelo,usuarioModelo,horariosElegidosModelo,horariosModelo,guardadosModelo
+    NoticiaModelo,usuarioModelo,horariosElegidosModelo,horariosModelo,guardadosModelo,comentariosModel
 }

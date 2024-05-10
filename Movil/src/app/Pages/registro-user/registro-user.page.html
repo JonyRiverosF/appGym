@@ -20,7 +20,7 @@
     <ion-card-content>
       <ion-item>
         <ion-label position="floating" style="color: white;">Nombre:</ion-label>
-        <ion-input [(ngModel)]="nombre"  placeholder="Juan" type="text"></ion-input>
+        <ion-input [(ngModel)]="nombre"  placeholder="Ej: Juan" type="text"></ion-input>
       </ion-item>
       <p style="color: rgb(197, 79, 79);" *ngIf="mensajeName!=''">{{ mensajeName }}</p >
       <p style="color: rgb(197, 79, 79);"  *ngIf="mensajeNameN!=''">{{ mensajeNameN }}</p >
@@ -28,7 +28,7 @@
 
       <ion-item>
         <ion-label position="floating" style="color: white;">Apellido:</ion-label>
-        <ion-input [(ngModel)]="apellido"  placeholder="Gana" type="text"></ion-input>
+        <ion-input [(ngModel)]="apellido"  placeholder="Ej: Gana" type="text"></ion-input>
       </ion-item>
       <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeApellido!=''">{{ mensajeApellido }}</p>
       <p   style="color: rgb(197, 79, 79);" *ngIf="mensajeApellidoN!=''">{{ mensajeApellidoN }}</p>
@@ -50,7 +50,7 @@
 
       <ion-item>
         <ion-label position="floating" style="color: white;">Rut (Sin puntos ni guion):</ion-label>
-        <ion-input maxlength=10 (input)="ar($event)" [(ngModel)]="rut"  placeholder="Ej: 321236540" type="text"></ion-input>
+        <ion-input (input)="ar()" [(ngModel)]="rut"  placeholder="Ej: 321236540" type="text"></ion-input>
       </ion-item>
       <p style="color: rgb(197, 79, 79);" *ngIf="mensajeRut != ''">{{ mensajeRut }}</p>
 

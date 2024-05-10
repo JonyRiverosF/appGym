@@ -516,5 +516,77 @@ router.post("/guardarMultimedia",upload.any(),(req:Request,res:Response)=>{
     })
 })
 
+router.post("/insertarComentario",upload.any(),(req:any,res:any)=>{
+    try{
+        if(req.body.idComentarioPrincipal == "" && req.body.nombreCreador == ""){
+            modelos.comentariosModel.create({
+                descripcion:req.body.descripcion,
+                idNoticia:req.body.noticia,
+                creadorDelComentario:{
+                    id:req.body.usuarioId,
+                    nombre:req.body.usuarioName,
+                    fotoPerfil:req.body.fotoUsuario
+                },
+                respuesta:{
+                idComentarioPrincipal:"",
+                respuestaPara:{
+                    idReceptor:"",
+                    nombreReceptor:""
+                    }
+                }
+            }).then(resultado=>{
+                res.status(201).json({
+                    reqBody:req.body,
+                    insertado:resultado
+                 })
+            }).catch((error:any)=>{
+                console.log("---------");
+                console.log("Algo salió mal en el catch del crear comentario");
+                console.log(error.toString());
+                console.log("---------");
+            })
+        }else{
+            modelos.comentariosModel.create({
+                descripcion:req.body.descripcion,
+                idNoticia:req.body.noticia,
+                creadorDelComentario:{
+                    id:req.body.usuarioId,
+                    nombre:req.body.usuarioName,
+                    fotoPerfil:req.body.fotoUsuario
+                },
+                respuesta:{
+                idComentarioPrincipal:req.body.idComentarioPrincipal,
+                respuestaPara:{
+                    idReceptor:req.body.idCreador,
+                    nombreReceptor:req.body.nombreCreador
+                    }
+                }
+            }).then(resultado=>{
+                res.status(201).json({
+                    reqBody:req.body,
+                    insertado:resultado
+                 })
+            }).catch(error=>{
+                console.log("---------");
+                console.log("Algo salió mal insertado comentario anidado");
+                console.log(error.toString());
+                console.log("---------");
+                res.status(500).json({
+                    error:error.toString()
+                })
+            })
+        }
+    }catch(error:any){
+        console.log("---------");
+        console.log("Algo salió mal");
+        console.log(error.toString());
+        console.log("---------");
+        res.status(500).json({
+            error:error.toString()
+        })
+    }
+
+})
+
 export default module.exports=router
 //export default exports.usuariomodelo=usuarioModelo
