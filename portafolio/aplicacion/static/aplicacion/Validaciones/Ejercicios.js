@@ -1,7 +1,7 @@
 //Creacion de la noticia 
 $(document).ready(function(){
 
-    var apiUrl = "http://10.32.157.122:3000";
+    var apiUrl = "http://192.168.1.6:3000";
 
     $("#fotoE").change(function(e){
         foto = e.target.files[0]
@@ -137,7 +137,7 @@ $(document).ready(function(){
 
 
 
-
+        var fotoMM
     $("#fotoD").change(function(e){
         fotoMM = e.target.files[0]
         var preview = URL.createObjectURL(fotoMM) 
@@ -150,9 +150,8 @@ $(document).ready(function(){
     $("#FormModificarMusculos").submit(function(e){
         e.preventDefault();    
         var nombreEjercicio = $("#nombreD").val();
-        var idM = $("#idM").val();
-        
-        
+        var idM = $("#idM")[0].innerHTML;
+        var FichaM = $("#fichaMuscM").val();
         
         let msjMostrar = "";
         let enviar = false;
@@ -175,7 +174,12 @@ $(document).ready(function(){
         else{
             var formulario = new FormData();
                     formulario.append("nombre", nombreEjercicio);
-                    formulario.append("foto", fotoMM);
+
+                    if(fotoMM){
+                        formulario.append("foto", fotoMM);
+                    }
+                    
+                    formulario.append("ficha", FichaM);
 
                 fetch( apiUrl + '/modificar/modificarMusculo/'+ idM, {
                     method: 'PUT',
@@ -214,10 +218,12 @@ $(document).ready(function(){
 
 
 
-
-
-
-   
+$("#fotoMaqui").change(function(e){
+        fotoMa = e.target.files[0]
+        var preview = URL.createObjectURL(fotoMa) 
+        $("#maquinaF").html("<p style='text-align: center;'><img src="+preview+" style='width:200px;height:200px;' ></p>")
+        console.log(fotoMa)
+    });
 
 
         //Creacion de las maquinas
@@ -268,17 +274,23 @@ $(document).ready(function(){
 
 
 
-    $("#fotoMaqui").change(function(e){
-        fotoMa = e.target.files[0]
-        var preview = URL.createObjectURL(fotoMa) 
-        $("#maquinaF").html("<p style='text-align: center;'><img src="+preview+" style='width:200px;height:200px;' ></p>")
-        console.log(fotoMa)
+    
+
+        var fotoMM
+    $("#fotoMM").change(function(e){
+        fotoMM = e.target.files[0]
+        var preview = URL.createObjectURL(fotoMM) 
+        $("#fotoMMo")[0].src=preview
+        $("#labelMM")[0].innerHTML="Nueva foto de la maquina"
     });
 
+
     //Modificacion de las maquinas
-    $("#FormModificarMaquinas").submit(function(e){    
-        var nombreEjercicio = $("#nombreE").val();
-        var idE = $("#idE").val();
+    $("#FormModificarMaquinas").submit(function(e){  
+        e.preventDefault();  
+        var nombreEjercicio = $("#nombreMM").val();
+        var idM = $("#idMM")[0].innerHTML;
+        var fichaM = $("#fichaMM").val();
         
         let msjMostrar = "";
         let enviar = false;
@@ -299,10 +311,28 @@ $(document).ready(function(){
             e.preventDefault();
         }
         else{
+
+            var formulario = new FormData();
+            formulario.append("nombre", nombreEjercicio);
+
+            if(fotoMM){
+                formulario.append("foto", fotoMM);
+            }
+            
+            formulario.append("ficha", fichaM);
+            
+            
+
+        fetch( apiUrl + '/modificar/modificarMaquina/'+ idM, {
+            method: 'PUT',
+            body: formulario
+        }).then(respuesta=>{
+            respuesta.json()
+
+        }).then(respuesta=>{
             $("#mensaje_ModificarMaquina").html("-Ejercicio Modificado Correctamente.");
-
-
-
+            console.log(respuesta)
+        })
         }
     });
 
@@ -322,7 +352,7 @@ $(document).ready(function(){
 
 
 
-
+        var fotoEM
     $("#fotoEM").change(function(e){
         fotoEM = e.target.files[0]
         var preview = URL.createObjectURL(fotoEM) 
@@ -331,6 +361,7 @@ $(document).ready(function(){
     });
 
 
+        var videoEM
     $("#videoEM").change(function(e){
         videoEM = e.target.files[0]
         var preview = URL.createObjectURL(videoEM) 
@@ -343,7 +374,7 @@ $(document).ready(function(){
     $("#FormModificarEjercicios").submit(function(e){
         e.preventDefault();    
         var nombreEjercicio = $("#nombreE").val();
-        var IDe = $("#idE").val();
+        var IDe = $("#idE")[0].innerHTML;
         
         let msjMostrar = "";
         let enviar = false;
@@ -366,8 +397,14 @@ $(document).ready(function(){
         else{
             var formulario = new FormData();
                     formulario.append("titulo", nombreEjercicio);
-                    formulario.append("video", videoEM);
-                    formulario.append("video", fotoEM);
+                    if(videoEM){
+                        formulario.append("video", videoEM);
+                    }
+
+                    if(fotoEM){
+                        formulario.append("video", fotoEM);
+                    }
+                    
                     
 
                 fetch( apiUrl + '/modificar/modificarEjercicio/'+ IDe, {

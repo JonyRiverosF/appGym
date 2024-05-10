@@ -348,7 +348,8 @@ router.put("/modificarMusculo/:id", upload.single("foto"), (req: any, res: Respo
                         
                         modelos.MusculoModelo.findByIdAndUpdate(id, {
                             nombre: req.body.nombre,
-                            foto: respuesta.foto
+                            foto: respuesta.foto,
+                            ficha:req.body.ficha,
                         }).exec().then(respuesta => {
 
                             res.status(201).json(respuesta);
@@ -365,7 +366,8 @@ router.put("/modificarMusculo/:id", upload.single("foto"), (req: any, res: Respo
         } else {
             // No se subió una nueva foto, simplemente actualizar el músculo con los nuevos datos
             modelos.MusculoModelo.findByIdAndUpdate(id, {
-                nombre: req.body.nombre
+                nombre: req.body.nombre,
+                ficha:req.body.ficha,
             }).exec().then(respuesta => {
                 res.status(201).json(respuesta);
             }).catch(error => {
@@ -381,6 +383,237 @@ router.put("/modificarMusculo/:id", upload.single("foto"), (req: any, res: Respo
     });
 });
 
+
+router.put("/modificarTiposDietas/:id", upload.single("foto"), (req: any, res: Response) => {
+    var id = req.params.id;
+    var portadaNueva=""
+    console.log(id)
+    console.log(req.file)
+    modelos.tipoDietasModelo.findById(id).exec().then(respuesta => {
+        if (!respuesta) {
+            return res.status(404).json({ mensaje: "Tipo Dieta no encontrada" });
+        }
+
+        if (req.file) {
+            var archivo = req.file;
+            if (archivo.mimetype == "image/jpg" || archivo.mimetype == "image/jpeg" || archivo.mimetype == "image/png") {
+                
+                fs.rename(directoryPath + archivo.filename, "./public/imagenes/TipoDietas/" + archivo.filename + '.jpg', function (err) {
+                    if (err) {
+                        console.log('ERROR: ' + err);
+                        res.status(500).json({ mensaje: "Error al guardar la nueva foto" });
+                    } else {
+
+                        portadaNueva = archivo.filename
+                        fs.unlink("./public/imagenes/TipoDietas/" + respuesta?.foto, function (error) {
+                            if (error) {
+                                console.log("Algo salio mal eliminando la foto")
+                                console.log(error)
+                            } else {
+                                modelos.tipoDietasModelo.findByIdAndUpdate(id, {
+                                    foto: portadaNueva + '.jpg'
+    
+                                }).exec().then(respuesta => {
+                                    console.log("foto modificada")
+                                }).catch(error => {
+                                    console.log("es la foto")
+                                    console.log(error)
+                                })
+                            }
+                        })
+                        
+                        
+                        modelos.tipoDietasModelo.findByIdAndUpdate(id, {
+                            nombre: req.body.nombre,
+                            foto: respuesta.foto,
+                            ficha: req.body.ficha,
+                        }).exec().then(respuesta => {
+
+                            res.status(201).json(respuesta);
+                        }).catch(error => {
+                            console.log("Error al actualizar el Tipo de Dieta");
+                            console.log(error);
+                            res.status(500).json({ mensaje: "Error al actualizar el Tipo De Dieta" });
+                        });
+                    }
+                });
+            } else {
+                return res.status(400).json({ mensaje: "El archivo subido no es una imagen válida" });
+            }
+        } else {
+
+            modelos.tipoDietasModelo.findByIdAndUpdate(id, {
+                nombre: req.body.nombre,
+                ficha: req.body.ficha,
+            }).exec().then(respuesta => {
+                res.status(201).json(respuesta);
+            }).catch(error => {
+                console.log("Error al actualizar el Tipo De Dieta");
+                console.log(error);
+                res.status(500).json({ mensaje: "Error al actualizar el Tipo De Dieta" });
+            });
+        }
+    }).catch(error => {
+        console.log("Error al buscar el Tipo De Dieta");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al buscar el Tipo De Dieta" });
+    });
+});
+
+
+
+router.put("/modificarMaquina/:id", upload.single("foto"), (req: any, res: Response) => {
+    var id = req.params.id;
+    var portadaNueva=""
+
+    modelos.MaquinasModelo.findById(id).exec().then(respuesta => {
+        if (!respuesta) {
+            return res.status(404).json({ mensaje: "Maquinas no encontrada" });
+        }
+
+        if (req.file) {
+            var archivo = req.file;
+            if (archivo.mimetype == "image/jpg" || archivo.mimetype == "image/jpeg" || archivo.mimetype == "image/png") {
+                
+                fs.rename(directoryPath + archivo.filename, "./public/imagenes/fotoMaquinas/" + archivo.filename + '.jpg', function (err) {
+                    if (err) {
+                        console.log('ERROR: ' + err);
+                        res.status(500).json({ mensaje: "Error al guardar la nueva foto" });
+                    } else {
+
+                        portadaNueva = archivo.filename
+                        fs.unlink("./public/imagenes/fotoMaquinas/" + respuesta?.foto, function (error) {
+                            if (error) {
+                                console.log("Algo salio mal eliminando la foto")
+                                console.log(error)
+                            } else {
+                                modelos.MaquinasModelo.findByIdAndUpdate(id, {
+                                    foto: portadaNueva + '.jpg'
+    
+                                }).exec().then(respuesta => {
+                                    console.log("foto modificada")
+                                }).catch(error => {
+                                    console.log("es la foto")
+                                    console.log(error)
+                                })
+                            }
+                        })
+                        
+                        
+                        modelos.MaquinasModelo.findByIdAndUpdate(id, {
+                            nombre: req.body.nombre,
+                            foto: respuesta.foto,
+                            ficha: req.body.ficha,
+                        }).exec().then(respuesta => {
+
+                            res.status(201).json(respuesta);
+                        }).catch(error => {
+                            console.log("Error al actualizar las maquinas");
+                            console.log(error);
+                            res.status(500).json({ mensaje: "Error al actualizar las maquinas " });
+                        });
+                    }
+                });
+            } else {
+                return res.status(400).json({ mensaje: "El archivo subido no es una imagen válida" });
+            }
+        } else {
+
+            modelos.MaquinasModelo.findByIdAndUpdate(id, {
+                nombre: req.body.nombre,
+                ficha: req.body.ficha,
+            }).exec().then(respuesta => {
+                res.status(201).json(respuesta);
+            }).catch(error => {
+                console.log("Error al actualizar las maquinas");
+                console.log(error);
+                res.status(500).json({ mensaje: "Error al actualizar las maquinas" });
+            });
+        }
+    }).catch(error => {
+        console.log("Error al buscar las maquinas");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al buscar las maquinas" });
+    });
+});
+
+
+router.put("/modificarDietas/:id", upload.single("foto"), (req: any, res: Response) => {
+    var id = req.params.id;
+    var portadaNueva=""
+
+    modelos.DietasModelo.findById(id).exec().then(respuesta => {
+        if (!respuesta) {
+            return res.status(404).json({ mensaje: "Dietas no encontrada" });
+        }
+
+        if (req.file) {
+            var archivo = req.file;
+            if (archivo.mimetype == "image/jpg" || archivo.mimetype == "image/jpeg" || archivo.mimetype == "image/png") {
+                
+                fs.rename(directoryPath + archivo.filename, "./public/imagenes/Dietas/" + archivo.filename + '.jpg', function (err) {
+                    if (err) {
+                        console.log('ERROR: ' + err);
+                        res.status(500).json({ mensaje: "Error al guardar la nueva foto" });
+                    } else {
+
+                        portadaNueva = archivo.filename
+                        fs.unlink("./public/imagenes/Dietas/" + respuesta?.foto, function (error) {
+                            if (error) {
+                                console.log("Algo salio mal eliminando la foto")
+                                console.log(error)
+                            } else {
+                                modelos.DietasModelo.findByIdAndUpdate(id, {
+                                    foto: portadaNueva + '.jpg'
+    
+                                }).exec().then(respuesta => {
+                                    console.log("foto modificada")
+                                }).catch(error => {
+                                    console.log("es la foto")
+                                    console.log(error)
+                                })
+                            }
+                        })
+                        
+                        
+                        modelos.DietasModelo.findByIdAndUpdate(id, {
+                            nombre: req.body.nombre,
+                            foto: respuesta.foto,
+                            ficha: req.body.ficha,
+                            tipoD:req.body.tipoD,
+                        }).exec().then(respuesta => {
+
+                            res.status(201).json(respuesta);
+                        }).catch(error => {
+                            console.log("Error al actualizar las dietas");
+                            console.log(error);
+                            res.status(500).json({ mensaje: "Error al actualizar las dietas " });
+                        });
+                    }
+                });
+            } else {
+                return res.status(400).json({ mensaje: "El archivo subido no es una imagen válida" });
+            }
+        } else {
+
+            modelos.DietasModelo.findByIdAndUpdate(id, {
+                nombre: req.body.nombre,
+                ficha: req.body.ficha,
+                tipoD:req.body.tipoD,
+            }).exec().then(respuesta => {
+                res.status(201).json(respuesta);
+            }).catch(error => {
+                console.log("Error al actualizar las dietas");
+                console.log(error);
+                res.status(500).json({ mensaje: "Error al actualizar las dietas" });
+            });
+        }
+    }).catch(error => {
+        console.log("Error al buscar las dietas");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al buscar las dietas" });
+    });
+});
 
 
 

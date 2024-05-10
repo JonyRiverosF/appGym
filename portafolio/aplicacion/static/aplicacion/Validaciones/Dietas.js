@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var apiUrl = "http://10.32.157.122:3000";
+    var apiUrl = "http://192.168.1.6:3000";
 
 
 
@@ -73,6 +73,7 @@ $(document).ready(function(){
         //Creacion del tipo de dietas
     $("#FormTipoDietas").submit(function(e){
         var nombreTipoDieta = $("#nombreTD").val();
+        
 
         let msjMostrar = "";
         let enviar = false;
@@ -115,10 +116,23 @@ $(document).ready(function(){
 
 
 
+
+        var fotoTDM
+    $("#fotoTD").change(function(e){
+        fotoTDM = e.target.files[0]
+        var preview = URL.createObjectURL(fotoTDM) 
+        $("#fotoTDM")[0].src=preview
+        $("#labelTD")[0].innerHTML="Nueva foto del Tipo de Dieta"
+    });
+
     //Modificacion tipos de dietas
     $("#FormModificarTD").submit(function(e){
+        e.preventDefault();
         var nombreDieta = $("#nombreD").val();
+        var idTD = $("#idTD")[0].innerHTML;
+        var fichaTD = $("#fichaTD").val();
 
+       
         let msjMostrar = "";
         let enviar = false;
 
@@ -133,7 +147,27 @@ $(document).ready(function(){
             e.preventDefault();
         }
         else{
-            $("#mensaje_ModificarTD").html("-Dieta Modificada Correctamente.");
+
+            var formulario = new FormData();
+                    formulario.append("nombre", nombreDieta);
+
+                    if(fotoTDM){
+                        formulario.append("foto", fotoTDM);
+                    }
+
+                    formulario.append("ficha", fichaTD);
+
+                fetch( apiUrl + '/modificar/modificarTiposDietas/'+ idTD, {
+                    method: 'PUT',
+                    body: formulario
+                }).then(respuesta=>{
+                    respuesta.json()
+
+                }).then(respuesta=>{
+                    $("#mensaje_ModificarTD").html("-Tipo Dieta Modificada Correctamente.");
+                    console.log(respuesta)
+                    
+                })
         }
     });
 
@@ -151,20 +185,26 @@ $(document).ready(function(){
 
 
 
-
-
-
-
-
-
-    
+    var fotoDM
+    $("#fotoMDi").change(function(e){
+            fotoDM = e.target.files[0];
+            var preview = URL.createObjectURL(fotoDM) 
+            $("#fotoMDI")[0].src=preview
+            $("#labelMDI")[0].innerHTML="Nueva foto de Dieta"
+        });
 
     //Modificacion de las Dietas
     $("#FormModificarDieta").submit(function(e){
+        e.preventDefault();
         var nombreDieta = $("#nombreD").val();
+        var FichaDD = $("#fichaDD").val();
+        var rolTD = $("#RolTipoD").val();
+        var idMD = $("#idD")[0].innerHTML;
 
         let msjMostrar = "";
         let enviar = false;
+
+
 
         // Validar Nombre Dieta
         if(nombreDieta.trim() == ""){
@@ -187,7 +227,27 @@ $(document).ready(function(){
             e.preventDefault();
         }
         else{
+
+            var formulario = new FormData();
+            formulario.append("nombre", nombreDieta);
+
+            if(fotoDM){
+                formulario.append("foto", fotoDM);
+            }
+            
+            formulario.append("ficha", FichaDD);
+            formulario.append("tipoD", rolTD);
+
+        fetch( apiUrl + '/modificar/modificarDietas/'+ idMD, {
+            method: 'PUT',
+            body: formulario
+        }).then(respuesta=>{
+            respuesta.json()
+
+        }).then(respuesta=>{
             $("#mensaje_ModificarDieta").html("-Dieta Modificada Correctamente.");
+        })
+            
         }
     });
 });

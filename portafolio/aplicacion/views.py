@@ -11,6 +11,9 @@ from django.contrib.auth.decorators import login_required
 mongo=""
 dataBase=""
 
+comentarios=""
+horarios=""
+
 usuarios=""
 
 musculos=""
@@ -22,7 +25,7 @@ dietas=""
 
 noticia=""
 
-apiUrl = "http://10.32.157.122:3000"
+apiUrl = "http://192.168.1.6:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 
@@ -37,6 +40,9 @@ tipoDietas = dataBase["tipodietas"]
 dietas = dataBase["dietas"]
 
 noticia = dataBase["noticias"]
+
+comentarios= dataBase["comentarios"]
+horarios=dataBase["horarios"]
 
 
 print("Connected to the MongoDB database!")
@@ -81,7 +87,16 @@ def Solicitudes(request):
     return render(request,"aplicacion/Solicitudes.html")
 
 def Informes(request):
-    return render(request,"aplicacion/Informes.html")
+
+    Comentarios = comentarios.find({})
+    Horarios=horarios.find({"vigencia":True})
+
+    contexto={
+        "comentarios":Comentarios,
+         "horarios":Horarios       
+    }
+
+    return render(request,"aplicacion/Informes.html",contexto)
 
 def VistaComentarios(request):
     return render(request,"aplicacion/VistaComentarios.html")
@@ -357,7 +372,7 @@ def ModificarTipoD(request,id):
 
     owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
     owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/TipoDietas/'+ owo["respuesta"][0]["foto"]
-
+    print(owo)
     contexto = {
         "modificarTipoD": owo["respuesta"][0]
     }

@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var apiUrl = "http://10.32.157.122:3000";
+    var apiUrl = "http://192.168.1.6:3000";
 
 
     $("#fotoN").change(function(e){
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 
 
-
+        var fotoNM
     $("#fotoNM").change(function(e){
         fotoNM = e.target.files[0]
         var preview = URL.createObjectURL(fotoNM) 
@@ -112,6 +112,7 @@ $(document).ready(function(){
     });
 
 
+        var videoNM
     $("#videoNM").change(function(e){
         videoNM = e.target.files[0]
         var preview = URL.createObjectURL(videoNM) 
@@ -126,7 +127,7 @@ $(document).ready(function(){
         var nombreNoticia = $("#tituloN").val();
         var bajadaNoticia = $("#bajadaN").val();
         var desNoticia = $("#descN").val();
-        var idNoticia = $("#idN").val();
+        var idNoticia = $("#idN")[0].innerHTML;
         console.log(idNoticia)
 
         let fechaM = new Date();
@@ -165,8 +166,15 @@ $(document).ready(function(){
             formulario.append("bajadaN", bajadaNoticia);
             formulario.append("fechaC", fechaNM);
             formulario.append("descN", desNoticia);
-            formulario.append("video", videoNM);
-            formulario.append("video", fotoNM);
+
+            if(videoNM){
+                formulario.append("video", videoNM);
+            }
+            
+            if(fotoNM){
+                formulario.append("video", fotoNM);
+            }
+            
             
 
         fetch( apiUrl + '/modificar/modificarNoticia/'+ idNoticia, {

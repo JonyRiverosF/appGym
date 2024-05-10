@@ -16,14 +16,6 @@ var usuariosSchema = new mongoose.Schema({
 })
 var usuarioModelo = mongoose.model("Usuarios",usuariosSchema)
 
-var musculosSchema = new mongoose.Schema({
-    nombre: String,
-    foto: String
-});
-
-var MusculoModelo = mongoose.model("Musculos", musculosSchema);
-
-
 var comentarioSchema = new mongoose.Schema({
     descripcion:String,
     idNoticia:String,
@@ -44,6 +36,15 @@ var comentarioSchema = new mongoose.Schema({
 
 var comentariosModel = mongoose.model("Comentarios",comentarioSchema);
 
+var musculosSchema = new mongoose.Schema({
+    nombre: String,
+    foto: String,
+    ficha: String
+});
+
+var MusculoModelo = mongoose.model("Musculos", musculosSchema);
+
+
 var EjerciciosSchema = new mongoose.Schema({
     Titulo:String,
     video:String,
@@ -56,14 +57,16 @@ var EjerciciosModelo = mongoose.model("Ejercicios",EjerciciosSchema)
 
 var MaquinasSchema = new mongoose.Schema({
     nombre: String,
-    foto: String
+    foto: String,
+    ficha: String
 });
 
 var MaquinasModelo = mongoose.model("maquinas", MaquinasSchema);
 
 var tipoDietasSchema = new mongoose.Schema({
     nombre: String,
-    foto: String
+    foto: String,
+    ficha: String
 });
 
 var tipoDietasModelo = mongoose.model("tipoDietas", tipoDietasSchema);
@@ -72,9 +75,9 @@ var DietasSchema = new mongoose.Schema({
     nombre: String,
     tipoD:String,
     foto: String,
+    ficha: String
     
 });
-
 var DietasModelo = mongoose.model("dietas", DietasSchema);
 
 var NoticiaSchema = new mongoose.Schema({
