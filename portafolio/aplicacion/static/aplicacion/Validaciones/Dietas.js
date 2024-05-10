@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var apiUrl = "http://192.168.1.6:3000";
+    var apiUrl = "http://10.32.157.122:3000";
 
 
 

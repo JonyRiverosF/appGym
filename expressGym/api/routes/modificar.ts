@@ -166,6 +166,11 @@ router.put("/modificarEjercicio/:id", upload.array("video"), (req: any, res: Res
                                         foto: portadaNueva + '.jpg'
 
                                     }).exec().then(respuesta => {
+                                        modelos.guardadosModelo.findOneAndUpdate({idArchivo:id},{
+                                            archivoGuardado:portadaNueva +".jpg"
+                                        }).exec().then(respu=>{
+                                            console.log("foto modificada de los guardados")
+                                        })
                                         console.log("foto modificada")
                                     }).catch(error => {
                                         console.log("es la foto")
@@ -219,10 +224,10 @@ router.put("/modificarEjercicio/:id", upload.array("video"), (req: any, res: Res
 
 
 router.put("/modificarNoticia/:id", upload.array("video"), (req: any, res: Response) => {
-    var id = req.params.id
+    var id = req.params.id  
     var portadaNueva = ""
     var VideoNuevo = ""
-
+  
     modelos.NoticiaModelo.findById(id).exec().then(respuesta => {
 
         if (req.files) {
@@ -294,6 +299,8 @@ router.put("/modificarNoticia/:id", upload.array("video"), (req: any, res: Respo
 
         }).exec().then(respuesta => {
             res.status(201).json(respuesta)
+            console.log(id)
+            console.log(respuesta)
         })
     })
 
@@ -301,6 +308,7 @@ router.put("/modificarNoticia/:id", upload.array("video"), (req: any, res: Respo
 
 router.put("/modificarMusculo/:id", upload.single("foto"), (req: any, res: Response) => {
     var id = req.params.id;
+    var portadaNueva=""
 
     modelos.MusculoModelo.findById(id).exec().then(respuesta => {
         if (!respuesta) {
@@ -311,16 +319,38 @@ router.put("/modificarMusculo/:id", upload.single("foto"), (req: any, res: Respo
         if (req.file) {
             var archivo = req.file;
             if (archivo.mimetype == "image/jpg" || archivo.mimetype == "image/jpeg" || archivo.mimetype == "image/png") {
-                fs.rename(directoryPath + archivo.filename, "./public/imagenes/fotosMusculos/" + respuesta.foto + '.jpg', function (err) {
+                
+                fs.rename(directoryPath + archivo.filename, "./public/imagenes/fotosMusculos/" + archivo.filename + '.jpg', function (err) {
                     if (err) {
                         console.log('ERROR: ' + err);
-                        return res.status(500).json({ mensaje: "Error al guardar la nueva foto" });
+                        res.status(500).json({ mensaje: "Error al guardar la nueva foto" });
                     } else {
+
+                        portadaNueva = archivo.filename
+                        fs.unlink("./public/imagenes/fotosMusculos/" + respuesta?.foto, function (error) {
+                            if (error) {
+                                console.log("Algo salio mal eliminando la foto")
+                                console.log(error)
+                            } else {
+                                modelos.MusculoModelo.findByIdAndUpdate(id, {
+                                    foto: portadaNueva + '.jpg'
+    
+                                }).exec().then(respuesta => {
+                                    console.log("foto modificada")
+                                }).catch(error => {
+                                    console.log("es la foto")
+                                    console.log(error)
+                                })
+                            }
+                        })
+                        
                         // Actualizar el músculo con los nuevos datos
+                        
                         modelos.MusculoModelo.findByIdAndUpdate(id, {
                             nombre: req.body.nombre,
                             foto: respuesta.foto
                         }).exec().then(respuesta => {
+
                             res.status(201).json(respuesta);
                         }).catch(error => {
                             console.log("Error al actualizar el músculo");
@@ -335,8 +365,7 @@ router.put("/modificarMusculo/:id", upload.single("foto"), (req: any, res: Respo
         } else {
             // No se subió una nueva foto, simplemente actualizar el músculo con los nuevos datos
             modelos.MusculoModelo.findByIdAndUpdate(id, {
-                nombre: req.body.nombre,
-                foto: respuesta.foto
+                nombre: req.body.nombre
             }).exec().then(respuesta => {
                 res.status(201).json(respuesta);
             }).catch(error => {

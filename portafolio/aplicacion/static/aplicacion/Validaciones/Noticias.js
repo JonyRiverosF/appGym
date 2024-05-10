@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var apiUrl = "http://192.168.1.6:3000";
+    var apiUrl = "http://10.32.157.122:3000";
 
 
     $("#fotoN").change(function(e){
@@ -126,7 +126,8 @@ $(document).ready(function(){
         var nombreNoticia = $("#tituloN").val();
         var bajadaNoticia = $("#bajadaN").val();
         var desNoticia = $("#descN").val();
-        var idNoticia = $("idN").val();
+        var idNoticia = $("#idN").val();
+        console.log(idNoticia)
 
         let fechaM = new Date();
         let ordenado = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
