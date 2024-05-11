@@ -389,6 +389,16 @@ nav > ul > li > ul > li > ul:before {
       <div class="col-md-3 col-sm-4"></div>
   </div><br>
 
+  <div class="row">
+    <div class="col-md-6">
+        <label for="filtro" style="color:rgb(255, 255, 255);"><h5>Filtrar por:</h5></label>
+        <select id="filtro" class="form-control" style="text-transform: uppercase;">
+            <option value="todos" selected>Seleccione categoría</option>
+            <option value="Conficha">Con ficha medica</option>
+            <option value="Sinficha">Sin ficha medica</option>
+        </select>
+    </div>
+</div><br>
 
 
   <div class="row">
@@ -405,7 +415,7 @@ nav > ul > li > ul > li > ul:before {
             <td>{{ u.nombre }} {{ u.apellido }}</td>
             
             <td>
-              <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn" style="color: rgb(255, 255, 255); background-color: rgb(97, 97, 97);">Modificar</a>
+              <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn" style="color: rgb(0, 0, 0);  background-color: #cdc421;"">Modificar</a>
             </td>
           </tr>
           
@@ -418,6 +428,21 @@ nav > ul > li > ul > li > ul:before {
 
   </div></div></div>
 
+
+  <script>
+    document.getElementById('filtro').addEventListener('change', function() {
+        var filtro = this.value;
+        var filas = document.querySelectorAll('tr');
+
+        filas.forEach(function(fila) {
+            if (filtro === 'todos' || fila.classList.contains(filtro)) {
+                fila.style.display = 'table-row';
+            } else {
+                fila.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 
 
