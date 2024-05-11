@@ -20,6 +20,8 @@
 
 <style>
 
+  /*Pagina completa*/
+
   *{
     margin:0;
     padding:0;
@@ -287,6 +289,43 @@ p{
 
 }
 
+/*Login*/
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+#menu {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeOutToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+#menu.fadeOutToLeft {
+  animation: fadeOutToLeft 0.3s ease-in-out;
+}
   
 
 </style>
@@ -497,7 +536,7 @@ p{
                 <div class="col-md-3 col-sm-12"></div>
                 <div class="col-md-6 col-sm-12">
                     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-                        <form action="{% url 'formSesion' %}" method="POST" id="formlogin" class="fondoform" enctype="multipart/form-data" style="position: relative;">
+                        <form action="{% url 'formSesion' %}" method="POST" id="loginForm" class="fondoform" enctype="multipart/form-data" style="position: relative;">
                             <div style="position: absolute; top: 10px; right: 25px; z-index: 1000;">
                                 <i id="closeMenu" class="fas fa-times" style="cursor: pointer; color: #000000; font-size: 24px;"></i>
                             </div>
@@ -524,8 +563,19 @@ p{
                                         <a href="#" class="text-decoration-none text-dark fw-semibold fst-italic" style="font-size: 0.9rem">¿Olvidaste tu contraseña?</a>
                                     </div>
                                 </div><br>
-                                <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: #c8c024;" >
-                                <div style="text-align: center;">
+
+                                <div class="row">
+                                  <div class="col"></div>
+                                  <div class="col">
+                                    <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: #c8c024;" >
+                                  </div>
+                                  <div class="col"></div>
+                                </div>
+
+                                <br><div id="errorMensaje" style="color: rgb(176, 32, 32); text-align: center;"></div>
+                                
+                                <div style="color: rgb(176, 32, 32);">
+                                   
                                     <p class="warnings " id="mensaje"></p>
                                     {% if messages %}
                                     <ul class="messages letraLo">
@@ -543,36 +593,48 @@ p{
         </div>
     </div>
     
-    
-    
-    
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-          document.querySelector('.btn').addEventListener('click', function(event) {
-              event.stopPropagation(); // Evita que el evento se propague al contenedor
-              document.getElementById('menu').style.display = 'block';
-          });
-  
-          document.querySelector('.fa-user-circle').addEventListener('click', function(event) {
-              event.stopPropagation(); // Evita que el evento se propague al contenedor
-              document.getElementById('menu').style.display = 'block';
-          });
-  
-          document.getElementById('closeMenu').addEventListener('click', function() {
-              document.getElementById('menu').style.display = 'none';
-          });
-  
-          // Para cerrar el menú al hacer clic fuera de él
-          document.addEventListener('click', function() {
-              document.getElementById('menu').style.display = 'none';
-          });
-  
-          // Evita que el menú se cierre al hacer clic dentro de él
-          document.getElementById('menu').addEventListener('click', function(event) {
-              event.stopPropagation(); // Evita que el evento se propague al contenedor
-          });
-      });
-  </script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('mensaje').innerHTML = "Por favor, complete todos los campos.";
+        });
+    
+        document.querySelector('.fa-user-circle').addEventListener('click', function(event) {
+            event.stopPropagation();
+            document.getElementById('menu').style.animation = 'slideInFromLeft 0.3s forwards';
+            document.getElementById('menu').style.display = 'block';
+        });
+    
+        document.getElementById('closeMenu').addEventListener('click', function() {
+            document.getElementById('menu').style.animation = 'slideOutToLeft 0.3s forwards';
+            setTimeout(function() {
+                document.getElementById('menu').style.display = 'none';
+            }, 300);
+        });
+    
+        
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+    var loginEmail = document.getElementById('loginEmail').value;
+    var loginPassword = document.getElementById('loginPassword').value;
+    
+    if (!loginEmail || !loginPassword) {
+        event.preventDefault(); 
+        document.getElementById('errorMensaje').innerHTML = "Por favor, complete todos los campos.";
+    } else {
+        document.getElementById('errorMensaje').innerHTML = ""; 
+    }
+});
+
+
+
+
+    </script>
+    
+
+    
     
   
   
