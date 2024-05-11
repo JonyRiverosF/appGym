@@ -400,7 +400,7 @@ def ModificarMaquinas(request,id):
 
 
 #No se utilizara Pero por seacaso
-@login_required (login_url= 'login' )
+
 def Reportes(request):
     return render(request,"aplicacion/Reportes.html")
 

@@ -11,7 +11,7 @@
 <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
 
 <style>
- 
+
   /*Barra Menu*/
   .container__menu{
     width: 100%;
@@ -302,7 +302,7 @@ nav > ul > li > ul > li > ul:before {
 </style>
 </head>
 
-<body style="background: rgb(27, 90, 122);">
+<body style="background: rgb(27, 90, 122);text-transform: uppercase;">
 
     
       
@@ -394,7 +394,7 @@ nav > ul > li > ul > li > ul:before {
   <div class="row">
     <div class="col-md-6">
         <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
-        <select id="filtro" class="form-control">
+        <select id="filtro" class="form-control" style="text-transform: uppercase;">
             <option value="todos" selected>Seleccione Grupo Muscular</option>
             {% for g in listaMusc %}
               <option value="{{ g.nombre }}">{{ g.nombre }}</option>
@@ -404,7 +404,7 @@ nav > ul > li > ul > li > ul:before {
 
     <div class="col-md-6">
       <label for="filtro1" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
-      <select id="filtro1" class="form-control">
+      <select id="filtro1" class="form-control" style="text-transform: uppercase;">
           <option value="todos" selected>Seleccione Maquina de Ejercicio</option>
           {% for g in listaMaquina %}
             <option value="{{ g.nombre }}">{{ g.nombre }}</option>

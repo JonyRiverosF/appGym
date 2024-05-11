@@ -47,6 +47,7 @@
   .navbar{
     display: flex;
     margin-right: 10px;
+    font-weight: bold;
   }
 
   .logo{
@@ -246,43 +247,44 @@
     text-decoration: none;
     margin-top: 20px;
   }
-
+  
+  
   @media (max-width:768px){
 
-    p{
-      font-size: 16px;
-      padding: 0 30px;
-    }
+p{
+  font-size: 16px;
+  padding: 0 30px;
+}
 
-    .title{
-      margin-bottom: 0px;
-      font-size: 30px;
-    }
+.title{
+  margin-bottom: 0px;
+  font-size: 30px;
+}
 
-    .box-container .box {
-      width: 200px;
-    }
+.box-container .box {
+  width: 200px;
+}
 
-    .sau{
-      height: 100vh;
-      padding: 50px;
-    }
+.sau{
+  height: 100vh;
+  padding: 50px;
+}
 
-    .footer-section{
-      display: flex;
-      flex-direction: column;
-    }
+.footer-section{
+  display: flex;
+  flex-direction: column;
+}
 
-    .f-enlaces{
-      display: none;
-      margin: 0;
-    }
+.f-enlaces{
+  display: none;
+  margin: 0;
+}
 
-    .navbar{
-      display: none;
-    }
-      
+.navbar{
+  display: none;
+}
   
+
 }
 
   
@@ -295,7 +297,7 @@
     <div class="head">
 
       <div class="logo">
-        </i><a href="#"><i class="fa fa-user-circle" style="font-size:36px"></i></a>
+        </i><a ><i class="fa fa-user-circle" style="font-size:36px"></i></a>
       </div>
 
       <nav class="navbar">
@@ -454,6 +456,7 @@
       <section class="content contact"  id="contactanos">
 
         <h2 class="title">Contacto</h2>
+        <p>Para más información de contacto, simplemente haz clic en los iconos.</p>
 
         <div class="footer-section">
 
@@ -469,7 +472,7 @@
           </div>
 
           <div>
-            <a href="#" class="btn" style="margin-top: 60px;" >Iniciar Sesión</a>
+            <a  class="btn" style="margin-top: 60px;" >Iniciar Sesión</a>
           </div>
 
           <div class="f-enlaces">
@@ -499,11 +502,11 @@
                                 <i id="closeMenu" class="fas fa-times" style="cursor: pointer; color: #000000; font-size: 24px;"></i>
                             </div>
                             {% csrf_token %}
-                            <div class="p-5 rounded-5 text-secondary shadow" style="width: 25rem;">
+                            <div class="p-5 rounded-5 text-secondary " style="max-width: 25rem; margin: 0 auto;">
                                 <div style="display: flex; justify-content: center; align-items: center;">
                                     <img src="/static/aplicacion/img/logoC.png" alt="" style="width: 150px; height: 100px;">
                                 </div>
-                                <div class="text-center fs-1 fw-bold text-black">Login</div>
+                                <div class="text-center fs-1 fw-bold text-black">Iniciar Sesión</div>
                                 <div class="input-group mt-4">
                                     <div class="input-group-text" style="background-color: #7cbc65;">
                                       <i class="fas fa-envelope" style="font-size: 1rem; color: #0c0c0c;"></i>
@@ -514,11 +517,11 @@
                                     <div class="input-group-text" style="background-color: #7cbc65;">
                                         <i class="fas fa-lock" style="font-size: 1rem; color: #000000;"></i>
                                     </div>
-                                    <input class="form-control bg-light text-dark" type="password" name="loginPassword" id="loginPassword" placeholder="Password" />
+                                    <input class="form-control bg-light text-dark" type="password" name="loginPassword" id="loginPassword" placeholder="Codigo" />
                                 </div>
                                 <div class="d-flex justify-content-around mt-1">
                                     <div class="pt-1">
-                                        <a href="#" class="text-decoration-none text-dark fw-semibold fst-italic" style="font-size: 0.9rem">Forgot your password?</a>
+                                        <a href="#" class="text-decoration-none text-dark fw-semibold fst-italic" style="font-size: 0.9rem">¿Olvidaste tu contraseña?</a>
                                     </div>
                                 </div><br>
                                 <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: #c8c024;" >
@@ -539,6 +542,7 @@
             </div>
         </div>
     </div>
+    
     
     
     
