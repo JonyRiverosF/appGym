@@ -299,11 +299,99 @@
       opacity: 1;
     }
   }
+
+  /*Carrusel*/
+
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .slider-box{
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+  .slider-box ul{
+    display: flex;
+    padding: 0;
+    width: 400%;
+    animation: slide 20s infinite alternate ease-in-out;
+  }
+
+  .slider-box li{
+    width: 100%;
+    list-style: none;
+    position: relative;
+  }
+
+  .texto{
+    position: absolute;
+    text-align: center;
+    padding: 0 250px;
+    top: 300px;
+    color: #fff;
+  }
+
+  .texto h2{
+    font-size: 45px;
+    margin-bottom: 35px;
+  }
+
+  .slider-box img {
+    width: 100%;
+    height: 100%; /* Establece la altura deseada para todas las imágenes */
+    object-fit: cover; /* Para mantener la relación de aspecto y recortar la imagen si es necesario */
+}
+
+  @keyframes slide{
+    0% {margin-left: 0;}
+    20% {margin-left: 0;}
+    
+    25% {margin-left: -100%;}
+    45% {margin-left: -100%;}
+
+    50% {margin-left: -200%;}
+    70% {margin-left: -200%;}
+
+    75% {margin-left: -300%;}
+    100% {margin-left: -300%;}
+  }
+
+  @media(max-width:911px){
+
+    .slider-box{
+      width: 100%;
+    }
+
+    .texto{
+      top: 50%;
+      padding: 0 25px;
+      margin-top: -80px;
+    }
+
+    .texto h2{
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+    
+    .texto p{
+      font-size: 15px;
+      
+    }
+
+  }
+  
+
   </style>
   </head>
   
 
-  <body style="background-image: url(/static/aplicacion/img/fondo1.png);background-repeat: no-repeat;background-attachment: fixed;background-size: cover;"></body>    
+  <body style="background: rgb(27, 90, 122);text-transform: uppercase;"> 
         
     <div class="container__menu">
       <div class="menu">
@@ -373,50 +461,91 @@
     </div>
   <br>
 
-        <div class="container">
-          
-            <!--<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="max-width: 400px; margin: auto;">
-              <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-              </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active"><img class="d-block mx-auto" src="/static/aplicacion/img/logoC.png" alt=""></div>
-                <div class="carousel-item"><img class="d-block mx-auto" src="/static/aplicacion/img/informacion.jpg" alt=""></div>
-                <div class="carousel-item"><img class="d-block mx-auto" src="/static/aplicacion/img/reportes.jpg" alt=""></div>
+  <div class="container-fluid">
+
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <h1 style="text-align: center;background: rgb(18, 64, 87);border-radius: 10px;color: #fff;">Slider Informativo</h1>
+    </div>
+    <div class="col"></div>
+  </div>
+  <br>
+
+  
+
+    
+
+    <div class="row">
+      
+
+      <div class="col-md-12" >
+
+        <div class="slider-box">
+          <ul>
+    
+            <li>
+              <img src="/static/aplicacion/img/woman.jpg" alt="no foto">
+              <div class="texto">
+                <h2>Usuarios</h2>
+                <p>
+                  El administrador tiene la capacidad de modificar datos de usuarios y de ingresar nuevos usuarios al sistema. 
+                  Esto incluye la actualización de información personal, y la creación de cuentas 
+                  para nuevos usuarios. Tambien puede responder solicitudes de los usuarios, proporcionando información, 
+                  asistencia o tomando acciones según sea necesario para satisfacer las necesidades o consultas de los usuarios.
+                </p>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev"><span class="carousel-control-prev-icon"></span></a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next"><span class="carousel-control-next-icon"></span></a>
-            </div>-->
-          
-        
-          <br>
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8"><h1 style="background-color: rgb(138, 43, 42);color: rgb(255, 255, 255);text-align: center;border-right: 50px;">Hola, este es el panel de administración</h1></div>
-            <div class="col-md-2"></div>
-          </div>
-          <br><br>
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8"><h4 style="background-color: #db7f10;color: rgb(255, 255, 255);text-align: center;border-right: 50px;">En esta sección podrás gestionar y supervisar los distintos aspectos del sistema y todas las actividades relacionadas con el funcionamiento del gimnasio. Desde de lo más básico como los ejercicios con sus respectivas ejecuciones y descripción, la gestión de los perfiles de usuario y la sección de noticias para notificar de manera eficiente las actividades y contratiempos que se presenten.</h4></div>
-            <div class="col-md-2"></div>
-          </div>
+            </li>
+    
+            <li>
+              <img src="/static/aplicacion/img/darkness.jpg" alt="no foto">
+              <div class="texto">
+                <h2>Informes</h2>
+                <p>
+                  El administrador puede acceder a informes detallados sobre los comentarios de los usuarios en los videos y noticias,
+                   así como también sobre los pagos realizados a través de WebPay, manteniendo un registro de quién ha pagado y quién no.
+                    Además, puede consultar informes sobre los cupos disponibles y restantes, proporcionando una visión clara de la
+                     disponibilidad en el gimnasio.
+                </p>
+              </div>
+            </li>
+    
+            <li>
+              <img src="/static/aplicacion/img/azulito.jpg" alt="no foto">
+              <div class="texto">
+                <h2>Categorias</h2>
+                <p>
+                  El administrador puede crear, modificar y desactivar grupos musculares, máquinas, videos de ejercicios, 
+                  tipos de dietas y dietas específicas. Tiene control total sobre estas opciones para garantizar la mejor 
+                  experiencia posible para los usuarios al utilizar la aplicación móvil
+                </p>
+              </div>
+            </li>
+    
+            <li>
+              <img src="/static/aplicacion/img/inclusividad.jpg" alt="no foto">
+              <div class="texto">
+                <h2>Noticias</h2>
+                <p>
+                  El administrador puede crear, modificar y desactivar noticias relacionadas con el gimnasio o la
+                   aplicación móvil del gimnasio. Esto le permite mantener a los usuarios informados sobre novedades, eventos
+                    y actualizaciones relevantes.
+                </p>
+              </div>
+            </li>
+    
             
-            
-            
-
-
+    
+          </ul>
         </div>
 
+      </div>
 
+      
+    </div>
+    
 
-
-
-
-
-
+  </div>
 
 
         
