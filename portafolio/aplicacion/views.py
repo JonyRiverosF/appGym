@@ -25,7 +25,7 @@ dietas=""
 
 noticia=""
 
-apiUrl = "http://192.168.1.6:3000"
+apiUrl = "http://192.168.1.5:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 
@@ -99,7 +99,14 @@ def Informes(request):
     return render(request,"aplicacion/Informes.html",contexto)
 
 def VistaComentarios(request):
-    return render(request,"aplicacion/VistaComentarios.html")
+
+    Comentarios=comentarios.find({})
+
+    contexto={
+        "comentarios":Comentarios
+    }
+
+    return render(request,"aplicacion/VistaComentarios.html", contexto)
 
 
 
@@ -266,6 +273,49 @@ def ListaNot(request):
     }
 
     return render(request,"aplicacion/ListaNot.html",contexto)
+
+def desactivarNoticias(request,id):
+
+    response = requests.post( apiUrl + "/modificar/desactivarNoticia/" + id) 
+
+    listaN = noticia.find({})
+
+    uwu=[]
+
+    for x in listaN:
+        x["foto"] = apiUrl+'/creacion/imagenes/FotosNoticia/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+
+    print(response.json())
+
+    contexto={
+        "listaN": uwu
+    }
+
+    return render(request,"aplicacion/ListaNot.html",contexto)
+
+def activarNoticias(request,id):
+
+    response = requests.post( apiUrl + "/modificar/activarNoticia/" + id) 
+
+    listaN = noticia.find({})
+
+    uwu=[]
+
+    for x in listaN:
+        x["foto"] = apiUrl+'/creacion/imagenes/FotosNoticia/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+
+    print(response.json())
+
+    contexto={
+        "listaN": uwu
+    }
+
+    return render(request,"aplicacion/ListaNot.html",contexto)
+
 
 def ModificarNot(request, id):
 

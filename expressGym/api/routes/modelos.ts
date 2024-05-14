@@ -87,6 +87,7 @@ var NoticiaSchema = new mongoose.Schema({
     descN:String,
     video:String,
     foto:String,
+    estado:String,
     
 })
 

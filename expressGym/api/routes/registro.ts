@@ -140,6 +140,7 @@ router.post("/CrearNoticia",upload.array("video"),(req:any,res:Response)=>{
         bajadaN:req.body.bajadaN,
         fechaC:req.body.fechaC,
         descN:req.body.descN,
+        estado:"activado",
         video:videoN + '.mp4',
         foto:fotoN + '.jpg',
         

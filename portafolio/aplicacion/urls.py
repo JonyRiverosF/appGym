@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import pantalla,login,formSesion,OlvidasteContra,   ListaCategorias,CrearMusculos,CrearMaquinas,CrearTiposDietas, Solicitudes,Informes,Reportes,VistaComentarios,  Registro,ListaUsu,ModificarU,   CrearEjer,ListaEje,ModificarEjer,   CrearDie,ListaDie,ModificarDie,  CrearNot,ListaNot,ModificarNot, ListaMaquinas,ListaTipoDietas,ListaMusculos, ModificarMusculos,ModificarTipoD,ModificarMaquinas
+from .views import pantalla,login,formSesion,OlvidasteContra,   ListaCategorias,CrearMusculos,CrearMaquinas,CrearTiposDietas, Solicitudes,Informes,Reportes,VistaComentarios,  Registro,ListaUsu,ModificarU,   CrearEjer,ListaEje,ModificarEjer,   CrearDie,ListaDie,ModificarDie,  CrearNot,ListaNot,ModificarNot,desactivarNoticias,activarNoticias, ListaMaquinas,ListaTipoDietas,ListaMusculos, ModificarMusculos,ModificarTipoD,ModificarMaquinas
 
 urlpatterns =[
 
@@ -39,6 +39,8 @@ urlpatterns =[
     path("CrearNot",CrearNot,name="CrearNot"),
     path("ListaNot",ListaNot,name="ListaNot"),
     path("ModificarNot/<id>",ModificarNot,name="ModificarNot"),
+    path("desactivarNoticias/<id>",desactivarNoticias,name="desactivarNoticias"),
+    path("activarNoticias/<id>",activarNoticias,name="activarNoticias"),
 
 
     #Crear Categorias

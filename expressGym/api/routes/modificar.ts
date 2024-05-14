@@ -306,6 +306,40 @@ router.put("/modificarNoticia/:id", upload.array("video"), (req: any, res: Respo
 
 })
 
+router.post("/desactivarNoticia/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.NoticiaModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado de la noticia");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado de la noticia" });
+    });
+})
+
+router.post("/activarNoticia/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.NoticiaModelo.findByIdAndUpdate(id,{
+        estado:"activado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado de la noticia");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado de la noticia" });
+    });
+})
+
+
+
 router.put("/modificarMusculo/:id", upload.single("foto"), (req: any, res: Response) => {
     var id = req.params.id;
     var portadaNueva=""
