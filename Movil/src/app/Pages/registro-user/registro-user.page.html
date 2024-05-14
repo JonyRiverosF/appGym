@@ -18,41 +18,41 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-item>
+      <ion-item [style]="colorName">
         <ion-label position="floating" style="color: white;">Nombre:</ion-label>
         <ion-input [(ngModel)]="nombre"  placeholder="Ej: Juan" type="text"></ion-input>
       </ion-item>
-      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeName!=''">{{ mensajeName }}</p >
-      <p style="color: rgb(197, 79, 79);"  *ngIf="mensajeNameN!=''">{{ mensajeNameN }}</p >
-      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeNameE!=''">{{ mensajeNameE }}</p >
+      <p style="color: rgb(255, 255, 255);" *ngIf="mensajeName!=''">{{ mensajeName }}</p >
+      <p style="color: rgb(255, 255, 255);"  *ngIf="mensajeNameN!=''">{{ mensajeNameN }}</p >
+      <p  style="color: rgb(255, 255, 255);" *ngIf="mensajeNameE!=''">{{ mensajeNameE }}</p >
 
-      <ion-item>
+      <ion-item [style]="colorApell">
         <ion-label position="floating" style="color: white;">Apellido:</ion-label>
         <ion-input [(ngModel)]="apellido"  placeholder="Ej: Gana" type="text"></ion-input>
       </ion-item>
-      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeApellido!=''">{{ mensajeApellido }}</p>
-      <p   style="color: rgb(197, 79, 79);" *ngIf="mensajeApellidoN!=''">{{ mensajeApellidoN }}</p>
-      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeApellidoE!=''">{{ mensajeApellidoE }}</p>
+      <p  style="color: rgb(255, 255, 255);" *ngIf="mensajeApellido!=''">{{ mensajeApellido }}</p>
+      <p   style="color: rgb(255, 255, 255);" *ngIf="mensajeApellidoN!=''">{{ mensajeApellidoN }}</p>
+      <p  style="color: rgb(255, 255, 255);" *ngIf="mensajeApellidoE!=''">{{ mensajeApellidoE }}</p>
 
-      <ion-item>
+      <ion-item [style]="colorFono">
         <ion-label position="floating" style="color: white;">Número telefónico:</ion-label>
-        <ion-input [(ngModel)]="telefono" placeholder="9 4331 7889" type="number"></ion-input>
+        <ion-input [(ngModel)]="telefono" placeholder="Ej: 9 4331 7889" type="number"></ion-input>
       </ion-item>
-      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeTelefono!=''">{{ mensajeTelefono }}</p>
-      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeTelefono2!=''">{{ mensajeTelefono2 }}</p>
+      <p  style="color: rgb(255, 255, 255);" *ngIf="mensajeTelefono!=''">{{ mensajeTelefono }}</p>
+      <p  style="color: rgb(255, 255, 255);" *ngIf="mensajeTelefono2!=''">{{ mensajeTelefono2 }}</p>
 
-      <ion-item>
+      <ion-item [style]="colorCorreo">
         <ion-label position="floating" style="color: white;">Correo electrónico</ion-label>
-        <ion-input  [(ngModel)]="correo"  placeholder="a@aa.cl" type="text"></ion-input>
+        <ion-input  [(ngModel)]="correo"  placeholder="Ej: juan@correo.cl" type="text"></ion-input>
       </ion-item>
 
-      <p  style="color: rgb(197, 79, 79);" *ngIf="mensajeCorreo!=''">{{ mensajeCorreo }}</p>
+      <p  style="color: rgb(255, 255, 255);" *ngIf="mensajeCorreo!=''">{{ mensajeCorreo }}</p>
 
-      <ion-item>
+      <ion-item [style]="colorRut">
         <ion-label position="floating" style="color: white;">Rut (Sin puntos ni guion):</ion-label>
         <ion-input (input)="ar()" [(ngModel)]="rut"  placeholder="Ej: 321236540" type="text"></ion-input>
       </ion-item>
-      <p style="color: rgb(197, 79, 79);" *ngIf="mensajeRut != ''">{{ mensajeRut }}</p>
+      <p style="color: rgb(255, 255, 255);" *ngIf="mensajeRut != ''">{{ mensajeRut }}</p>
 
       <!--<ion-item>
         <ion-label position="floating" style="color: white;">Dígito verificador:</ion-label>
@@ -102,12 +102,12 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-          <ion-item *ngIf="habilitarObservacion">
+          <ion-item *ngIf="habilitarObservacion" [style]="colorObsFicha">
              <ion-label position="floating" style="color:white">Detalle su observación médica</ion-label>
              <ion-textarea rows="2" [(ngModel)]="observacionMedica"></ion-textarea>
           </ion-item>
         </div>
-        <p style="color: rgb(197, 79, 79);" *ngIf="mensajeFichas !=''">{{mensajeFichas}}</p>
+        <p style="color: rgb(255, 255, 255);" *ngIf="mensajeFichas !=''">{{mensajeFichas}}</p>
   
       <br>
 

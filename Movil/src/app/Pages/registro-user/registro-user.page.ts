@@ -58,6 +58,12 @@ export class RegistroUserPage implements OnInit {
   flag:boolean=true;
   flagCorreo:boolean=false;
   flagRut:boolean=false;
+  //Colores de los ion-items
+  colorName:string=" --background: rgb(19, 93, 102);";
+  colorApell:string="--background: rgb(19, 93, 102);";colorFono:string="--background: rgb(19, 93, 102);";
+  colorRut:string="--background: rgb(19, 93, 102);";
+  colorCorreo:string="--background: rgb(19, 93, 102);";
+  colorObsFicha:string="--background: rgb(19, 93, 102);";
 
   constructor(private router: Router,private alertController: AlertController,  private loadingCtrl: LoadingController
     ,private toastController: ToastController,private api:ExpressService) { }
@@ -82,45 +88,45 @@ export class RegistroUserPage implements OnInit {
   async verificarRegistro() {
     //Cada vez que se presione el botón, los mensajes de declararán vacias
     this.mensajeName = "";this.mensajeNameN = ""; this.mensajeNameE = "";
-
-    this.mensajeApellido = "";
-    this.mensajeApellidoE="";
-    this.mensajeApellidoN="";
-
-    this.mensajeTelefono="";
-    this.mensajeTelefono2="";
-
-    this.mensajeCorreo="";
-
+    this.mensajeApellido = "";this.mensajeApellidoE="";
+    this.mensajeApellidoN="";this.mensajeTelefono="";
+    this.mensajeTelefono2="";this.mensajeCorreo="";
     this.mensajeRut = ""; this.mensajeDigitoVerificador = "";
     this.mensajeHorario = "";this.mensajeFichas="";
-
+    //Colores ion-items
+    this.colorApell="light";this.colorCorreo="light";this.colorFono="light";
+    this.colorName="--background: rgb(19, 93, 102);";this.colorObsFicha="light";this.colorRut="light";
    
     let flag = true;
 
     await this.correoRepetido(this.correo)
     if(this.flagCorreo){
      // this.presentToast("bottom","Correo ya se encuentra registrado",2500);
-      this.mensajeCorreo="El correo registrado ya se encuentra en uso"
+      this.mensajeCorreo="El correo registrado ya se encuentra en uso";
+      this.colorCorreo="--background: rgb(205, 33, 33);";
       flag = false;
     }
 
     await this.runRepetido(this.rut)
     if(this.flagRut){
-      this.mensajeRut = "Este rut ya se encuentra registrado"
+      this.mensajeRut = "Este rut ya se encuentra registrado";
+      this.colorRut="--background: rgb(205, 33, 33);";
       flag=false;
     }
      // VALIDACIÓN DEL NOMBRE
      if (this.nombre.trim() === "") {
       this.mensajeName = "El nombre no puede estar vacío";
+      this.colorName="--background: rgb(205, 33, 33);"
       flag = false;
     } 
     if (this.tieneNumeros(this.nombre)) {
       this.mensajeNameN = "El nombre no debe contener números";
+      this.colorName="--background: rgb(205, 33, 33);";
       flag = false;
     }
     if (this.tieneCaracterEspecial(this.nombre)) {
         this.mensajeNameE = "El nombre no debe contener caracteres especiales";
+        this.colorName="--background: rgb(205, 33, 33);"
         flag = false;
     }
     
@@ -128,31 +134,37 @@ export class RegistroUserPage implements OnInit {
     // VALIDACIÓN DEL APELLIDO
     if (this.apellido.trim() === "") {
       this.mensajeApellido = "El apellido no puede estar vacío";
+      this.colorApell="--background: rgb(205, 33, 33);";
       flag = false;
     } 
     if (this.tieneNumerosA(this.apellido)) {
       this.mensajeApellidoN = "El apellido no debe contener números";
+      this.colorApell = "--background: rgb(205, 33, 33);";
       flag = false;
     }
     if (this.tieneCaracterEspecialA(this.apellido)) {
       this.mensajeApellidoE = "El apellido no debe contener caracteres especiales";
+      this.colorApell ="--background: rgb(205, 33, 33);";
       flag = false;
     }
 
     // VALIDACIÓN de Telefono
     if (!this.validarTelefono(String(this.telefono))) {
       this.mensajeTelefono = "El teléfono debe comenzar con 9 y tener exactamente 9 dígitos";
+      this.colorFono="--background: rgb(205, 33, 33);";
       flag = false;
     }
 
     if (String(this.telefono).trim() === "") {
       this.mensajeTelefono2 = "El campo telefono no puede estar vacío";
+      this.colorFono = "--background: rgb(205, 33, 33);";
       flag = false;
     } 
 
     // VALIDACIÓN de Correo
     if (!this.validarCorreo(this.correo)) {
       this.mensajeCorreo = "Introduce un correo electrónico válido";
+      this.colorCorreo = "--background: rgb(205, 33, 33);";
       flag = false;
     }
     
@@ -166,12 +178,14 @@ export class RegistroUserPage implements OnInit {
 
 
     if(this.calcularVerificador(this.rut)!=this.digitoVerificador){
-      this.mensajeRut="El rut ingresado no es válido"
+      this.mensajeRut="El rut ingresado no es válido";
+      this.colorRut="--background: rgb(205, 33, 33);";
       flag=false
     }
      
     if((!this.fichaMedica) && this.observacionMedica == ""){
       this.mensajeFichas = "Debe completar la información de su salud";
+      this.colorObsFicha = "--background: rgb(205, 33, 33);";
       flag= false;
     }
     // VALIDACIÓN DE LOs correos repetidos
