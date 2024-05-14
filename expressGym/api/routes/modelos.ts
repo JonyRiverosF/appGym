@@ -39,7 +39,8 @@ var comentariosModel = mongoose.model("Comentarios",comentarioSchema);
 var musculosSchema = new mongoose.Schema({
     nombre: String,
     foto: String,
-    ficha: String
+    ficha: String,
+    estado:String,
 });
 
 var MusculoModelo = mongoose.model("Musculos", musculosSchema);
@@ -51,6 +52,7 @@ var EjerciciosSchema = new mongoose.Schema({
     foto:String,
     tipoMusculo:String,
     tipoMaquina:String,
+    estado:String,
 })
 var EjerciciosModelo = mongoose.model("Ejercicios",EjerciciosSchema)
 
@@ -58,7 +60,8 @@ var EjerciciosModelo = mongoose.model("Ejercicios",EjerciciosSchema)
 var MaquinasSchema = new mongoose.Schema({
     nombre: String,
     foto: String,
-    ficha: String
+    ficha: String,
+    estado:String,
 });
 
 var MaquinasModelo = mongoose.model("maquinas", MaquinasSchema);
@@ -66,7 +69,8 @@ var MaquinasModelo = mongoose.model("maquinas", MaquinasSchema);
 var tipoDietasSchema = new mongoose.Schema({
     nombre: String,
     foto: String,
-    ficha: String
+    ficha: String,
+    estado:String,
 });
 
 var tipoDietasModelo = mongoose.model("tipoDietas", tipoDietasSchema);
@@ -75,7 +79,8 @@ var DietasSchema = new mongoose.Schema({
     nombre: String,
     tipoD:String,
     foto: String,
-    ficha: String
+    ficha: String,
+    estado:String,
     
 });
 var DietasModelo = mongoose.model("dietas", DietasSchema);

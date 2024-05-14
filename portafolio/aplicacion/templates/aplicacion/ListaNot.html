@@ -409,18 +409,18 @@
                 
             </td>
             <td>
-              <p>
-                <br><a href="{% url 'ModificarNot' n.id %}" class="btn btn-warning" >Modificar</a>
+              
+                <a href="{% url 'ModificarNot' n.id %}" class="btn btn-warning" style="margin-top: 10px;">Modificar</a>
                 
                 {% if n.estado == 'activado' %}
-                <a href="{% url 'desactivarNoticias' n.id %}" class="btn btn-danger" >Desactivar</a>
+                <a href="{% url 'desactivarNoticias' n.id %}" class="btn btn-danger" style="margin-top: 10px;">Desactivar</a>
 
                 {% else %}
 
-                <a href="{% url 'activarNoticias' n.id %}" class="btn btn-success" >Activar</a>
+                <a href="{% url 'activarNoticias' n.id %}" class="btn btn-success" style="margin-top: 10px;" >Activar</a>
 
                 {% endif %}
-              </p>
+              
             </td>
           </tr>
           {% endfor %}

@@ -302,6 +302,47 @@ nav > ul > li > ul > li > ul:before {
     opacity: 1;
   }
 }
+
+.modal-foto {
+  
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-foto-content {
+  
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 800px;
+  max-height: 80%;
+}
+
+.close {
+  
+  color: #ffffff;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#fotoJ {
+  transition: transform 0.3s;
+}
+
+#fotoJ:hover {
+  cursor: zoom-in;
+  transform: scale(1.1);
+}
 </style>
 </head>
 
@@ -424,7 +465,12 @@ nav > ul > li > ul > li > ul:before {
 
                     <div class="grupo" style="text-align: center;" >
                       <label for="" ><h5 style="color: #000000;" id="labelE">Foto del ejercicio actual</h5></label><br>
-                      <img id="fotoJ" src="{{ modificarE.foto }}"  alt="Avatar" style="width:150px;height:150px;">
+                      <img id="fotoJ" src="{{ modificarE.foto }}"  alt="Avatar" style="width:150px;height:150px;" onclick="mostrarFoto()">
+                    </div>
+
+                    <div id="modalFoto" class="modal-foto" >
+                      <span class="close" onclick="cerrarModal()" >&times;</span>
+                      <img class="modal-foto-content" id="fotoAgrandada" style="margin-top: 130px;">
                     </div>
 
                       {% endif %}    
@@ -465,7 +511,21 @@ nav > ul > li > ul > li > ul:before {
 
    
 
-
+  <script>
+    function mostrarFoto() {
+      var modal = document.getElementById('modalFoto');
+      var img = document.getElementById('fotoJ');
+      var modalImg = document.getElementById('fotoAgrandada');
+  
+      modal.style.display = "block";
+      modalImg.src = img.src;
+    }
+  
+    function cerrarModal() {
+      var modal = document.getElementById('modalFoto');
+      modal.style.display = "none";
+    }
+  </script>
 
 
 

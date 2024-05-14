@@ -306,39 +306,6 @@ router.put("/modificarNoticia/:id", upload.array("video"), (req: any, res: Respo
 
 })
 
-router.post("/desactivarNoticia/:id" ,  (req:Request, res:Response)=>{
-    var id=req.params.id;
-
-    modelos.NoticiaModelo.findByIdAndUpdate(id,{
-        estado:"desactivado",
-
-    }).exec().then(respuesta => {
-        res.status(201).json(respuesta);
-
-    }).catch(error => {
-        console.log("Error al actualizar el estado de la noticia");
-        console.log(error);
-        res.status(500).json({ mensaje: "Error al actualizar el estado de la noticia" });
-    });
-})
-
-router.post("/activarNoticia/:id" ,  (req:Request, res:Response)=>{
-    var id=req.params.id;
-
-    modelos.NoticiaModelo.findByIdAndUpdate(id,{
-        estado:"activado",
-
-    }).exec().then(respuesta => {
-        res.status(201).json(respuesta);
-
-    }).catch(error => {
-        console.log("Error al actualizar el estado de la noticia");
-        console.log(error);
-        res.status(500).json({ mensaje: "Error al actualizar el estado de la noticia" });
-    });
-})
-
-
 
 router.put("/modificarMusculo/:id", upload.single("foto"), (req: any, res: Response) => {
     var id = req.params.id;
@@ -648,6 +615,215 @@ router.put("/modificarDietas/:id", upload.single("foto"), (req: any, res: Respon
         res.status(500).json({ mensaje: "Error al buscar las dietas" });
     });
 });
+
+router.post("/activarNoticia/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.NoticiaModelo.findByIdAndUpdate(id,{
+        estado:"activado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado de la noticia");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado de la noticia" });
+    });
+})
+
+router.post("/desactivarNoticia/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.NoticiaModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado de la noticia");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado de la noticia" });
+    });
+})
+
+
+
+
+router.post("/activarEjercicio/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.EjerciciosModelo.findByIdAndUpdate(id,{
+        estado:"activado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del ejercicio");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del ejercicio" });
+    });
+})
+
+router.post("/desactivarEjercicio/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.EjerciciosModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del ejercicio");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del ejercicio" });
+    });
+})
+
+
+
+router.post("/activarMusculo/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.MusculoModelo.findByIdAndUpdate(id,{
+        estado:"activado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del Musculo");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del Musculo" });
+    });
+})
+
+router.post("/desactivarMusculo/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.MusculoModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del Musculo");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del Musculo" });
+    });
+})
+
+
+
+router.post("/activarMaquinas/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.MaquinasModelo.findByIdAndUpdate(id,{
+        estado:"activado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado de la maquina");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado de la maquina" });
+    });
+})
+
+router.post("/desactivarMaquinas/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.MaquinasModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado de la maquina");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado de la maquina" });
+    });
+})
+
+
+
+
+router.post("/activarDieta/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.DietasModelo.findByIdAndUpdate(id,{
+        estado:"activado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado de la dieta");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado de la dieta" });
+    });
+})
+
+router.post("/desactivarDieta/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.DietasModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado de la dieta");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado de la dieta" });
+    });
+})
+
+
+
+
+router.post("/activarTipoD/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.tipoDietasModelo.findByIdAndUpdate(id,{
+        estado:"activado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del tipo dieta");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del tipo dieta" });
+    });
+})
+
+router.post("/desactivarTipoD/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.tipoDietasModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del tipo dieta");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del tipo dieta" });
+    });
+})
+
+
+
+
 
 
 

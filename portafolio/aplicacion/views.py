@@ -48,7 +48,7 @@ horarios=dataBase["horarios"]
 print("Connected to the MongoDB database!")
 
 
-# Create your views here.
+#Pantallas Principales
 def pantalla(request):
     return render(request, "aplicacion/inicio.html")
 
@@ -75,13 +75,8 @@ def formSesion(request):
             messages.error(request,"El usuario no existe")
             return redirect('login')
     
-    
-
 def OlvidasteContra(request):
     return render(request,"aplicacion/OlvidasteContra.html")
-
-
-
 
 def Solicitudes(request):
     return render(request,"aplicacion/Solicitudes.html")
@@ -114,6 +109,10 @@ def VistaComentarios(request):
 
 
 
+
+
+
+#Usuario
 def Registro(request):
     return render(request,"aplicacion/RegistrarU.html")
 
@@ -141,6 +140,12 @@ def ModificarU(request,id):
 
 
 
+
+
+
+
+
+#Ejercicios
 def CrearEjer(request):
 
     Musculos = musculos.find({})
@@ -194,9 +199,233 @@ def ModificarEjer(request, id):
 
     return render(request,"aplicacion/ModificarEje.html",contexto)
 
+def activarEjercicios(request,id):
+
+    response = requests.post( apiUrl + "/modificar/activarEjercicio/" + id) 
+
+    listaEje = ejercicios.find({})
+    listaMusc = musculos.find({})
+    listaMaquina = maquinas.find({})
+    
+    uwu=[]
+    
+    for x in listaEje:
+        x["foto"] = apiUrl+'/creacion/imagenes/MiniaturaEjercicios/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+
+
+    contexto = {
+        "listaEje": uwu,
+        "listaMusc":listaMusc,
+        "listaMaquina":listaMaquina
+    }
+
+    return render(request,"aplicacion/ListaEje.html",contexto)
+
+def desactivarEjercicios(request,id):
+
+    response = requests.post( apiUrl + "/modificar/desactivarEjercicio/" + id) 
+
+    listaEje = ejercicios.find({})
+    listaMusc = musculos.find({})
+    listaMaquina = maquinas.find({})
+    
+    uwu=[]
+    
+    for x in listaEje:
+        x["foto"] = apiUrl+'/creacion/imagenes/MiniaturaEjercicios/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+
+
+    contexto = {
+        "listaEje": uwu,
+        "listaMusc":listaMusc,
+        "listaMaquina":listaMaquina
+    }
+
+    return render(request,"aplicacion/ListaEje.html",contexto)
 
 
 
+
+
+
+
+
+
+
+#Musculos
+def CrearMusculos(request):
+    return render(request,"aplicacion/CrearMusculos.html")
+
+def ListaMusculos(request):
+
+    Musculos = musculos.find({})
+
+    uwu=[]
+
+    for x in Musculos:
+        x["foto"] = apiUrl+'/creacion/imagenes/fotosMusculos/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+    
+    contexto = {
+        "Musculos": uwu,
+    }
+
+    return render(request,"aplicacion/ListaMusculos.html",contexto)
+
+def ModificarMusculos(request,id):
+
+    response = requests.post(apiUrl + "/modificar/buscarMusculos/" + id) 
+
+    owo= response.json()
+    
+
+    owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
+    owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/fotosMusculos/'+ owo["respuesta"][0]["foto"]
+    
+
+    contexto = {
+        "modificarMusculos": owo["respuesta"][0]
+    }
+
+    return render(request,"aplicacion/ModificarMusculos.html",contexto)
+
+def activarMusculos(request,id):
+
+    response = requests.post( apiUrl + "/modificar/activarMusculo/" + id) 
+
+    Musculos = musculos.find({})
+
+    uwu=[]
+
+    for x in Musculos:
+        x["foto"] = apiUrl+'/creacion/imagenes/fotosMusculos/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+    
+    contexto = {
+        "Musculos": uwu,
+    }
+
+    return render(request,"aplicacion/ListaMusculos.html",contexto)
+
+def desactivarMusculos(request,id):
+
+    response = requests.post( apiUrl + "/modificar/desactivarMusculo/" + id) 
+
+    Musculos = musculos.find({})
+
+    uwu=[]
+
+    for x in Musculos:
+        x["foto"] = apiUrl+'/creacion/imagenes/fotosMusculos/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+    
+    contexto = {
+        "Musculos": uwu,
+    }
+
+    return render(request,"aplicacion/ListaMusculos.html",contexto)
+
+
+
+
+
+
+
+
+
+
+#Maquinas
+def CrearMaquinas(request):
+    return render(request,"aplicacion/CrearMaquinas.html")
+
+def ListaMaquinas(request):
+
+    Maquinas = maquinas.find({})
+
+    owo=[]
+
+    for x in Maquinas:
+        x["foto"] = apiUrl+'/creacion/imagenes/fotoMaquinas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        owo.append(x)
+
+    contexto = {
+        "Maquinas": owo,
+    }
+
+    return render(request,"aplicacion/ListaMaquinas.html",contexto)
+
+def ModificarMaquinas(request,id):
+
+    response = requests.post(apiUrl + "/modificar/buscarMaquinas/" + id) 
+
+    owo= response.json()
+    
+
+    owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
+    owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/fotoMaquinas/'+ owo["respuesta"][0]["foto"]
+
+    contexto = {
+        "modificarMaquinas": owo["respuesta"][0]
+    }
+
+    return render(request,"aplicacion/ModificarMaquinas.html",contexto)
+
+def activarMaquinas(request,id):
+
+    response = requests.post( apiUrl + "/modificar/activarMaquinas/" + id) 
+
+    Maquinas = maquinas.find({})
+
+    owo=[]
+
+    for x in Maquinas:
+        x["foto"] = apiUrl+'/creacion/imagenes/fotoMaquinas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        owo.append(x)
+
+    contexto = {
+        "Maquinas": owo,
+    }
+
+    return render(request,"aplicacion/ListaMaquinas.html",contexto)
+
+def desactivarMaquinas(request,id):
+
+    response = requests.post( apiUrl + "/modificar/desactivarMaquinas/" + id) 
+
+    Maquinas = maquinas.find({})
+
+    owo=[]
+
+    for x in Maquinas:
+        x["foto"] = apiUrl+'/creacion/imagenes/fotoMaquinas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        owo.append(x)
+
+    contexto = {
+        "Maquinas": owo,
+    }
+
+    return render(request,"aplicacion/ListaMaquinas.html",contexto)
+
+
+
+
+
+
+
+
+
+
+#Dietas
 def CrearDie(request):
 
     tipoDieta = tipoDietas.find({})
@@ -250,9 +479,144 @@ def ModificarDie(request, id):
 
     return render(request,"aplicacion/ModificarDie.html",contexto)
 
+def activarDietas(request,id):
+
+    response = requests.post( apiUrl + "/modificar/activarDieta/" + id) 
+
+    listaD = dietas.find({})
+    listaTipoD = tipoDietas.find({})
+
+    uwu=[]
+    
+    for x in listaD:
+        x["foto"] = apiUrl+'/creacion/imagenes/Dietas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)   
+    
+    contexto = {
+        "listaD": uwu,
+        "listaTipoD":listaTipoD
+    }
+
+    return render(request,"aplicacion/ListaDie.html",contexto)
+
+def desactivarDietas(request,id):
+
+    response = requests.post( apiUrl + "/modificar/desactivarDieta/" + id) 
+
+    listaD = dietas.find({})
+    listaTipoD = tipoDietas.find({})
+
+    uwu=[]
+    
+    for x in listaD:
+        x["foto"] = apiUrl+'/creacion/imagenes/Dietas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)   
+    
+    contexto = {
+        "listaD": uwu,
+        "listaTipoD":listaTipoD
+    }
+
+    return render(request,"aplicacion/ListaDie.html",contexto)
 
 
 
+
+
+
+
+
+
+
+#Tipos de Dietas
+def CrearTiposDietas(request):
+    return render(request,"aplicacion/CrearTiposDietas.html")
+
+def ListaTipoDietas(request):
+
+    tipodietas = tipoDietas.find({})
+    
+    hola=[]
+
+    for x in tipodietas:
+        x["foto"] = apiUrl+'/creacion/imagenes/TipoDietas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        hola.append(x)
+    
+    contexto = {
+        "tipoD": hola,
+    }
+
+    return render(request,"aplicacion/ListaTipoDietas.html",contexto)
+
+
+
+def ModificarTipoD(request,id):
+
+    response = requests.post(apiUrl + "/modificar/buscarTipoDietas/" + id) 
+
+    owo= response.json()
+    
+
+    owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
+    owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/TipoDietas/'+ owo["respuesta"][0]["foto"]
+    
+    contexto = {
+        "modificarTipoD": owo["respuesta"][0]
+    }
+
+    return render(request,"aplicacion/ModificarTipoD.html",contexto)
+
+def activarTipoD(request,id):
+
+    response = requests.post( apiUrl + "/modificar/activarTipoD/" + id) 
+
+    tipodietas = tipoDietas.find({})
+    
+    hola=[]
+
+    for x in tipodietas:
+        x["foto"] = apiUrl+'/creacion/imagenes/TipoDietas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        hola.append(x)
+    
+    contexto = {
+        "tipoD": hola,
+    }
+
+    return render(request,"aplicacion/ListaTipoDietas.html",contexto)
+
+def desactivarTipoD(request,id):
+
+    response = requests.post( apiUrl + "/modificar/desactivarTipoD/" + id) 
+
+    tipodietas = tipoDietas.find({})
+    
+    hola=[]
+
+    for x in tipodietas:
+        x["foto"] = apiUrl+'/creacion/imagenes/TipoDietas/'+ x["foto"]
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        hola.append(x)
+    
+    contexto = {
+        "tipoD": hola,
+    }
+
+    return render(request,"aplicacion/ListaTipoDietas.html",contexto)
+
+
+
+
+
+
+
+
+
+
+#Noticias
 def CrearNot(request):
     return render(request,"aplicacion/CrearNot.html")
 
@@ -287,7 +651,6 @@ def desactivarNoticias(request,id):
         x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
         uwu.append(x)
 
-    print(response.json())
 
     contexto={
         "listaN": uwu
@@ -308,7 +671,6 @@ def activarNoticias(request,id):
         x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
         uwu.append(x)
 
-    print(response.json())
 
     contexto={
         "listaN": uwu
@@ -327,7 +689,7 @@ def ModificarNot(request, id):
     owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
     owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/FotosNoticia/'+ owo["respuesta"][0]["foto"]
     owo["respuesta"][0]["video"] =  apiUrl+'/creacion/videos/'+ owo["respuesta"][0]["video"]
-    print(owo)
+    
     contexto = {
         "modificarN": owo["respuesta"][0]
     }
@@ -336,121 +698,14 @@ def ModificarNot(request, id):
 
 
 
-def CrearMusculos(request):
-    return render(request,"aplicacion/CrearMusculos.html")
 
-def CrearMaquinas(request):
-    return render(request,"aplicacion/CrearMaquinas.html")
 
-def CrearTiposDietas(request):
-    return render(request,"aplicacion/CrearTiposDietas.html")
-
-def ListaMaquinas(request):
-
-    Maquinas = maquinas.find({})
-
-    owo=[]
-
-    for x in Maquinas:
-        x["foto"] = apiUrl+'/creacion/imagenes/fotoMaquinas/'+ x["foto"]
-        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
-        owo.append(x)
-
-    contexto = {
-        "Maquinas": owo,
-    }
-
-    return render(request,"aplicacion/ListaMaquinas.html",contexto)
-
-def ListaTipoDietas(request):
-
-    tipodietas = tipoDietas.find({})
-    
-    hola=[]
-
-    for x in tipodietas:
-        x["foto"] = apiUrl+'/creacion/imagenes/TipoDietas/'+ x["foto"]
-        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
-        hola.append(x)
-    
-    contexto = {
-        "tipoD": hola,
-    }
-
-    return render(request,"aplicacion/ListaTipoDietas.html",contexto)
-
-def ListaMusculos(request):
-
-    Musculos = musculos.find({})
-
-    uwu=[]
-
-    for x in Musculos:
-        x["foto"] = apiUrl+'/creacion/imagenes/fotosMusculos/'+ x["foto"]
-        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
-        uwu.append(x)
-    
-    contexto = {
-        "Musculos": uwu,
-    }
-
-    return render(request,"aplicacion/ListaMusculos.html",contexto)
-
-def ModificarMusculos(request,id):
-
-    response = requests.post(apiUrl + "/modificar/buscarMusculos/" + id) 
-
-    owo= response.json()
-    
-
-    owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
-    owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/fotosMusculos/'+ owo["respuesta"][0]["foto"]
-    
-
-    contexto = {
-        "modificarMusculos": owo["respuesta"][0]
-    }
-
-    return render(request,"aplicacion/ModificarMusculos.html",contexto)
-
-def ModificarTipoD(request,id):
-
-    response = requests.post(apiUrl + "/modificar/buscarTipoDietas/" + id) 
-
-    owo= response.json()
-    
-
-    owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
-    owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/TipoDietas/'+ owo["respuesta"][0]["foto"]
-    print(owo)
-    contexto = {
-        "modificarTipoD": owo["respuesta"][0]
-    }
-
-    return render(request,"aplicacion/ModificarTipoD.html",contexto)
-
-def ModificarMaquinas(request,id):
-
-    response = requests.post(apiUrl + "/modificar/buscarMaquinas/" + id) 
-
-    owo= response.json()
-    
-
-    owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
-    owo["respuesta"][0]["foto"] =  apiUrl+'/creacion/imagenes/fotoMaquinas/'+ owo["respuesta"][0]["foto"]
-
-    contexto = {
-        "modificarMaquinas": owo["respuesta"][0]
-    }
-
-    return render(request,"aplicacion/ModificarMaquinas.html",contexto)
 
 
 
 
 
 #No se utilizara Pero por seacaso
-
 def Reportes(request):
     return render(request,"aplicacion/Reportes.html")
 

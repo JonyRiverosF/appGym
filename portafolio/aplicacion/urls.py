@@ -1,6 +1,17 @@
 from django.contrib import admin
 from django.urls import path
-from .views import pantalla,login,formSesion,OlvidasteContra,   ListaCategorias,CrearMusculos,CrearMaquinas,CrearTiposDietas, Solicitudes,Informes,Reportes,VistaComentarios,  Registro,ListaUsu,ModificarU,   CrearEjer,ListaEje,ModificarEjer,   CrearDie,ListaDie,ModificarDie,  CrearNot,ListaNot,ModificarNot,desactivarNoticias,activarNoticias, ListaMaquinas,ListaTipoDietas,ListaMusculos, ModificarMusculos,ModificarTipoD,ModificarMaquinas
+
+#Pantallas Principales
+from .views import pantalla,Solicitudes,Informes,Reportes,VistaComentarios,ListaCategorias
+#Usuarios
+from .views import Registro,ListaUsu,ModificarU,login,formSesion,OlvidasteContra
+#Noticias
+from .views import CrearNot,ListaNot,ModificarNot,desactivarNoticias,activarNoticias
+#Dietas y Tipo de dietas
+from .views import CrearDie,ListaDie,ModificarDie,activarDietas,desactivarDietas, CrearTiposDietas,ListaTipoDietas,ModificarTipoD,activarTipoD,desactivarTipoD
+#Ejercicios y Musculos - Maquinas
+from .views import CrearEjer,ListaEje,ModificarEjer,activarEjercicios,desactivarEjercicios, CrearMusculos,ListaMusculos,ModificarMusculos,activarMusculos,desactivarMusculos, CrearMaquinas,ListaMaquinas,ModificarMaquinas,activarMaquinas,desactivarMaquinas
+
 
 urlpatterns =[
 
@@ -11,7 +22,6 @@ urlpatterns =[
     #Informes y Comentarios
     path("Solicitudes",Solicitudes,name="Solicitudes"),
     path("Informes",Informes,name="Informes"),
-    path("Reportes",Reportes,name="Reportes"),
     path("VistaComentarios",VistaComentarios,name="VistaComentarios"),
 
 
@@ -27,43 +37,55 @@ urlpatterns =[
     path("CrearEjer",CrearEjer,name="CrearEjer"),
     path("ListaEje",ListaEje,name="ListaEje"),
     path("ModificarEjer/<id>",ModificarEjer,name="ModificarEjer"),
+    path("activarEjercicios/<id>",activarEjercicios,name="activarEjercicios"),
+    path("desactivarEjercicios/<id>",desactivarEjercicios,name="desactivarEjercicios"),
+
+
+    #Musculos
+    path("CrearMusculos",CrearMusculos,name="CrearMusculos"),
+    path("ListaMusculos",ListaMusculos,name="ListaMusculos"),
+    path("ModificarMusculos/<id>",ModificarMusculos,name="ModificarMusculos"),
+    path("activarMusculos/<id>",activarMusculos,name="activarMusculos"),
+    path("desactivarMusculos/<id>",desactivarMusculos,name="desactivarMusculos"),
+
+
+    #Maquinas
+    path("CrearMaquinas",CrearMaquinas,name="CrearMaquinas"),
+    path("ListaMaquinas",ListaMaquinas,name="ListaMaquinas"),
+    path("ModificarMaquinas/<id>",ModificarMaquinas,name="ModificarMaquinas"),
+    path("activarMaquinas/<id>",activarMaquinas,name="activarMaquinas"),
+    path("desactivarMaquinas/<id>",desactivarMaquinas,name="desactivarMaquinas"),   
 
 
     #Dietas
     path("CrearDie",CrearDie,name="CrearDie"),
     path("ListaDie",ListaDie,name="ListaDie"),
     path("ModificarDie/<id>",ModificarDie,name="ModificarDie"),
+    path("activarDietas/<id>",activarDietas,name="activarDietas"),
+    path("desactivarDietas/<id>",desactivarDietas,name="desactivarDietas"),
+
+
+    #Tipo de Dietas
+    path("CrearTiposDietas",CrearTiposDietas,name="CrearTiposDietas"),
+    path("ListaTipoDietas",ListaTipoDietas,name="ListaTipoDietas"),
+    path("ModificarTipoD/<id>",ModificarTipoD,name="ModificarTipoD"),
+    path("activarTipoD/<id>",activarTipoD,name="activarTipoD"),
+    path("desactivarTipoD/<id>",desactivarTipoD,name="desactivarTipoD"),
 
 
     #Noticias
     path("CrearNot",CrearNot,name="CrearNot"),
     path("ListaNot",ListaNot,name="ListaNot"),
     path("ModificarNot/<id>",ModificarNot,name="ModificarNot"),
-    path("desactivarNoticias/<id>",desactivarNoticias,name="desactivarNoticias"),
     path("activarNoticias/<id>",activarNoticias,name="activarNoticias"),
-
-
-    #Crear Categorias
-    path("CrearMusculos",CrearMusculos,name="CrearMusculos"),
-    path("CrearMaquinas",CrearMaquinas,name="CrearMaquinas"),
-    path("CrearTiposDietas",CrearTiposDietas,name="CrearTiposDietas"),
-
-
-    #Listas Categorias
-    path("ListaMaquinas",ListaMaquinas,name="ListaMaquinas"),
-    path("ListaTipoDietas",ListaTipoDietas,name="ListaTipoDietas"),
-    path("ListaMusculos",ListaMusculos,name="ListaMusculos"),
-
-
-    #Modificar Categorias
-    path("ModificarMusculos/<id>",ModificarMusculos,name="ModificarMusculos"),
-    path("ModificarTipoD/<id>",ModificarTipoD,name="ModificarTipoD"),
-    path("ModificarMaquinas/<id>",ModificarMaquinas,name="ModificarMaquinas"),
-
+    path("desactivarNoticias/<id>",desactivarNoticias,name="desactivarNoticias"),
+    
+    
     #Forms
     path("formSesion",formSesion,name="formSesion"),
 
 
-
+    #No se usan
+    path("Reportes",Reportes,name="Reportes"),
     path("ListaCategorias",ListaCategorias,name="ListaCategorias"),
     ]

@@ -88,6 +88,7 @@ router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
 
     modelos.EjerciciosModelo.create({
         Titulo:req.body.Titulo,
+        estado:"activado",
         video:videosE + '.mp4',
         foto:portada + '.jpg',
         tipoMusculo:req.body.tipoMusculo,
@@ -184,6 +185,7 @@ router.post("/CrearMusculo", upload.single("foto"), (req: any, res: Response) =>
 
         modelos.MusculoModelo.create({
             nombre: req.body.nombre,
+            estado:"activado",
             foto: foto + '.jpg'
         }).then(resultado => {
             console.log("Insertado !!!");
@@ -220,6 +222,7 @@ router.post("/CrearTipoDietas", upload.single("foto"), (req: any, res: Response)
 
         modelos.tipoDietasModelo.create({
             nombre: req.body.nombre,
+            estado:"activado",
             foto: foto + '.jpg'
         }).then(resultado => {
             console.log("Insertado !!!");
@@ -257,6 +260,7 @@ router.post("/CrearMaquina", upload.single("foto"), (req: any, res: Response) =>
 
         modelos.MaquinasModelo.create({
             nombre: req.body.nombre,
+            estado:"activado",
             foto: foto + '.jpg'
         }).then(resultado => {
             console.log("Insertado !!!");
@@ -294,6 +298,7 @@ router.post("/CrearDietas", upload.single("foto"), (req: any, res: Response) => 
 
         modelos.DietasModelo.create({
             nombre: req.body.nombre,
+            estado:"activado",
             tipoD: req.body.tipoD,
             foto: foto+".jpg"
             
