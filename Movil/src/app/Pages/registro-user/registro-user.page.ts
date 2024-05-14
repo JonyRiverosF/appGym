@@ -400,7 +400,10 @@ calcularVerificador(rut:string) {
     return null
   }else{ 
       rut = rut.slice(0,rut.length-2)
-      //console.log(rut)
+      
+      console.log(rut.split("."))
+      var ru = rut.split(".");
+      rut = ru[0]+ru[1]+ru[2]
       rut = rut.toString();
       let sum = 0;
       let mul = 2;
