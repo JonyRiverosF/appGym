@@ -336,7 +336,7 @@ p{
     <div class="head">
 
       <div class="logo">
-        </i><a ><i class="fa fa-user-circle" style="font-size:36px"></i></a>
+        <a ><i class="fa fa-user-circle" style="font-size:36px"></i></a>
       </div>
 
       <nav class="navbar">
@@ -511,7 +511,7 @@ p{
           </div>
 
           <div>
-            <a  class="btn" style="margin-top: 60px;" >Iniciar Sesión</a>
+            <a  class="btn" style="margin-top: 60px;" id="openMenu" >Iniciar Sesión</a>
           </div>
 
           <div class="f-enlaces">
@@ -595,26 +595,25 @@ p{
     
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        document.querySelector('.btn').addEventListener('click', function(event) {
-            event.preventDefault();
-            document.getElementById('mensaje').innerHTML = "Por favor, complete todos los campos.";
-        });
-    
-        document.querySelector('.fa-user-circle').addEventListener('click', function(event) {
-            event.stopPropagation();
-            document.getElementById('menu').style.animation = 'slideInFromLeft 0.3s forwards';
-            document.getElementById('menu').style.display = 'block';
-        });
-    
-        document.getElementById('closeMenu').addEventListener('click', function() {
-            document.getElementById('menu').style.animation = 'slideOutToLeft 0.3s forwards';
-            setTimeout(function() {
-                document.getElementById('menu').style.display = 'none';
-            }, 300);
-        });
-    
-        
+    document.querySelector('.fa-user-circle').addEventListener('click', function(event) {
+        event.stopPropagation();
+        document.getElementById('menu').style.animation = 'slideInFromLeft 0.3s forwards';
+        document.getElementById('menu').style.display = 'block';
     });
+
+    document.getElementById('openMenu').addEventListener('click', function(event) {
+        event.preventDefault(); // Evita que el formulario se envíe
+        document.getElementById('menu').style.animation = 'slideInFromLeft 0.3s forwards';
+        document.getElementById('menu').style.display = 'block';
+    });
+
+    document.getElementById('closeMenu').addEventListener('click', function() {
+        document.getElementById('menu').style.animation = 'slideOutToLeft 0.3s forwards';
+        setTimeout(function() {
+            document.getElementById('menu').style.display = 'none';
+        }, 300);
+    });
+});
 
     document.getElementById('loginForm').addEventListener('submit', function(event) {
     var loginEmail = document.getElementById('loginEmail').value;
