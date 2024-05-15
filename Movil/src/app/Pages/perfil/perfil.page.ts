@@ -282,6 +282,10 @@ loading(duracion:any){
     this.menuCtrl.enable(true, 'menuEnd');
     this.menuCtrl.open('menuEnd');
   }
+   
+  contactanos(){
+     this.router.navigate(["/contactanos"])
+  }
 
   irPerfil(){
     this.router.navigate(['/perfil']);

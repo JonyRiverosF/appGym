@@ -62,6 +62,10 @@ const routes: Routes = [
   },  {
     path: 'confirmar-registro',
     loadChildren: () => import('./Pages/confirmar-registro/confirmar-registro.module').then( m => m.ConfirmarRegistroPageModule)
+  },
+  {
+    path: 'contactanos',
+    loadChildren: () => import('./Pages/contactanos/contactanos.module').then( m => m.ContactanosPageModule)
   }
 
 

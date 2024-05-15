@@ -8,9 +8,9 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://192.168.0.8:3000";
+  private  apiUrl="http://192.168.0.12:3000";
 
-  public urlApi = "http://192.168.0.8:3000/creacion/"
+  public urlApi = "http://192.168.0.12:3000/creacion/"
 
 
   //GET
@@ -127,6 +127,12 @@ export class ExpressService {
     })
   }
   
+  enviarSolicitud(form:any){
+    return fetch(this.apiUrl+"/creacion/enviarSolicitud",{
+      method:"POST",
+      body:form
+    })
+  }
   insertarComentario(form:any){
     return fetch(this.apiUrl+"/creacion/insertarComentario",{
       method:"POST",

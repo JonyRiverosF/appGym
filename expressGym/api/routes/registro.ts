@@ -594,5 +594,21 @@ router.post("/insertarComentario",upload.any(),(req:any,res:any)=>{
 
 })
 
+router.post("/enviarSolicitud",upload.any(),(req:Request,res:Response)=>{
+    modelos.solicitudModelo.create({
+        usuario:req.body.rut,
+        asunto:req.body.asunto,
+        detalle:req.body.detalle,
+        fecha:new Date(),
+        estado:"pendiente",
+        respuestaAdmin:""
+    }).then(respuesta=>{
+        res.status(201).json({respuesta})
+    }).catch(error=>{
+        console.log("Algo salió mal");
+        console.log(error);
+        res.status(500).json({msj:"Algo salió mal",error})
+    })
+})
 export default module.exports=router
 //export default exports.usuariomodelo=usuarioModelo

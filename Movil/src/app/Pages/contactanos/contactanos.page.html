@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#" (click)="regresar()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>contactanos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">contactanos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <p style="text-align: center;">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Registro</ion-card-title>
+      </ion-card-header>
+  
+      <ion-card-content>
+        <ion-item [style]="colorAsunto">
+          <ion-label position="floating" style="color: white;">Asunto</ion-label>
+          <ion-input [(ngModel)]="asunto" type="text"></ion-input>
+        </ion-item>
+        <p style="color: rgb(255, 255, 255)" *ngIf="mensajeAsunto!=''">{{ mensajeAsunto }}</p>
+  
+        <ion-item [style]="colorDetalle">
+          <ion-label position="floating" style="color: white;">Cuerpo</ion-label>
+          <ion-textarea rows="4" [(ngModel)]="detalle"  placeholder="Escriba su motivo del contacto" type="text"></ion-textarea>
+        </ion-item>
+        <p  style="color: rgb(255, 255, 255);" *ngIf="mensajeDetalle!=''">{{ mensajeDetalle }}</p>
+  
+        <!--<ion-item>
+          <ion-label position="floating" style="color: white;">Dígito verificador:</ion-label>
+          <ion-input [(ngModel)]="digitoVerificador" placeholder="4" type="text"></ion-input>
+        </ion-item>
+        <p style="color: rgb(197, 79, 79);" *ngIf="mensajeDigitoVerificador !=''">{{ mensajeDigitoVerificador }}</p>-->
+        <br />
+        <ion-button color="warning" shape="round" (click)="enviarSolicitud()">Enviar</ion-button>
+  
+  
+      </ion-card-content>
+    </ion-card>
+  </p>
+</ion-content>

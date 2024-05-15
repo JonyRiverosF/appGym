@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose, { Mongoose, mongo } from "mongoose";
 
 var usuariosSchema = new mongoose.Schema({
     codigo:String,
@@ -125,6 +125,18 @@ var guardadosSchema = new mongoose.Schema({
 })
 var guardadosModelo = mongoose.model("guardados",guardadosSchema)
 
+var solicitudSchema = new mongoose.Schema({
+    usuario:String,
+    asunto:String,
+    detalle:String,
+    fecha:Date,
+    estado:String,
+    respuestaAdmin:String
+})
+
+var solicitudModelo = mongoose.model("solicitudes",solicitudSchema)
+
 export default module.exports = {MusculoModelo,EjerciciosModelo,MaquinasModelo,tipoDietasModelo,DietasModelo,
-    NoticiaModelo,usuarioModelo,horariosElegidosModelo,horariosModelo,guardadosModelo,comentariosModel
+    NoticiaModelo,usuarioModelo,horariosElegidosModelo,horariosModelo,guardadosModelo,comentariosModel,
+    solicitudModelo
 }
