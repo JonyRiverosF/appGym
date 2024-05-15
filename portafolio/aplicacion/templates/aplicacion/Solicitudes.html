@@ -399,39 +399,26 @@ nav > ul > li > ul > li > ul:before {
       <table class="table  centrar  letraVJ" style="background-color: rgb(255, 255, 255);" id="table">
           <tr>
             <th>Nombre</th>
-            <th>Titulo de la Solicitud</th>
+            <th>Asunto</th>
             <TH>Botones</TH>
           </tr>
-          
+          {% for s in soli %}
           <tr>
             <td>
-              <h4>Vicente Cabello</h4> 
+              <h4>{{s.usuario}}</h4> 
             </td>
             <td>
-              <h4>Quiero cambiar mi horario-.-</h4> 
+              <h4>{{s.asunto}}</h4> 
             </td>
             <td >
               <p>
-                <br><a href="#" class="btn btn-primary toggle-response" data-target="response-1">Responder</a>
+                <br><a href="#" class="btn btn-warning toggle-response" data-target="response-1">Responder</a>
                 <a href="#" class="btn btn-danger">Eliminar</a>
               </p>
             </td>
           </tr>
           
-          <tr>
-            <td>
-              <h4>Maximiliano Urrejola</h4> 
-            </td>
-            <td>
-              <h4>Quiero cambiar mi genero</h4> 
-            </td>
-            <td>
-              <p>
-                <br><a href="#" class="btn btn-primary" >Responder</a>
-                <a href="#" class="btn btn-danger">Eliminar</a>
-              </p>
-            </td>
-          </tr>
+
       </table>
     </div>
   </div><br>
@@ -445,23 +432,26 @@ nav > ul > li > ul > li > ul:before {
         <table class="table">
           <thead>
             <tr>
-              <th>Titulo de la Solicitud</th>
+              <th>Asunto</th>
               <th>Detalle de la solicitud</th>
               <th>Respuesta</th>
             </tr>
           </thead>
           <tbody>
+            
             <tr>
-              <td>Quiero cambiar mi horario</td>
-              <td>No tengo tiempo los dias martes ni sabados quiero cambiarme al otro horario como lo hago?</td>
+              <td>{{s.asunto}}</td>
+              <td>{{s.detalle}}</td>
               <td><textarea class="form-control" rows="5"  required></textarea></td>
             </tr>
+            {% endfor %}
+
           </tbody>
         </table>
         <div class="row"> 
           <div class="col-md-4"></div>
           <div class="col-md-4">
-            <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(39, 70, 243); margin-left: auto;">
+            <input type="submit" value="Enviar" class="btn btn letraLo" style="text-align: center; color: rgb(255, 255, 255); background-color: rgb(21, 97, 60); margin-left: auto;">
           </div>
           <div class="col-md-4"></div>
         </div>

@@ -827,6 +827,7 @@ router.post("/desactivarTipoD/:id" ,  (req:Request, res:Response)=>{
 
 
 
+
  
 
 

@@ -98,4 +98,32 @@ router.get("/traerGuardados/:id",(req:Request,res:Response)=>{
         console.log(error)
     })
 })
+
+router.post("/buscarSolicitudes",upload.any(),(req:Request,res:Response)=>{
+
+    var id = req.params.id
+    console.log(id)
+    modelos.solicitudModelo.find({estado:"pendiente"}).then(respuesta=>{
+        res.json({
+            respuesta
+        })
+    }).catch (e=>{
+        console.log(e)
+    })
+ })
+
+router.post("/responderSoli/:id",upload.any(),(req:Request,res:Response)=>{
+
+    var id = req.params.id
+    console.log(id)
+    modelos.solicitudModelo.find({_id:id}).then(respuesta=>{
+        res.json({
+            respuesta
+        })
+    }).catch (e=>{
+        console.log(e)
+    })
+ })
+
+
 export default module.exports = router;

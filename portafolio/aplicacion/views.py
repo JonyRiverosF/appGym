@@ -15,6 +15,7 @@ comentarios=""
 horarios=""
 
 usuarios=""
+solicitudes=""
 
 musculos=""
 maquinas=""
@@ -25,7 +26,7 @@ dietas=""
 
 noticia=""
 
-apiUrl = "http://192.168.1.5:3000"
+apiUrl = "http://192.168.1.2:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 
@@ -40,6 +41,7 @@ tipoDietas = dataBase["tipodietas"]
 dietas = dataBase["dietas"]
 
 noticia = dataBase["noticias"]
+solicitudes=dataBase["solicitudes"]
 
 comentarios= dataBase["comentarios"]
 horarios=dataBase["horarios"]
@@ -79,7 +81,18 @@ def OlvidasteContra(request):
     return render(request,"aplicacion/OlvidasteContra.html")
 
 def Solicitudes(request):
-    return render(request,"aplicacion/Solicitudes.html")
+
+    Soli=solicitudes.find({"estado":"pendiente"})
+
+    Usu=usuarios.find_one({"rut":})
+
+    #response = requests.post( apiUrl + "/consultas/responderSoli/" + id)
+
+    contexto={
+        "soli":Soli
+    }
+
+    return render(request,"aplicacion/Solicitudes.html",contexto)
 
 def Informes(request):
 
