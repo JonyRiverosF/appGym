@@ -596,7 +596,8 @@ router.post("/insertarComentario",upload.any(),(req:any,res:any)=>{
 
 router.post("/enviarSolicitud",upload.any(),(req:Request,res:Response)=>{
     modelos.solicitudModelo.create({
-        usuario:req.body.rut,
+        usuario:req.body.nombre,
+        correoUser:req.body.correo,
         asunto:req.body.asunto,
         detalle:req.body.detalle,
         fecha:new Date(),

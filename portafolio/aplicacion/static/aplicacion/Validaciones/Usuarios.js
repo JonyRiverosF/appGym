@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     var ficha 
-    var apiUrl = "http://192.168.1.2:3000";
+    var apiUrl = "http://192.168.1.7:3000";
     var flagCorreo = false;
     var flagRut = false;
     
@@ -424,7 +424,45 @@ $(document).ready(function(){
                 $("#mensaje_ModificarUsuarios").html("Error al modificar el usuario.");
             }
         });
-    
+
+
+
+    //Solicitud Usuario
+    $("#FormSolicitud").submit(function(e){
+        var textArea = $("#textoSoli").val();
+        var idUsuarioS = $("#idU")[0].innerHTML;
+        
+
+        let msjMostrar = "";
+        let enviar = false;
+
+        //Validar Correo del usuario
+        if(textArea.trim() == ""){
+            msjMostrar += "<br>-La respuesta de la solicitud no puede estar vacía.";
+            enviar = true;
+        }
+
+          if(enviar){
+            $("#mensaje_RecuperarContra").html(msjMostrar);
+            e.preventDefault();
+        }
+        else{
+            var formulario = new FormData();
+                    formulario.append("respuestaAdmin", textArea);
+                    
+                fetch( apiUrl + '/validaciones/respuestaSoli/'+ idUsuarioS, {
+                    method: 'PUT',
+                    body: formulario
+                }).then(respuesta=>{
+                    respuesta.json()
+
+                }).then(respuesta=>{
+                    $("#mensaje_enviarSoli").html("Error al mandar la solicitud.");
+                    console.log(respuesta)
+                }) 
+                
+            }
+        });
     
 
 });

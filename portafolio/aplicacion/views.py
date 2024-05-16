@@ -26,7 +26,7 @@ dietas=""
 
 noticia=""
 
-apiUrl = "http://192.168.1.2:3000"
+apiUrl = "http://192.168.1.7:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 
@@ -82,17 +82,35 @@ def OlvidasteContra(request):
 
 def Solicitudes(request):
 
-    Soli=solicitudes.find({"estado":"pendiente"})
+    Solicitud=solicitudes.find({"estado":"pendiente"})
 
-    Usu=usuarios.find_one({"rut":})
-
-    #response = requests.post( apiUrl + "/consultas/responderSoli/" + id)
+    uwu=[]
+    
+    for x in Solicitud:
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
 
     contexto={
-        "soli":Soli
+        "soli":uwu
     }
 
     return render(request,"aplicacion/Solicitudes.html",contexto)
+
+def soli(request,id):
+
+    response = requests.post( apiUrl + "/consultas/responderSoli/" + id) 
+
+    owo= response.json()
+    
+
+    owo["respuesta"][0]["id"] = owo["respuesta"][0]["_id"]
+
+    
+    contexto = {
+        "solicitud": owo["respuesta"][0]
+    }
+    
+    return render(request,"aplicacion/soli.html",contexto)
 
 def Informes(request):
 

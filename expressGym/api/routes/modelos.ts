@@ -127,6 +127,7 @@ var guardadosModelo = mongoose.model("guardados",guardadosSchema)
 
 var solicitudSchema = new mongoose.Schema({
     usuario:String,
+    correoUser:String,
     asunto:String,
     detalle:String,
     fecha:Date,

@@ -38,7 +38,8 @@ export class ContactanosPage implements OnInit {
     if(this.flag){
       this.usuario = JSON.parse(String(localStorage.getItem("idUser")))
       var formulario = new FormData();
-      formulario.append("rut",String(this.usuario.rut))
+      formulario.append("nombre",String(this.usuario.nombre+" "+this.usuario.apellido ));
+      formulario.append("correo",String(this.usuario.correo));
       formulario.append("asunto",this.asunto);formulario.append("detalle",this.detalle);
       this.loading(20000).then(response=>{
         response.present();

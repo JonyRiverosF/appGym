@@ -83,4 +83,16 @@ router.post("/validarUsuario",upload.any(),(req:Request,res:Response)=>{
     })
 })
 
+router.post("/respuestaSoli/:id",upload.any(),(req:Request,res:Response)=>{
+    var id =req.params.id
+    modelos.solicitudModelo.findByIdAndUpdate(id,{
+        respuestaAdmin:req.body.respuestaAdmin,
+        estado:"respondido",
+    }).exec().then((resp)=>{
+        correos.respuestSolicitud(resp?.correoUser,resp?.usuario,req.body.respuestaAdmin,resp?.asunto)
+    }).catch(error=>{
+        console.log(error)
+    }) 
+})
+
 export default module.exports=router
