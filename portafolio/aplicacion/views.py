@@ -122,6 +122,8 @@ def Informes(request):
          "horarios":Horarios       
     }
 
+    
+
     return render(request,"aplicacion/Informes.html",contexto)
 
 def VistaComentarios(request):
@@ -129,8 +131,10 @@ def VistaComentarios(request):
     Comentarios=comentarios.find({})
 
     contexto={
-        "comentarios":Comentarios
+        "comentarios":Comentarios,
     }
+
+    
 
     return render(request,"aplicacion/VistaComentarios.html", contexto)
 
