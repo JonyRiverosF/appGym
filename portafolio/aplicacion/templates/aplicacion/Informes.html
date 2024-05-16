@@ -377,7 +377,7 @@ nav > ul > li > ul > li > ul:before {
   </div>
 <br>
 
-<!--INFORMES BANCARIOS-->
+
 <div class="container" style="background: rgb(17, 67, 89);">
   <div class="container" > 
     <div class="container" >
@@ -402,6 +402,28 @@ nav > ul > li > ul > li > ul:before {
               <option value="cupos">Informes Cupos</option>
           </select>
       </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3">
+
+        <div id="filtradoCupos" style="display: none;margin-top: 39px;">
+          <select  class="form-control" style="text-transform: uppercase;">
+            <option selected>Seleccione</option>
+            <option value="COMENTARIOSS">Cupos Disponibles</option>
+            <option value="SubComentarios">Cupos llenos</option>
+          </select>
+        </div>
+        
+        <div id="filtradoComentarios" style="display: none;margin-top: 39px;">
+          <select  class="form-control" style="text-transform: uppercase;">
+            <option selected>Seleccione</option>
+            <option value="COMENTARIOSS">COMENTARIOSS</option>
+            <option value="SubComentarios">SubComentarios</option>
+          </select>
+        </div>
+
+      </div>
+      
+      
   </div><br>
   
   <div class="row">
@@ -477,6 +499,24 @@ nav > ul > li > ul > li > ul:before {
               }
           });
       });
+
+      document.getElementById('filtro').addEventListener('change', function() {
+        var value = this.value;
+        if (value === 'comentarios') {
+            document.getElementById('filtradoComentarios').style.display = 'block';
+        } else {
+            document.getElementById('filtradoComentarios').style.display = 'none';
+        }
+    });
+
+    document.getElementById('filtro').addEventListener('change', function() {
+        var value = this.value;
+        if (value === 'cupos') {
+            document.getElementById('filtradoCupos').style.display = 'block';
+        } else {
+            document.getElementById('filtradoCupos').style.display = 'none';
+        }
+    });
   </script>
 
 
