@@ -1,9 +1,15 @@
 $(document).ready(function(){
 
     var ficha 
-    var apiUrl = "http://192.168.1.7:3000";
+    var apiUrl = "http://10.155.86.73:3000";
     var flagCorreo = false;
     var flagRut = false;
+
+    fetch(apiUrl+"/validaciones/traerHorarios",{
+        method:"GET"
+    }).then(res=>res.json()).then(res=>{
+        console.log(res)
+    })
     
     $("#fichaU").change(function(e){
         ficha = e.target.files[0]
@@ -43,6 +49,22 @@ $(document).ready(function(){
         });
     }
 
+    
+    /*var horarioU = document.querySelector('input[type="date"]');
+    var fechaHoy = new Date();
+    var s = fechaHoy.toLocaleString("es-Es",{month:"2-digit",year:"numeric",day:"2-digit"}).split("/");
+    horarioU.min = s[2]+"-"+s[1]+"-"+s[0]
+    var restoSemana = 6 - fechaHoy.getDay();
+    var finDe = fechaHoy.getDate()+restoSemana;
+    var e = new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),finDe).toLocaleString("es-Es",{month:"2-digit",year:"numeric",day:"2-digit"}).split("/");
+    horarioU.max = e[2]+"-"+e[1]+"-"+e[0]  
+    console.log(horarioU)*/
+
+    $("#horarioU").change(function(e){
+        console.log(e.target.value)
+
+    })
+   
 
     //Registrar Usuarios
     $("#FormUsuarios").submit(async function(e){
@@ -54,7 +76,8 @@ $(document).ready(function(){
         var Telefono = $("#telefono").val();
         var Correo = $("#correo").val();
         var observacionesU = $("#observacionesU").val();
-        var horarioU = $("#horarioU").val();
+        var horarioU = document.querySelector('input[type="date"]');
+        console.log(horarioU)
          
 
         let msjMostrar = "";
@@ -443,7 +466,7 @@ $(document).ready(function(){
         }
 
           if(enviar){
-            $("#mensaje_RecuperarContra").html(msjMostrar);
+            $("#mensaje_enviarSoli").html(msjMostrar);
             e.preventDefault();
         }
         else{
@@ -451,7 +474,7 @@ $(document).ready(function(){
                     formulario.append("respuestaAdmin", textArea);
                     
                 fetch( apiUrl + '/validaciones/respuestaSoli/'+ idUsuarioS, {
-                    method: 'PUT',
+                    method: 'POST',
                     body: formulario
                 }).then(respuesta=>{
                     respuesta.json()

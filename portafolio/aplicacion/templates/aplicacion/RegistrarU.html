@@ -417,12 +417,18 @@ nav > ul > li > ul > li > ul:before {
                         </div>
                         <div class="col">
                         <div class="grupo">
-                          <input type="date" name="horarioU" id="horarioU" value="{{horarioU}}"><span class="barra"></span>
+                          <input type="date" name="horarioU" id="horarioU"><span class="barra"></span>
                           <label for=""><h5>Horario</h5></label>
+                          <select id="filtro" class="form-control" style="text-transform: uppercase;">
+                            <option value="todos" selected>Seleccione categoría</option>
+                            <option value="bancacios">Informes Bancarios</option>
+                            <option value="comentarios">Informes Comentarios</option>
+                            <option value="cupos">Informes Cupos</option>
+                        </select>
                       </div>
                         </div>
                     </div>
-    
+                    
                     <div class="row">
                         <div class="col">
                             <div class="grupo">
