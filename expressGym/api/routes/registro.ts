@@ -62,7 +62,31 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
 })
 
     
+router.post("/checkIn/:id",(req:Request,res:Response)=>{
+    var rut = req.params.id;
+    modelos.checkInModelo.create({
+        usuario:rut,
+        dia: new Date()
+    }).then(respuesta=>{
+        res.status(201).json(respuesta)
+    }).catch(error=>{
+        console.log(error);
+        res.status(500).json({msj:"Algo salió mal"})
+    })
+})
 
+router.post("/checkOut/:id",(req:Request,res:Response)=>{
+    var rut = req.params.id
+    modelos.checkOutModelo.create({
+        usuario:rut,
+        dia:new Date()
+    }).then(respuesta=>{
+        res.status(201).json(respuesta);
+    }).catch(error=>{
+        console.log("Algo salió mal insertando checkout");console.log(error);
+        res.status(500).json({msj:"Algo salió mal"})
+    })
+})
 
 router.post("/CrearEjercicio",upload.array("video"),(req:any,res:Response)=>{
 

@@ -137,7 +137,21 @@ var solicitudSchema = new mongoose.Schema({
 
 var solicitudModelo = mongoose.model("solicitudes",solicitudSchema)
 
+var tablaCheckIn = new mongoose.Schema({
+    usuario:String,
+    dia:Date
+})
+
+var checkInModelo = mongoose.model("checkin",tablaCheckIn);
+
+var tablaCheckOut = new mongoose.Schema({
+    usuario:String,
+    dia:Date
+})
+
+var checkOutModelo = mongoose.model("checkout",tablaCheckOut);
+
 export default module.exports = {MusculoModelo,EjerciciosModelo,MaquinasModelo,tipoDietasModelo,DietasModelo,
     NoticiaModelo,usuarioModelo,horariosElegidosModelo,horariosModelo,guardadosModelo,comentariosModel,
-    solicitudModelo
+    solicitudModelo,checkInModelo,checkOutModelo
 }

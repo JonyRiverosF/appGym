@@ -66,6 +66,14 @@ const routes: Routes = [
   {
     path: 'contactanos',
     loadChildren: () => import('./Pages/contactanos/contactanos.module').then( m => m.ContactanosPageModule)
+  },
+  {
+    path: 'check-in',
+    loadChildren: () => import('./Pages/check-in/check-in.module').then( m => m.CheckInPageModule)
+  },
+  {
+    path: 'check-out',
+    loadChildren: () => import('./Pages/check-out/check-out.module').then( m => m.CheckOutPageModule)
   }
 
 
