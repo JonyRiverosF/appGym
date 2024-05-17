@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
+
 mongo=""
 dataBase=""
 
@@ -16,6 +17,9 @@ horarios=""
 
 usuarios=""
 solicitudes=""
+
+checkin=""
+checkout=""
 
 musculos=""
 maquinas=""
@@ -26,7 +30,7 @@ dietas=""
 
 noticia=""
 
-apiUrl = "http://10.155.86.73:3000"
+apiUrl = "http://192.168.1.2:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 
@@ -36,6 +40,9 @@ usuarios = dataBase["usuarios"]
 ejercicios = dataBase["ejercicios"]
 musculos = dataBase["musculos"]
 maquinas = dataBase["maquinas"]
+
+checkin = dataBase["checkins"]
+checkout = dataBase["checkouts"]
 
 tipoDietas = dataBase["tipodietas"]
 dietas = dataBase["dietas"]
@@ -52,7 +59,14 @@ print("Connected to the MongoDB database!")
 
 #Pantallas Principales
 def pantalla(request):
-    return render(request, "aplicacion/inicio.html")
+
+    Ingreso= checkin.find({"estado":"activo"})
+  
+    contexto={
+        "chekin":Ingreso
+    }
+
+    return render(request, "aplicacion/inicio.html",contexto)
 
 
 def login(request):

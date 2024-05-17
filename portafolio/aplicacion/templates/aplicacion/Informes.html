@@ -393,100 +393,84 @@ nav > ul > li > ul > li > ul:before {
 
 
       <div class="row">
-      <div class="col-md-6">
-          <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
-          <select id="filtro" class="form-control" style="text-transform: uppercase;">
-              <option value="todos" selected>Seleccione categoría</option>
-              <option value="bancacios">Informes Bancarios</option>
-              <option value="comentarios">Informes Comentarios</option>
-              <option value="cupos">Informes Cupos</option>
-          </select>
-      </div>
-      <div class="col-md-3"></div>
-      <div class="col-md-3">
-
-        <div id="filtradoCupos" style="display: none;margin-top: 39px;">
-          <select  class="form-control" style="text-transform: uppercase;">
-            <option selected>Seleccione</option>
-            <option value="COMENTARIOSS">Cupos Disponibles</option>
-            <option value="SubComentarios">Cupos llenos</option>
-          </select>
+        <div class="col-md-6">
+            <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
+            <select id="filtro" class="form-control" style="text-transform: uppercase;">
+                <option value="todos" selected>Seleccione categoría</option>
+                <option value="bancacios">Informes Bancarios</option>
+                <option value="comentarios">Informes Comentarios</option>
+                <option value="cupos">Informes Cupos</option>
+            </select>
         </div>
-        
-        <div id="filtradoComentarios" style="display: none;margin-top: 39px;">
-          <select  class="form-control" style="text-transform: uppercase;">
-            <option selected>Seleccione</option>
-            <option value="COMENTARIOSS">COMENTARIOSS</option>
-            <option value="SubComentarios">SubComentarios</option>
-          </select>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div id="filtradoComentarios" style="display: none; margin-top: 39px;">
+                <select id="filtroPequeno" class="form-control" style="text-transform: uppercase;">
+                    <option value="todos" selected>Seleccione</option>
+                    <option value="comentariosP">Comentarios</option>
+                    <option value="subcomentarios">SubComentarios</option>
+                </select>
+            </div>
         </div>
-
-      </div>
-      
-      
-  </div><br>
-  
-  <div class="row">
-      <div class="table-responsive">
-          <table class="table">
-              <thead>
-                  <tr>
-                      <th>Nombre</th>
-                      <th>Boton</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for m in Musculos %}
-                  <tr class="bancacios" style="display: none;">
-                      <td>
-                          <img src="{{ m.foto }}" alt="No foto" style="width: 15%;height: 15%;"><br>
-                          <h5>{{ m.nombre }}</h5>
-                      </td>
-                      <td>
-                          <p style="text-align: center;">
-                              <a href="" class="btn btn-danger">Eliminar</a>
-                          </p>
-                      </td>
-                  </tr>
-                  {% endfor %}
-  
-                  {% for c in comentarios %}
-                  
-                  <tr class="comentarios" style="display: none;">
-  
-                          
-                      <td>
-                          <h4>Nombre:</h4><h5>{{ c.creadorDelComentario.nombre }}</h5>
-                      </td>
-                      
-                      <td>
-                          <h4 >Comentario:</h4><h5> {{c.descripcion }}</h5>
-                      </td>
-                  </tr>
-                  {% endfor %}
-  
-                  {% for h in horarios %}
-                  <tr class="cupos" style="display: none;">
-
-                    {% for x in h.horas %}
-                      <td>
-                        
-                          
-                          <h5>Cupos Maximos: {{ x.cuposMaximos }}</h5>
-                      </td>
-                     
-                      <td>
-                          <h5>Cupos Tomados: {{ x.cuposElegidos }}</h5>
-                      </td>
-                      {% endfor %}
-                  </tr> 
-                  {% endfor %}
-              </tbody>
-          </table>
-      </div>
-  </div><br>
-  
-  <script>
+    </div>
+    <br>
+    
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Boton</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in Musculos %}
+                    <tr class="bancacios" style="display: none;">
+                        <td>
+                            <img src="{{ m.foto }}" alt="No foto" style="width: 15%; height: 15%;"><br>
+                            <h5>{{ m.nombre }}</h5>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">
+                                <a href="" class="btn btn-danger">Eliminar</a>
+                            </p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+    
+                    {% for c in comentarios %}
+                    <tr class="comentarios {% if c.respuesta.idComentarioPrincipal %}subcomentarios{% else %}comentariosP{% endif %}" style="display: none;">
+                        <td>
+                            <h4>Nombre:</h4><h5>{{ c.creadorDelComentario.nombre }}</h5>
+                        </td>
+                        <td>
+                            <h4>Comentario:</h4><h5>{{ c.descripcion }}</h5>
+                        </td>
+                    </tr>
+                    {% endfor %}
+    
+                    {% for h in horarios %}
+                    <tr class="cupos" style="display: none;">
+                        {% for x in h.horas %}
+                        <td>
+                            <h5>Cupos Maximos: {{ x.cuposMaximos }}</h5>
+                        </td>
+                        <td>
+                            <h5>Cupos Tomados: {{ x.cuposElegidos }}</h5>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    
+    
+    
+    <script>
       document.getElementById('filtro').addEventListener('change', function() {
           var filtro = this.value;
           var filas = document.querySelectorAll('tr');
@@ -498,27 +482,26 @@ nav > ul > li > ul > li > ul:before {
                   fila.style.display = 'none';
               }
           });
+  
+          document.getElementById('filtradoComentarios').style.display = (filtro === 'comentarios') ? 'block' : 'none';
+          document.getElementById('filtradoCupos').style.display = (filtro === 'cupos') ? 'block' : 'none';
       });
-
-      document.getElementById('filtro').addEventListener('change', function() {
-        var value = this.value;
-        if (value === 'comentarios') {
-            document.getElementById('filtradoComentarios').style.display = 'block';
-        } else {
-            document.getElementById('filtradoComentarios').style.display = 'none';
-        }
-    });
-
-    document.getElementById('filtro').addEventListener('change', function() {
-        var value = this.value;
-        if (value === 'cupos') {
-            document.getElementById('filtradoCupos').style.display = 'block';
-        } else {
-            document.getElementById('filtradoCupos').style.display = 'none';
-        }
-    });
+  
+      document.getElementById('filtroPequeno').addEventListener('change', function() {
+          var filtroPequeno = this.value;
+          var filas = document.querySelectorAll('tr.comentariosP');
+  
+          filas.forEach(function(fila) {
+              if (filtroPequeno === 'todos' || fila.classList.contains(filtroPequeno)) {
+                  fila.style.display = 'table-row';
+              } else {
+                  fila.style.display = 'none';
+              }
+          });
+      });
   </script>
-
+  
+  
 
 
 

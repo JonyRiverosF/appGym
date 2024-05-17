@@ -1,7 +1,7 @@
 //Creacion de la noticia 
 $(document).ready(function(){
 
-    var apiUrl = "http://10.155.86.73:3000";
+    var apiUrl = "http://192.168.1.2:3000";
 
     $("#fotoE").change(function(e){
         foto = e.target.files[0]
@@ -22,6 +22,7 @@ $(document).ready(function(){
         //e.preventDefault();
 
         var nombreEjercicio = $("#nombreE").val();
+        var fichaEjercicio = $("#fichaE").val();
         var tipoMusculo = $("#RolMusc").val();
         var tipoMaquina =  $("#RolMaq").val();
         
@@ -46,6 +47,7 @@ $(document).ready(function(){
         else{
             var formulario = new FormData();
                 formulario.append("Titulo", nombreEjercicio);
+                formulario.append("ficha", fichaEjercicio);
                 formulario.append("video", video);
                 formulario.append("video", foto);
                 formulario.append("tipoMusculo", tipoMusculo);
@@ -90,6 +92,7 @@ $(document).ready(function(){
     //Creacion de los musculos
     $("#FormMusculos").submit(function(e){
         var nombreMusculo = $("#nombreMusc").val();
+        var fichaMusculo = $("#fichaMusc").val();
 
         let msjMostrar = "";
         let enviar = false;
@@ -118,6 +121,7 @@ $(document).ready(function(){
 
             var formulario = new FormData();
                 formulario.append("nombre", nombreMusculo);
+                formulario.append("ficha", fichaMusculo);
                 formulario.append("foto", fotoM);
 
             fetch(apiUrl + "/creacion/CrearMusculo", {
@@ -229,6 +233,7 @@ $("#fotoMaqui").change(function(e){
         //Creacion de las maquinas
     $("#FormMaquinas").submit(function(e){
         var nombreMaquina = $("#nombreMaqui").val();
+        var fichaMaquina = $("#fichaMA").val();
 
         let msjMostrar = "";
         let enviar = false;
@@ -254,10 +259,9 @@ $("#fotoMaqui").change(function(e){
             e.preventDefault();
         }
         else{
-
-
             var formulario = new FormData();
                 formulario.append("nombre", nombreMaquina);
+                formulario.append("ficha", fichaMaquina);
                 formulario.append("foto", fotoMa);
 
             fetch(apiUrl + "/creacion/CrearMaquina", {
@@ -374,6 +378,7 @@ $("#fotoMaqui").change(function(e){
     $("#FormModificarEjercicios").submit(function(e){
         e.preventDefault();    
         var nombreEjercicio = $("#nombreE").val();
+        var modificarFichaE = $("#fichaME").val();
         var IDe = $("#idE")[0].innerHTML;
         
         let msjMostrar = "";
@@ -397,6 +402,7 @@ $("#fotoMaqui").change(function(e){
         else{
             var formulario = new FormData();
                     formulario.append("titulo", nombreEjercicio);
+                    formulario.append("ficha", modificarFichaE);
                     if(videoEM){
                         formulario.append("video", videoEM);
                     }

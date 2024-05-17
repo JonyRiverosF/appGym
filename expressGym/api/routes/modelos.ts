@@ -50,6 +50,7 @@ var EjerciciosSchema = new mongoose.Schema({
     Titulo:String,
     video:String,
     foto:String,
+    ficha: String,
     tipoMusculo:String,
     tipoMaquina:String,
     estado:String,

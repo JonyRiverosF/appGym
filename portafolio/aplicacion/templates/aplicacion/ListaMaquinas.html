@@ -414,11 +414,11 @@ nav > ul > li > ul > li > ul:before {
                       <br><a href="{% url 'ModificarMaquinas' d.id %}" class="btn btn-warning" style="margin-top: 10px;" >Modificar</a>
                       
                       {% if d.estado == 'activado' %}
-                      <a href="{% url 'desactivarNoticias' d.id %}" class="btn btn-danger" style="margin-top: 10px;" >Desactivar</a>
+                      <a href="{% url 'desactivarMaquinas' d.id %}" class="btn btn-danger" style="margin-top: 10px;" >Desactivar</a>
 
                       {% else %}
 
-                      <a href="{% url 'activarNoticias' d.id %}" class="btn btn-success" style="margin-top: 10px;" >Activar</a>
+                      <a href="{% url 'activarMaquinas' d.id %}" class="btn btn-success" style="margin-top: 10px;" >Activar</a>
 
                       {% endif %}
 

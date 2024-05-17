@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var apiUrl = "http://10.155.86.73:3000";
+    var apiUrl = "http://192.168.1.2:3000";
 
 
 
@@ -14,6 +14,7 @@ $(document).ready(function(){
     //Creacion de las Dietas
     $("#FormDietas").submit(function(e){
         var nombreDieta = $("#nombreD").val();
+        var fichaDieta = $("#fichaD").val();
         var tipoD = $("#RolTipoD").val();
 
         let msjMostrar = "";
@@ -33,6 +34,7 @@ $(document).ready(function(){
 
             var formulario = new FormData();
                 formulario.append("nombre", nombreDieta);
+                formulario.append("ficha", fichaDieta);
                 formulario.append("tipoD", tipoD);
                 formulario.append("foto", fotoD);
 
@@ -73,6 +75,7 @@ $(document).ready(function(){
         //Creacion del tipo de dietas
     $("#FormTipoDietas").submit(function(e){
         var nombreTipoDieta = $("#nombreTD").val();
+        var fichaTPD = $("#fichaTPD").val();
         
 
         let msjMostrar = "";
@@ -84,15 +87,6 @@ $(document).ready(function(){
             enviar = true;
         }
 
-        if (/\d/.test(nombreTipoDieta)){
-            msjMostrar += "<br>-Nombre de dieta inválido, no puede contener números.";
-            enviar = true;
-        }
-
-        if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreTipoDieta)){
-            msjMostrar += "<br>-Nombre inválido, no debe contener caracteres especiales.";
-            enviar = true;
-        }
 
         if(enviar){
             $("#mensaje_TipoDietas").html(msjMostrar);
@@ -101,6 +95,7 @@ $(document).ready(function(){
         else{
             var formulario = new FormData();
                 formulario.append("nombre", nombreTipoDieta);
+                formulario.append("ficha", fichaTPD);
                 formulario.append("foto", fotoTD);
 
             fetch(apiUrl + "/creacion/CrearTipoDietas", {
@@ -204,23 +199,12 @@ $(document).ready(function(){
         let msjMostrar = "";
         let enviar = false;
 
-
-
         // Validar Nombre Dieta
         if(nombreDieta.trim() == ""){
             msjMostrar += "<br>-El nombre de la dieta no puede estar vacío.";
             enviar = true;
         }
 
-        if (/\d/.test(nombreDieta)){
-            msjMostrar += "<br>-Nombre de dieta inválido, no puede contener números.";
-            enviar = true;
-        }
-
-        if (/[!@#$%^&*(),.?":{}|<>]/.test(nombreDieta)){
-            msjMostrar += "<br>-Nombre inválido, no debe contener caracteres especiales.";
-            enviar = true;
-        }
 
         if(enviar){
             $("#mensaje_ModificarDieta").html(msjMostrar);
