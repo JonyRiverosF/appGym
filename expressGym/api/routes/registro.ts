@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 const router = express.Router()
 import multer from 'multer';
 const upload = multer({ dest: 'public/videos/' })
-import mongoose, { Mongoose } from "mongoose";
+import mongoose, { Mongoose, model } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
 import wspClient from "./complementos/wsp";
@@ -81,7 +81,12 @@ router.post("/checkOut/:id",(req:Request,res:Response)=>{
         usuario:rut,
         dia:new Date()
     }).then(respuesta=>{
-        res.status(201).json(respuesta);
+        modelos.checkInModelo.updateMany({usuario:rut},{estado:"inactivo"}).exec().then(respu=>{
+            res.status(201).json({respuesta,respu});
+        }).catch(error=>{
+            console.log("algo salió mal cambiando estado checkin");console.log(error);
+            res.status(500).json({msj:"algo salió mal"})
+        })
     }).catch(error=>{
         console.log("Algo salió mal insertando checkout");console.log(error);
         res.status(500).json({msj:"Algo salió mal"})

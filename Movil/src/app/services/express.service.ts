@@ -145,6 +145,11 @@ export class ExpressService {
       method:"POST"
     })
   }
+  checkOut(rut:any){
+    return fetch(this.apiUrl+"/creacion/checkOut/"+rut,{
+      method:"POST"
+    })
+  }
   //validar repetición de correo
   correoRepetido(correo:any){ 
      return fetch(this.apiUrl+"/validaciones/validarCorreo",{
