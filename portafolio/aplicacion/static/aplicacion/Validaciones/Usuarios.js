@@ -1,15 +1,18 @@
 $(document).ready(function(){
-
     var ficha 
     var apiUrl = "http://192.168.1.2:3000";
     var flagCorreo = false;
     var flagRut = false;
+    var horarios 
 
     fetch(apiUrl+"/validaciones/traerHorarios",{
         method:"GET"
     }).then(res=>res.json()).then(res=>{
-        console.log(res)
+        console.log(res.respuesta)
+        horarios=res.respuesta;
     })
+
+
     
     $("#fichaU").change(function(e){
         ficha = e.target.files[0]
@@ -50,19 +53,84 @@ $(document).ready(function(){
     }
 
     
-    /*var horarioU = document.querySelector('input[type="date"]');
+
+    var horarioU = document.querySelector('input[type="date"]');
     var fechaHoy = new Date();
+
     var s = fechaHoy.toLocaleString("es-Es",{month:"2-digit",year:"numeric",day:"2-digit"}).split("/");
-    horarioU.min = s[2]+"-"+s[1]+"-"+s[0]
-    var restoSemana = 6 - fechaHoy.getDay();
-    var finDe = fechaHoy.getDate()+restoSemana;
-    var e = new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),finDe).toLocaleString("es-Es",{month:"2-digit",year:"numeric",day:"2-digit"}).split("/");
-    horarioU.max = e[2]+"-"+e[1]+"-"+e[0]  
-    console.log(horarioU)*/
-
+    horarioU.min = s[2]+"-"+s[1]+"-"+s[0];
+    
+    if(fechaHoy.getDay() != 0){
+       
+        var restoSemana = 6 - fechaHoy.getDay();
+        var finDe = fechaHoy.getDate()+restoSemana;
+        var e = new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),finDe).toLocaleString("es-Es",{month:"2-digit",year:"numeric",day:"2-digit"}).split("/");
+        horarioU.max = e[2]+"-"+e[1]+"-"+e[0]  
+    }else{
+        var j = new Date(fechaHoy.getFullYear(),fechaHoy.getMonth(),fechaHoy.getDate()+6).toLocaleString("es-Es",{month:"2-digit",year:"numeric",day:"2-digit"}).split("/");
+        horarioU.max = j[2]+"-"+j[1]+"-"+j[0]  
+    }
+    
+    var diaSeleccionado
+    
+    
     $("#horarioU").change(function(e){
-        console.log(e.target.value)
 
+        var fechaH=new Date(e.target.value);
+        var fechaNueva=new Date(fechaH.getFullYear(),fechaH.getMonth(),fechaH.getDate()+1).toLocaleString("es-Es",{month:"2-digit",year:"numeric",day:"2-digit"});
+        $("#horas")[0].innerText="";
+        for(let x of horarios){
+
+            if(fechaNueva == new Date(x.fecha).toLocaleString("es-Es",{month:"2-digit",year:"numeric",day:"2-digit"})){
+
+                diaSeleccionado=x
+
+                $('#horas').append($('<option>', {
+                    value: "ola",
+                    text: "Seleccione Hora",
+                }));
+
+                for(let hora of x.horas){
+                    $('#horas').append($('<option>', {
+                        value: hora.hora,
+                        text: hora.hora,
+
+                    
+                    }));
+                }
+            }
+        }
+ 
+    });
+    
+
+    var horariosEnviar = []
+
+    $("#horas").change(function(e){
+        //console.log( horarioU.value)
+        //console.log(e)
+        var horarioSeleccionado = {hora:{hora:e.target.value},
+                                dia:diaSeleccionado
+        }
+        horariosEnviar.push(horarioSeleccionado)
+
+        let msjH=""
+
+        for(let x of horariosEnviar){
+            msjH+=new Date(x.dia.fecha).toLocaleString("es-Es",{month:"2-digit",year:"numeric",day:"2-digit"}) + " "+x.hora.hora 
+            $("#mensajeHora").html(msjH);
+
+        }
+        
+        //console.log($("#horas"))
+        
+
+        if( horariosEnviar.length == 3){
+            document.getElementById("horarioU").disabled = true;
+            console.log(horariosEnviar)
+        }
+
+        //console.log(horariosEnviar)
     })
    
 
@@ -135,12 +203,6 @@ $(document).ready(function(){
 
         if (!/^9\d{8}$/.test(Telefono.trim())) {
             msjMostrar += "<br>-El Teléfono del usuario debe contener exactamente 9 dígitos y empezar con 9.";
-            enviar = true;
-        }
- 
-        // Validar Horario Del Usuario
-        if(horarioU.trim() == ""){
-            msjMostrar += "<br>-El horario del usuario no puede estar vacío.";
             enviar = true;
         }
 
@@ -235,19 +297,33 @@ $(document).ready(function(){
                                 method: "POST",
                                 body: formulario
                             }).then(res => {
-                                console.log(res);
-                                msjMostrar += "Usuario Registrado Correctamente.";
+
+                                var formularioHorario = new FormData();
+                                formularioHorario.append("horarioUno", JSON.stringify(horariosEnviar[0]));
+                                formularioHorario.append("horarioDos", JSON.stringify(horariosEnviar[1]));
+                                formularioHorario.append("horarioTres", JSON.stringify(horariosEnviar[2]));
+                                formularioHorario.append("rut", Rut);
+                                fetch(apiUrl + "/creacion/crearHorario", {
+                                    method: "POST",
+                                    body: formularioHorario
+                                }).then(res=>{
+                                    console.log(res);
+                                    msjMostrar += "Usuario Registrado Correctamente.";
+                                })
                                 
                             });
             
                             $("#mensaje_RegistrarUsuarios").html("-Usuario Registrado Correctamente.");
                             $("#nombre")[0].value=""; $("#apellido")[0].value=""; $("#rut")[0].value=""; 
-                            $("#dv")[0].value=""; $("#telefono")[0].value=undefined; $("#correo")[0].value="";
+                            $("#telefono")[0].value=undefined; $("#correo")[0].value="";
                             $("#fichaU")[0].value="";$("#observacionesU")[0].value="";
                             document.getElementById("fichaSi").checked=false; document.getElementById("fichaNo").checked=false;
                             document.getElementById("fichaMedicaSi").style.display="none";
                             document.getElementById("fichaMedicaNo").style.display="none";
+
                             
+                            
+
                         } else {
                             $("#mensaje_RegistrarUsuarios").html("<br>-El rut ingresado ya está registrado.");
                             
@@ -259,17 +335,23 @@ $(document).ready(function(){
                     
                 }
         });
+    });
         
         
-        
+
+
+
+
 
 
     
 
 
 
+    $(document).ready(function(){
 
-
+        var apiUrl = "http://192.168.1.2:3000";
+    
         $("#FormModiUsuarios").submit(function(e){
             
             var nombreU = $("#nombre").val();
@@ -359,6 +441,7 @@ $(document).ready(function(){
                 }) 
             }   
         });
+    });
 
 
 
@@ -367,88 +450,15 @@ $(document).ready(function(){
 
 
 
-    //Recuperar Codigo
-    $("#FormRecuperarContra").submit(function(e){
-        var Correo = $("#correo").val();
-        var Rut = $("#rut").val();
-        var DV = $("#dv").val();
-
-        let msjMostrar = "";
-        let enviar = false;
-
-        //Validar Correo del usuario
-        if(Correo.trim() == ""){
-            msjMostrar += "<br>-El Correo del usuario no puede estar vacío.";
-            enviar = true;
-        }
-
-        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(Correo.trim())) {
-            msjMostrar += "<br>-El Correo del usuario no tiene un formato válido.";
-            enviar = true;
-        }
-
-         // Validar Rut Usuario
-         if(Rut.trim() == ""){
-            msjMostrar += "<br>-El rut del usuario no puede estar vacío.";
-            enviar = true;
-        }
-
-        if(!/^\d{8}$/.test(Rut)){
-            msjMostrar += "<br>-El rut del usuario debe contener exactamente 8 números.";
-            enviar = true;
-        }
-
-        if (!enviar) {
-            if (!validarRut($("#rut").val(), $("#dv").val())) {
-              msjMostrar += "<br>-El RUT ingresado no es válido.";
-              enviar = true;
-            }
-          } 
-
-        // Validar Dígito Verificador del Usuario
-        if (DV.trim() == "") {
-            msjMostrar += "<br>-El dígito verificador del usuario no puede estar vacío.";
-            enviar = true;
-        }
-  
-        if (!/^\d$|^k$/i.test(DV)) {
-            msjMostrar += "<br>-El dígito verificador del usuario debe ser un número entre 0 y 9 o la letra 'k' (mayúscula o minúscula).";
-            enviar = true;
-        }
-     
-        function validarRut(rut, dv) {
-            rut = rut.replace(".", "").replace(".", "").replace("-", "");
-          
-            if (!/^\d+$/.test(rut) || !/^[0-9kK]{1}$/.test(dv)) {
-              return false;
-            }
-          
-            let suma = 0;
-            let multiplo = 2;
-            for (let i = rut.length - 1; i >= 0; i--) {
-              suma += parseInt(rut.charAt(i)) * multiplo;
-              if (multiplo < 7) {
-                multiplo += 1;
-              } else {
-                multiplo = 2;
-              }
-            }
-            let dvEsperado = 11 - (suma % 11);
-            let dvCalculado = dvEsperado == 10 ? "k" : dvEsperado.toString();
-          
-            return dvCalculado.toLowerCase() === dv.toLowerCase();
-          }
-
-          if(enviar){
-            $("#mensaje_RecuperarContra").html(msjMostrar);
-            e.preventDefault();
-        }
-        else{
-                $("#mensaje_ModificarUsuarios").html("Error al modificar el usuario.");
-            }
-        });
 
 
+
+
+    $(document).ready(function(){
+
+        
+        var apiUrl = "http://192.168.1.2:3000";
+        
 
     //Solicitud Usuario
     $("#FormSolicitud").submit(function(e){

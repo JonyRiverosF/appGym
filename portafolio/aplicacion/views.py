@@ -124,7 +124,7 @@ def soli(request,id):
         "solicitud": owo["respuesta"][0]
     }
     
-    return render(request,"aplicacion/soli.html",contexto)
+    return render(request,"aplicacion/Solicitudes.html",contexto)
 
 def Informes(request):
 

@@ -305,7 +305,7 @@ nav > ul > li > ul > li > ul:before {
 </style>
 </head>
 
-<body style="background: rgb(27, 90, 122);">
+<body style="background: rgb(27, 90, 122);text-transform: uppercase;">
 
     
       
@@ -396,13 +396,13 @@ nav > ul > li > ul > li > ul:before {
                     <div class="row">
                         <div class="col">
                             <div class="grupo">
-                                <input type="text" name="nombre" id="nombre" value="{{nombre}}" placeholder="Ej:Juan"><span class="barra"></span>
+                                <input type="text" name="nombre" id="nombre" value="{{nombre}}" placeholder="EJ:JUAN"><span class="barra"></span>
                                 <label for=""><h5>Nombre</h5></label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="grupo">
-                                <input type="text" name="apellido" id="apellido" value="{{apellido}}" placeholder="Ej:Gana"><span class="barra"></span>
+                                <input type="text" name="apellido" id="apellido" value="{{apellido}}" placeholder="EJ:GANA"><span class="barra"></span>
                                 <label for=""><h5>Apellido</h5></label>
                             </div>
                         </div>
@@ -411,20 +411,18 @@ nav > ul > li > ul > li > ul:before {
                     <div class="row">
                         <div class="col">
                             <div class="grupo">
-                              <input type="text" name="rut" id="rut" placeholder="Ej:20.458.389" ><span class="barra" ></span>
+                              <input type="text" name="rut" id="rut" placeholder="EJ:20.458.389-4"  ><span class="barra" ></span>
                                 <label for=""><h5>Rut</h5></label>
                             </div>
                         </div>
                         <div class="col">
                         <div class="grupo">
-                          <input type="date" name="horarioU" id="horarioU"><span class="barra"></span>
+                          <input type="date" name="horarioU" id="horarioU"><span class="barra" ></span>
                           <label for=""><h5>Horario</h5></label>
-                          <select id="filtro" class="form-control" style="text-transform: uppercase;">
-                            <option value="todos" selected>Seleccione categoría</option>
-                            <option value="bancacios">Informes Bancarios</option>
-                            <option value="comentarios">Informes Comentarios</option>
-                            <option value="cupos">Informes Cupos</option>
+                          <select id="horas" class="form-control" style="text-transform: uppercase;">
+                            <option selected>Seleccione hora</option>
                         </select>
+                        <p class="warnings" id="mensajeHora"></p>
                       </div>
                         </div>
                     </div>
@@ -432,13 +430,13 @@ nav > ul > li > ul > li > ul:before {
                     <div class="row">
                         <div class="col">
                             <div class="grupo">
-                                <input type="text" name="correo" id="correo" placeholder="Ej:a@a.cl"><span class="barra"></span>
+                                <input type="text" name="correo" id="correo" placeholder="EJ:A@A.CL"><span class="barra"></span>
                                 <label for=""><h5>Correo Electrónico</h5></label>
                             </div>
                         </div>
                         <div class="col">
                           <div class="grupo">
-                              <input type="number" name="telefono" id="telefono" placeholder="Ej:9 6842 6213"><span class="barra"></span>
+                              <input type="number" name="telefono" id="telefono" placeholder="EJ:9 6842 6213"><span class="barra"></span>
                               <label for=""><h5>Teléfono</h5></label>
                           </div>
                       </div>
@@ -556,7 +554,8 @@ nav > ul > li > ul > li > ul:before {
     } else {
         this.value = rutInput;
     }
-});
+  });
+
     
   </script>
 

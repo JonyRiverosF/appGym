@@ -488,6 +488,8 @@ router.post("/login",upload.any(),(req:Request,res:Response)=>{
 
 router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
 
+    console.log(JSON.parse(req.body.horarioUno).hora)
+
     //Horario Uno
     var diaEscogidoU = JSON.parse(req.body.horarioUno).dia
     var horaEscogidaU = JSON.parse(req.body.horarioUno).hora
@@ -537,6 +539,7 @@ router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
         respuesta:[diaEscogidoU,diaEscogidoD,diaEscogidoT]
     })
    // console.log([diaEscogidoU,diaEscogidoD,diaEscogidoT])
+
 
 })
 
