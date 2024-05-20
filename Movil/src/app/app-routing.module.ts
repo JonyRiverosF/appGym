@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./Pages/dietas/dietas.module').then( m => m.DietasPageModule)
   },
   {
-    path: 'ejercicios/:id',
+    path: 'ejercicios/:id/:flag',
     loadChildren: () => import('./Pages/ejercicios/ejercicios.module').then( m => m.EjerciciosPageModule)
   },
   {
@@ -32,7 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('./Pages/noticias/noticias.module').then( m => m.NoticiasPageModule)
   },
   {
-    path: 'ejercicio/:musculo/:id',
+    path: 'ejercicio/:musculo/:flag/:id',
     loadChildren: () => import('./Pages/ejercicio/ejercicio.module').then( m => m.EjercicioPageModule)
   },
   {
@@ -59,7 +59,8 @@ const routes: Routes = [
   {
     path: 'registro',
     loadChildren: () => import('./Pages/registro-user/registro-user.module').then( m => m.RegistroUserPageModule)
-  },  {
+  },
+  {
     path: 'confirmar-registro',
     loadChildren: () => import('./Pages/confirmar-registro/confirmar-registro.module').then( m => m.ConfirmarRegistroPageModule)
   },

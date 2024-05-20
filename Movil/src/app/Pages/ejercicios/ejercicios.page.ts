@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
 
 @Component({
@@ -23,45 +23,52 @@ export class EjerciciosPage implements OnInit {
   criterioEscogido:string="";
   flag:boolean=true;
   constructor(private router: Router,private activatedRouter:ActivatedRoute,private api:ExpressService,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,private toastController: ToastController) {
 
     this.activatedRouter.queryParams.subscribe(param =>{
       if (this.router.getCurrentNavigation()?.extras.state){
         this.flag = this.router.getCurrentNavigation()?.extras?.state?.["flag"];
         localStorage.setItem("flagMaqMus",String(this.flag))
       }
-  })
+    })
   }
 
   ionViewWillEnter(){
     this.apiUrl = this.api.urlApi
-    this.loading(30000).then(async response=>{
-      response.present();
-      switch (localStorage.getItem("flagMaqMus")){
-        case "false":
-          this.criterioEscogido =  String(this.activatedRouter.snapshot.paramMap.get('id'))
-          this.api.traerEjerciciosPorMusculo(this.criterioEscogido).then(res=>res.json()).then(res=>{
-            this.ejercicios = res.respuesta
-            for(let musc of this.ejercicios){
-              musc.foto = this.apiUrl+"/imagenes/MiniaturaEjercicios/"+musc.foto
-             }
-             response.dismiss();
-            //console.log(this.ejercicios)
-          })
-          break;
-        case "true":
-          this.criterioEscogido =  String(this.activatedRouter.snapshot.paramMap.get('id'))
-          this.api.traerEjerciciosPorMaquina(this.criterioEscogido).then(res=>res.json()).then(res=>{
-            this.ejercicios = res
-            for(let musc of this.ejercicios){
-              musc.foto = this.apiUrl+"/imagenes/MiniaturaEjercicios/"+musc.foto
-             }
-             response.dismiss()
-            //console.log(this.ejercicios )
-          })
-          break;
-      }
-    })
+    this.criterioEscogido =  String(this.activatedRouter.snapshot.paramMap.get('id'));
+    var flagUrl =  String(this.activatedRouter.snapshot.paramMap.get('flag'))
+    localStorage.setItem("flagMaqMus",flagUrl)
+    if(localStorage.getItem("idUser") == null){
+     this.presentToast("bottom","Debes iniciar sesión para ver el contenido")
+     this.router.navigate(["/home"],{state:{pagina:"ejercicios/"+this.criterioEscogido+"/"+flagUrl}})
+     }else{
+      this.loading(30000).then(response=>{
+        response.present();
+        switch (localStorage.getItem("flagMaqMus")){
+          case "false":
+            
+            this.api.traerEjerciciosPorMusculo(this.criterioEscogido).then(res=>res.json()).then(res=>{
+              this.ejercicios = res.respuesta
+              for(let musc of this.ejercicios){
+                musc.foto = this.apiUrl+"/imagenes/MiniaturaEjercicios/"+musc.foto
+               }
+               response.dismiss();
+              //console.log(this.ejercicios)
+            })
+            break;
+          case "true":
+            this.api.traerEjerciciosPorMaquina(this.criterioEscogido).then(res=>res.json()).then(res=>{
+              this.ejercicios = res
+              for(let musc of this.ejercicios){
+                musc.foto = this.apiUrl+"/imagenes/MiniaturaEjercicios/"+musc.foto
+               }
+               response.dismiss()
+              //console.log(this.ejercicios )
+            })
+            break;
+        }
+       })
+     }
     //this.filtrarEjercicios(id);
   }
 
@@ -76,7 +83,8 @@ export class EjerciciosPage implements OnInit {
   }
   
   verDetalle(x:any){
-     this.router.navigate(['/ejercicio/'+this.criterioEscogido+"/"+x._id])
+     this.router.navigate(['/ejercicio/'+this.criterioEscogido+"/"+
+     String(this.activatedRouter.snapshot.paramMap.get('flag'))+"/"+x._id])
   }
 
 
@@ -86,6 +94,17 @@ export class EjerciciosPage implements OnInit {
        duration: duracion,
      })
    }
+
+   async presentToast(position:'bottom',msg:string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 1500,
+      position: position,
+      color:"light"
+    });
+
+    await toast.present();
+  }
    
 
   irPerfil(){

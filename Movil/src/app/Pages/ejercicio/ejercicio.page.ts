@@ -119,7 +119,9 @@ export class EjercicioPage implements OnInit {
     if(String(this.activatedRouter.snapshot.paramMap.get('musculo')) == "guardados"){
       this.router.navigate(['guardados'])
     }else{
-      this.router.navigate(['/ejercicios/'+String(this.activatedRouter.snapshot.paramMap.get('musculo'))])
+      this.router.navigate(['/ejercicios/'+String(this.activatedRouter.snapshot.paramMap.get('musculo'))+
+        "/"+String(this.activatedRouter.snapshot.paramMap.get('flag'))
+      ])
     }
   }
 

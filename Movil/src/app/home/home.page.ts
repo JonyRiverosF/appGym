@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ExpressService } from '../services/express.service';
 import { LoadingController, ToastController } from '@ionic/angular';
 
@@ -17,13 +17,25 @@ export class HomePage {
 
   //flag
   codigoEncontrado:boolean=false;
-
+  redirigir:any;
   constructor(private router: Router,private api:ExpressService, private loadingCtrl: LoadingController,
-    private toastController: ToastController
-  ) {}
-   
+    private toastController: ToastController,private activatedRouter:ActivatedRoute) {
+     try{
+       this.activatedRouter.queryParams.subscribe(param =>{
+         if (this.router.getCurrentNavigation()?.extras.state){
+           this.redirigir = this.router.getCurrentNavigation()?.extras?.state?.["pagina"];
+         }
+       })
+     }catch(e:any){
+      console.log("Algo salió mal");console.log(e)
+     }
+    }   
   ionViewWillEnter(){
-    localStorage.clear()
+    if(!this.redirigir){
+      localStorage.clear()
+    }else{
+      localStorage.removeItem("idUser");
+    }
   }
   
   irRecuperar(){
@@ -41,9 +53,17 @@ export class HomePage {
         console.log(json)
         response.dismiss()
         if(json.usuario.length >0){
-          localStorage.setItem("idUser",JSON.stringify(json.usuario[0]))
-          this.router.navigate(['/perfil'])
-          this.codigo = ""
+          if(json.usuario[0].estado == "registrado"){
+            localStorage.setItem("idUser",JSON.stringify(json.usuario[0]))
+            if(this.redirigir){
+              this.router.navigate(["/"+this.redirigir])
+            }else{
+              this.router.navigate(['/perfil'])
+            }
+            this.codigo = ""
+          }else{
+            this.presentToast("bottom","Usuario no puede iniciar sesión, comuníquese con el gimnasio para más detalles",3500)
+          }
         }else{
           
           this.presentToast("bottom","Usuario no registrado",2500)

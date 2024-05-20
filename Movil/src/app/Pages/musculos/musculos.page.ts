@@ -42,11 +42,11 @@ export class MusculosPage implements OnInit {
 
 
   verEjerciciosMusc(x:string){
-      this.router.navigate(['/ejercicios/'+x],{state:{flag:false}})
+      this.router.navigate(['/ejercicios/'+x+"/false"],{state:{flag:false}})
   }
 
   verEjerciciosMaq(x:string){
-    this.router.navigate(['/ejercicios/'+x],{state:{flag:true}})
+    this.router.navigate(['/ejercicios/'+x+"/true"],{state:{flag:true}})
 }
 
   IngresarMusculos(){

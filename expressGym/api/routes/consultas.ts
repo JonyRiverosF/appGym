@@ -46,7 +46,7 @@ router.get("/dietasPorTipo/:tipo",(req:Request,res:Response)=>{
 
 router.get("/ejerciciosPorMusculos/:musc",(req:Request,res:Response)=>{
     var musculo = req.params.musc
-    modelos.EjerciciosModelo.find({tipoMusculo:musculo}).then(respuesta=>{
+    modelos.EjerciciosModelo.find({tipoMusculo:musculo,estado:"activado"}).then(respuesta=>{
         res.status(200).json({
             respuesta
         })
@@ -55,7 +55,7 @@ router.get("/ejerciciosPorMusculos/:musc",(req:Request,res:Response)=>{
 
 router.get("/ejerciciosPorMaquina/:maq",(req:Request,res:Response)=>{
     var maquina = req.params.maq;
-    modelos.EjerciciosModelo.find({tipoMaquina:maquina}).exec().then(respuesta=>{
+    modelos.EjerciciosModelo.find({tipoMaquina:maquina,estado:"activado"}).exec().then(respuesta=>{
         res.status(200).json(respuesta)
     })
 })

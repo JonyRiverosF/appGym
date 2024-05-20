@@ -21,11 +21,11 @@
       <ion-card-header>
         <ion-card-title style="font-size: 20px;color:rgb(255, 255, 255)"><h1>{{ejercicio.Titulo}}</h1></ion-card-title>
       </ion-card-header>
-    <img alt="Silhouette of mountains" [src]="ejercicio.foto" />
+    <img alt="Silhouette of mountains" [src]="ejercicio.foto" width="100%" style="max-width: 400px; height: 220px;" />
     
     <ion-card-content style="text-align: center;">
       <h1 style="color:white;">Vídeo de apoyo</h1>
-      <video [src]="ejercicio.video" controls style="max-width: 70%;max-height: 50%;"></video>
+      <video [src]="ejercicio.video" controls width="100%" style="max-width: 400px;" height="220px"></video>
       <!-- Boton Guardado -->
       <div *ngIf="!boton">
           <ion-button color="warning" shape="round" (click)="guardar()">
