@@ -1,7 +1,7 @@
 //Creacion de la noticia 
 $(document).ready(function(){
 
-    var apiUrl = "http://192.168.1.2:3000";
+    var apiUrl = "http://10.155.86.66:3000";
 
     $("#fotoE").change(function(e){
         foto = e.target.files[0]

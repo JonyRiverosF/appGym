@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var ficha 
-    var apiUrl = "http://192.168.1.2:3000";
+    var apiUrl = "http://10.155.86.66:3000";
     var flagCorreo = false;
     var flagRut = false;
     var horarios 
@@ -277,6 +277,7 @@ $(document).ready(function(){
                             formulario.append("rut",String (Rut));
                             formulario.append("telefono", Telefono);
                             formulario.append("correo", Correo);
+                            formulario.append("registroWeb", "true");
             
                             if (ficha) {
                                 formulario.append("fichaMedica", ficha);
