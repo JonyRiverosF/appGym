@@ -27,28 +27,54 @@ function iniciarCliente(){
     gmail = google.gmail({version: 'v1',auth: oauth2Client});
 }
 
-function enviarCodigoSeguridad(codigoSeguridad:string,correoU:string){
-    const emailLines = [
-        'From: colinagym3@gmail.com',
-        'To: '+correoU,
-        'Content-type: text/html;charset=iso-8859-1',
-        'MIME-Version: 1.0',
-        'Subject: Codigo de seguridad',
-        '',
-        'Bienvenido al gimnasio de Colina, para finalizar con tu registro debes ingresar el código de seguridad '+
-        'en la aplicación. Cuando se verifique su identidad, podrás acceder a la App con tu correo electrónico o '+
-        'con una clave de acceso que se te enviará al correo. Tú código de seguridad es: '+codigoSeguridad
-      ];
+function enviarCodigoSeguridad(codigoSeguridad:string,correoU:string,rut:any,flag:string){
+    if(flag=="true"){
+        const emailLines = [
+            'From: colinagym3@gmail.com',
+            'To: '+correoU,
+            'Content-type: text/html;charset=iso-8859-1',
+            'MIME-Version: 1.0',
+            'Subject: Codigo de seguridad',
+            '',
+            'Bienvenido al gimnasio de Colina, para finalizar con tu registro debes ingresar el código de seguridad '+
+            'en la aplicación. Cuando se verifique su identidad, podrás acceder a la App con tu correo electrónico o '+
+            'con una clave de acceso que se te enviará al correo. '+
+            'Presiona el siguiente link para redirigirlo a la parte final de su registro '+
+            'http://10.155.86.66:8100/confirmar-registro/'+rut
+            +' Tú código de seguridad es: '+codigoSeguridad
+          ];
+          const email = emailLines.join('\r\n').trim();
+          const base64Email = Buffer.from(email).toString('base64');
+          gmail.users.messages.send({
+             userId:"colinagym3@gmail.com",
+             requestBody:{
+                 raw:base64Email
+             }
+           })
+    }else{
+        const emailLines = [
+            'From: colinagym3@gmail.com',
+            'To: '+correoU,
+            'Content-type: text/html;charset=iso-8859-1',
+            'MIME-Version: 1.0',
+            'Subject: Codigo de seguridad',
+            '',
+            'Bienvenido al gimnasio de Colina, para finalizar con tu registro debes ingresar el código de seguridad '+
+            'en la aplicación. Cuando se verifique su identidad, podrás acceder a la App con tu correo electrónico o '+
+            'con una clave de acceso que se te enviará al correo.'
+            +' Tú código de seguridad es: '+codigoSeguridad
+          ];
+          const email = emailLines.join('\r\n').trim();
+          const base64Email = Buffer.from(email).toString('base64');
+          gmail.users.messages.send({
+             userId:"colinagym3@gmail.com",
+             requestBody:{
+                 raw:base64Email
+             }
+           })
+    }
     
-      const email = emailLines.join('\r\n').trim();
-      const base64Email = Buffer.from(email).toString('base64');
     
-     gmail.users.messages.send({
-        userId:"colinagym3@gmail.com",
-        requestBody:{
-            raw:base64Email
-        }
-      })
 }
 
 function enviarCodigoAcceso(codigoAcceso:any,correoUser:any,user:any){

@@ -66,7 +66,8 @@ router.post("/checkIn/:id",(req:Request,res:Response)=>{
     var rut = req.params.id;
     modelos.checkInModelo.create({
         usuario:rut,
-        dia: new Date()
+        dia: new Date(),
+        estado:"activo"
     }).then(respuesta=>{
         res.status(201).json(respuesta)
     }).catch(error=>{
@@ -437,7 +438,12 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                 })
             })
         }
-        correos.enviarCodigoSeguridad(codigoSeguridad,req.body.correo)
+        if(req.body.registroWeb=="true"){
+            correos.enviarCodigoSeguridad(codigoSeguridad,req.body.correo,req.body.rut,req.body.registroWeb)    
+        }else{
+            let flag = "false";
+            correos.enviarCodigoSeguridad(codigoSeguridad,req.body.correo,req.body.rut,flag)
+        }
     }catch(error:any){
         console.log(error.message)
         res.status(400).json({

@@ -12,16 +12,19 @@ export class ConfirmarRegistroPage implements OnInit {
  
   infoUsuario:any={};codigoSeg!:number;
   constructor(private activatedRouter:ActivatedRoute,private router:Router,private api:ExpressService,
-    private alertController: AlertController
-  ) {
-    this.activatedRouter.queryParams.subscribe(param=>{
-      if(this.router.getCurrentNavigation()?.extras.state){
-          this.infoUsuario = this.router.getCurrentNavigation()?.extras.state?.["infoUsuario"]
-          console.log(this.infoUsuario)
-      }
-    })
+    private alertController: AlertController) {
    }
 
+
+  ionViewWillEnter(){
+    var rut = String(this.activatedRouter.snapshot.paramMap.get('rut'))
+    var formulario = new FormData()
+    formulario.append("rut",rut)
+    this.api.rutRepetido(formulario).then(res=>res.json()).then(res=>{
+      console.log(res.respuesta[0])
+        this.infoUsuario = res.respuesta[0]
+    })
+  }
   validarUsuario(){
     var formulario = new FormData();
     formulario.append("codigoSeg",String(this.codigoSeg));
