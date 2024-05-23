@@ -378,12 +378,13 @@
 
   <div class="container-fluid">
 
+    {% for t in chekin %}
 
     <div>
-      <h1 style="color: #000000;">{{chekin.usuario}}</h1>
+      <h1 style="color: #000000;background-color: #ffffffbe;">{{t.usuario}}</h1>
     </div>
 
-
+    {% endfor %}
 
 
 
