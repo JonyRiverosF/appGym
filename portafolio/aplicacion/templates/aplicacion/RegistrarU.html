@@ -302,6 +302,32 @@ nav > ul > li > ul > li > ul:before {
     opacity: 1;
   }
 }
+
+
+.seleccion-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: -20px;
+           
+        }
+        .seleccion-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            margin-top: -20px;
+        }
+        .seleccion {
+            width: 100px;
+            height: 100px;
+            background-color:  #7cbc65;
+            color: #000000;
+            display: none; /* Inicialmente oculto */
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin: 0 10px;
+            text-align: center;
+        }
 </style>
 </head>
 
@@ -392,8 +418,9 @@ nav > ul > li > ul > li > ul:before {
                     {% csrf_token %}
                     <h1 class="letraLo" style="text-align: center;">Registrar Usuario</h1>
                     <div class="form"></div>
-    
-                    <div class="row">
+
+                  
+                    <div class="row" >
                         <div class="col">
                             <div class="grupo">
                                 <input type="text" name="nombre" id="nombre" value="{{nombre}}" placeholder="EJ:JUAN"><span class="barra"></span>
@@ -408,55 +435,74 @@ nav > ul > li > ul > li > ul:before {
                         </div>
                     </div>
     
-                    <div class="row">
-                        <div class="col">
-                            <div class="grupo">
-                              <input type="text" name="rut" id="rut" placeholder="EJ:20.458.389-4"  ><span class="barra" ></span>
-                                <label for=""><h5>Rut</h5></label>
-                            </div>
-                        </div>
-                        <div class="col">
-                        <div class="grupo">
-                          <input type="date" name="horarioU" id="horarioU"><span class="barra" ></span>
-                          <label for=""><h5>Horario</h5></label>
-                          <select id="horas" class="form-control" style="text-transform: uppercase;">
-                            <option selected>Seleccione hora</option>
-                        </select>
-                        <p class="warnings" id="mensajeHora"></p>
-                      </div>
-                        </div>
-                    </div>
                     
-                    <div class="row">
-                        <div class="col">
+                    <div class="row" style="margin-top: -40px;">
+                      <div class="col-md-6">
+                        <div class="grupo">
+                          <input type="text" name="rut" id="rut" placeholder="EJ:20.458.389-4"  ><span class="barra" ></span>
+                            <label for=""><h5>Rut</h5></label>
+                        </div>
+                      </div>
+                        <div class="col-md-6">
                             <div class="grupo">
                                 <input type="text" name="correo" id="correo" placeholder="EJ:A@A.CL"><span class="barra"></span>
                                 <label for=""><h5>Correo Electrónico</h5></label>
                             </div>
                         </div>
-                        <div class="col">
+                    </div>
+
+                    <div class="row" style="margin-top: -40px;">
+                      <div class="col">
+                        <div class="grupo">
+                          <input type="date" name="horarioU" id="horarioU"><span class="barra" ></span>
+                          <label for=""><h5>Horario</h5></label>
+                       
+                      </div>
+                        </div>
+
+                        <div class="col" style="margin-top: 60px;">
+                          <select id="horas" class="form-control" style="text-transform: uppercase;">
+                            <option selected>Seleccione hora</option>
+                        </select>
+                        </div>
+                    </div>
+                    
+                    <div class="seleccion-container">
+                      <div class="seleccion-wrapper">
+                          <div class="seleccion" id="seleccion1"></div>
+                      </div>
+                      <div class="seleccion-wrapper">
+                          <div class="seleccion" id="seleccion2"></div>
+                      </div>
+                      <div class="seleccion-wrapper">
+                          <div class="seleccion" id="seleccion3"></div>
+                      </div>
+                  </div><br>
+    
+                    
+                    <div class="row" style="margin-top: -40px;">
+                      <div class="col-md-6">
                           <div class="grupo">
                               <input type="number" name="telefono" id="telefono" placeholder="EJ:9 6842 6213"><span class="barra"></span>
                               <label for=""><h5>Teléfono</h5></label>
                           </div>
                       </div>
-                        
-                    </div>
-    
-                    
-    
-                    <div class="grupo" style="text-align: center;">
-                      <div class="grupo" style="text-align: center;">
-                          <label>¿Tienen Ficha Médica?</label>
-                          <div class="custom-radio-container">
-                              <input type="radio" id="fichaSi" name="ficha" value="si"  onclick="mostrarFicha()">
-                              <label for="fichaSi" class="custom-radio">Si</label>
-                              
-                              <input type="radio" id="fichaNo" name="ficha" value="no" onclick="ocultarFicha()">
-                              <label for="fichaNo" class="custom-radio">No</label>
+                      <div class="col-md-6">
+                        <div class="grupo" style="text-align: center;" >
+                          <div class="grupo" style="text-align: center;">
+                              <label>¿Tienen Ficha Médica?</label>
+                              <div class="custom-radio-container">
+                                  <input type="radio" id="fichaSi" name="ficha" value="si"  onclick="mostrarFicha()">
+                                  <label for="fichaSi" class="custom-radio">Si</label>
+                                  
+                                  <input type="radio" id="fichaNo" name="ficha" value="no" onclick="ocultarFicha()">
+                                  <label for="fichaNo" class="custom-radio">No</label>
+                              </div>
                           </div>
                       </div>
-                  </div>
+                      </div>
+                    </div>
+                    
 
                     <div id="fichaMedicaSi" style="display:none;">
                       
@@ -556,6 +602,45 @@ nav > ul > li > ul > li > ul:before {
     }
   });
 
+
+  const horarioInput = document.getElementById('horarioU');
+    const horasSelect = document.getElementById('horas');
+    const mensajeHora = document.getElementById('mensajeHora');
+
+    const seleccion1 = document.getElementById('seleccion1');
+    const seleccion2 = document.getElementById('seleccion2');
+    const seleccion3 = document.getElementById('seleccion3');
+
+    const selecciones = [];
+
+    horasSelect.addEventListener('change', () => {
+        const fecha = horarioInput.value;
+        const hora = horasSelect.value;
+
+        if (fecha && hora && selecciones.length < 3) {
+            const seleccion = `${fecha} ${hora}`;
+            selecciones.push(seleccion);
+
+            actualizarSeleccionDisplay();
+        } else if (selecciones.length >= 3) {
+            mensajeHora.textContent = 'Solo puedes seleccionar un máximo de 3 horarios.';
+        }
+    });
+
+    function actualizarSeleccionDisplay() {
+        if (selecciones[0]) {
+            seleccion1.textContent = selecciones[0];
+            seleccion1.style.display = 'flex';
+        }
+        if (selecciones[1]) {
+            seleccion2.textContent = selecciones[1];
+            seleccion2.style.display = 'flex';
+        }
+        if (selecciones[2]) {
+            seleccion3.textContent = selecciones[2];
+            seleccion3.style.display = 'flex';
+        }
+    }
     
   </script>
 
