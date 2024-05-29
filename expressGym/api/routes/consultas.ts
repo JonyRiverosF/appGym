@@ -10,13 +10,13 @@ const directoryPath = "./public/videos/"
 
 
 router.get("/traerNoticias",(req:Request,res:Response)=>{
-    modelos.NoticiaModelo.find({}).exec().then(respuesta=>{
+    modelos.NoticiaModelo.find({estado:"activado"}).exec().then(respuesta=>{
         res.status(200).json(respuesta)
     })
 })
 
 router.get("/traerMusculos",(req:Request,res:Response)=>{
-   modelos.MusculoModelo.find({}).then((respuesta)=>{
+   modelos.MusculoModelo.find({estado:"activado"}).then((respuesta)=>{
     res.status(200).json({
         respuesta
     })
@@ -24,7 +24,7 @@ router.get("/traerMusculos",(req:Request,res:Response)=>{
 })
 
 router.get("/traerMaquinas",(req:Request,res:Response)=>{
-    modelos.MaquinasModelo.find({}).then(respuesta=>{
+    modelos.MaquinasModelo.find({estado:"activado"}).then(respuesta=>{
         res.status(200).json({
             respuesta
         })
@@ -32,14 +32,14 @@ router.get("/traerMaquinas",(req:Request,res:Response)=>{
 })
 
 router.get("/traerTipoDietas",(req:Request,res:Response)=>{
-    modelos.tipoDietasModelo.find({}).exec().then(respuesta=>{
+    modelos.tipoDietasModelo.find({estado:"activado"}).exec().then(respuesta=>{
         res.status(200).json(respuesta)
     })
 })
 
 router.get("/dietasPorTipo/:tipo",(req:Request,res:Response)=>{
     var tipoDieta = req.params.tipo
-    modelos.DietasModelo.find({tipoD:tipoDieta}).exec().then(respuesta=>{
+    modelos.DietasModelo.find({tipoD:tipoDieta,estado:"activado"}).exec().then(respuesta=>{
         res.status(200).json(respuesta)
     })
 })

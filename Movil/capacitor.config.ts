@@ -5,10 +5,11 @@ const config: CapacitorConfig = {
   appName: 'colinaGym',
   webDir: 'www',
   server: {
-    androidScheme: 'http'
+    androidScheme: 'http',
+    cleartext:true
   },
   android:{
-    allowMixedContent:true
+    allowMixedContent:true,
   }
 };
 
