@@ -66,6 +66,7 @@ router.post("/checkIn/:id",(req:Request,res:Response)=>{
     var rut = req.params.id;
     modelos.checkInModelo.create({
         usuario:rut,
+        nombre:nombre,
         dia: new Date(),
         estado:"activo"
     }).then(respuesta=>{

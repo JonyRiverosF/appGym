@@ -380,9 +380,13 @@
 
     {% for t in chekin %}
 
+      {% for i in usuarios%}
+
     <div>
-      <h1 style="color: #000000;background-color: #ffffffbe;">{{t.usuario}}</h1>
+      <h1 style="color: #000000;background-color: #ffffffbe;">{{t.usuario}} {{i.nombre}} {{i.apellido}}</h1>
     </div>
+
+      {% endfor %}
 
     {% endfor %}
 

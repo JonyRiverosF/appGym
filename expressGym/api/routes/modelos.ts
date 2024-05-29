@@ -140,6 +140,7 @@ var solicitudModelo = mongoose.model("solicitudes",solicitudSchema)
 
 var tablaCheckIn = new mongoose.Schema({
     usuario:String,
+    nombre:String,
     dia:Date,
     estado:String
 })
