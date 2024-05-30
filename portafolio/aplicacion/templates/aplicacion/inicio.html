@@ -376,17 +376,13 @@
     </div>
   <br>
 
-  <div class="container-fluid">
+  <div class="container">
 
     {% for t in chekin %}
 
-      {% for i in usuarios%}
-
     <div>
-      <h1 style="color: #000000;background-color: #ffffffbe;">{{t.usuario}} {{i.nombre}} {{i.apellido}}</h1>
+      <h1 style="color: #000000;background-color: #ffffffbe;">{{t.usuario}} {{t.nombre}}</h1>
     </div>
-
-      {% endfor %}
 
     {% endfor %}
 

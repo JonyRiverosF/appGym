@@ -406,7 +406,6 @@ nav > ul > li > ul > li > ul:before {
       <table class="table">
           <tr>
             <th>Nombre </th>
-            <th>Horario</th>
             <th>Boton</th>
           </tr>
           
@@ -415,7 +414,9 @@ nav > ul > li > ul > li > ul:before {
             <td>{{ u.nombre }} {{ u.apellido }}</td>
             
             <td>
+              <p style="text-align: center;">
               <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn-warning">Modificar</a>
+              </p>
             </td>
           </tr>
           

@@ -475,57 +475,50 @@ nav > ul > li > ul > li > ul:before {
                   <span class="barra"></span>
               </div>
           </div>
+
           <div class="col">
             <div class="grupo">
-              <label>Horario</label>
-                <input type="date" name="horarioU" id="horarioU" value="{{usuarios.horarioU}}" required>
+                <label>Correo</label>
+                <input type="text" class="form-control" required value="{{ usuarios.correo }}" id="correo" name="correo">
                 <span class="barra"></span>
             </div>
-          </div>
+        </div>
+          
       </div>
 
       <div class="row" style="margin-top: -55px;">
-          <div class="col">
-              <div class="grupo">
-                  <label>Correo</label>
-                  <input type="text" class="form-control" required value="{{ usuarios.correo }}" id="correo" name="correo">
-                  <span class="barra"></span>
-              </div>
-          </div>
-          <div class="col">
+          
+          <div class="col-md-6">
               <div class="grupo">
                   <label>Teléfono</label>
                   <input type="number" class="form-control" required value="{{ usuarios.telefono }}" id="telefono" name="telefono">
                   <span class="barra"></span>
               </div>
           </div>
+          <div class="col-md-6">
+            <div class="grupo">
+              <label>Rol</label>
+              <select class="form-control" name="RolU" id="RolU">
+                  {% if usuarios.rol == "1" %}
+                  <option value="1" selected>Cliente</option>
+                  <option value="2">Administrador</option>
+                  <option value="3">Administrador de Comunidad</option>
+                  {% elif usuarios.rol == "2" %}
+                  <option value="1">Cliente</option>
+                  <option value="2" selected>Administrador</option>
+                  <option value="3">Administrador de Comunidad</option>
+                  {% elif usuarios.rol == "3" %}
+                  <option value="1">Cliente</option>
+                  <option value="2">Administrador</option>
+                  <option value="3" selected>Administrador de Comunidad</option>
+                  {% endif %}
+              </select>
+          </div>
+          
+          
+          </div>
       </div>
 
-      <div class="row" style="margin-top: -55px;">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-          <div class="grupo">
-            <label>Rol</label>
-            <select class="form-control" name="RolU" id="RolU">
-                {% if usuarios.rol == "1" %}
-                <option value="1" selected>Cliente</option>
-                <option value="2">Administrador</option>
-                <option value="3">Administrador de Comunidad</option>
-                {% elif usuarios.rol == "2" %}
-                <option value="1">Cliente</option>
-                <option value="2" selected>Administrador</option>
-                <option value="3">Administrador de Comunidad</option>
-                {% elif usuarios.rol == "3" %}
-                <option value="1">Cliente</option>
-                <option value="2">Administrador</option>
-                <option value="3" selected>Administrador de Comunidad</option>
-                {% endif %}
-            </select>
-        </div>
-        <div class="col-md-4"></div>
-        
-        </div>
-    </div>
 
       
     <div class="row">
