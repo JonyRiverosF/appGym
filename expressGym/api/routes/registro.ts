@@ -62,11 +62,11 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
 })
 
     
-router.post("/checkIn/:id",(req:Request,res:Response)=>{
+router.post("/checkIn/:id",upload.any(),(req:Request,res:Response)=>{
     var rut = req.params.id;
     modelos.checkInModelo.create({
         usuario:rut,
-        nombre:nombre,
+        nombre:req.body.nombre,
         dia: new Date(),
         estado:"activo"
     }).then(respuesta=>{

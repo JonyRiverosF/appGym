@@ -8,9 +8,9 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://192.168.1.6:3000";
+  private  apiUrl="http://10.155.85.157:3000";
 
-  public urlApi = "http://192.168.1.6:3000/creacion/"
+  public urlApi = "http://10.155.85.157:3000/creacion/"
 
 
   //GET
@@ -140,9 +140,10 @@ export class ExpressService {
     })
   }
 
-  checkIn(rut:any){
+  checkIn(rut:any,body:any){
     return fetch(this.apiUrl+"/creacion/checkIn/"+rut,{
-      method:"POST"
+      method:"POST",
+      body:body
     })
   }
   checkOut(rut:any){

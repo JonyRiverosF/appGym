@@ -24,7 +24,9 @@ export class CheckInPage implements OnInit {
         this.router.navigate(["/home"])
        }else{
         response.present();
-        this.api.checkIn(String(this.usuario.rut)).then(res=>res.json()).then(res=>{
+        var formulario = new FormData();
+        formulario.append("nombre",this.usuario.nombre+" "+this.usuario.apellido)
+        this.api.checkIn(String(this.usuario.rut),formulario).then(res=>res.json()).then(res=>{
            response.dismiss();
            this.presentToast("bottom","Bienvenido al gimnasio")
            this.router.navigate(["/perfil"]) 
