@@ -43,65 +43,6 @@
 
 
 
-<!-- Textarea -->
-<ion-grid>
-  <ion-row>
-    <ion-col size="1"></ion-col>
-    <ion-col size="10">
-      <p style="text-align:center;">
-        <textarea rows="4" cols="30" placeholder="Añade un comentario" [(ngModel)]="comentario" ></textarea>
-      </p>
-    </ion-col>
-    <ion-col size="1"></ion-col>
-  </ion-row>
-
-  <!-- Boton -->
-  <ion-row>
-    <ion-col size="1"></ion-col>
-    <ion-col size="10">
-      <p style="text-align:center;margin-top: -15px;">
-        <ion-button color="warning"  shape="round">Enviar</ion-button>
-      </p>
-    </ion-col>
-    <ion-col size="1"></ion-col>
-  </ion-row>
-
-  <!-- Comentarios -->
-  <ion-card>
-    <ion-card-header>
-      <ion-title style="color: white;">Comentarios</ion-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <div *ngFor="let x of comen">
-            <ion-item color="light">
-              <ion-avatar slot="start">                  
-                <img *ngIf="x.img == ''" src="assets/icon/MAXIMOVIES.png" alt="uwu">
-                <img *ngIf="x.img != ''" [src]="x.img" alt="uwu">
-              </ion-avatar>
-              <ion-textarea labelPlacement="floating" [label]="x.username" readonly [value]="x.comentario"></ion-textarea>
-              <ion-note (click)="responder(x)">Responder</ion-note>
-            </ion-item>
-
-            <!-- SubComentarios -->
-            <div *ngIf="x.mostrar"> 
-              <ion-item color="light">
-              <ion-input placerholder="Escriba su comentario" type="text" [(ngModel)]="subComentario" ></ion-input>
-              <ion-icon name="send-sharp" (click)="sub(x)"></ion-icon>
-            </ion-item>
-            </div>
-          
-      </div>
-      </ion-list>
-    </ion-card-content>
-   </ion-card>
-  
-  
-  
-</ion-grid>
-
-
-
 
 </ion-content>
 
