@@ -8,9 +8,9 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://192.168.1.7:3000";
+  private  apiUrl="http://192.168.100.232:3000";
 
-  public urlApi = "http://192.168.1.7:3000/creacion/"
+  public urlApi = "http://192.168.100.232:3000/creacion/"
 
 
   //GET
