@@ -58,10 +58,10 @@ export class DetalleNoticiaPage implements OnInit {
         //console.log(this.noticia 
   }
   
-  reportar(nombre:any,comentario:any,id:any){
+  reportar(user:any,comentario:any,id:any){
     var formulario = new FormData();
-    formulario.append("nombre",nombre);formulario.append("comentario",comentario);
-    formulario.append("idComen",id)
+    formulario.append("nombre",user.nombre);formulario.append("comentario",comentario);
+    formulario.append("idComen",id);formulario.append("rut",user.id)
     this.loading(10000).then(response=>{
       response.present();
       this.api.reportar(formulario).then(res=>res.json()).then(res=>{

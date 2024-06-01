@@ -663,6 +663,7 @@ router.post("/enviarSolicitud",upload.any(),(req:Request,res:Response)=>{
 router.post("/enviarReporte",upload.any(),(req:Request,res:Response)=>{
     try{
         modelos.reportesModelo.create({
+            rut:req.body.rut,
             userReportado:req.body.nombre,
             comentario:req.body.comentario,
             estado:"activo",
