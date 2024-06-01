@@ -668,8 +668,14 @@ router.post("/enviarReporte",upload.any(),(req:Request,res:Response)=>{
             estado:"activo",
             fechaEmision:new Date()
         }).then(respuesta=>{
-            res.status(201).json(respuesta)
-
+            modelos.comentariosModel.findByIdAndUpdate(req.body.idComen,{
+                reportado:true
+            }).exec().then(respuesta=>{
+                console.log(req.body.idComen)
+                res.status(201).json({respuesta,msj:"Reporte exitoso"})
+            }).catch(error=>{
+                res.status(500).json(error);
+            })
         })
     }catch(e:any){
        res.status(500).json(e)

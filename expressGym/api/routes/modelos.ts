@@ -32,7 +32,8 @@ var comentarioSchema = new mongoose.Schema({
             nombreReceptor:String
         }
     },
-    estado:String
+    estado:String,
+    reportado:Boolean
 
 });
 

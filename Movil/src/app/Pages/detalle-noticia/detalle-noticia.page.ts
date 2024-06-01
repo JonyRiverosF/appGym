@@ -32,7 +32,7 @@ export class DetalleNoticiaPage implements OnInit {
   ) {}
 
   detalleNoticia(){
-    this.loading(20000).then(async response=>{
+    return this.loading(20000).then(async response=>{
     response.present();
     this.api.detalleNoticia(this.idNoticia).then(res=>res.json()).then(res=>{
       this.noticia = res.noticia;
@@ -58,14 +58,17 @@ export class DetalleNoticiaPage implements OnInit {
         //console.log(this.noticia 
   }
   
-  reportar(nombre:any,comentario:any){
+  reportar(nombre:any,comentario:any,id:any){
     var formulario = new FormData();
     formulario.append("nombre",nombre);formulario.append("comentario",comentario);
+    formulario.append("idComen",id)
     this.loading(10000).then(response=>{
       response.present();
       this.api.reportar(formulario).then(res=>res.json()).then(res=>{
          this.presentToast("bottom","Reporte realizado exitosamente");
-         response.dismiss();
+         this.detalleNoticia().then(()=>{
+           response.dismiss();
+         })
       }).catch(error=>{
         response.dismiss();
         this.presentToast("bottom","Algo salió mal");
