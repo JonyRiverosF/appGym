@@ -95,4 +95,20 @@ router.post("/respuestaSoli/:id",upload.any(),(req:Request,res:Response)=>{
     }) 
 })
 
+router.post("/recuperarCodigo",upload.any(),(req:Request,res:Response)=>{
+    var contador=0;var codigo = "";
+    var codigoSeguridad="";
+    while(contador < 4){
+       codigo += String(Math.floor(Math.random()*10))
+       contador++;
+    }
+    modelos.usuarioModelo.findOneAndUpdate({correo:req.body.correo},{
+        codigo
+    }).exec().then(respuesta=>{
+        console.log(respuesta)
+        correos.recuperarCodigo(req.body.correo,codigo)
+        res.status(201).json(respuesta)
+    })
+
+})
 export default module.exports=router

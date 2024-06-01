@@ -8,9 +8,9 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://192.168.0.21:3000";
+  private  apiUrl="http://192.168.1.7:3000";
 
-  public urlApi = "http://192.168.0.21:3000/creacion/"
+  public urlApi = "http://192.168.1.7:3000/creacion/"
 
 
   //GET
@@ -105,6 +105,14 @@ export class ExpressService {
       method:"POST",
       body:codigo
     })
+  }
+
+  recuperarSoli(formulario:any){
+      return fetch(this.apiUrl+"/validaciones/recuperarCodigo",{
+        method:"POST",
+        body:formulario
+      }
+      )
   }
 
   guardarHorario(formulario:any){

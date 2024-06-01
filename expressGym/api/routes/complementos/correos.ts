@@ -123,7 +123,26 @@ function respuestSolicitud(correoUser:any,user:any,respuesta:any,asunto:any){
       })
 }
 
+function recuperarCodigo(correoUser:any,codigo:any){
+    const emailLines = [
+        'From: colinagym3@gmail.com',
+        'To: '+correoUser,
+        'Content-type: text/html;charset=iso-8859-1',
+        'MIME-Version: 1.0',
+        'Subject: Solicitud de cambio de clave de acceso',
+        '',
+        'Hola, solicitaste recuperar tu código. Tu nuevo código de acceso es: ' + codigo
+      ];
+    
+      const email = emailLines.join('\r\n').trim();
+      const base64Email = Buffer.from(email).toString('base64');
+    
+     gmail.users.messages.send({
+        userId:"colinagym3@gmail.com",
+        requestBody:{
+            raw:base64Email
+        }
+      })
+}
 
-
-
-export default module.exports = {iniciarCliente,enviarCodigoSeguridad,enviarCodigoAcceso,respuestSolicitud}
+export default module.exports = {iniciarCliente,enviarCodigoSeguridad,enviarCodigoAcceso,respuestSolicitud,recuperarCodigo}

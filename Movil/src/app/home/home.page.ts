@@ -13,6 +13,7 @@ export class HomePage {
   //formulario
   codigo:string="";
   msj:string="";
+  correo:string="";
   validado:boolean=true;
 
   //flag
@@ -46,7 +47,7 @@ export class HomePage {
   codigoVerificado(){
   
     var irLogin = new FormData();
-    irLogin.append("codigo",String(this.codigo))
+    irLogin.append("codigo",String(this.codigo));irLogin.append("correo",this.correo)
     this.loading(60000).then(response=>{
       response.present();
       this.api.login(irLogin).then(res=>res.json()).then(json=>{
@@ -60,13 +61,13 @@ export class HomePage {
             }else{
               this.router.navigate(['/perfil'])
             }
-            this.codigo = ""
+            this.codigo = "";this.correo="";
           }else{
             this.presentToast("bottom","Usuario no puede iniciar sesión, comuníquese con el gimnasio para más detalles",3500)
           }
         }else{
           
-          this.presentToast("bottom","Usuario no registrado",2500)
+          this.presentToast("bottom","Credenciales incorrectas, revise bien su correo o código",2500)
         }
       })
     })

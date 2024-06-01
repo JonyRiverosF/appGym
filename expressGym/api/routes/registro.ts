@@ -458,8 +458,8 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
 })
 
 router.post("/login",upload.any(),(req:Request,res:Response)=>{
-    if(isNaN(req.body.codigo)){
-        modelos.usuarioModelo.find({correo:req.body.codigo}).exec().then(resultado=>{
+        modelos.usuarioModelo.find({correo:req.body.correo,codigo:req.body.codigo}).exec().then(resultado=>{
+            console.log(req.body.codigo)
             if(resultado.length > 0){                
                 res.status(201).json({
                     usuario:resultado
@@ -474,23 +474,6 @@ router.post("/login",upload.any(),(req:Request,res:Response)=>{
             console.log("algo salió mal");
             console.log(error);
         })
-    }else{
-        modelos.usuarioModelo.find({codigo:req.body.codigo}).exec().then(resultado=>{
-            if(resultado.length > 0){                
-                res.status(201).json({
-                    usuario:resultado
-                })
-                    
-            }else{
-                res.status(201).json({
-                    usuario:[]
-                })
-            }
-        }).catch(error=>{
-            console.log("algo salió mal");
-            console.log(error);
-        })
-    }
 
 })
 
