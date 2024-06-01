@@ -403,13 +403,6 @@ nav > ul > li > ul > li > ul:before {
         </div>
         <div class="col-md-3"></div>
         <div class="col-md-3">
-            <div id="filtradoComentarios" style="display: none; margin-top: 39px;">
-                <select id="filtroPequeno" class="form-control" style="text-transform: uppercase;">
-                    <option value="todos" selected>Seleccione</option>
-                    <option value="comentariosP">Comentarios</option>
-                    <option value="subcomentarios">SubComentarios</option>
-                </select>
-            </div>
         </div>
     </div>
     <br>
@@ -486,18 +479,7 @@ nav > ul > li > ul > li > ul:before {
           document.getElementById('filtradoCupos').style.display = (filtro === 'cupos') ? 'block' : 'none';
       });
   
-      document.getElementById('filtroPequeno').addEventListener('change', function() {
-          var filtroPequeno = this.value;
-          var filas = document.querySelectorAll('tr.comentariosP');
-  
-          filas.forEach(function(fila) {
-              if (filtroPequeno === 'todos' || fila.classList.contains(filtroPequeno)) {
-                  fila.style.display = 'table-row';
-              } else {
-                  fila.style.display = 'none';
-              }
-          });
-      });
+     
   </script>
   
   

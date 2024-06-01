@@ -300,7 +300,43 @@
     }
   }
 
+ 
+  
 
+ /* Personas conectadas */
+.container {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 1280px; 
+}
+
+.info-box {
+    background-color: #ffffffbe;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    border-radius: 10px; 
+    text-align: center; 
+    font-family: Arial, sans-serif; 
+}
+
+.details {
+    display: none;
+    text-align: center;
+    font-family: Arial, sans-serif; 
+}
+
+.btn-fixed {
+    width: 120px; 
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-fixed:hover {
+    background-color: #e0a800; 
+}
 
   </style>
   </head>
@@ -377,18 +413,32 @@
   <br>
 
   <div class="container">
-
-    {% for t in chekin %}
-
-    <div>
-      <h1 style="color: #000000;background-color: #ffffffbe;text-align: center;">{{t.usuario}} {{t.nombre}}</h1>
+    <div class="info-box">
+        <p>Personas dentro de el gimnasio {{ num_personas }}.</p>
+        <a onclick="toggleDetails()" class="btn btn-warning btn-fixed">Ver más detalles</a>
     </div>
 
-    {% endfor %}
+    <div id="details" class="details">
+        {% for t in chekin %}
+            <div>
+                <h1 style="color: #000000; background-color: #ffffffbe; text-align: center; padding: 10px; border-radius: 5px;">
+                    {{ t.usuario }} {{ t.nombre }}
+                </h1>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
-
-
-  </div>
+<script>
+  function toggleDetails() {
+      var details = document.getElementById("details");
+      if (details.style.display === "none" || details.style.display === "") {
+          details.style.display = "block";
+      } else {
+          details.style.display = "none";
+      }
+  }
+</script>
 
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>

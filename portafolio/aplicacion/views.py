@@ -18,6 +18,8 @@ horarios=""
 usuarios=""
 solicitudes=""
 
+reportes=""
+
 checkin=""
 checkout=""
 
@@ -36,6 +38,8 @@ mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb
 
 dataBase = mongo["colinaGym"]
 usuarios = dataBase["usuarios"]
+
+reportes = dataBase["reportes"]
 
 ejercicios = dataBase["ejercicios"]
 musculos = dataBase["musculos"]
@@ -60,12 +64,13 @@ print("Connected to the MongoDB database!")
 #Pantallas Principales
 def pantalla(request):
 
-    Ingreso= checkin.find({"estado":"activo"})
-    tablaU = usuarios.find({})
-  
-    contexto={
-        "chekin":Ingreso,
-        "usuarios":tablaU
+    Ingreso = checkin.find({"estado": "activo"})
+   
+    num_personas = checkin.count_documents({"estado": "activo"})
+
+    contexto = {
+        "chekin": Ingreso,
+        "num_personas": num_personas
     }
 
     return render(request, "aplicacion/inicio.html",contexto)
@@ -126,7 +131,7 @@ def soli(request,id):
         "solicitud": owo["respuesta"][0]
     }
     
-    return render(request,"aplicacion/Solicitudes.html",contexto)
+    return render(request,"aplicacion/soli.html",contexto)
 
 def Informes(request):
 
@@ -144,12 +149,27 @@ def Informes(request):
 
 def VistaComentarios(request):
 
-    Comentarios=comentarios.find({})
+    Reportes1=reportes.find({"estado": "activo"})
 
+   
+
+    Reportes=reportes.find({"estado": "activo"})
+    
+    
+    ruts=[]
+    usuariosA =[] 
+    for reporte in Reportes:
+        print(reporte['rut'] in ruts)
+        if not reporte['rut'] in ruts:  
+            ruts.append(reporte['rut'])
+            usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
+    
+    
     contexto={
-        "comentarios":Comentarios,
+        "report":Reportes1,
+        "usuariosA":usuariosA
+        
     }
-
     
 
     return render(request,"aplicacion/VistaComentarios.html", contexto)

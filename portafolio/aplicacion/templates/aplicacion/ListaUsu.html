@@ -298,6 +298,38 @@ nav > ul > li > ul > li > ul:before {
     opacity: 1;
   }
 }
+
+
+/*Tabla*/
+
+.table {
+    width: 100%;
+}
+
+.half-width {
+    width: 50%;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.img-fixed {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-fixed {
+    width: 120px; 
+    display: inline-block;
+    text-align: center;
+    
+}
 </style>
 </head>
 
@@ -394,17 +426,17 @@ nav > ul > li > ul > li > ul:before {
       <div class="table-responsive">
       <table class="table">
           <tr>
-            <th>Nombre </th>
-            <th>Boton</th>
+            <th class="half-width">Nombre </th>
+            <th class="half-width">Boton</th>
           </tr>
           
           {% for u in usuarios %}
           <tr>
-            <td>{{ u.nombre }} {{ u.apellido }}</td>
+            <td> <h5 style="text-align: center;">{{ u.nombre }} {{ u.apellido }}</h5></td>
             
             <td>
               <p style="text-align: center;">
-              <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn-warning">Modificar</a>
+              <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn-warning btn-fixed" style="margin-top: 15px;">Modificar</a>
               </p>
             </td>
           </tr>

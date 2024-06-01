@@ -302,6 +302,37 @@
         opacity: 1;
       }
     }
+
+    /*Tabla*/
+
+.table {
+    width: 100%;
+}
+
+.half-width {
+    width: 50%;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.img-fixed {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-fixed {
+    width: 120px; 
+    display: inline-block;
+    text-align: center;
+    
+}
     </style>
     </head>
     
@@ -397,27 +428,27 @@
       <div class="table-responsive">
       <table class="table  centrar  letraVJ" style="background-color: rgb(255, 255, 255);" id="table">
           <tr>
-            <th>Noticias</th>
-            <TH>Botones</TH>
+            <th class="half-width">Noticias</th>
+            <TH class="half-width">Botones</TH>
           </tr>
           {% for n in listaN %}
           <tr>
             <td>
              
-              <img src="{{ n.foto }}" alt="No foto" style="width: 15%;height: 15%;"><BR>
-                <h5 >{{ n.tituloN }}</h5>
+              <img src="{{ n.foto }}" alt="No foto" class="img-fixed"><BR>
+                <h5 style="text-align: center;">{{ n.tituloN }}</h5>
                 
             </td>
             <td>
               
-                <a href="{% url 'ModificarNot' n.id %}" class="btn btn-warning" style="margin-top: 10px;">Modificar</a>
+                <a href="{% url 'ModificarNot' n.id %}" class="btn btn-warning btn-fixed" style="margin-top: 35px;">Modificar</a>
                 
                 {% if n.estado == 'activado' %}
-                <a href="{% url 'desactivarNoticias' n.id %}" class="btn btn-danger" style="margin-top: 10px;">Desactivar</a>
+                <a href="{% url 'desactivarNoticias' n.id %}" class="btn btn-danger btn-fixed" style="margin-top: 35px;">Desactivar</a>
 
                 {% else %}
 
-                <a href="{% url 'activarNoticias' n.id %}" class="btn btn-success" style="margin-top: 10px;" >Activar</a>
+                <a href="{% url 'activarNoticias' n.id %}" class="btn btn-success btn-fixed" style="margin-top: 35px;" >Activar</a>
 
                 {% endif %}
               

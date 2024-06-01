@@ -192,4 +192,46 @@ $(document).ready(function(){
 
     });
 
+
+
+
+
+
+
+
+
+
+
+
+    $("#FormRecuperarCodigo").submit(function(e){
+        e.preventDefault();  
+        var CorreoRecu = $("#CorreoRecu").val();
+        
+        let msjMostrar = "";
+        let enviar = false;
+        
+
+        if(enviar){
+            $("#mensaje_RecuperarCodigo").html(msjMostrar);
+            e.preventDefault();
+        }
+        else{
+            var formulario = new FormData();
+            formulario.append("tituloN", CorreoRecu);
+
+        fetch( apiUrl + '/modificar/modificarNoticia/' , {
+            method: 'PUT',
+            body: formulario
+        }).then(respuesta=>{
+            respuesta.json()
+
+        }).then(respuesta=>{
+            $("#mensaje_RecuperarCodigo").html("-Código Enviado a su correo.");
+            console.log(respuesta);
+        })  
+        }
+
+
+    });
+
 });

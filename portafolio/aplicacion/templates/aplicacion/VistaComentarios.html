@@ -302,6 +302,12 @@ nav > ul > li > ul > li > ul:before {
     opacity: 1;
   }
 }
+
+.btn-fixed {
+    width: 200px; 
+    display: inline-block;
+    text-align: center;
+}
 </style>
 </head>
 
@@ -328,7 +334,7 @@ nav > ul > li > ul > li > ul:before {
     
     <div class="col-md-3 col-sm-4"></div>
       <div class="col-md-6 col-sm-4">
-          <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Comentarios</h1><br>
+          <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Servidor de la comunidad</h1><br>
       </div>
       <div class="col-md-3 col-sm-4"></div>
   </div><br>
@@ -340,8 +346,8 @@ nav > ul > li > ul > li > ul:before {
       <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
           <select id="filtro" class="form-control" style="text-transform: uppercase;margin: -5px;">
               <option value="todos" selected>Seleccione categoría</option>
-              <option value="comentarios">Comentarios</option>
-              <option value="subcomentarios">Subcomentarios</option>
+              <option value="comentarios">Sin responder</option>
+              <option value="subcomentarios">Respondidos</option>
           </select>
     </div>
     <div class="col-md-6"></div>
@@ -350,25 +356,37 @@ nav > ul > li > ul > li > ul:before {
 <div class="row">
     <div class="table-responsive">
         <table class="table">
-            <tr>
+            <tr style="text-align: center;">
                 <th>Nombre</th>
                 <th>Comentario</th>
                 <th>Botones</th>
             </tr>
             
-            {% for u in comentarios %}
-            <tr class="comentarios" style="display: none;">
-                <td>{{ u.creadorDelComentario.nombre }}</td>
-                <td>{{ u.descripcion }}</td>
+            {% for u in report %}
+            <tr >
+                <td>{{ u.userReportado }}</td>
+                <td>{{ u.comentario }}</td>
                 
                 <td>
                   <p style="text-align: center;">
-                    <br><a href="" class="btn btn-warning" >Banear Usuario</a>
-                    
-                   
-                    <a href="" class="btn btn-danger" >Eliminar</a>
+                  <br>
 
-                   
+                    {% for a in usuariosA %}
+
+                      {% if u.rut == a.rut %}
+
+                        {% if a.warnings == 0 %}
+                        <a href="" class="btn btn-warning btn-fixed" >Banear Usuario</a>
+                        {% else %}
+                        <a href="" class="btn btn-warning btn-fixed" >Advertir</a><br>
+                        {% endif %}
+                        
+                      {% endif %}
+                    
+                    {% endfor %}
+                    
+                    <a href="" class="btn btn-success btn-fixed">Anular</a>
+
                   </p>
                     
                 </td>
@@ -379,20 +397,7 @@ nav > ul > li > ul > li > ul:before {
     </div>
 </div>
 
-<script>
-    document.getElementById('filtro').addEventListener('change', function() {
-        var filtro = this.value;
-        var filas = document.querySelectorAll('tr.comentarios');
-  
-        filas.forEach(function(fila) {
-            if (filtro === 'todos' || fila.classList.contains(filtro)) {
-                fila.style.display = 'table-row';
-            } else {
-                fila.style.display = 'none';
-            }
-        });
-    });
-</script>
+
 
 
 </div></div></div>

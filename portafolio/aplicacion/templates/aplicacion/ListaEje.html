@@ -299,6 +299,39 @@ nav > ul > li > ul > li > ul:before {
     opacity: 1;
   }
 }
+
+
+
+/*Tabla*/
+
+.table {
+    width: 100%;
+}
+
+.half-width {
+    width: 50%;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.img-fixed {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-fixed {
+    width: 120px; 
+    display: inline-block;
+    text-align: center;
+    
+}
 </style>
 </head>
 
@@ -391,95 +424,42 @@ nav > ul > li > ul > li > ul:before {
   </div><br>
 
  
+  
+
   <div class="row">
-    <div class="col-md-6">
-        <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
-        <select id="filtro" class="form-control" style="text-transform: uppercase;">
-            <option value="todos" selected>Seleccione Grupo Muscular</option>
-            {% for g in listaMusc %}
-              <option value="{{ g.nombre }}">{{ g.nombre }}</option>
-            {% endfor %}
-        </select>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="half-width">Nombre</th>
+                    <th class="half-width">Boton</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in listaEje %}
+                <tr>
+                    <td class="text-center">
+                        <img src="{{ m.foto }}" alt="No foto" class="img-fixed"><br>
+                        <h5 style="text-align: center;">{{ m.Titulo }}</h5>
+                    </td>
+                    <td class="text-center">
+                        <p>
+                          <a href="{% url 'ModificarEjer' m.id %}" class="btn btn-warning btn-fixed" style="margin-top: 35px;">Modificar</a>
+                          {% if m.estado == 'activado' %}
+                          <a href="{% url 'desactivarEjercicios' m.id %}" class="btn btn-danger btn-fixed" style="margin-top: 35px;">Desactivar</a>
+                          {% else %}
+                          <a href="{% url 'activarEjercicios' m.id %}" class="btn btn-success btn-fixed" style="margin-top: 35px;">Activar</a>
+                          {% endif %}
+                        </p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+  </div><br>
 
-    <div class="col-md-6">
-      <label for="filtro1" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
-      <select id="filtro1" class="form-control" style="text-transform: uppercase;">
-          <option value="todos" selected>Seleccione Maquina de Ejercicio</option>
-          {% for g in listaMaquina %}
-            <option value="{{ g.nombre }}">{{ g.nombre }}</option>
-          {% endfor %}
-      </select>
-  </div>
-</div><br>
 
-<div class="row">
-  <div class="table-responsive">
-      <table class="table">
-          <thead>
-              <tr>
-                  <th>Nombre</th>
-                  <th>Boton</th>
-              </tr>
-          </thead>
-          <tbody>
-            
-              {% for m in listaEje %}
-              <tr class="" style="display: none;">
-                  <td>
-                      <img src="{{ m.foto }}" alt="No foto" style="width: 15%;height: 15%;"><br>
-                      <h5>{{ m.nombre }}</h5>
-                  </td>
-                  <td>
-                      <p style="text-align: center;">
-                        <br><a href="{% url 'ModificarEjer' m.id %}" class="btn btn-warning" style="margin-top: 10px;">Modificar</a>
-
-                        {% if m.estado == 'activado' %}
-                        <a href="{% url 'desactivarEjercicios' m.id %}" class="btn btn-danger" style="margin-top: 10px;">Desactivar</a>
-        
-                        {% else %}
-        
-                        <a href="{% url 'activarEjercicios' m.id %}" class="btn btn-success" style="margin-top: 10px;">Activar</a>
-        
-                        {% endif %}
-                        
-                      </p>
-                  </td>
-              </tr>
-              {% endfor %}
-               
-          </tbody>
-      </table>
-  </div>
-</div><br>
-
-<script>
-  document.getElementById('filtro').addEventListener('change', function() {
-      var filtro = this.value;
-      var filas = document.querySelectorAll('tr');
-
-      filas.forEach(function(fila) {
-          if (filtro === 'todos' || fila.classList.contains(filtro)) {
-              fila.style.display = 'table-row';
-          } else {
-              fila.style.display = 'none';
-          }
-      });
-  });
-
-  document.getElementById('filtro1').addEventListener('change', function() {
-      var filtro = this.value;
-      var filas = document.querySelectorAll('tr');
-
-      filas.forEach(function(fila) {
-          if (filtro === 'todos' || fila.classList.contains(filtro)) {
-              fila.style.display = 'table-row';
-          } else {
-              fila.style.display = 'none';
-          }
-      });
-  });
-</script>
 
 </div></div></div>
 

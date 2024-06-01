@@ -301,6 +301,37 @@ nav > ul > li > ul > li > ul:before {
     opacity: 1;
   }
 }
+
+/*Tabla*/
+
+.table {
+    width: 100%;
+}
+
+.half-width {
+    width: 50%;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.img-fixed {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-fixed {
+    width: 120px; 
+    display: inline-block;
+    text-align: center;
+    
+}
 </style>
 </head>
 
@@ -399,26 +430,26 @@ nav > ul > li > ul > li > ul:before {
             <div class="table-responsive">
             <table class="table  centrar  letraVJ" style="background-color: rgb(255, 255, 255);" id="table">
                 <tr>
-                  <th>Dietas</th>
-                  <TH>Botones</TH>
+                  <th class="half-width">Dietas</th>
+                  <TH class="half-width">Botones</TH>
                 </tr>
                 {% for d in Maquinas %}
                 <tr>
                   <td>
                     
-                    <img src="{{ d.foto }}" alt="No foto" style="width: 15%;height: 15%;"><BR>
-                      <h5 >{{ d.nombre }}</h5>
+                    <img src="{{ d.foto }}" alt="No foto" class="img-fixed"><BR>
+                      <h5 style="text-align: center;">{{ d.nombre }}</h5>
                   </td>
                   <td>
                     <p>
-                      <br><a href="{% url 'ModificarMaquinas' d.id %}" class="btn btn-warning" style="margin-top: 10px;" >Modificar</a>
+                      <br><a href="{% url 'ModificarMaquinas' d.id %}" class="btn btn-warning btn-fixed" style="margin-top: 35px;" >Modificar</a>
                       
                       {% if d.estado == 'activado' %}
-                      <a href="{% url 'desactivarMaquinas' d.id %}" class="btn btn-danger" style="margin-top: 10px;" >Desactivar</a>
+                      <a href="{% url 'desactivarMaquinas' d.id %}" class="btn btn-danger btn-fixed" style="margin-top: 35px;" >Desactivar</a>
 
                       {% else %}
 
-                      <a href="{% url 'activarMaquinas' d.id %}" class="btn btn-success" style="margin-top: 10px;" >Activar</a>
+                      <a href="{% url 'activarMaquinas' d.id %}" class="btn btn-success btn-fixed" style="margin-top: 35px;" >Activar</a>
 
                       {% endif %}
 

@@ -302,6 +302,15 @@ nav > ul > li > ul > li > ul:before {
     opacity: 1;
   }
 }
+
+/*Tablas*/
+
+.btn-fixed {
+    width: 120px; 
+    display: inline-block;
+    text-align: center;
+    
+}
 </style>
 </head>
 
@@ -412,8 +421,8 @@ nav > ul > li > ul > li > ul:before {
             </td>
             <td >
               <p>
-                <br><a href="{% url 'soli' s.id %}" class="btn btn-warning" >Responder</a>
-                <a href="#" class="btn btn-danger">Eliminar</a>
+                <br><a href="{% url 'soli' s.id %}" class="btn btn-warning  btn-fixed">Responder</a>
+                <a href="#" class="btn btn-danger  btn-fixed" >Eliminar</a>
               </p>
             </td>
           </tr>
