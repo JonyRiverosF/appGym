@@ -58,6 +58,21 @@ export class DetalleNoticiaPage implements OnInit {
         //console.log(this.noticia 
   }
   
+  reportar(nombre:any,comentario:any){
+    var formulario = new FormData();
+    formulario.append("nombre",nombre);formulario.append("comentario",comentario);
+    this.loading(10000).then(response=>{
+      response.present();
+      this.api.reportar(formulario).then(res=>res.json()).then(res=>{
+         this.presentToast("bottom","Reporte realizado exitosamente");
+         response.dismiss();
+      }).catch(error=>{
+        response.dismiss();
+        this.presentToast("bottom","Algo salió mal");
+        console.log(error)
+      })
+    })
+  }
 
   esconder(){
     this.boton=true;

@@ -69,6 +69,8 @@
                 
                 </ion-avatar>
                 <ion-textarea labelPlacement="floating" [label]="x.creadorDelComentario.nombre" readonly [value]="x.descripcion"></ion-textarea>
+                <ion-note (click)="reportar(x.creadorDelComentario.nombre,x.descripcion)">Reportar</ion-note>
+                <ion-note style="color:rgba(0, 0, 0, 0)">......</ion-note>
                 <ion-note (click)="hola(x.creadorDelComentario,x._id)">Responder</ion-note>
               </ion-item>
               <div *ngIf="x.subComentarios">
@@ -88,6 +90,8 @@
                                 </ion-avatar>
                               <ion-textarea labelPlacement="floating" [label]="subComentario.creadorDelComentario.nombre" 
                               readonly [value]="subComentario.descripcion"></ion-textarea>
+                              <ion-note (click)="reportar(subComentario.creadorDelComentario.nombre,x.descripcion)">Reportar</ion-note>
+                              <ion-note style="color:rgba(0, 0, 0, 0)">......</ion-note>
                               <ion-note (click)="responderSubComentario(x._id,subComentario.creadorDelComentario)">Responder</ion-note>
                             </ion-item>
                           </div>

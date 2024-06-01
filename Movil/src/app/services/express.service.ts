@@ -8,9 +8,9 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://10.155.85.157:3000";
+  private  apiUrl="http://192.168.0.21:3000";
 
-  public urlApi = "http://10.155.85.157:3000/creacion/"
+  public urlApi = "http://192.168.0.21:3000/creacion/"
 
 
   //GET
@@ -149,6 +149,12 @@ export class ExpressService {
   checkOut(rut:any){
     return fetch(this.apiUrl+"/creacion/checkOut/"+rut,{
       method:"POST"
+    })
+  }
+  reportar(formulario:any){
+    return fetch(this.apiUrl+"/creacion/enviarReporte",{
+      method:"POST",
+      body:formulario
     })
   }
   //validar repetición de correo

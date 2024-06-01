@@ -395,6 +395,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                         estado:"Por confirmar código de seguridad",
                         codigoSeguridad:codigoSeguridad,
                         observacionMedica:"",
+                        warnings:3,
                         rol:1
                     }).then(response=>{
                         res.status(201).json({
@@ -425,6 +426,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                 estado:"Por confirmar código de seguridad",
                 codigoSeguridad:codigoSeguridad,
                 observacionMedica:req.body.observacionMedica,
+                warnings:3,
                 rol:1
             }).then(response=>{
                 res.status(201).json({
@@ -583,7 +585,8 @@ router.post("/insertarComentario",upload.any(),(req:any,res:any)=>{
                     idReceptor:"",
                     nombreReceptor:""
                     }
-                }
+                },
+                estado:"activo"
             }).then(resultado=>{
                 res.status(201).json({
                     reqBody:req.body,
@@ -610,7 +613,8 @@ router.post("/insertarComentario",upload.any(),(req:any,res:any)=>{
                     idReceptor:req.body.idCreador,
                     nombreReceptor:req.body.nombreCreador
                     }
-                }
+                },
+                estado:"activo"
             }).then(resultado=>{
                 res.status(201).json({
                     reqBody:req.body,
@@ -654,6 +658,22 @@ router.post("/enviarSolicitud",upload.any(),(req:Request,res:Response)=>{
         console.log(error);
         res.status(500).json({msj:"Algo salió mal",error})
     })
+})
+
+router.post("/enviarReporte",upload.any(),(req:Request,res:Response)=>{
+    try{
+        modelos.reportesModelo.create({
+            userReportado:req.body.nombre,
+            comentario:req.body.comentario,
+            estado:"activo",
+            fechaEmision:new Date()
+        }).then(respuesta=>{
+            res.status(201).json(respuesta)
+
+        })
+    }catch(e:any){
+       res.status(500).json(e)
+    }
 })
 export default module.exports=router
 //export default exports.usuariomodelo=usuarioModelo

@@ -12,6 +12,7 @@ var usuariosSchema = new mongoose.Schema({
     observacionMedica:String,
     estado:String,
     codigoSeguridad:String,
+    warnings:Number,
     rol:String
 })
 var usuarioModelo = mongoose.model("Usuarios",usuariosSchema)
@@ -30,7 +31,8 @@ var comentarioSchema = new mongoose.Schema({
             idReceptor:String,
             nombreReceptor:String
         }
-    }
+    },
+    estado:String
 
 });
 
@@ -154,7 +156,16 @@ var tablaCheckOut = new mongoose.Schema({
 
 var checkOutModelo = mongoose.model("checkout",tablaCheckOut);
 
+var reporteSchema = new mongoose.Schema({
+    userReportado:String,
+    comentario:String,
+    estado:String,
+    fechaEmision:Date
+})
+
+var reportesModelo = mongoose.model("reportes",reporteSchema)
+
 export default module.exports = {MusculoModelo,EjerciciosModelo,MaquinasModelo,tipoDietasModelo,DietasModelo,
     NoticiaModelo,usuarioModelo,horariosElegidosModelo,horariosModelo,guardadosModelo,comentariosModel,
-    solicitudModelo,checkInModelo,checkOutModelo
+    solicitudModelo,checkInModelo,checkOutModelo,reportesModelo
 }
