@@ -330,6 +330,27 @@ nav > ul > li > ul > li > ul:before {
     text-align: center;
     
 }
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background-color: #f2f2f2;
+}
 </style>
 </head>
 
@@ -423,6 +444,8 @@ nav > ul > li > ul > li > ul:before {
 
   
 
+  
+
 <div class="row">
   <div class="table-responsive">
       <table class="table">
@@ -467,15 +490,7 @@ nav > ul > li > ul > li > ul:before {
 
 
 
-<!-- Prueba para eliminar la dieta de otra forma
-  <button onclick="EliminarD({{ d.idD }})" class="btn btn-danger">Eliminar</button>
-  <script>
-    function EliminarD(id) {
-        if (confirm("¿Estás seguro/a de eliminar la dieta con ID " + id + "?")) {
-            alert("Dieta eliminada correctamente.");
-        }
-    }
-  </script>-->
+
 
 
 

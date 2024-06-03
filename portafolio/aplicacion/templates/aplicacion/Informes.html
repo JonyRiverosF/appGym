@@ -302,6 +302,34 @@ nav > ul > li > ul > li > ul:before {
     opacity: 1;
   }
 }
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background-color: #f2f2f2;
+}
+
+td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #f2f2f2;
+    z-index: 1; /* Asegura que la columna de horas esté sobre las demás */
+}
 </style>
 </head>
 
@@ -396,62 +424,112 @@ nav > ul > li > ul > li > ul:before {
         <div class="col-md-6">
             <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
             <select id="filtro" class="form-control" style="text-transform: uppercase;">
-                <option value="todos" selected>Seleccione categoría</option>
+                <option value="todos" selected>Seleccione Informe</option>
                 <option value="comentarios">Informes Comentarios</option>
                 <option value="cupos">Informes Cupos</option>
             </select>
         </div>
         <div class="col-md-3"></div>
-        <div class="col-md-3">
-        </div>
+        <div class="col-md-3"></div>
     </div>
     <br>
     
     <div class="row">
         <div class="table-responsive">
             <table class="table">
-                <thead>
+                <thead id="thead-comentarios" style="display: none;">
                     <tr>
                         <th>Nombre</th>
-                        <th>Boton</th>
+                        <th>Comentario</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {% for m in Musculos %}
-                    <tr class="bancacios" style="display: none;">
-                        <td>
-                            <img src="{{ m.foto }}" alt="No foto" style="width: 15%; height: 15%;"><br>
-                            <h5>{{ m.nombre }}</h5>
-                        </td>
-                        <td>
-                            <p style="text-align: center;">
-                                <a href="" class="btn btn-danger">Eliminar</a>
-                            </p>
-                        </td>
-                    </tr>
-                    {% endfor %}
-    
+                <tbody id="tbody-comentarios">
                     {% for c in comentarios %}
                     <tr class="comentarios {% if c.respuesta.idComentarioPrincipal %}subcomentarios{% else %}comentariosP{% endif %}" style="display: none;">
                         <td>
-                            <h4>Nombre:</h4><h5>{{ c.creadorDelComentario.nombre }}</h5>
+                            <h5>{{ c.creadorDelComentario.nombre }}</h5>
                         </td>
                         <td>
-                            <h4>Comentario:</h4><h5>{{ c.descripcion }}</h5>
+                            <h5>{{ c.descripcion }}</h5>
                         </td>
                     </tr>
                     {% endfor %}
-    
-                    {% for h in horarios %}
+                </tbody>
+                <thead id="thead-cupos" style="display: none;">
+                    <tr>
+                        <th>Hora</th>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miércoles</th>
+                        <th>Jueves</th>
+                        <th>Viernes</th>
+                        <th>Sábado</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-cupos">
+                  {% for h in horarios %}
                     <tr class="cupos" style="display: none;">
-                        {% for x in h.horas %}
-                        <td>
-                            <h5>Cupos Maximos: {{ x.cuposMaximos }}</h5>
-                        </td>
-                        <td>
-                            <h5>Cupos Tomados: {{ x.cuposElegidos }}</h5>
-                        </td>
-                        {% endfor %}
+                        <td>08:30-10:00</td>
+                        <td>{{ h.horas.0.cuposMaximos }}</td>
+                        <td>{{ h.horas.6.cuposMaximos }}</td>
+                        <td>{{ h.horas.12.cuposMaximos }}</td>
+                        <td>{{ h.horas.18.cuposMaximos }}</td>
+                        <td>{{ h.horas.24.cuposMaximos }}</td>
+                        <td>{{ h.horas.30.cuposMaximos }}</td>
+                    </tr>
+                    <tr class="cupos" style="display: none;">
+                        <td>10:10-11:40</td>
+                        <td>{{ h.horas.1.cuposMaximos }}</td>
+                        <td>{{ h.horas.7.cuposMaximos }}</td>
+                        <td>{{ h.horas.13.cuposMaximos }}</td>
+                        <td>{{ h.horas.19.cuposMaximos }}</td>
+                        <td>{{ h.horas.25.cuposMaximos }}</td>
+                        <td>{{ h.horas.31.cuposMaximos }}</td>
+                    </tr>
+                    <tr class="cupos" style="display: none;">
+                        <td>11:50-13:20</td>
+                        <td>{{ h.horas.2.cuposMaximos }}</td>
+                        <td>{{ h.horas.8.cuposMaximos }}</td>
+                        <td>{{ h.horas.14.cuposMaximos }}</td>
+                        <td>{{ h.horas.20.cuposMaximos }}</td>
+                        <td>{{ h.horas.26.cuposMaximos }}</td>
+                        <td>{{ h.horas.32.cuposMaximos }}</td>
+                    </tr>
+                    <tr class="cupos" style="display: none;">
+                        <td>13:30-15:00</td>
+                        <td>{{ h.horas.3.cuposMaximos }}</td>
+                        <td>{{ h.horas.9.cuposMaximos }}</td>
+                        <td>{{ h.horas.15.cuposMaximos }}</td>
+                        <td>{{ h.horas.21.cuposMaximos }}</td>
+                        <td>{{ h.horas.27.cuposMaximos }}</td>
+                        <td>{{ h.horas.33.cuposMaximos }}</td>
+                    </tr>
+                    <tr class="cupos" style="display: none;">
+                        <td>15:10-16:40</td>
+                        <td>{{ h.horas.4.cuposMaximos }}</td>
+                        <td>{{ h.horas.10.cuposMaximos }}</td>
+                        <td>{{ h.horas.16.cuposMaximos }}</td>
+                        <td>{{ h.horas.22.cuposMaximos }}</td>
+                        <td>{{ h.horas.28.cuposMaximos }}</td>
+                        <td>{{ h.horas.34.cuposMaximos }}</td>
+                    </tr>
+                    <tr class="cupos" style="display: none;">
+                        <td>16:50-18:20</td>
+                        <td>{{ h.horas.5.cuposMaximos }}</td>
+                        <td>{{ h.horas.11.cuposMaximos }}</td>
+                        <td>{{ h.horas.17.cuposMaximos }}</td>
+                        <td>{{ h.horas.23.cuposMaximos }}</td>
+                        <td>{{ h.horas.29.cuposMaximos }}</td>
+                        <td>{{ h.horas.35.cuposMaximos }}</td>
+                    </tr>
+                    <tr class="cupos" style="display: none;">
+                        <td>18:30-20:00</td>
+                        <td>{{ h.horas.36.cuposMaximos }}</td>
+                        <td>{{ h.horas.42.cuposMaximos }}</td>
+                        <td>{{ h.horas.48.cuposMaximos }}</td>
+                        <td>{{ h.horas.54.cuposMaximos }}</td>
+                        <td>{{ h.horas.60.cuposMaximos }}</td>
+                        <td>{{ h.horas.66.cuposMaximos }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -460,27 +538,50 @@ nav > ul > li > ul > li > ul:before {
     </div>
     <br>
     
-    
-    
     <script>
-      document.getElementById('filtro').addEventListener('change', function() {
-          var filtro = this.value;
-          var filas = document.querySelectorAll('tr');
-  
-          filas.forEach(function(fila) {
-              if (filtro === 'todos' || fila.classList.contains(filtro)) {
-                  fila.style.display = 'table-row';
-              } else {
-                  fila.style.display = 'none';
-              }
-          });
-  
-          document.getElementById('filtradoComentarios').style.display = (filtro === 'comentarios') ? 'block' : 'none';
-          document.getElementById('filtradoCupos').style.display = (filtro === 'cupos') ? 'block' : 'none';
-      });
-  
-     
-  </script>
+        document.getElementById('filtro').addEventListener('change', function() {
+            var filtro = this.value;
+            var filasComentarios = document.querySelectorAll('.comentarios');
+            var filasCupos = document.querySelectorAll('.cupos');
+
+            document.getElementById('filtro').addEventListener('change', function() {
+        var titulo = document.querySelector('.col-md-6 h1');
+        var filtro = this.value;
+        
+        if (filtro === 'comentarios') {
+            titulo.textContent = 'Informes Comentarios';
+        } else if (filtro === 'cupos') {
+            titulo.textContent = 'Informes Cupos';
+        } else {
+            titulo.textContent = 'Informes';
+        }
+    });
+    
+            filasComentarios.forEach(function(fila) {
+                if (filtro === 'comentarios' ) {
+                    fila.style.display = 'table-row';
+                    document.getElementById('thead-comentarios').style.display = 'table-header-group';
+                } else {
+                    fila.style.display = 'none';
+                    document.getElementById('thead-comentarios').style.display = 'none';
+                }
+            });
+    
+            filasCupos.forEach(function(fila) {
+                if (filtro === 'cupos') {
+                    fila.style.display = 'table-row';
+                    document.getElementById('thead-cupos').style.display = 'table-header-group';
+                } else {
+                    fila.style.display = 'none';
+                    document.getElementById('thead-cupos').style.display = 'none';
+                }
+            });
+
+            
+        });
+    </script>
+    
+    
   
   
 

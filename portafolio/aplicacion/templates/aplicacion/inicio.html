@@ -311,8 +311,10 @@
 }
 
 .info-box {
-    background-color: #ffffffbe;
-    border: 1px solid #ccc;
+    background:#b2f09c ;
+    font-size: 17px;
+    font-weight: bold;
+    border: 1px solid #0a332f;
     padding: 20px;
     margin-bottom: 20px;
     display: inline-block;
@@ -332,9 +334,11 @@
     width: 120px; 
     display: inline-block;
     text-align: center;
+    
 }
 
 .btn-fixed:hover {
+  
     background-color: #e0a800; 
 }
 
@@ -414,14 +418,14 @@
 
   <div class="container">
     <div class="info-box">
-        <p>Personas dentro de el gimnasio {{ num_personas }}.</p>
+        <p>PERSONAS DENTRO DEL GIMNASIO: </p> <h3 style="font-size: 40px;">{{ num_personas }}</h3> 
         <a onclick="toggleDetails()" class="btn btn-warning btn-fixed">Ver más detalles</a>
     </div>
 
     <div id="details" class="details">
         {% for t in chekin %}
             <div>
-                <h1 style="color: #000000; background-color: #ffffffbe; text-align: center; padding: 10px; border-radius: 5px;">
+              <h1 style="color: #000;background:#b2f09c ; text-align: center; padding: 10px; border-radius: 5px; display: inline-block; width: 85%;">
                     {{ t.usuario }} {{ t.nombre }}
                 </h1>
             </div>

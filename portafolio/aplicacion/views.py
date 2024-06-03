@@ -32,7 +32,7 @@ dietas=""
 
 noticia=""
 
-apiUrl = "http://192.168.100.232:3000"
+apiUrl = "http://192.168.1.2:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 
@@ -134,18 +134,19 @@ def soli(request,id):
     return render(request,"aplicacion/soli.html",contexto)
 
 def Informes(request):
-
     Comentarios = comentarios.find({})
-    Horarios=horarios.find({"vigencia":True})
+    Horarios = horarios.find({"vigencia": True})
 
-    contexto={
-        "comentarios":Comentarios,
-         "horarios":Horarios       
+    #for h in Horarios:
+    #    for hora in h["horas"]:
+    #        hora["cuposMaximos"] -= hora["cuposElegidos"]
+
+    contexto = {
+        "comentarios": Comentarios,
+        "horarios": Horarios
     }
 
-    
-
-    return render(request,"aplicacion/Informes.html",contexto)
+    return render(request, "aplicacion/Informes.html", contexto)
 
 def VistaComentarios(request):
 
@@ -510,7 +511,6 @@ def CrearDie(request):
 def ListaDie(request):
 
     
-
     listaD = dietas.find({})
     listaTipoD = tipoDietas.find({})
 

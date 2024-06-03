@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var apiUrl = "http://192.168.100.232:3000";
+    var apiUrl = "http://192.168.1.2:3000";
 
 
     $("#fotoN").change(function(e){
@@ -204,11 +204,22 @@ $(document).ready(function(){
 
 
     $("#FormRecuperarCodigo").submit(function(e){
-        e.preventDefault();  
+        e.preventDefault();
         var CorreoRecu = $("#CorreoRecu").val();
         
         let msjMostrar = "";
         let enviar = false;
+
+        //Validar Correo del usuario
+        if(CorreoRecu.trim() == ""){
+            msjMostrar += "<br>-El Correo del usuario no puede estar vacío.";
+            enviar = true;
+        }
+
+        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(CorreoRecu.trim())) {
+            msjMostrar += "<br>-El Correo del usuario no tiene un formato válido.";
+            enviar = true;
+        }
         
 
         if(enviar){
@@ -217,10 +228,10 @@ $(document).ready(function(){
         }
         else{
             var formulario = new FormData();
-            formulario.append("tituloN", CorreoRecu);
+            formulario.append("correo", CorreoRecu);
 
-        fetch( apiUrl + '/modificar/modificarNoticia/' , {
-            method: 'PUT',
+        fetch( apiUrl + '/validaciones/recuperarCodigo/' , {
+            method: 'POST',
             body: formulario
         }).then(respuesta=>{
             respuesta.json()
