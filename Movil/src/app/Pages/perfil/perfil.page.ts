@@ -286,7 +286,7 @@ loading(duracion:any){
   contactanos(){
      this.router.navigate(["/contactanos"])
   }
-
+  
   irPerfil(){
     this.router.navigate(['/perfil']);
   }
