@@ -61,6 +61,7 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
     console.log(err);
 })
 
+
     
 router.post("/checkIn/:id",upload.any(),(req:Request,res:Response)=>{
     var rut = req.params.id;
@@ -518,13 +519,13 @@ router.post("/crearHorario",upload.any(), async(req:Request,res:Response)=>{
         vigencia:true
     }).then(res=>{console.log("Insertado horarios elegidos")}).catch((e:any)=>{console.log(e)})
 
-    await modelos.horariosModelo.findByIdAndUpdate(diaEscogidoU._id,diaEscogidoU).then(res=>{console.log("Modificadp H1")})
+    await modelos.horariosModelo.findByIdAndUpdate(diaEscogidoU.id,diaEscogidoU).then(res=>{console.log("Modificadp H1")})
     .catch((e:any)=>{console.log(e)})
 
-    await modelos.horariosModelo.findByIdAndUpdate(diaEscogidoD._id,diaEscogidoD).then(res=>{console.log("Modificadp H2")})
+    await modelos.horariosModelo.findByIdAndUpdate(diaEscogidoD.id,diaEscogidoD).then(res=>{console.log("Modificadp H2")})
     .catch((e:any)=>{console.log(e)})
 
-    await modelos.horariosModelo.findByIdAndUpdate(diaEscogidoT._id,diaEscogidoT).then(res=>{console.log("Modificadp H3")})
+    await modelos.horariosModelo.findByIdAndUpdate(diaEscogidoT.id,diaEscogidoT).then(res=>{console.log("Modificadp H3")})
     .catch((e:any)=>{console.log(e)})
 
     res.status(201).json({
