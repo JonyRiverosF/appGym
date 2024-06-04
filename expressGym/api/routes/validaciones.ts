@@ -50,22 +50,29 @@ router.post("/rutRepetido",upload.any(),(req:Request,res:Response)=>{
 router.get("/traerHorarios",(req:Request,res:Response)=>{
     var fechaHoy = new Date();
     var hor = fechaHoy.getHours();var porEnviar:any = [];var horasPorEnviar:any=[]
-    modelos.horariosModelo.find({vigencia:true}).then(respuesta=>{
+    var diaSemana; //almacena el dia de la semana del día actual
+    modelos.horariosModelo.find({vigencia:true}).then((respuesta:any)=>{
        // console.log(fechaHoy.getDay())
         for(let x of respuesta){
-            for(let hora of x.horas){
-              var horas = hora.hora.split("-")[0];
-              if(Number(horas.split(":")[0]) > hor){
-                 console.log(Number(horas.split(":")[0]))
-                 horasPorEnviar.push(hora)
-              }else{
-                if(hor >= 22){
-                    horasPorEnviar.push(hora)
+           diaSemana  = new Date(x.fecha);
+            if(diaSemana.getDay() == fechaHoy.getDay()){
+                for(let hora of x.horas){
+                  var horas = hora.hora.split("-")[0];
+                  if(Number(horas.split(":")[0]) > hor){
+                     console.log(Number(horas.split(":")[0]))
+                     horasPorEnviar.push(hora)
+                  }else{
+                    if(hor >= 22){
+                        horasPorEnviar.push(hora)
+                    }
+                  }
                 }
-              }
+                porEnviar.push({id:x._id,fecha:x.fecha,horas:horasPorEnviar}) 
+                horasPorEnviar=[]
+            }else{
+                porEnviar.push({id:x._id,fecha:x.fecha,horas:x.horas}) 
+                horasPorEnviar=[]
             }
-            porEnviar.push({id:x._id,fecha:x.fecha,horas:horasPorEnviar}) 
-            horasPorEnviar=[]
           }
         if(porEnviar.length > 0){
             res.status(200).json({
