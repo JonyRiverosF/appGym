@@ -378,6 +378,8 @@ $("#fotoMaqui").change(function(e){
     $("#FormModificarEjercicios").submit(function(e){
         e.preventDefault();    
         var nombreEjercicio = $("#nombreE").val();
+        var rolTipoM = $("#RolTipoMusculo").val();
+        var rolTipoMaquina = $("#RolTipoMaquina").val();
         var modificarFichaE = $("#fichaME").val();
         var IDe = $("#idE")[0].innerHTML;
         
@@ -403,6 +405,8 @@ $("#fotoMaqui").change(function(e){
             var formulario = new FormData();
                     formulario.append("titulo", nombreEjercicio);
                     formulario.append("ficha", modificarFichaE);
+                    formulario.append("tipoMusculo", rolTipoM);
+                    formulario.append("tipoMaquina", rolTipoMaquina);
                     if(videoEM){
                         formulario.append("video", videoEM);
                     }

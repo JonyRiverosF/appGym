@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from babel.dates import format_date
 
 
 
@@ -134,16 +135,26 @@ def soli(request,id):
     return render(request,"aplicacion/soli.html",contexto)
 
 def Informes(request):
+
     Comentarios = comentarios.find({})
     Horarios = horarios.find({"vigencia": True})
 
-    #for h in Horarios:
-    #    for hora in h["horas"]:
-    #        hora["cuposMaximos"] -= hora["cuposElegidos"]
+    nombre = []
 
+    for h in Horarios:
+        dias = format_date(h["fecha"] ,format='full' ,locale = 'es_ES') 
+        for hora in h["horas"]:
+            hola = hora["cuposMaximos"] - hora["cuposElegidos"]
+            hora["cuposDisponibles"] = hola
+            #print(hora["cuposDisponibles"])
+        h["dia"] = dias.split(",")[0] 
+        nombre.append(h)
+        print(nombre)
+        print("----")
+        
     contexto = {
         "comentarios": Comentarios,
-        "horarios": Horarios
+        "horarios": nombre
     }
 
     return render(request, "aplicacion/Informes.html", contexto)
@@ -257,6 +268,9 @@ def ModificarEjer(request, id):
 
     response = requests.post( apiUrl + "/modificar/buscarEjercicio/" + id) 
 
+    Muscu = musculos.find({})
+    Maquina = maquinas.find({})
+
     owo= response.json()
     
 
@@ -266,7 +280,9 @@ def ModificarEjer(request, id):
 
     
     contexto = {
-        "modificarE": owo["respuesta"][0]
+        "modificarE": owo["respuesta"][0],
+        "musculo" : Muscu,
+        "maquina" : Maquina
     }
 
     return render(request,"aplicacion/ModificarEje.html",contexto)

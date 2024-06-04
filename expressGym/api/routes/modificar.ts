@@ -216,6 +216,8 @@ router.put("/modificarEjercicio/:id", upload.array("video"), (req: any, res: Res
         modelos.EjerciciosModelo.findByIdAndUpdate(id, {
             Titulo: req.body.titulo,
             ficha:req.body.ficha,
+            tipoMusculo:req.body.tipoMusculo,
+            tipoMaquina:req.body.tipoMaquina,
         }).exec().then(respuesta => {
             res.status(201).json(respuesta)
         })

@@ -407,183 +407,108 @@ td:first-child {
 
 
 <div class="container" style="background: rgb(17, 67, 89);">
-  <div class="container" > 
-    <div class="container" >
-      <br>
-      <div class="row" style="text-align: center;margin-top: 5%;">
-        <div class="col-md-3 col-sm-4"></div>
-        <div class="col-md-6 col-sm-4">
-            <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Informes</h1><br>
-        </div>
-        <div class="col-md-3 col-sm-4"></div>
-      </div><br>
+  <div class="container"> 
+      <div class="container">
+          <br>
+          <div class="row" style="text-align: center;margin-top: 5%;">
+              <div class="col-md-3 col-sm-4"></div>
+              <div class="col-md-6 col-sm-4">
+                  <h1 id="titulo-informe" style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Informes</h1><br>
+              </div>
+              <div class="col-md-3 col-sm-4"></div>
+          </div>
+          <br>
 
+          <div class="row">
+              <div class="col-md-6">
+                  <label for="filtro" style="color:rgb(255, 255, 255)">
+                      <h5>Filtrar por:</h5>
+                  </label>
+                  <select id="filtro" class="form-control" style="text-transform: uppercase;">
+                      <option value="todos" selected>Seleccione Informe</option>
+                      <option value="comentarios">Informes Comentarios</option>
+                      <option value="cupos">Informes Cupos</option>
+                  </select>
+              </div>
+              <div class="col-md-3"></div>
+              <div class="col-md-3"></div>
+          </div>
+          <br>
 
+          <div class="row">
+              <div class="table-responsive informes comentarios">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <td>Nombre</td>
+                              <td>Comentario</td>
+                          </tr>
+                      </thead>
+                      {% for c in comentarios %}
+                      <tbody>
+                          <tr>
+                              <td>{{ c.creadorDelComentario.nombre }}</td>
+                              <td>{{ c.descripcion }}</td>
+                          </tr>
+                      </tbody>
+                      {% endfor %}
+                  </table>
+              </div>
+              <div class="table-responsive informes cupos">
+                  <table class="table">
+                      {% for h in horarios %}
+                        <thead>
+                            <tr>
+                              <td>Horas</td>
+                              <td>{{ h.dia }}</td>
+                            </tr>
+                        </thead>
+                        {% for j in h.horas %}
+                          <tbody>
+                              <tr>
+                                <td>{{ j.hora }}</td>
+                                <td>{{ j.cuposDisponibles }}</td>
+                              </tr>
+                          </tbody>
+                        {% endfor %}
+                      {% endfor %}
+                  </table>
+              </div>
+          </div>
+          <br>
 
-      <div class="row">
-        <div class="col-md-6">
-            <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
-            <select id="filtro" class="form-control" style="text-transform: uppercase;">
-                <option value="todos" selected>Seleccione Informe</option>
-                <option value="comentarios">Informes Comentarios</option>
-                <option value="cupos">Informes Cupos</option>
-            </select>
-        </div>
-        <div class="col-md-3"></div>
-        <div class="col-md-3"></div>
-    </div>
-    <br>
-    
-    <div class="row">
-        <div class="table-responsive">
-            <table class="table">
-                <thead id="thead-comentarios" style="display: none;">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Comentario</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody-comentarios">
-                    {% for c in comentarios %}
-                    <tr class="comentarios {% if c.respuesta.idComentarioPrincipal %}subcomentarios{% else %}comentariosP{% endif %}" style="display: none;">
-                        <td>
-                            <h5>{{ c.creadorDelComentario.nombre }}</h5>
-                        </td>
-                        <td>
-                            <h5>{{ c.descripcion }}</h5>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <thead id="thead-cupos" style="display: none;">
-                    <tr>
-                        <th>Hora</th>
-                        <th>Lunes</th>
-                        <th>Martes</th>
-                        <th>Miércoles</th>
-                        <th>Jueves</th>
-                        <th>Viernes</th>
-                        <th>Sábado</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody-cupos">
-                  {% for h in horarios %}
-                    <tr class="cupos" style="display: none;">
-                        <td>08:30-10:00</td>
-                        <td>{{ h.horas.0.cuposMaximos }}</td>
-                        <td>{{ h.horas.6.cuposMaximos }}</td>
-                        <td>{{ h.horas.12.cuposMaximos }}</td>
-                        <td>{{ h.horas.18.cuposMaximos }}</td>
-                        <td>{{ h.horas.24.cuposMaximos }}</td>
-                        <td>{{ h.horas.30.cuposMaximos }}</td>
-                    </tr>
-                    <tr class="cupos" style="display: none;">
-                        <td>10:10-11:40</td>
-                        <td>{{ h.horas.1.cuposMaximos }}</td>
-                        <td>{{ h.horas.7.cuposMaximos }}</td>
-                        <td>{{ h.horas.13.cuposMaximos }}</td>
-                        <td>{{ h.horas.19.cuposMaximos }}</td>
-                        <td>{{ h.horas.25.cuposMaximos }}</td>
-                        <td>{{ h.horas.31.cuposMaximos }}</td>
-                    </tr>
-                    <tr class="cupos" style="display: none;">
-                        <td>11:50-13:20</td>
-                        <td>{{ h.horas.2.cuposMaximos }}</td>
-                        <td>{{ h.horas.8.cuposMaximos }}</td>
-                        <td>{{ h.horas.14.cuposMaximos }}</td>
-                        <td>{{ h.horas.20.cuposMaximos }}</td>
-                        <td>{{ h.horas.26.cuposMaximos }}</td>
-                        <td>{{ h.horas.32.cuposMaximos }}</td>
-                    </tr>
-                    <tr class="cupos" style="display: none;">
-                        <td>13:30-15:00</td>
-                        <td>{{ h.horas.3.cuposMaximos }}</td>
-                        <td>{{ h.horas.9.cuposMaximos }}</td>
-                        <td>{{ h.horas.15.cuposMaximos }}</td>
-                        <td>{{ h.horas.21.cuposMaximos }}</td>
-                        <td>{{ h.horas.27.cuposMaximos }}</td>
-                        <td>{{ h.horas.33.cuposMaximos }}</td>
-                    </tr>
-                    <tr class="cupos" style="display: none;">
-                        <td>15:10-16:40</td>
-                        <td>{{ h.horas.4.cuposMaximos }}</td>
-                        <td>{{ h.horas.10.cuposMaximos }}</td>
-                        <td>{{ h.horas.16.cuposMaximos }}</td>
-                        <td>{{ h.horas.22.cuposMaximos }}</td>
-                        <td>{{ h.horas.28.cuposMaximos }}</td>
-                        <td>{{ h.horas.34.cuposMaximos }}</td>
-                    </tr>
-                    <tr class="cupos" style="display: none;">
-                        <td>16:50-18:20</td>
-                        <td>{{ h.horas.5.cuposMaximos }}</td>
-                        <td>{{ h.horas.11.cuposMaximos }}</td>
-                        <td>{{ h.horas.17.cuposMaximos }}</td>
-                        <td>{{ h.horas.23.cuposMaximos }}</td>
-                        <td>{{ h.horas.29.cuposMaximos }}</td>
-                        <td>{{ h.horas.35.cuposMaximos }}</td>
-                    </tr>
-                    <tr class="cupos" style="display: none;">
-                        <td>18:30-20:00</td>
-                        <td>{{ h.horas.36.cuposMaximos }}</td>
-                        <td>{{ h.horas.42.cuposMaximos }}</td>
-                        <td>{{ h.horas.48.cuposMaximos }}</td>
-                        <td>{{ h.horas.54.cuposMaximos }}</td>
-                        <td>{{ h.horas.60.cuposMaximos }}</td>
-                        <td>{{ h.horas.66.cuposMaximos }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <br>
-    
-    <script>
-        document.getElementById('filtro').addEventListener('change', function() {
-            var filtro = this.value;
-            var filasComentarios = document.querySelectorAll('.comentarios');
-            var filasCupos = document.querySelectorAll('.cupos');
+          <script>
+              document.getElementById('filtro').addEventListener('change', function() {
+                  var filtro = this.value;
+                  var informes = document.querySelectorAll('.informes');
+                  var tituloInforme = document.getElementById('titulo-informe');
 
-            document.getElementById('filtro').addEventListener('change', function() {
-        var titulo = document.querySelector('.col-md-6 h1');
-        var filtro = this.value;
-        
-        if (filtro === 'comentarios') {
-            titulo.textContent = 'Informes Comentarios';
-        } else if (filtro === 'cupos') {
-            titulo.textContent = 'Informes Cupos';
-        } else {
-            titulo.textContent = 'Informes';
-        }
-    });
-    
-            filasComentarios.forEach(function(fila) {
-                if (filtro === 'comentarios' ) {
-                    fila.style.display = 'table-row';
-                    document.getElementById('thead-comentarios').style.display = 'table-header-group';
-                } else {
-                    fila.style.display = 'none';
-                    document.getElementById('thead-comentarios').style.display = 'none';
-                }
-            });
-    
-            filasCupos.forEach(function(fila) {
-                if (filtro === 'cupos') {
-                    fila.style.display = 'table-row';
-                    document.getElementById('thead-cupos').style.display = 'table-header-group';
-                } else {
-                    fila.style.display = 'none';
-                    document.getElementById('thead-cupos').style.display = 'none';
-                }
-            });
+                  informes.forEach(function(informe) {
+                      informe.style.display = 'none'; 
+                  });
 
-            
-        });
-    </script>
-    
-    
-  
-  
+                  if (filtro === 'todos') {
+                      informes.forEach(function(informe) {
+                          informe.style.display = 'block'; 
+                      });
+                      tituloInforme.textContent = 'Informes'; 
+                  } else {
+                      var seleccionados = document.querySelectorAll('.' + filtro);
+                      seleccionados.forEach(function(seleccionado) {
+                          seleccionado.style.display = 'block'; 
+                      });
+                      if (filtro === 'comentarios') {
+                          tituloInforme.textContent = 'Informes Comentario';
+                      } else if (filtro === 'cupos') {
+                          tituloInforme.textContent = 'Informes de Cupos Disponibles'; 
+                      }
+                  }
+              });
+          </script>
+      </div>
+  </div>
+</div>
+
 
 
 
