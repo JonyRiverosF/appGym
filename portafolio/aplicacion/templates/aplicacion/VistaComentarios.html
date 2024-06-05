@@ -368,8 +368,8 @@ th {
       <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
           <select id="filtro" class="form-control" style="text-transform: uppercase;margin: -5px;">
               <option value="todos" selected>Seleccione categoría</option>
-              <option value="comentarios">Sin responder</option>
-              <option value="subcomentarios">Respondidos</option>
+              <option value="comentariosP">Comentarios para revisar</option>
+              <option value="ComentariosB">Comentarios Baneados</option>
           </select>
     </div>
     <div class="col-md-6"></div>
@@ -398,16 +398,16 @@ th {
                       {% if u.rut == a.rut %}
 
                         {% if a.warnings == 0 %}
-                        <a href="" class="btn btn-warning btn-fixed" >Banear Usuario</a>
+                        <a href="{% url 'BanearComentario' u.rut %}" class="btn btn-warning btn-fixed" >Banear Usuario</a>
                         {% else %}
-                        <a href="" class="btn btn-warning btn-fixed" >Advertir</a><br>
+                        <a href="{% url 'AdvertenciaComentario' u.rut %}" class="btn btn-warning btn-fixed" >Advertir</a><br>
                         {% endif %}
                         
                       {% endif %}
                     
                     {% endfor %}
                     
-                    <a href="" class="btn btn-success btn-fixed">Anular</a>
+                    <a href="{% url 'anularComentario' u.rut %}" class="btn btn-success btn-fixed">Anular</a>
 
                   </p>
                     

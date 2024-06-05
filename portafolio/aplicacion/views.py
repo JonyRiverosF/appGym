@@ -159,14 +159,25 @@ def Informes(request):
 
     return render(request, "aplicacion/Informes.html", contexto)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Comentarios
 def VistaComentarios(request):
 
     Reportes1=reportes.find({"estado": "activo"})
 
-   
-
     Reportes=reportes.find({"estado": "activo"})
-    
     
     ruts=[]
     usuariosA =[] 
@@ -176,15 +187,81 @@ def VistaComentarios(request):
             ruts.append(reporte['rut'])
             usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
     
+    contexto={
+        "report":Reportes1,
+        "usuariosA":usuariosA  
+    }
+    
+    return render(request,"aplicacion/VistaComentarios.html", contexto)
+
+def anularComentario(request,id):
+
+    response = requests.post( apiUrl + "/modificar/anularComentario/" + id) 
+
+    Reportes1=reportes.find({"estado": "activo"})
+
+    Reportes=reportes.find({"estado": "activo"})
+    
+    ruts=[]
+    usuariosA =[] 
+    for reporte in Reportes:
+        print(reporte['rut'] in ruts)
+        if not reporte['rut'] in ruts:  
+            ruts.append(reporte['rut'])
+            usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
     
     contexto={
         "report":Reportes1,
-        "usuariosA":usuariosA
-        
+        "usuariosA":usuariosA  
     }
-    
 
-    return render(request,"aplicacion/VistaComentarios.html", contexto)
+    return render(request,"aplicacion/VistaComentarios.html",contexto)
+
+def AdvertenciaComentario(request,id):
+
+    response = requests.post( apiUrl + "/modificar/advertirComentario/" + id) 
+
+    Reportes1=reportes.find({"estado": "activo"})
+
+    Reportes=reportes.find({"estado": "activo"})
+
+    ruts=[]
+    usuariosA =[] 
+    for reporte in Reportes:
+        print(reporte['rut'] in ruts)
+        if not reporte['rut'] in ruts:  
+            ruts.append(reporte['rut'])
+            usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
+    
+    contexto={
+        "report":Reportes1,
+        "usuariosA":usuariosA  
+    }
+
+    return render(request,"aplicacion/VistaComentarios.html",contexto)
+
+def BanearComentario(request,id):
+
+    response = requests.post( apiUrl + "/modificar/banearComentario/" + id) 
+
+    Reportes1=reportes.find({"estado": "activo"})
+
+    Reportes=reportes.find({"estado": "activo"})
+    
+    ruts=[]
+    usuariosA =[] 
+    for reporte in Reportes:
+        print(reporte['rut'] in ruts)
+        if not reporte['rut'] in ruts:  
+            ruts.append(reporte['rut'])
+            usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
+    
+    contexto={
+        "report":Reportes1,
+        "usuariosA":usuariosA  
+    }
+
+    return render(request,"aplicacion/VistaComentarios.html",contexto)
 
 
 

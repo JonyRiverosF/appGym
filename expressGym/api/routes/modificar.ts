@@ -825,7 +825,53 @@ router.post("/desactivarTipoD/:id" ,  (req:Request, res:Response)=>{
 })
 
 
+router.post("/anularComentario/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
 
+    modelos.reportesModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del reporte");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del reporte" });
+    });
+})
+
+router.post("/advertirComentario/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.reportesModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del reporte");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del reporte" });
+    });
+})
+
+router.post("/banearComentario/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.reportesModelo.findByIdAndUpdate(id,{
+        estado:"desactivado",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del reporte");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del reporte" });
+    });
+})
 
 
 
