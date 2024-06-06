@@ -400,14 +400,14 @@ th {
                         {% if a.warnings == 0 %}
                         <a href="{% url 'BanearComentario' u.rut %}" class="btn btn-warning btn-fixed" >Banear Usuario</a>
                         {% else %}
-                        <a href="{% url 'AdvertenciaComentario' u.rut %}" class="btn btn-warning btn-fixed" >Advertir</a><br>
+                        <a href="{% url 'AdvertenciaComentario' u.id %}" class="btn btn-warning btn-fixed" >Advertir</a><br>
                         {% endif %}
                         
                       {% endif %}
                     
                     {% endfor %}
                     
-                    <a href="{% url 'anularComentario' u.rut %}" class="btn btn-success btn-fixed">Anular</a>
+                    <a href="{% url 'anularComentario' u.id %}" class="btn btn-success btn-fixed">Anular</a>
 
                   </p>
                     

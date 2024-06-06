@@ -145,4 +145,26 @@ function recuperarCodigo(correoUser:any,codigo:any){
       })
 }
 
+function adverComentario(correoUser:any,codigo:any){
+    const emailLines = [
+        'From: colinagym3@gmail.com',
+        'To: '+correoUser,
+        'Content-type: text/html;charset=iso-8859-1',
+        'MIME-Version: 1.0',
+        'Subject: Advertencia de comentario inapropiado',
+        '',
+        'Hola, infringiste las normas del gimnasio con tu comentario: ' + codigo
+      ];
+    
+      const email = emailLines.join('\r\n').trim();
+      const base64Email = Buffer.from(email).toString('base64');
+    
+     gmail.users.messages.send({
+        userId:"colinagym3@gmail.com",
+        requestBody:{
+            raw:base64Email
+        }
+      })
+}
+
 export default module.exports = {iniciarCliente,enviarCodigoSeguridad,enviarCodigoAcceso,respuestSolicitud,recuperarCodigo}

@@ -843,11 +843,12 @@ router.post("/anularComentario/:id" ,  (req:Request, res:Response)=>{
 
 router.post("/advertirComentario/:id" ,  (req:Request, res:Response)=>{
     var id=req.params.id;
-
+    console.log(req.body.id)
     modelos.reportesModelo.findByIdAndUpdate(id,{
-        estado:"desactivado",
+        estado:"activo",
 
     }).exec().then(respuesta => {
+        console.log(respuesta);
         res.status(201).json(respuesta);
 
     }).catch(error => {
@@ -855,6 +856,7 @@ router.post("/advertirComentario/:id" ,  (req:Request, res:Response)=>{
         console.log(error);
         res.status(500).json({ mensaje: "Error al actualizar el estado del reporte" });
     });
+    
 })
 
 router.post("/banearComentario/:id" ,  (req:Request, res:Response)=>{

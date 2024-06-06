@@ -175,20 +175,21 @@ def Informes(request):
 #Comentarios
 def VistaComentarios(request):
 
-    Reportes1=reportes.find({"estado": "activo"})
-
     Reportes=reportes.find({"estado": "activo"})
+
+    uwu=[]
     
     ruts=[]
     usuariosA =[] 
     for reporte in Reportes:
-        print(reporte['rut'] in ruts)
+        reporte["_id"] = str(reporte["_id"]); reporte["id"] = str(reporte["_id"])
+        uwu.append(reporte)
         if not reporte['rut'] in ruts:  
             ruts.append(reporte['rut'])
             usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
-    
+            
     contexto={
-        "report":Reportes1,
+        "report":uwu,
         "usuariosA":usuariosA  
     }
     
@@ -198,43 +199,46 @@ def anularComentario(request,id):
 
     response = requests.post( apiUrl + "/modificar/anularComentario/" + id) 
 
-    Reportes1=reportes.find({"estado": "activo"})
-
     Reportes=reportes.find({"estado": "activo"})
+   
+    uwu=[]
     
     ruts=[]
     usuariosA =[] 
     for reporte in Reportes:
-        print(reporte['rut'] in ruts)
+        reporte["_id"] = str(reporte["_id"]); reporte["id"] = str(reporte["_id"])
+        uwu.append(reporte)
         if not reporte['rut'] in ruts:  
             ruts.append(reporte['rut'])
             usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
-    
+            
     contexto={
-        "report":Reportes1,
+        "report":uwu,
         "usuariosA":usuariosA  
     }
+    
 
     return render(request,"aplicacion/VistaComentarios.html",contexto)
 
 def AdvertenciaComentario(request,id):
-
-    response = requests.post( apiUrl + "/modificar/advertirComentario/" + id) 
-
-    Reportes1=reportes.find({"estado": "activo"})
-
+    
+    response = requests.post( apiUrl + "/modificar/advertirComentario/" + id,json={'id': id})
+    
     Reportes=reportes.find({"estado": "activo"})
-
+   
+    uwu=[]
+    
     ruts=[]
     usuariosA =[] 
     for reporte in Reportes:
-        print(reporte['rut'] in ruts)
+        reporte["_id"] = str(reporte["_id"]); reporte["id"] = str(reporte["_id"])
+        uwu.append(reporte)
         if not reporte['rut'] in ruts:  
             ruts.append(reporte['rut'])
             usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
-    
+            
     contexto={
-        "report":Reportes1,
+        "report":uwu,
         "usuariosA":usuariosA  
     }
 
@@ -244,20 +248,21 @@ def BanearComentario(request,id):
 
     response = requests.post( apiUrl + "/modificar/banearComentario/" + id) 
 
-    Reportes1=reportes.find({"estado": "activo"})
-
     Reportes=reportes.find({"estado": "activo"})
+   
+    uwu=[]
     
     ruts=[]
     usuariosA =[] 
     for reporte in Reportes:
-        print(reporte['rut'] in ruts)
+        reporte["_id"] = str(reporte["_id"]); reporte["id"] = str(reporte["_id"])
+        uwu.append(reporte)
         if not reporte['rut'] in ruts:  
             ruts.append(reporte['rut'])
             usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
-    
+            
     contexto={
-        "report":Reportes1,
+        "report":uwu,
         "usuariosA":usuariosA  
     }
 
