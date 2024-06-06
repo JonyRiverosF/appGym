@@ -33,7 +33,7 @@ dietas=""
 
 noticia=""
 
-apiUrl = "http://192.168.0.14:3000"
+apiUrl = "http://192.168.1.2:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 
@@ -175,7 +175,8 @@ def Informes(request):
 #Comentarios
 def VistaComentarios(request):
 
-    Reportes=reportes.find({"estado": "activo"})
+    Reportes = reportes.find({"estado": "activo"})
+    reportesitos = reportes.find({"estado":"desactivado"}) 
 
     uwu=[]
     
@@ -190,7 +191,8 @@ def VistaComentarios(request):
             
     contexto={
         "report":uwu,
-        "usuariosA":usuariosA  
+        "usuariosA":usuariosA,
+        "Revisados":reportesitos
     }
     
     return render(request,"aplicacion/VistaComentarios.html", contexto)
@@ -244,29 +246,7 @@ def AdvertenciaComentario(request,id):
 
     return redirect("VistaComentarios")
 
-def BanearComentario(request,id):
 
-    response = requests.post( apiUrl + "/modificar/banearComentario/" + id) 
-
-    Reportes=reportes.find({"estado": "activo"})
-   
-    uwu=[]
-    
-    ruts=[]
-    usuariosA =[] 
-    for reporte in Reportes:
-        reporte["_id"] = str(reporte["_id"]); reporte["id"] = str(reporte["_id"])
-        uwu.append(reporte)
-        if not reporte['rut'] in ruts:  
-            ruts.append(reporte['rut'])
-            usuariosA.append(usuarios.find_one({'rut':reporte['rut']}))
-            
-    contexto={
-        "report":uwu,
-        "usuariosA":usuariosA  
-    }
-
-    return render(request,"aplicacion/VistaComentarios.html",contexto)
 
 
 
@@ -391,7 +371,7 @@ def activarEjercicios(request,id):
         "listaMaquina":listaMaquina
     }
 
-    return render(request,"aplicacion/ListaEje.html",contexto)
+    return redirect("ListaEje")
 
 def desactivarEjercicios(request,id):
 
@@ -415,7 +395,7 @@ def desactivarEjercicios(request,id):
         "listaMaquina":listaMaquina
     }
 
-    return render(request,"aplicacion/ListaEje.html",contexto)
+    return redirect("ListaEje")
 
 
 
@@ -481,7 +461,7 @@ def activarMusculos(request,id):
         "Musculos": uwu,
     }
 
-    return render(request,"aplicacion/ListaMusculos.html",contexto)
+    return redirect("ListaMusculos")
 
 def desactivarMusculos(request,id):
 
@@ -500,7 +480,7 @@ def desactivarMusculos(request,id):
         "Musculos": uwu,
     }
 
-    return render(request,"aplicacion/ListaMusculos.html",contexto)
+    return redirect("ListaMusculos")
 
 
 
@@ -565,7 +545,7 @@ def activarMaquinas(request,id):
         "Maquinas": owo,
     }
 
-    return render(request,"aplicacion/ListaMaquinas.html",contexto)
+    return redirect("ListaMaquinas")
 
 def desactivarMaquinas(request,id):
 
@@ -584,7 +564,7 @@ def desactivarMaquinas(request,id):
         "Maquinas": owo,
     }
 
-    return render(request,"aplicacion/ListaMaquinas.html",contexto)
+    return redirect("ListaMaquinas")
 
 
 
@@ -667,7 +647,7 @@ def activarDietas(request,id):
         "listaTipoD":listaTipoD
     }
 
-    return render(request,"aplicacion/ListaDie.html",contexto)
+    return redirect("ListaDie")
 
 def desactivarDietas(request,id):
 
@@ -688,7 +668,7 @@ def desactivarDietas(request,id):
         "listaTipoD":listaTipoD
     }
 
-    return render(request,"aplicacion/ListaDie.html",contexto)
+    return redirect("ListaDie")
 
 
 
@@ -755,7 +735,7 @@ def activarTipoD(request,id):
         "tipoD": hola,
     }
 
-    return render(request,"aplicacion/ListaTipoDietas.html",contexto)
+    return redirect("ListaTipoDietas")
 
 def desactivarTipoD(request,id):
 
@@ -774,7 +754,7 @@ def desactivarTipoD(request,id):
         "tipoD": hola,
     }
 
-    return render(request,"aplicacion/ListaTipoDietas.html",contexto)
+    return redirect("ListaTipoDietas")
 
 
 
@@ -825,7 +805,8 @@ def desactivarNoticias(request,id):
         "listaN": uwu
     }
 
-    return render(request,"aplicacion/ListaNot.html",contexto)
+    return redirect("ListaNot")
+    
 
 def activarNoticias(request,id):
 
@@ -845,7 +826,7 @@ def activarNoticias(request,id):
         "listaN": uwu
     }
 
-    return render(request,"aplicacion/ListaNot.html",contexto)
+    return redirect("ListaNot")
 
 
 def ModificarNot(request, id):

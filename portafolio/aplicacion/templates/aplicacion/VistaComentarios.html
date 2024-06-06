@@ -352,75 +352,101 @@ th {
   <div class="container" >
   <br>
   
-  <div class="row" style="text-align: center;margin-top: 5%;">
-    
+  <div class="row" style="text-align: center; margin-top: 5%;">
     <div class="col-md-3 col-sm-4"></div>
-      <div class="col-md-6 col-sm-4">
-          <h1 style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Servidor de la comunidad</h1><br>
-      </div>
-      <div class="col-md-3 col-sm-4"></div>
-  </div><br>
+    <div class="col-md-6 col-sm-4">
+        <h1 style="background: rgb(166, 237, 142); color: rgb(0, 0, 0);">Servidor de la comunidad</h1><br>
+    </div>
+    <div class="col-md-3 col-sm-4"></div>
+</div><br>
 
-
-
-  <div class="row">
+<div class="row">
     <div class="col-md-6">
-      <label for="filtro" style="color:rgb(255, 255, 255)"><h5>Filtrar por:</h5></label>
-          <select id="filtro" class="form-control" style="text-transform: uppercase;margin: -5px;">
-              <option value="todos" selected>Seleccione categoría</option>
-              <option value="comentariosP">Comentarios para revisar</option>
-              <option value="ComentariosB">Comentarios Baneados</option>
-          </select>
+        <label for="filtro" style="color: rgb(255, 255, 255);"><h5>Filtrar por:</h5></label>
+        <select id="filtro" class="form-control" style="text-transform: uppercase; margin: -5px;">
+            <option value="todos" selected>Seleccione categoría</option>
+            <option value="comentariosP">Comentarios para revisar</option>
+            <option value="ComentariosB">Comentarios revisados</option>
+        </select>
     </div>
     <div class="col-md-6"></div>
 </div><br>
 
 <div class="row">
-    <div class="table-responsive">
+    <div class="table-responsive comentariosP informes">
         <table class="table">
-            <tr style="text-align: center;">
-                <th>Nombre</th>
-                <th>Comentario</th>
-                <th>Botones</th>
-            </tr>
-            
-            {% for u in report %}
-            <tr >
-              {% for a in usuariosA %}
+            <thead>
+                <tr style="text-align: center;">
+                    <th>Nombre</th>
+                    <th>Comentario</th>
+                    <th>Botones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in report %}
+                <tr>
+                    {% for a in usuariosA %}
+                        {% if u.rut == a.rut and a.warnings > 0 %}
+                            <td>{{ u.userReportado }}</td>
+                            <td>{{ u.comentario }}</td>
+                            <td>
+                                <p style="text-align: center;">
+                                    <br>
+                                    <a href="{% url 'AdvertenciaComentario' u.id %}" class="btn btn-warning btn-fixed">Advertir</a><br>
+                                    <a href="{% url 'anularComentario' u.id %}" class="btn btn-success btn-fixed">Anular</a>
+                                </p>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-              
-                {% if u.rut == a.rut %}
-                  {% if a.warnings > 0 %}
-                    <td>{{ u.userReportado }}</td>
-                    <td>{{ u.comentario }}</td>
-                  
-                    <td>
-                      <p style="text-align: center;">
-                      <br>
-
-                            <a href="{% url 'AdvertenciaComentario' u.id %}" class="btn btn-warning btn-fixed" >Advertir</a><br>
-                            
-                            <a href="{% url 'anularComentario' u.id %}" class="btn btn-success btn-fixed">Anular</a>
-                            
-                          </p>
-                          
-                      </td>
-                  {% endif %}
-                        
-                {% endif %}
-                  
-              {% endfor %}
-            </tr>
-            {% endfor %}
-            
+    <div class="table-responsive ComentariosB informes">
+        <table class="table">
+            <thead>
+                <tr style="text-align: center;">
+                    <th>Nombre</th>
+                    <th>Comentario</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in Revisados %}
+                <tr>
+                    <td>{{ r.userReportado }}</td>
+                    <td>{{ r.comentario }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 </div>
 
+<script>
+    document.getElementById('filtro').addEventListener('change', function() {
+        var filtro = this.value;
+        var informes = document.querySelectorAll('.informes');
+
+        informes.forEach(function(informe) {
+            informe.style.display = 'none'; 
+        });
+
+        if (filtro === 'todos') {
+            informes.forEach(function(informe) {
+                informe.style.display = 'block'; 
+            });
+        } else {
+            var seleccionados = document.querySelectorAll('.' + filtro);
+            seleccionados.forEach(function(seleccionado) {
+                seleccionado.style.display = 'block'; 
+            });
+        }
+    });
+</script>
 
 
-
-</div></div></div>
 
 
    
