@@ -145,7 +145,7 @@ function recuperarCodigo(correoUser:any,codigo:any){
       })
 }
 
-function adverComentario(correoUser:any,codigo:any){
+function adverComentario(correoUser:any,numWarning:any,comentario:any){
     const emailLines = [
         'From: colinagym3@gmail.com',
         'To: '+correoUser,
@@ -153,7 +153,9 @@ function adverComentario(correoUser:any,codigo:any){
         'MIME-Version: 1.0',
         'Subject: Advertencia de comentario inapropiado',
         '',
-        'Hola, infringiste las normas del gimnasio con tu comentario: ' + codigo
+        'Hola, infringiste las normas de convivencia del gimnasio por medio de tu comentario: ' + '"'+comentario+'"'+
+        ' ,por lo que se te advierte que si repites este comportamiento '+numWarning+' veces más, no podrás realizar '+
+        'comentarios a las noticias que se publiquen en un futuro.'
       ];
     
       const email = emailLines.join('\r\n').trim();
@@ -167,4 +169,28 @@ function adverComentario(correoUser:any,codigo:any){
       })
 }
 
-export default module.exports = {iniciarCliente,enviarCodigoSeguridad,enviarCodigoAcceso,respuestSolicitud,recuperarCodigo}
+function banearUser(correoUser:any){
+    const emailLines = [
+        'From: colinagym3@gmail.com',
+        'To: '+correoUser,
+        'Content-type: text/html;charset=iso-8859-1',
+        'MIME-Version: 1.0',
+        'Subject: Advertencia de comentario inapropiado',
+        '',
+        'Has sido sancionado permanentemente de la sección de comentarios dentro de las noticias, después de '+
+        '3 oportunidades, no hubo cambio en tu comportamiento por lo que, tendrás restringido comentar las noticias.'
+      ];
+    
+      const email = emailLines.join('\r\n').trim();
+      const base64Email = Buffer.from(email).toString('base64');
+    
+     gmail.users.messages.send({
+        userId:"colinagym3@gmail.com",
+        requestBody:{
+            raw:base64Email
+        }
+      })
+}
+
+export default module.exports = {iniciarCliente,enviarCodigoSeguridad,enviarCodigoAcceso,respuestSolicitud,
+    recuperarCodigo,adverComentario,banearUser}

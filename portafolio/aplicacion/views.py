@@ -33,7 +33,7 @@ dietas=""
 
 noticia=""
 
-apiUrl = "http://192.168.1.2:3000"
+apiUrl = "http://192.168.0.14:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 
@@ -218,7 +218,7 @@ def anularComentario(request,id):
     }
     
 
-    return render(request,"aplicacion/VistaComentarios.html",contexto)
+    return redirect("VistaComentarios")
 
 def AdvertenciaComentario(request,id):
     
@@ -242,7 +242,7 @@ def AdvertenciaComentario(request,id):
         "usuariosA":usuariosA  
     }
 
-    return render(request,"aplicacion/VistaComentarios.html",contexto)
+    return redirect("VistaComentarios")
 
 def BanearComentario(request,id):
 

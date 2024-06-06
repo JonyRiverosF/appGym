@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var ficha 
-    var apiUrl = "http://192.168.1.2:3000";
+    var apiUrl = "http://192.168.0.14:3000";
     var flagCorreo = false;
     var flagRut = false;
     var horarios 
@@ -351,7 +351,7 @@ $(document).ready(function(){
 
     $(document).ready(function(){
 
-        var apiUrl = "http://192.168.1.2:3000";
+        var apiUrl = "http://192.168.0.14:3000";
     
         $("#FormModiUsuarios").submit(function(e){
             

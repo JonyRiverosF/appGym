@@ -649,6 +649,7 @@ router.post("/enviarReporte",upload.any(),(req:Request,res:Response)=>{
         modelos.reportesModelo.create({
             rut:req.body.rut,
             userReportado:req.body.nombre,
+            fotoPerfil:req.body.foto,
             comentario:req.body.comentario,
             estado:"activo",
             fechaEmision:new Date()

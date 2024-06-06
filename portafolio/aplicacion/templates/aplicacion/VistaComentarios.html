@@ -386,32 +386,30 @@ th {
             
             {% for u in report %}
             <tr >
-                <td>{{ u.userReportado }}</td>
-                <td>{{ u.comentario }}</td>
-                
-                <td>
-                  <p style="text-align: center;">
-                  <br>
+              {% for a in usuariosA %}
 
-                    {% for a in usuariosA %}
+              
+                {% if u.rut == a.rut %}
+                  {% if a.warnings > 0 %}
+                    <td>{{ u.userReportado }}</td>
+                    <td>{{ u.comentario }}</td>
+                  
+                    <td>
+                      <p style="text-align: center;">
+                      <br>
 
-                      {% if u.rut == a.rut %}
-
-                        {% if a.warnings == 0 %}
-                        <a href="{% url 'BanearComentario' u.rut %}" class="btn btn-warning btn-fixed" >Banear Usuario</a>
-                        {% else %}
-                        <a href="{% url 'AdvertenciaComentario' u.id %}" class="btn btn-warning btn-fixed" >Advertir</a><br>
-                        {% endif %}
+                            <a href="{% url 'AdvertenciaComentario' u.id %}" class="btn btn-warning btn-fixed" >Advertir</a><br>
+                            
+                            <a href="{% url 'anularComentario' u.id %}" class="btn btn-success btn-fixed">Anular</a>
+                            
+                          </p>
+                          
+                      </td>
+                  {% endif %}
                         
-                      {% endif %}
-                    
-                    {% endfor %}
-                    
-                    <a href="{% url 'anularComentario' u.id %}" class="btn btn-success btn-fixed">Anular</a>
-
-                  </p>
-                    
-                </td>
+                {% endif %}
+                  
+              {% endfor %}
             </tr>
             {% endfor %}
             

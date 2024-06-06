@@ -6,6 +6,7 @@ import mongoose, { Mongoose } from "mongoose";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
 import modelos from "./modelos";
+import correos from "./complementos/correos";
 
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
@@ -829,7 +830,7 @@ router.post("/anularComentario/:id" ,  (req:Request, res:Response)=>{
     var id=req.params.id;
 
     modelos.reportesModelo.findByIdAndUpdate(id,{
-        estado:"desactivado",
+        estado:"anulado",
 
     }).exec().then(respuesta => {
         res.status(201).json(respuesta);
@@ -842,16 +843,35 @@ router.post("/anularComentario/:id" ,  (req:Request, res:Response)=>{
 })
 
 router.post("/advertirComentario/:id" ,  (req:Request, res:Response)=>{
-    var id=req.params.id;
+    var id=req.params.id;var warnings:any;
     console.log(req.body.id)
     modelos.reportesModelo.findByIdAndUpdate(id,{
-        estado:"activo",
+        estado:"desactivado",
 
     }).exec().then(respuesta => {
-        console.log(respuesta);
-        res.status(201).json(respuesta);
+        modelos.comentariosModel.findOneAndUpdate({creadorDelComentario:{id:respuesta?.rut,nombre:respuesta?.userReportado,fotoPerfil:""},descripcion:respuesta?.comentario},
+            {estado:"desactivado"}
+        ).exec().then(resp=>{
+            //console.log(resp)
+            modelos.usuarioModelo.findOne({rut:respuesta?.rut}).exec().then((respu:any)=>{
+                warnings = respu.warnings -1
+                //console.log(respu.warnings+ "----"+ warnings)
+                modelos.usuarioModelo.findOneAndUpdate({rut:respuesta?.rut},{warnings}).exec().then(enviar=>{
+                    if(warnings == 0){
+                        correos.banearUser(enviar?.correo);
+                        modelos.reportesModelo.updateMany({rut:enviar?.rut},{
+                            estado:"desactivado"
+                        }).exec()
+                    }else{
+                        correos.adverComentario(enviar?.correo,warnings,respuesta?.comentario)
+                    }
+                    res.status(201).json(respuesta);
+                })
+            })
+           })
+        })
 
-    }).catch(error => {
+    .catch(error => {
         console.log("Error al actualizar el estado del reporte");
         console.log(error);
         res.status(500).json({ mensaje: "Error al actualizar el estado del reporte" });

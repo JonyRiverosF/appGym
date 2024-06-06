@@ -160,6 +160,7 @@ var checkOutModelo = mongoose.model("checkout",tablaCheckOut);
 var reporteSchema = new mongoose.Schema({
     rut:String,
     userReportado:String,
+    fotoPerfil:String,
     comentario:String,
     estado:String,
     fechaEmision:Date
