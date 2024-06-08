@@ -13,6 +13,14 @@ import correos from "./complementos/correos";
 var usuarioModelo = modelos.usuarioModelo
 var horariosElegidosModelo = modelos.horariosElegidosModelo
 
+//
+import axios from 'axios';
+
+import { Options, IntegrationApiKeys, Environment, IntegrationCommerceCodes } from 'transbank-sdk'; // ES6 Modules
+
+import { WebpayPlus } from 'transbank-sdk'; // ES6 Modules
+//
+
 
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
@@ -24,6 +32,48 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
 }).catch(err=>{
     console.log("Algo salió mal");
     console.log(err);
+})
+
+
+router.post('/subscribe', upload.any(),async (req:Request, res:Response) => {
+    const tx = new WebpayPlus.Transaction(new Options("597055555532", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", "https://webpay3gint.transbank.cl/"));
+    const response = await tx.create(
+     "122345", "1234", 14500, "http://192.168.0.18:3000/validaciones/nya"
+   ).then(resi=>{
+    console.log(resi)
+
+        res.json({resi,ur:"https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"})
+   })
+});
+
+router.post('/estadoTr', upload.any(),async (req:Request, res:Response) => {
+    const tx = new WebpayPlus.Transaction(new Options("597055555532", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", "https://webpay3gint.transbank.cl/"));
+    const response = await tx.status(req.body.tok).then(resi=>{
+    console.log(resi)
+    res.json(resi);
+   })
+});
+
+var tok:any;
+router.get("/nya",upload.any(),(req:Request,res:Response)=>{
+    console.log("--------")
+    console.log(req.query)
+    console.log("--------") 
+    const xd = new WebpayPlus.Transaction(new Options("597055555532","579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C","https://webpay3gint.transbank.cl/"))
+    const awa = xd.commit(String(req.query.token_ws)).then(respuesta=>{
+        tok = respuesta
+        console.log(respuesta)
+        res.redirect("http://192.168.0.18:8100/pago-listo")
+    });
+    // /rswebpaytransaction/api/webpay/v1.2/transactions/{token}
+})
+
+router.get("/pagoListo",(req:Request,res:Response)=>{
+    if(!tok){
+        res.status(200).json(null);
+    }else{
+        res.status(200).json(tok);
+    }
 })
 
 

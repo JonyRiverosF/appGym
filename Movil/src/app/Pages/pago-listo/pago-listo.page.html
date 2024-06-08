@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>pagoListo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">pagoListo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detalle del pago</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input readonly label="Orden de compra" [value]="detalle.buy_order"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input readonly label="Monto pagado" [value]="detalle.amount"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input readonly label="Fecha de pago" [value]="detalle.transaction_date"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input readonly label="Estado" [value]="detalle.status"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

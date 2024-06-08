@@ -41,11 +41,31 @@ export class PerfilPage implements OnInit {
   usuario:any={};
   fichaMedica:string="";
   apiUrl:string = ""
+
+  act:string="";token:string=""
   constructor(private menuCtrl: MenuController,private router: Router,private toastController: ToastController,
     private activatedRouter:ActivatedRoute,private api:ExpressService, private loadingCtrl: LoadingController
   ) {}
 
+  uy(a:any){
+    console.log(a)
+  }
+   subscribe(){
+    this.api.subscribe().then(res=>res.json()).then(resi=>{
+      console.log(resi)
+      this.act = resi.resi.url
+      this.token = resi.resi.token
+      //window.location.href=resi.ur
+    })
+    
+
+    //WebpayPlus.configureForIntegration("597055555532",'579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C')
+    // Versión 2.x del SDK
+   // var response = await new TransaccionCompleta.Transaction.c(3421, 1234, 24500, "http://10.155.87.137:8100/perfil");   
+}
+
   ionViewDidEnter(){
+    this.subscribe()
     this.apiUrl = this.api.urlApi
     try{
       this.fechaActual = this.fecha.toISOString();
@@ -69,6 +89,8 @@ export class PerfilPage implements OnInit {
       console.log(e)
     }
   }
+
+
 
   ionViewWillEnter(){
     this.usuario = JSON.parse(String(localStorage.getItem("idUser")))

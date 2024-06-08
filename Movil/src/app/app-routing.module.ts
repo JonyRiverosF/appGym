@@ -78,6 +78,10 @@ const routes: Routes = [
   },  {
     path: 'sobre-nosotros',
     loadChildren: () => import('./pages/sobre-nosotros/sobre-nosotros.module').then( m => m.SobreNosotrosPageModule)
+  },
+  {
+    path: 'pago-listo',
+    loadChildren: () => import('./Pages/pago-listo/pago-listo.module').then( m => m.PagoListoPageModule)
   }
 
 

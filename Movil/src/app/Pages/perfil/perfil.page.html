@@ -135,29 +135,16 @@
 
 
 <!--Cartera virtual Cerrar-->   
-  <div *ngIf="despliega">
-    <ion-row>
-      <ion-col size="1"></ion-col>
-      <ion-col size="10">
-      <p style="text-align: center;"><ion-button color="warning" (click)="ocultarV()" shape="round" >Ocultar</ion-button></p>
-      
-    <p style="text-align: center;">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Cartera Virtual</ion-card-title>
-          <ion-card-title>$15.000</ion-card-title>
-          <ion-card-subtitle>M-J-S</ion-card-subtitle>
-        </ion-card-header>
-      
-        <ion-card-content>
-          <ion-button color="warning" shape="round" >Pagar</ion-button>
-        </ion-card-content>
-      </ion-card>
-    </p>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
-  </div>
+<form ngNoForm name="xd" id="xd" method="post" [action]="act" (submit)="uy($event)" target="_blank">
+
+
+      <h2>Datos bancarios</h2>
+
+      <input type="hidden" [(ngModel)]="token" name="token_ws" id="token_ws">
+      <input type="submit" value="Pagar mes">
+
+
+</form>
 </ion-grid>
 
 
