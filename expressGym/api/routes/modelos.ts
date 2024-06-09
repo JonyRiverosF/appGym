@@ -17,6 +17,21 @@ var usuariosSchema = new mongoose.Schema({
 })
 var usuarioModelo = mongoose.model("Usuarios",usuariosSchema)
 
+
+var transaccionesSchema = new mongoose.Schema({
+    rut:String,
+    usuario:String,
+    ordenCompra:String,
+    idSesion:String,
+    fechaPago:Date,
+    estado:String,
+    tipoPago:String,
+    monto:Number,
+    nroCard:String
+})
+
+var modeloTrans = mongoose.model("Transacciones",transaccionesSchema)
+
 var comentarioSchema = new mongoose.Schema({
     descripcion:String,
     idNoticia:String,
@@ -170,5 +185,5 @@ var reportesModelo = mongoose.model("reportes",reporteSchema)
 
 export default module.exports = {MusculoModelo,EjerciciosModelo,MaquinasModelo,tipoDietasModelo,DietasModelo,
     NoticiaModelo,usuarioModelo,horariosElegidosModelo,horariosModelo,guardadosModelo,comentariosModel,
-    solicitudModelo,checkInModelo,checkOutModelo,reportesModelo
+    solicitudModelo,checkInModelo,checkOutModelo,reportesModelo,modeloTrans
 }

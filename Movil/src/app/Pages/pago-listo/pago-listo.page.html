@@ -10,19 +10,34 @@
       <ion-title size="large">pagoListo</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-card>
+  <ion-card *ngIf="!detalle">
+    <ion-card-header>
+      <ion-card-title style="color: white;">Cargando el detalle de pago</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <ion-card *ngIf="detalle" style="text-align: center;" >
     <ion-card-header>
       <ion-card-title>Detalle del pago</ion-card-title>
     </ion-card-header>
     <ion-card-content>
+      <div style="color:white;" *ngIf="detalle.status == 'Pago rechazado'">
+        <h3>Su transacción fue rechazada, sin embargo, su dinero no fue descontado.</h3>
+        <h3>Intente nuevamente realizar el pago o comuníquese con el gimnasio</h3>
+      </div>
       <ion-item>
         <ion-input readonly label="Orden de compra" [value]="detalle.buy_order"></ion-input>
       </ion-item>
       <ion-item>
         <ion-input readonly label="Monto pagado" [value]="detalle.amount"></ion-input>
       </ion-item>
+      <ion-item *ngIf="detalle.payment_type_code">
+        <ion-input readonly label="Tipo de pago" [value]="detalle.payment_type_code"></ion-input>
+      </ion-item>
       <ion-item>
         <ion-input readonly label="Fecha de pago" [value]="detalle.transaction_date"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input readonly label="Hora de pago" [value]="detalle.hora"></ion-input>
       </ion-item>
       <ion-item>
         <ion-input readonly label="Estado" [value]="detalle.status"></ion-input>
@@ -30,3 +45,33 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+<!--Menu footer-->
+<ion-footer id="footer">
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button>
+          <ion-icon (click)="irPerfil()" name="person-circle-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irMusculos()" name="barbell-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irNoticias()" name="newspaper-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irDietas()" name="clipboard-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irGuardados()" name="bookmark-outline"></ion-icon>
+        </ion-tab-button>
+
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

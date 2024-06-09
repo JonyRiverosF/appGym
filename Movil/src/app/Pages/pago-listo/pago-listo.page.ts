@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
 
@@ -9,19 +10,55 @@ import { ExpressService } from 'src/app/services/express.service';
 })
 export class PagoListoPage implements OnInit {
 
-  detalle:any={buy_order:"",amount:0,transaction_date:null,status:""};
-  constructor(private api:ExpressService,private loadingCtrl: LoadingController) { }
+  detalle:any;
+  usuario:any;
+  constructor(private api:ExpressService,private loadingCtrl: LoadingController,private router:Router) { }
  
   verPago(){
+    this.usuario = JSON.parse(String(localStorage.getItem("idUser")))
     this.loading(15000).then(response=>{
-      response.present()
-      this.api.pagoList().then(res=>res.json()).then(res=>{
-        this.detalle = res
+      response.present();
+      var form = new FormData();
+      form.append("rut",this.usuario.rut);
+      form.append("nombre",this.usuario.nombre+" "+this.usuario.apellido)
+      this.api.pagoList(form).then(res=>res.json()).then(res=>{
+        this.detalle = res.respuesta
+        console.log(res)
         console.log(this.detalle)
+        this.detalle.hora =  new  Date(this.detalle.transaction_date).toLocaleString("es-ES",{hour:"2-digit",minute:"2-digit"})
+        this.detalle.transaction_date = new  Date(this.detalle.transaction_date).toLocaleString("es-ES",{month:"long",year:"numeric",day:"numeric",weekday:"long"})
+        this.detalle.payment_type_code = this.formatoTarjeta(this.detalle);
+        this.detalle.status = this.formatoEstado(this.detalle);
+        if(!res.token){
+          this.detalle.status = "Compra anulada por el cliente"
+        }
         response.dismiss();
       })
     })
   }
+
+  formatoTarjeta(x:any){
+    switch(x.payment_type_code){
+      case "VD":
+        x.payment_type_code = "DÉBITO";break;
+      case "VP":
+        x.payment_type_code = "PREPAGO";break;
+      case "VN":
+        x.payment_type_code = "CRËDITO SIN CUOTAS";break;
+    }
+    return x.payment_type_code
+  }
+
+  formatoEstado(x:any){
+    switch(x.status){
+      case "AUTHORIZED":
+        x.status = "Pago exitoso";break;
+      case "FAILED":
+        x.status = "Pago rechazado";break;
+    }
+    return x.status
+  }
+
 
   ionViewWillEnter(){
     this.verPago()
@@ -33,6 +70,27 @@ export class PagoListoPage implements OnInit {
        duration: duracion,
      })
    }
+
+
+   irPerfil(){
+    this.router.navigate(['/perfil']);
+  }
+
+  irGuardados(){
+    this.router.navigate(['/guardados']);
+  }
+
+  irDietas(){
+    this.router.navigate(['/dietas']);
+  }
+
+  irMusculos(){
+    this.router.navigate(['/musculos']);
+  }
+
+  irNoticias(){
+    this.router.navigate(['/noticias']);
+  }
    
   ngOnInit() {
   }

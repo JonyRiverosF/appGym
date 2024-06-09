@@ -14,9 +14,10 @@ export class ExpressService {
 
 
   //GET
-  pagoList(){
+  pagoList(form:any){
     return fetch(this.apiUrl+"/validaciones/pagoListo",{
-      method:"GET"
+      method:"POST",
+      body:form
     })
   }
   
@@ -34,7 +35,13 @@ export class ExpressService {
       body:form
     })
   }
-
+ 
+  anularPago(x:any){
+    return fetch(this.apiUrl+"/validaciones/anularPago",{
+      method:"POST",
+      body:x
+    })
+  }
 
   traerNoticias(){
     return fetch(this.apiUrl+"/consultas/traerNoticias",{

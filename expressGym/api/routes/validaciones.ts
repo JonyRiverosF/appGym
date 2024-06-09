@@ -38,11 +38,11 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
 router.post('/subscribe', upload.any(),async (req:Request, res:Response) => {
     const tx = new WebpayPlus.Transaction(new Options("597055555532", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", "https://webpay3gint.transbank.cl/"));
     const response = await tx.create(
-     "122345", "1234", 14500, "http://192.168.0.18:3000/validaciones/nya"
+     "1223456", "1234", 14500, "http://192.168.0.18:3000/validaciones/nya"
    ).then(resi=>{
-    console.log(resi)
+  //  console.log(resi)
 
-        res.json({resi,ur:"https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions"})
+        res.json({resi})
    })
 });
 
@@ -56,25 +56,53 @@ router.post('/estadoTr', upload.any(),async (req:Request, res:Response) => {
 
 var tok:any;
 router.get("/nya",upload.any(),(req:Request,res:Response)=>{
-    console.log("--------")
+   console.log("--------")
     console.log(req.query)
     console.log("--------") 
     const xd = new WebpayPlus.Transaction(new Options("597055555532","579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C","https://webpay3gint.transbank.cl/"))
-    const awa = xd.commit(String(req.query.token_ws)).then(respuesta=>{
-        tok = respuesta
-        console.log(respuesta)
-        res.redirect("http://192.168.0.18:8100/pago-listo")
-    });
+    if(req.query.token_ws){
+        xd.commit(String(req.query.token_ws)).then(respuesta=>{
+            tok = {respuesta,token:req.query.token_ws}
+          //  console.log(respuesta)
+            res.redirect("http://192.168.0.18:8100/pago-listo")
+        });
+    }else{
+        //Aquí entra cuando se anula la compra
+        const awa = xd.status(String(req.query.TBK_TOKEN)).then(respuesta=>{
+            tok = {respuesta}
+          //  console.log(respuesta)
+            res.redirect("http://192.168.0.18:8100/pago-listo")
+        });
+    }
     // /rswebpaytransaction/api/webpay/v1.2/transactions/{token}
 })
 
-router.get("/pagoListo",(req:Request,res:Response)=>{
-    if(!tok){
-        res.status(200).json(null);
-    }else{
+
+
+router.post("/pagoListo",upload.any(),(req:Request,res:Response)=>{
+    if(!tok.token){
         res.status(200).json(tok);
+    }else{
+
+        const tipoPago = formatoTarjeta(tok);
+        const estado = formatoEstado(tok)
+        modelos.modeloTrans.create({
+            rut:req.body.rut,
+            usuario:req.body.nombre,
+            ordenCompra:tok.respuesta.buy_order,
+            idSesion:tok.respuesta.session_id,
+            fechaPago:tok.respuesta.transaction_date,
+            tipoPago:tipoPago,
+            estado:estado,
+            monto:tok.respuesta.amount,
+            nroCard:tok.respuesta.card_detail.card_number
+
+        }).then(resp=>{
+            res.status(200).json(tok);
+        })
     }
 })
+
 
 
 router.post("/validarCorreo",upload.any(),(req:Request,res:Response)=>{
@@ -193,4 +221,26 @@ router.post("/recuperarCodigo",upload.any(),(req:Request,res:Response)=>{
     })
 
 })
+
+function formatoTarjeta(x:any){
+    switch(x.respuesta.payment_type_code){
+      case "VD":
+        x.respuesta.payment_type_code = "DÉBITO";break;
+      case "VP":
+        x.respuesta.payment_type_code = "PREPAGO";break;
+      case "VN":
+        x.respuesta.payment_type_code = "CRËDITO SIN CUOTAS";break;
+    }
+    return x.respuesta.payment_type_code
+  }
+
+function formatoEstado(x:any){
+    switch(x.respuesta.status){
+      case "AUTHORIZED":
+        x.respuesta.status = "Pago exitoso";break;
+      case "FAILED":
+        x.respuesta.status = "Pago rechazado";break;
+    }
+    return x.respuesta.status
+  }
 export default module.exports=router

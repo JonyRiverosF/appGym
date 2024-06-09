@@ -75,9 +75,10 @@ const routes: Routes = [
   {
     path: 'check-out',
     loadChildren: () => import('./Pages/check-out/check-out.module').then( m => m.CheckOutPageModule)
-  },  {
+  },
+  {
     path: 'sobre-nosotros',
-    loadChildren: () => import('./pages/sobre-nosotros/sobre-nosotros.module').then( m => m.SobreNosotrosPageModule)
+    loadChildren: () => import('./Pages/sobre-nosotros/sobre-nosotros.module').then( m => m.SobreNosotrosPageModule)
   },
   {
     path: 'pago-listo',
