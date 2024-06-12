@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 
 #Pantallas Principales
-from .views import pantalla,Solicitudes,soli,Informes,Reportes,ListaCategorias,VistaComentarios,anularComentario,AdvertenciaComentario
+from .views import pantalla,Solicitudes,soli,Informes,Reportes,ListaCategorias,VistaComentarios,anularComentario,AdvertenciaComentario,CerrarGym
 #Usuarios
 from .views import Registro,ListaUsu,ModificarU,login,formSesion,OlvidasteContra
 #Noticias
@@ -17,6 +17,7 @@ urlpatterns =[
 
     #Pantalla Principal
     path("pantalla",pantalla,name="pantalla"),
+    path("CerrarGym/<id>",CerrarGym,name="CerrarGym"),
 
 
     #Informes

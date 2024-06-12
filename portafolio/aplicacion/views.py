@@ -8,8 +8,6 @@ from django.contrib.auth.decorators import login_required
 from babel.dates import format_date
 
 
-
-
 mongo=""
 dataBase=""
 
@@ -32,6 +30,7 @@ tipoDietas=""
 dietas=""
 
 noticia=""
+transacciones=""
 
 apiUrl = "http://192.168.1.2:3000"
 
@@ -40,6 +39,7 @@ mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb
 dataBase = mongo["colinaGym"]
 usuarios = dataBase["usuarios"]
 
+transacciones = dataBase["transacciones"]
 reportes = dataBase["reportes"]
 
 ejercicios = dataBase["ejercicios"]
@@ -69,13 +69,40 @@ def pantalla(request):
    
     num_personas = checkin.count_documents({"estado": "activo"})
 
+    uwu=[]
+
+    for x in Ingreso:
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+
     contexto = {
-        "chekin": Ingreso,
+        "chekin": uwu,
         "num_personas": num_personas
     }
 
     return render(request, "aplicacion/inicio.html",contexto)
 
+def CerrarGym(request,id):
+
+    Ingreso = checkin.find({"estado": "activo"})
+
+    num_personas = checkin.count_documents({"estado": "activo"})
+
+    response = requests.post( apiUrl + "/validaciones/CerrarGym/" + id) 
+   
+
+    uwu=[]
+
+    for x in Ingreso:
+        x["_id"] = str(x["_id"]); x["id"] = str(x["_id"])
+        uwu.append(x)
+
+    contexto = {
+        "chekin": uwu,
+        "num_personas": num_personas
+    }
+
+    return redirect("pantalla")
 
 def login(request):
     logout(request)
@@ -138,6 +165,7 @@ def Informes(request):
 
     Comentarios = comentarios.find({})
     Horarios = horarios.find({"vigencia": True})
+    Trans = transacciones.find({})
 
     nombre = []
 
@@ -146,15 +174,16 @@ def Informes(request):
         for hora in h["horas"]:
             hola = hora["cuposMaximos"] - hora["cuposElegidos"]
             hora["cuposDisponibles"] = hola
-            #print(hora["cuposDisponibles"])
         h["dia"] = dias.split(",")[0] 
         nombre.append(h)
-        print(nombre)
-        print("----")
+
+    monto_total = sum(t["monto"] for t in Trans)
         
     contexto = {
         "comentarios": Comentarios,
-        "horarios": nombre
+        "horarios": nombre,
+        "Trans":Trans,
+        "monto_total": monto_total
     }
 
     return render(request, "aplicacion/Informes.html", contexto)
@@ -264,9 +293,9 @@ def Registro(request):
 def ListaUsu(request):
 
     Usuarios = usuarios.find({})
-
+    
     contexto = {
-        "usuarios": Usuarios
+        "usuarios": Usuarios,
     }
 
     return render(request, "aplicacion/ListaUsu.html", contexto)

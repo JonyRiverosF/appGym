@@ -103,6 +103,22 @@ router.post("/pagoListo",upload.any(),(req:Request,res:Response)=>{
     }
 })
 
+router.post("/CerrarGym/:id" ,  (req:Request, res:Response)=>{
+    var id=req.params.id;
+
+    modelos.checkInModelo.findByIdAndUpdate(id,{
+        estado:"inactivo",
+
+    }).exec().then(respuesta => {
+        res.status(201).json(respuesta);
+
+    }).catch(error => {
+        console.log("Error al actualizar el estado del checkin");
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar el estado del checkin" });
+    });
+})
+
 
 
 router.post("/validarCorreo",upload.any(),(req:Request,res:Response)=>{

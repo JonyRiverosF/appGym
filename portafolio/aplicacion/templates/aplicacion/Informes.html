@@ -321,14 +321,14 @@ th, td {
 th {
     position: sticky;
     top: 0;
-    background-color: #f2f2f2;
+    
 }
 
 td:first-child {
     position: sticky;
     left: 0;
-    background-color: #f2f2f2;
-    z-index: 1; /* Asegura que la columna de horas esté sobre las demás */
+    
+    z-index: 1; 
 }
 </style>
 </head>
@@ -407,13 +407,13 @@ td:first-child {
 
 
 <div class="container" style="background: rgb(17, 67, 89);">
-  <div class="container"> 
+  <div class="container">
       <div class="container">
           <br>
           <div class="row" style="text-align: center;margin-top: 5%;">
               <div class="col-md-3 col-sm-4"></div>
               <div class="col-md-6 col-sm-4">
-                  <h1 id="titulo-informe" style="background:rgb(166, 237, 142);color:rgb(0, 0, 0)">Informes</h1><br>
+                  <h1 id="titulo-informe" style="background:rgb(166, 237, 142);color:rgb(0, 0, 0);font-size: 2.5em;margin-top: 20px;">Informes</h1><br>
               </div>
               <div class="col-md-3 col-sm-4"></div>
           </div>
@@ -428,6 +428,7 @@ td:first-child {
                       <option value="todos" selected>Seleccione Informe</option>
                       <option value="comentarios">Informes Comentarios</option>
                       <option value="cupos">Informes Cupos</option>
+                      <option value="bancarios">Informes Bancarios</option>
                   </select>
               </div>
               <div class="col-md-3"></div>
@@ -457,23 +458,48 @@ td:first-child {
               <div class="table-responsive informes cupos">
                   <table class="table">
                       {% for h in horarios %}
-                        <thead>
-                            <tr>
+                      <thead>
+                          <tr>
                               <td>Horas</td>
                               <td>{{ h.dia }}</td>
-                            </tr>
-                        </thead>
-                        {% for j in h.horas %}
-                          <tbody>
-                              <tr>
-                                <td>{{ j.hora }}</td>
-                                <td>{{ j.cuposDisponibles }}</td>
-                              </tr>
-                          </tbody>
-                        {% endfor %}
+                          </tr>
+                      </thead>
+                      {% for j in h.horas %}
+                      <tbody>
+                          <tr>
+                              <td>{{ j.hora }}</td>
+                              <td>{{ j.cuposDisponibles }}</td>
+                          </tr>
+                      </tbody>
+                      {% endfor %}
                       {% endfor %}
                   </table>
               </div>
+              <div class="table-responsive informes bancarios">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Mes</td>
+                            <td>Monto</td>
+                        </tr>
+                    </thead>
+                    {% for t in Trans %}
+                    <tbody>
+                        <tr>
+                            <td>{{ t.usuario }}</td>
+                            <td>{{ t.monto }}</td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                    
+                    <tfoot>
+                        <tr>
+                            <td>Monto total de junio</td>
+                            <td>{{ monto_total }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
           </div>
           <br>
 
@@ -484,23 +510,25 @@ td:first-child {
                   var tituloInforme = document.getElementById('titulo-informe');
 
                   informes.forEach(function(informe) {
-                      informe.style.display = 'none'; 
+                      informe.style.display = 'none';
                   });
 
                   if (filtro === 'todos') {
                       informes.forEach(function(informe) {
-                          informe.style.display = 'block'; 
+                          informe.style.display = 'block';
                       });
-                      tituloInforme.textContent = 'Informes'; 
+                      tituloInforme.textContent = 'Informes';
                   } else {
                       var seleccionados = document.querySelectorAll('.' + filtro);
                       seleccionados.forEach(function(seleccionado) {
-                          seleccionado.style.display = 'block'; 
+                          seleccionado.style.display = 'block';
                       });
                       if (filtro === 'comentarios') {
                           tituloInforme.textContent = 'Informes Comentario';
                       } else if (filtro === 'cupos') {
-                          tituloInforme.textContent = 'Informes de Cupos Disponibles'; 
+                          tituloInforme.textContent = 'Informes de Cupos Disponibles';
+                      } else if (filtro === 'bancarios') {
+                          tituloInforme.textContent = 'Informes Bancarios'; // Puedes ajustar este texto según tus necesidades
                       }
                   }
               });
@@ -508,6 +536,7 @@ td:first-child {
       </div>
   </div>
 </div>
+
 
 
 

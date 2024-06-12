@@ -415,19 +415,22 @@
       </div>
     </div>
   <br>
-
+  
   <div class="container">
     <div class="info-box">
         <p>PERSONAS DENTRO DEL GIMNASIO: </p> <h3 style="font-size: 40px;">{{ num_personas }}</h3> 
         <a onclick="toggleDetails()" class="btn btn-warning btn-fixed">Ver más detalles</a>
+        
     </div>
 
     <div id="details" class="details">
-        {% for t in chekin %}
+      {% for t in chekin %}
             <div>
               <h1 style="color: #000;background:#b2f09c ; text-align: center; padding: 10px; border-radius: 5px; display: inline-block; width: 85%;">
                     {{ t.usuario }} {{ t.nombre }}
+                    <a  href="{% url 'CerrarGym' t.id %}" class="btn btn-warning btn-fixed">Echar del gym</a>
                 </h1>
+              
             </div>
         {% endfor %}
     </div>

@@ -448,20 +448,29 @@ th {
       <table class="table">
           <tr>
             <th class="half-width">Nombre </th>
+            <th class="half-width">Estado de pago</th>
             <th class="half-width">Boton</th>
           </tr>
           
           {% for u in usuarios %}
-          <tr>
-            <td> <h5 style="text-align: center;">{{ u.nombre }} {{ u.apellido }}</h5></td>
+
+              <tr>
+                <td> <h5 style="text-align: center;">{{ u.nombre }} {{ u.apellido }}</h5></td>
+
+            {% if u.pago == True %}
+                <td> <h5 style="text-align: center;color: #145f42;">Pagado</h5></td>
+
+            {% else %}  
+                <td> <h5 style="text-align: center;color: #6a1818;">Pendiente</h5></td>
+            {% endif %}
             
-            <td>
-              <p style="text-align: center;">
-              <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn-warning btn-fixed" style="margin-top: 15px;">Modificar</a>
-              </p>
-            </td>
-          </tr>
-          
+                    <td>
+                      <p style="text-align: center;">
+                      <a  href="{% url 'ModificarU' u.codigo %}" value="Modificar Perfil" class="btn btn-warning btn-fixed" style="margin-top: 15px;">Modificar</a>
+                      </p>
+                    </td>
+              </tr>
+            
           {% endfor %}
           
         </table>
