@@ -83,7 +83,11 @@ const routes: Routes = [
   {
     path: 'pago-listo',
     loadChildren: () => import('./Pages/pago-listo/pago-listo.module').then( m => m.PagoListoPageModule)
+  },  {
+    path: 'recomendaciones',
+    loadChildren: () => import('./Pages/recomendaciones/recomendaciones.module').then( m => m.RecomendacionesPageModule)
   }
+
 
 
 

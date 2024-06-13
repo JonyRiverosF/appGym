@@ -1,0 +1,139 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>recomendaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">recomendaciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!---->
+  <br />
+   <div style="text-align: center;">
+    <h1 style="color: white;">Has terminado tu rutina de hoy</h1>
+
+    <p style="color: white;">Reproduciste {{tendencia.veces}} veces videos de {{tendencia.ejer}}, 
+      este fue el músculo con el más interactuaste en la App
+    </p>
+   </div>
+   <br />
+  <h3 style="color: white;text-align: center;">Te recomendamos las siguientes dietas</h3>
+  <!---->
+  <ion-card *ngIf="normal.length > 0" style="border-style: groove;border:3%;border-color: rgb(166, 237, 142);">
+    <ion-card-header (click)="mostrarDietas('normal')">
+      <ion-card-title style="color:white">Si no tienes alguna restricción alimenticia, puedes revisar estas dietas</ion-card-title>
+      <ion-card-subtitle *ngIf="mostrarNormal" style="color:white">Apreta aquí para ver menos detalles</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="!mostrarNormal" style="color:white">Apreta aquí para ver más detalles</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row  *ngIf="mostrarNormal">
+          <ion-col size="6" class="container1" 
+          *ngFor="let dieta of normal">
+            <a [href]="dieta.dieta.foto" [target]="dieta.dieta.foto">
+              <img [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
+            </a>
+            <h3 class="center1">{{dieta.dieta.nombre}}</h3>
+          </ion-col>        
+        </ion-row>
+      </ion-grid> 
+    </ion-card-content>
+  </ion-card>
+  <!---->
+    <ion-card *ngIf="veg.length > 0" style="border-style: groove;border:3%;border-color: rgb(166, 237, 142);">
+      <ion-card-header (click)="mostrarDietas('veggie')">
+        <ion-card-title style="color:white">Si eres vegano/a, puedes revisar las siguientes dietas</ion-card-title>
+        <ion-card-subtitle *ngIf="mostrarVeggie" style="color:white">Apreta aquí para ver menos detalles</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="!mostrarVeggie" style="color:white">Apreta aquí para ver más detalles</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row  *ngIf="mostrarVeggie">
+            <ion-col size="6" class="container1" 
+            *ngFor="let dieta of veg">
+              <a [href]="dieta.dieta.foto" [target]="dieta.dieta.foto">
+                <img [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
+              </a>
+              <h3 class="center1">{{dieta.dieta.nombre}}</h3>
+            </ion-col>        
+          </ion-row>
+        </ion-grid> 
+      </ion-card-content>
+    </ion-card>
+    <!---->
+    <ion-card *ngIf="vegeta.length > 0" style="border-style: groove;border:3%;border-color: rgb(166, 237, 142);">
+      <ion-card-header (click)="mostrarDietas('vegeta')"> 
+        <ion-card-title style="color:white">Si eres vegetariano/a, puedes revisar las siguientes dietas</ion-card-title>
+        <ion-card-subtitle *ngIf="mostrarVeget" style="color:white">Apreta aquí para ver menos detalles</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="!mostrarVeget" style="color:white">Apreta aquí para ver más detalles</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row *ngIf="mostrarVeget">
+            <ion-col size="6" class="container1" 
+            *ngFor="let dieta of vegeta">
+              <a [href]="dieta.dieta.foto" [target]="dieta.dieta.foto">
+                <img [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
+              </a>
+              <h3 class="center1">{{dieta.dieta.nombre}}</h3>
+            </ion-col>        
+          </ion-row>
+        </ion-grid> 
+      </ion-card-content>
+    </ion-card>
+    <!---->
+    <ion-card *ngIf="celiaco.length > 0" style="border-style: groove;border:3%;border-color: rgb(166, 237, 142);">
+      <ion-card-header (click)="mostrarDietas('celiaco')">
+        <ion-card-title style="color:white">Si eres celiaco/a, puedes revisar las siguientes dietas</ion-card-title>
+        <ion-card-subtitle *ngIf="mostrarCeli" style="color:white">Apreta aquí para ver menos detalles</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="!mostrarCeli" style="color:white">Apreta aquí para ver más detalles</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row *ngIf="mostrarCeli">
+            <ion-col size="6" class="container1" 
+            *ngFor="let dieta of celiaco">
+                <a [href]="dieta.dieta.foto" [target]="dieta.dieta.foto">
+                  <img [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
+                </a>
+                <h3 class="center1">{{dieta.dieta.nombre}}</h3>
+            </ion-col>        
+          </ion-row>
+        </ion-grid> 
+      </ion-card-content>
+    </ion-card>
+  
+</ion-content>
+
+<!--Menu footer-->
+<ion-footer id="footer">
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button>
+          <ion-icon (click)="irPerfil()" name="person-circle-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irMusculos()" name="barbell-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irNoticias()" name="newspaper-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irDietas()" name="clipboard-outline"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button>
+          <ion-icon (click)="irGuardados()" name="bookmark-outline"></ion-icon>
+        </ion-tab-button>
+
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

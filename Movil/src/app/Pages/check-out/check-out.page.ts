@@ -27,7 +27,7 @@ export class CheckOutPage implements OnInit {
           this.api.checkOut(String(this.usuario.rut)).then(res=>res.json()).then(res=>{
               response.dismiss();
               this.presentToast("bottom","Has realizado tu check-out exitosamente")
-              this.router.navigate(["/perfil"]) 
+              this.router.navigate(["/recomendaciones"],{state:{"reco":res}}) 
           })
           }
         })

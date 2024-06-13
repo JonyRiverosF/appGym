@@ -61,8 +61,26 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
     console.log(err);
 })
 
+var tendencia:any=[]
+function ordenarRecom(re:any){
+    var flag:any=[],flagDos:any=[];
+    for(let i=0;i<re.recomendaciones.length;i++){
+        var cont =0;
+        if(!flagDos.includes(re.recomendaciones[i])){
+            flagDos.push(re.recomendaciones[i])
+            for(let a=0;a<re.recomendaciones.length;a++){
+                if(re.recomendaciones[i]== re.recomendaciones[a]){
+                    cont ++;
+                }
+            }
+            tendencia.push([re.recomendaciones[i],cont]);
+        }
+    }
+    flag = tendencia.slice();
+    return flag.sort((a:any,b:any)=>a[1]-b[1]).reverse()[0];
+}
 
-    
+
 router.post("/checkIn/:id",upload.any(),(req:Request,res:Response)=>{
     var rut = req.params.id;
     modelos.checkInModelo.create({
@@ -79,13 +97,32 @@ router.post("/checkIn/:id",upload.any(),(req:Request,res:Response)=>{
 })
 
 router.post("/checkOut/:id",(req:Request,res:Response)=>{
-    var rut = req.params.id
+    var rut = req.params.id,dietasRecomendadas:any=[]
     modelos.checkOutModelo.create({
         usuario:rut,
         dia:new Date()
-    }).then(respuesta=>{
+    }).then(async respuesta=>{
+        await modelos.checkInModelo.findOne({usuario:rut,estado:"activo"}).exec().then(async re=>{
+            if(re != null){
+                var flag = ordenarRecom(re);
+                tendencia = flag
+                if(flag[0] != "Cardio"){
+                    await modelos.DietasModelo.find({tipoD:["Calorica","Mantención"]}).exec().then(resp=>{
+                       // console.log(resp)
+                        dietasRecomendadas = resp
+                    })
+                }else{
+                    await modelos.DietasModelo.find({tipoD:["Hipocalorica","Mantención"]}).exec().then(resp=>{
+                        //console.log(resp)
+                        dietasRecomendadas = resp
+                    })
+                }
+            }else{
+                dietasRecomendadas = null;tendencia=null
+            }
+        })
         modelos.checkInModelo.updateMany({usuario:rut},{estado:"inactivo"}).exec().then(respu=>{
-            res.status(201).json({respuesta,respu});
+            res.status(201).json({dietasRecomendadas,tendencia});
         }).catch(error=>{
             console.log("algo salió mal cambiando estado checkin");console.log(error);
             res.status(500).json({msj:"algo salió mal"})

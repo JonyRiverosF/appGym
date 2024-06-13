@@ -23,6 +23,28 @@ router.get("/uwu",(req:Request,res:Response)=>{
     console.log(req);
 })
 
+router.put("/agregarRecomen",upload.any(),(req:Request,res:Response)=>{
+    modelos.checkInModelo.findOne({usuario:req.body.rut,estado:"activo"}).exec().then(resp=>{
+        if(resp != null){
+            var recom = resp.recomendaciones
+            recom.push(req.body.musculo);
+            modelos.checkInModelo.updateOne({usuario:req.body.rut,estado:"activo"},{recomendaciones:recom}).exec().then(respuesta=>{
+               console.log(respuesta);
+               res.status(201).json(respuesta)
+            }).catch(error=>{
+                console.log("Algo salió mal");
+                console.log(error);
+                res.status(500).json(error)
+            })
+        }else{
+           res.status(201).json("inactivo")
+        }
+    }).catch(error=>{
+        console.log("Algo salió mal");
+        console.log(error);
+        res.status(500).json(error)
+    })
+})
 router.put("/modificarHorario/:id",(req:Request,res:Response)=>{
     var id = req.params.id;
     const fecha = new Date();

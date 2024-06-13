@@ -62,7 +62,11 @@ export class EjercicioPage implements OnInit {
         this.videoName = this.ejercicio.video;this.fotoName = this.ejercicio.foto
         this.ejercicio.foto = this.apiUrl+"imagenes/MiniaturaEjercicios/"+this.ejercicio.foto
         this.ejercicio.video = this.apiUrl+"videos/"+this.ejercicio.video
-       // console.log(this.ejercicio)
+        console.log(this.ejercicio)
+        // console.log(this.ejercicio)
+        })
+      await this.agregarRecomendados().then(res=>res.json()).then(res=>{
+        console.log(res)
       })
       await this.api.buscarGuardados(JSON.parse(String(localStorage.getItem("idUser"))).rut).then(res=>res.json()).then(res=>{
         for(let x of res){
@@ -73,6 +77,13 @@ export class EjercicioPage implements OnInit {
         response.dismiss();
       })
     })
+  }
+
+  agregarRecomendados(){
+    var formulario = new FormData();
+    formulario.append("rut",JSON.parse(String(localStorage.getItem("idUser"))).rut);
+    formulario.append("musculo",this.ejercicio.tipoMusculo);
+    return this.api.addRecomendaciones(formulario)
   }
   
   responder(username:any){
