@@ -651,8 +651,9 @@ def ModificarDie(request, id):
 
     
     contexto = {
-        "modificarD": owo["respuesta"][0],
-        "Tipos":tipoDieta
+    "modificarD": owo["respuesta"][0],
+    "Tipos": tipoDieta,
+      
     }
 
     return render(request,"aplicacion/ModificarDie.html",contexto)
