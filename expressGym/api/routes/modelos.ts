@@ -1,4 +1,6 @@
+import { pseudoRandomBytes } from "crypto";
 import mongoose, { Mongoose, mongo } from "mongoose";
+import { createLanguageServiceSourceFile } from "typescript";
 
 var usuariosSchema = new mongoose.Schema({
     codigo:String,
@@ -13,6 +15,7 @@ var usuariosSchema = new mongoose.Schema({
     estado:String,
     codigoSeguridad:String,
     warnings:Number,
+    pago:Boolean,
     rol:String
 })
 var usuarioModelo = mongoose.model("Usuarios",usuariosSchema)
@@ -100,8 +103,12 @@ var DietasSchema = new mongoose.Schema({
     foto: String,
     ficha: String,
     estado:String,
-    
+    esVegetariana:Boolean,
+    esVegano:Boolean,
+    esCeliaco:Boolean
 });
+
+
 var DietasModelo = mongoose.model("dietas", DietasSchema);
 
 var NoticiaSchema = new mongoose.Schema({
@@ -160,6 +167,7 @@ var tablaCheckIn = new mongoose.Schema({
     usuario:String,
     nombre:String,
     dia:Date,
+    recomendaciones:Array,
     estado:String
 })
 
