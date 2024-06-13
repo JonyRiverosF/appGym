@@ -12,6 +12,7 @@ import correos from "./complementos/correos";
 
 var usuarioModelo = modelos.usuarioModelo
 var horariosElegidosModelo = modelos.horariosElegidosModelo
+var url="http://192.168.100.232:"
 
 //
 import axios from 'axios';
@@ -38,7 +39,7 @@ mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.ne
 router.post('/subscribe', upload.any(),async (req:Request, res:Response) => {
     const tx = new WebpayPlus.Transaction(new Options("597055555532", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", "https://webpay3gint.transbank.cl/"));
     const response = await tx.create(
-     "1223456", "1234", 14500, "http://192.168.0.18:3000/validaciones/nya"
+     "1223456", "1234", 14500, url+ "3000/validaciones/nya"
    ).then(resi=>{
   //  console.log(resi)
 
@@ -64,14 +65,14 @@ router.get("/nya",upload.any(),(req:Request,res:Response)=>{
         xd.commit(String(req.query.token_ws)).then(respuesta=>{
             tok = {respuesta,token:req.query.token_ws}
           //  console.log(respuesta)
-            res.redirect("http://192.168.0.18:8100/pago-listo")
+            res.redirect(url+ "8100/pago-listo")
         });
     }else{
         //Aquí entra cuando se anula la compra
         const awa = xd.status(String(req.query.TBK_TOKEN)).then(respuesta=>{
             tok = {respuesta}
           //  console.log(respuesta)
-            res.redirect("http://192.168.0.18:8100/pago-listo")
+            res.redirect(url+ "8100/pago-listo")
         });
     }
     // /rswebpaytransaction/api/webpay/v1.2/transactions/{token}
