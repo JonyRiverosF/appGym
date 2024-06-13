@@ -586,6 +586,9 @@ router.put("/modificarDietas/:id", upload.single("foto"), (req: any, res: Respon
                             foto: respuesta.foto,
                             ficha: req.body.ficha,
                             tipoD:req.body.tipoD,
+                            esVegetariana: req.body.esVegetariana,
+                            esVegano: req.body.esVegano,
+                            esCeliaco: req.body.esCeliaco
                         }).exec().then(respuesta => {
 
                             res.status(201).json(respuesta);
@@ -605,6 +608,9 @@ router.put("/modificarDietas/:id", upload.single("foto"), (req: any, res: Respon
                 nombre: req.body.nombre,
                 ficha: req.body.ficha,
                 tipoD:req.body.tipoD,
+                esVegetariana: req.body.esVegetariana,
+                esVegano: req.body.esVegano,
+                esCeliaco: req.body.esCeliaco
             }).exec().then(respuesta => {
                 res.status(201).json(respuesta);
             }).catch(error => {

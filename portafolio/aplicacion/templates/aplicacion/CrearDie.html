@@ -301,6 +301,31 @@ nav > ul > li > ul > li > ul:before {
     opacity: 1;
   }
 }
+
+.seleccion-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: -20px;
+           
+        }
+        .seleccion-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            margin-top: -20px;
+        }
+        .seleccion {
+            width: 100px;
+            height: 100px;
+            background-color:  #7cbc65;
+            color: #000000;
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin: 0 10px;
+            text-align: center;
+        }
 </style>
 </head>
 
@@ -436,6 +461,42 @@ nav > ul > li > ul > li > ul:before {
                     <div class="col-md-4"></div>
                   </div><br>
 
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="grupo" style="text-align: center;" >
+                      
+                          <label>¿Es una dieta vegana?</label><br>
+                            <input type="radio" id="vegaSi" name="vegas" value="SI" >
+                            <label for="vegaSi">SI</label>  
+                            <input type="radio" id="vegaNo" name="vegas" value="NO" >
+                            <label for="vegaNo">NO</label>
+                      
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="grupo" style="text-align: center;" >
+                          <label>¿Es una dieta celiaca?</label><br>
+                            <input type="radio" id="celiSi" name="celi" value="SI">
+                            <label for="celiSi">SI</label>  
+                            <input type="radio" id="celiNo" name="celi" value="NO">
+                            <label for="celiNo">NO</label>
+                      </div>
+                    </div>
+
+                  <div class="col-md-4">
+                    
+                      <div class="grupo" style="text-align: center;">
+                          <label>¿Es una dieta vegetariana?</label><br>
+                            <input type="radio" id="vegetarianaSi" name="vege" value="SI">
+                            <label for="vegetarianaSi">SI</label>
+                            <input type="radio" id="vegetarianaNo" name="vege" value="NO">
+                            <label for="vegetarianaNo">NO</label>  
+                    </div>
+                  </div>
+                </div>
+
+                
                   <div class="row">
                     <div class="col-md-2 col-sm-2"></div>
                       <div class="col-md-8 col-sm-8">

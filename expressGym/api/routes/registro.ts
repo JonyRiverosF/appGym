@@ -337,7 +337,10 @@ router.post("/CrearDietas", upload.single("foto"), (req: any, res: Response) => 
             ficha: req.body.ficha,
             estado:"activado",
             tipoD: req.body.tipoD,
-            foto: foto+".jpg"
+            foto: foto+".jpg",
+            esVegetariana: req.body.esVegetariana,
+            esVegano: req.body.esVegano,
+            esCeliaco: req.body.esCeliaco
             
         }).then(resultado => {
             console.log("Insertado !!!");

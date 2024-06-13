@@ -8,17 +8,52 @@ $(document).ready(function(){
         fotoD = e.target.files[0]
         var preview = URL.createObjectURL(fotoD) 
         $("#DietaF").html("<img src="+preview+" style='width:300px; height:300px;' >")
-        console.log(fotoD)
     });
+
+    var vacioVega = "";
+    var vacioVege = "";
+    var vacioCel = "";
+   
 
     //Creacion de las Dietas
     $("#FormDietas").submit(function(e){
         var nombreDieta = $("#nombreD").val();
         var fichaDieta = $("#fichaD").val();
         var tipoD = $("#RolTipoD").val();
+        var vegetarianaS = $("#vegetarianaSi");
+        var vegetarianaN = $("#vegetarianaNo");
+        var veganaS = $("#vegaSi");
+        var veganaN = $("#vegaNo");
+        var celiS = $("#celiSi");
+        var celiN = $("#celiNo");
 
         let msjMostrar = "";
         let enviar = false;
+
+        if($("#vegaSi")[0].checked){
+            vacioVega=true;
+        }
+        if($("#vegaNo")[0].checked){
+            vacioVega=false;
+        }
+
+
+
+        if($("#vegetarianaSi")[0].checked){
+            vacioVege=true;
+        }
+        if($("#vegetarianaNo")[0].checked){
+            vacioVege=false;
+        }
+
+
+
+        if($("#celiSi")[0].checked){
+            vacioCel=true;
+        }
+        if($("#celiNo")[0].checked){
+            vacioCel=false;
+        }
 
         // Validar Nombre Dieta
         if(nombreDieta.trim() == ""){
@@ -37,6 +72,9 @@ $(document).ready(function(){
                 formulario.append("ficha", fichaDieta);
                 formulario.append("tipoD", tipoD);
                 formulario.append("foto", fotoD);
+                formulario.append("esVegano", vacioVega);
+                formulario.append("esVegetariana", vacioVege);
+                formulario.append("esCeliaco", vacioCel);
 
             fetch(apiUrl + "/creacion/CrearDietas", {
                 method: "POST",
@@ -195,10 +233,42 @@ $(document).ready(function(){
         var FichaDD = $("#fichaDD").val();
         var rolTD = $("#RolTipoD").val();
         var idMD = $("#idD")[0].innerHTML;
+        var vegetarianaS = $("#vegetarianaSi");
+        var vegetarianaN = $("#vegetarianaNo");
+        var veganaS = $("#vegaSi");
+        var veganaN = $("#vegaNo");
+        var celiS = $("#celiSi");
+        var celiN = $("#celiNo");
 
         let msjMostrar = "";
         let enviar = false;
 
+        if($("#vegaSi")[0].checked){
+            vacioVega=true;
+        }
+        if($("#vegaNo")[0].checked){
+            vacioVega=false;
+        }
+
+
+
+        if($("#vegetarianaSi")[0].checked){
+            vacioVege=true;
+        }
+        if($("#vegetarianaNo")[0].checked){
+            vacioVege=false;
+        }
+
+
+
+        if($("#celiSi")[0].checked){
+            vacioCel=true;
+        }
+        if($("#celiNo")[0].checked){
+            vacioCel=false;
+        }
+
+       
         // Validar Nombre Dieta
         if(nombreDieta.trim() == ""){
             msjMostrar += "<br>-El nombre de la dieta no puede estar vacío.";
@@ -221,6 +291,9 @@ $(document).ready(function(){
             
             formulario.append("ficha", FichaDD);
             formulario.append("tipoD", rolTD);
+            formulario.append("esVegano", vacioVega);
+            formulario.append("esVegetariana", vacioVege);
+            formulario.append("esCeliaco", vacioCel);
 
         fetch( apiUrl + '/modificar/modificarDietas/'+ idMD, {
             method: 'PUT',
