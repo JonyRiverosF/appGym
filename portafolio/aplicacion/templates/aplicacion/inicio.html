@@ -421,13 +421,14 @@ p {
   <br>
   
   <div class="container">
-    <div class="info-box">
+    <div class="info-box" style="border: 3px solid rgb(255, 188, 5);" >
         <p>PERSONAS DENTRO DEL GIMNASIO: </p> <h3 style="font-size: 40px;">{{ num_personas }}</h3> 
         <a onclick="toggleDetails()" class="btn btn-warning btn-fixed">Ver más detalles</a>
         
     </div>
-
-    <div id="details" class="details">
+        
+    <div id="details" class="details" style="background-color: rgb(2, 107, 159); border-radius: 25px; border: 3px solid rgb(255, 188, 5);"><br>
+      <h3 style="text-align: center; color: #000;">lista:</h3>
       {% for t in chekin %}
             <div>
               <h1 style="color: #000;background:#b2f09c ; text-align: left; padding: 10px; border-radius: 5px; display: inline-block; width: 85%;">
@@ -437,7 +438,7 @@ p {
               
             </div>
         {% endfor %}
-    </div>
+   <br> </div>
 </div>
 
 <script>
