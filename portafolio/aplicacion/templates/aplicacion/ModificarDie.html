@@ -474,9 +474,9 @@
               <div class="grupo" style="text-align: center;" >
               
                   <label>¿Es una dieta vegana?</label><br>
-                    <input type="radio" id="vegaSi" name="vegas" value="SI" >
+                    <input type="radio" id="vegaSi" name="vegas" value="SI" {% if modificarD.esVegano %}checked{% endif %}>
                     <label for="vegaSi">SI</label>  
-                    <input type="radio" id="vegaNo" name="vegas" value="NO" >
+                    <input type="radio" id="vegaNo" name="vegas" value="NO" {% if not modificarD.esVegano %}checked{% endif %}>
                     <label for="vegaNo">NO</label>
               
               </div>
@@ -485,9 +485,9 @@
             <div class="col-md-4">
               <div class="grupo" style="text-align: center;" >
                   <label>¿Es una dieta celiaca?</label><br>
-                    <input type="radio" id="celiSi" name="celi" value="SI">
+                    <input type="radio" id="celiSi" name="celi" value="SI" {% if modificarD.esCeliaco %}checked{% endif %}>
                     <label for="celiSi">SI</label>  
-                    <input type="radio" id="celiNo" name="celi" value="NO">
+                    <input type="radio" id="celiNo" name="celi" value="NO"  {% if not modificarD.esCeliaco %}checked{% endif %}>
                     <label for="celiNo">NO</label>
               </div>
             </div>
@@ -496,9 +496,9 @@
             
               <div class="grupo" style="text-align: center;">
                   <label>¿Es una dieta vegetariana?</label><br>
-                    <input type="radio" id="vegetarianaSi" name="vege" value="SI">
+                    <input type="radio" id="vegetarianaSi" name="vege" value="SI" {% if modificarD.esVegetariana %}checked{% endif %}>
                     <label for="vegetarianaSi">SI</label>
-                    <input type="radio" id="vegetarianaNo" name="vege" value="NO">
+                    <input type="radio" id="vegetarianaNo" name="vege" value="NO" {% if not modificarD.esVegetariana %}checked{% endif %}>
                     <label for="vegetarianaNo">NO</label>  
             </div>
           </div>
