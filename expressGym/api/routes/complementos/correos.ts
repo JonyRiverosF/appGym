@@ -3,7 +3,7 @@ const OAuth2 = google.auth.OAuth2;
 
 const accountTransport = require("./account_transport.json");
 
-
+var URl ="http://192.168.1.2:8100/";
 var oauth2Client:any;
 var gmail:any;
 function iniciarCliente(){
@@ -40,7 +40,7 @@ function enviarCodigoSeguridad(codigoSeguridad:string,correoU:string,rut:any,fla
             'en la aplicación. Cuando se verifique su identidad, podrás acceder a la App con tu correo electrónico o '+
             'con una clave de acceso que se te enviará al correo. '+
             'Presiona el siguiente link para redirigirlo a la parte final de su registro '+
-            'http://10.155.86.66:8100/confirmar-registro/'+rut
+            URl+'/confirmar-registro/'+rut
             +' Tú código de seguridad es: '+codigoSeguridad
           ];
           const email = emailLines.join('\r\n').trim();
