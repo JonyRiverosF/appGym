@@ -481,6 +481,7 @@ td:first-child {
                         <tr>
                             <td>Mes</td>
                             <td>Monto</td>
+                            <td>Meta</td>
                         </tr>
                     </thead>
                     {% for t in Trans %}
@@ -495,9 +496,11 @@ td:first-child {
                     <tfoot>
                         <tr>
                             <td>Monto total de junio</td>
-                            <td>{{ monto_total }}</td>
+                            <td>${{ monto_total }}</td>
+                            <td>${{ meta  }}</td>
                         </tr>
                     </tfoot>
+                    
                 </table>
             </div>
           </div>

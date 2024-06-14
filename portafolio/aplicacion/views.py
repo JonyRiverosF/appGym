@@ -6,6 +6,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from babel.dates import format_date
+import locale
 
 
 mongo=""
@@ -165,25 +166,34 @@ def Informes(request):
 
     Comentarios = comentarios.find({})
     Horarios = horarios.find({"vigencia": True})
-    Trans = transacciones.find({})
+    Trans = transacciones.find({"estado":"Pago exitoso"})
 
     nombre = []
 
     for h in Horarios:
-        dias = format_date(h["fecha"] ,format='full' ,locale = 'es_ES') 
+        dias = format_date(h["fecha"], format='full', locale='es_ES')
         for hora in h["horas"]:
             hola = hora["cuposMaximos"] - hora["cuposElegidos"]
             hora["cuposDisponibles"] = hola
-        h["dia"] = dias.split(",")[0] 
+        h["dia"] = dias.split(",")[0]
         nombre.append(h)
 
     monto_total = sum(t["monto"] for t in Trans)
+
+    total_usuarios = usuarios.count_documents({})
+
+    meta = total_usuarios * 14500
+
+    locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')  
+    monto_total = locale.currency(monto_total, symbol='', grouping=True).replace('.', ',') + ' CLP'
+    meta = locale.currency(meta, symbol='', grouping=True).replace('.', ',') + ' CLP'
         
     contexto = {
         "comentarios": Comentarios,
         "horarios": nombre,
-        "Trans":Trans,
-        "monto_total": monto_total
+        "Trans": Trans,
+        "monto_total": monto_total,
+        "meta": meta
     }
 
     return render(request, "aplicacion/Informes.html", contexto)
