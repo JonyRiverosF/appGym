@@ -29,6 +29,7 @@ export class PagoListoPage implements OnInit {
         this.detalle.transaction_date = new  Date(this.detalle.transaction_date).toLocaleString("es-ES",{month:"long",year:"numeric",day:"numeric",weekday:"long"})
         this.detalle.payment_type_code = this.formatoTarjeta(this.detalle);
         this.detalle.status = this.formatoEstado(this.detalle);
+        this.detalle.amount = this.detalle.amount.toLocaleString("es")
         if(!res.token){
           this.detalle.status = "Compra anulada por el cliente"
         }

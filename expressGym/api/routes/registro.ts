@@ -437,6 +437,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                         codigoSeguridad:codigoSeguridad,
                         observacionMedica:"",
                         warnings:3,
+                        pago:false,
                         rol:1
                     }).then(response=>{
                         res.status(201).json({
@@ -468,6 +469,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
                 codigoSeguridad:codigoSeguridad,
                 observacionMedica:req.body.observacionMedica,
                 warnings:3,
+                pago:false,
                 rol:1
             }).then(response=>{
                 res.status(201).json({

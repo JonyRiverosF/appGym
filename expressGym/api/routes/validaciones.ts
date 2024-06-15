@@ -7,34 +7,36 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 import wspClient from "./complementos/wsp";
 import modelos from "./modelos"
-import correso from "./complementos/correos"
 import correos from "./complementos/correos";
 
 var usuarioModelo = modelos.usuarioModelo
 var horariosElegidosModelo = modelos.horariosElegidosModelo
-var url="http://192.168.100.232:"
+var url="http://192.168.0.27:"
 
 //
-import axios from 'axios';
+
 
 import { Options, IntegrationApiKeys, Environment, IntegrationCommerceCodes } from 'transbank-sdk'; // ES6 Modules
 
 import { WebpayPlus } from 'transbank-sdk'; // ES6 Modules
+import { convertToObject } from "typescript";
 //
 
 
-
+correos.iniciarCliente()
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
     console.log("Conectado validaciones ts")
-    /*wspClient.on("ready",()=>{
-        wspClient.sendMessage("56968426213@c.us","nyaaaaa",).then(res=>{console.log(res)})
-    })*/
+    //correos.prueba()
 }).catch(err=>{
     console.log("Algo salió mal");
     console.log(err);
 })
 
+router.get("/",(req:Request,res:Response)=>{
+    //correos.prueba()
+    res.render("index.ejs",{h:"hola"})
+})
 
 router.post('/subscribe', upload.any(),async (req:Request, res:Response) => {
     const tx = new WebpayPlus.Transaction(new Options("597055555532", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", "https://webpay3gint.transbank.cl/"));
@@ -64,6 +66,7 @@ router.get("/nya",upload.any(),(req:Request,res:Response)=>{
     if(req.query.token_ws){
         xd.commit(String(req.query.token_ws)).then(respuesta=>{
             tok = {respuesta,token:req.query.token_ws}
+
           //  console.log(respuesta)
             res.redirect(url+ "8100/pago-listo")
         });
@@ -99,7 +102,18 @@ router.post("/pagoListo",upload.any(),(req:Request,res:Response)=>{
             nroCard:tok.respuesta.card_detail.card_number
 
         }).then(resp=>{
-            res.status(200).json(tok);
+            modelos.usuarioModelo.findOneAndUpdate({rut:req.body.rut},{pago:true}).exec().then(respuesta=>{
+                correos.notificarPago(respuesta?.correo,resp)
+                res.status(200).json(tok);
+            }).catch(error=>{
+                console.log("Algo salió mal en pago listo en modelousuario");
+                console.log(error);
+                res.status(500).json(error)
+            })
+        }).catch(error=>{
+            console.log("Algo salió mal creando una transacción en mongo");
+            console.log(error);
+            res.status(500).json(error)
         })
     }
 })
@@ -154,7 +168,7 @@ router.get("/traerHorarios",(req:Request,res:Response)=>{
                 for(let hora of x.horas){
                   var horas = hora.hora.split("-")[0];
                   if(Number(horas.split(":")[0]) > hor){
-                     console.log(Number(horas.split(":")[0]))
+                   //  console.log(Number(horas.split(":")[0]))
                      horasPorEnviar.push(hora)
                   }else{
                     if(hor >= 22){

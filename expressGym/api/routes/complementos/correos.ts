@@ -1,9 +1,14 @@
-const { google } = require("googleapis");
+import { google } from "googleapis";
 const OAuth2 = google.auth.OAuth2;
-
+import fs from 'fs';
+const directoryPath = "./public/imagenes/"
+//var MailComposer = require("nodemailer/lib/mail-composer");
 const accountTransport = require("./account_transport.json");
-
-var URl ="http://192.168.1.2:8100/";
+import mailcomposer from "nodemailer/lib/mail-composer"
+//Required package
+var pdf = require("pdf-creator-node");
+const URl ="http://192.168.0.27:8100/";
+const xdr = "http://192.168.0.27:3000/"
 var oauth2Client:any;
 var gmail:any;
 function iniciarCliente(){
@@ -27,78 +32,142 @@ function iniciarCliente(){
     gmail = google.gmail({version: 'v1',auth: oauth2Client});
 }
 
+async function crearPdf(datos:any){
+
+    var html = fs.readFileSync("./views/index.ejs","utf-8");
+    var options ={
+     format:"Letter",
+     orientation:"landscape",
+     border:"10mm"
+    }
+    var doc = {
+     html:html,
+     data:{
+         h:datos,
+         im:xdr+"creacion/imagenes/logo.png"
+     },
+     path:"./views/owo.pdf",
+     type:"buffer"
+    }
+    //Creando el pdf
+   return pdf.create(doc,options)
+}
+function prueba(){
+
+           //Leyendo el template, formato al pdf (en options) y renderizando (en doc)
+           var html = fs.readFileSync("./views/index.ejs","utf-8");
+           var options ={
+            format:"Letter",
+            orientation:"landscape",
+            border:"10mm"
+           }
+           var doc = {
+            html:html,
+            data:{
+                h:"holauwu",
+                im:xdr+"creacion/imagenes/logo.png"
+            },
+            path:"./views/owo.pdf",
+            type:"buffer"
+           }
+           //Creando el pdf
+           pdf.create(doc,options).then((res:any)=>{
+           // console.log("nyaaa")
+           // console.log(res);
+            var mensa = "";
+            var mes = new mailcomposer({
+             from: "colinagym3@gmail.com",
+             to:'vic.cabello@duocuc.cl',
+             subject:"Nyaaaaa",
+             text:"hola nekos como estamos xd",
+             attachments:[{filename:"uwu.pdf",content:res.toString("base64"),encoding:"base64"}]
+            })
+            mes.compile().build((err:any,da:any)=>{
+             if(err){
+                 console.log(err);
+             }else{
+                 mensa = da
+                 enviarCorreo(mensa); 
+             }
+            })
+           }).catch((error:any)=>{console.log(error)})
+           //
+
+}
+function enviarCorreo(detalle:any){
+    var mail = {}
+    if(detalle.multi){
+        mail = {
+            from: "colinagym3@gmail.com",
+            to: detalle.correo,
+            subject: detalle.asunto,
+            html: detalle.cuerpo,
+            attachments: detalle.multi
+        }
+    }else{
+        mail = {
+            from: "colinagym3@gmail.com",
+            to: detalle.correo,
+            subject: detalle.asunto,
+            html: detalle.cuerpo,
+        }
+    }
+    var mes = new mailcomposer(mail)
+    mes.compile().build((err:any,da:any)=>{
+     if(err){
+         console.log(err);
+     }else{
+         const base64Email = Buffer.from(da).toString('base64');
+         gmail.users.messages.send({
+            userId:"colinagym3@gmail.com",
+            requestBody:{
+                raw:base64Email
+            }
+          })
+       }
+    })
+
+}
 function enviarCodigoSeguridad(codigoSeguridad:string,correoU:string,rut:any,flag:string){
     if(flag=="true"){
-        const emailLines = [
-            'From: colinagym3@gmail.com',
-            'To: '+correoU,
-            'Content-type: text/html;charset=iso-8859-1',
-            'MIME-Version: 1.0',
-            'Subject: Codigo de seguridad',
-            '',
-            'Bienvenido al gimnasio de Colina, para finalizar con tu registro debes ingresar el código de seguridad '+
+          var detalle={
+            correo:correoU,
+            asunto:" Código de seguridad",
+            cuerpo:'Bienvenido al gimnasio de Colina, para finalizar con tu registro debes ingresar el código de seguridad '+
             'en la aplicación. Cuando se verifique su identidad, podrás acceder a la App con tu correo electrónico o '+
-            'con una clave de acceso que se te enviará al correo. '+
-            'Presiona el siguiente link para redirigirlo a la parte final de su registro '+
+            'con una clave de acceso que se te enviará al correo.<br><br> '+
+            'Presiona el siguiente link para redirigirlo a la parte final de su registro<br> '+
             URl+'/confirmar-registro/'+rut
-            +' Tú código de seguridad es: '+codigoSeguridad
-          ];
-          const email = emailLines.join('\r\n').trim();
-          const base64Email = Buffer.from(email).toString('base64');
-          gmail.users.messages.send({
-             userId:"colinagym3@gmail.com",
-             requestBody:{
-                 raw:base64Email
-             }
-           })
+            +'<br> Tú código de seguridad es: <b>'+codigoSeguridad+'</b>'
+          }
+          enviarCorreo(detalle);
+
     }else{
-        const emailLines = [
-            'From: colinagym3@gmail.com',
-            'To: '+correoU,
-            'Content-type: text/html;charset=iso-8859-1',
-            'MIME-Version: 1.0',
-            'Subject: Codigo de seguridad',
-            '',
-            'Bienvenido al gimnasio de Colina, para finalizar con tu registro debes ingresar el código de seguridad '+
+
+          var detalle={
+            correo:correoU,
+            asunto:" Código de seguridad",
+            cuerpo: 'Bienvenido al gimnasio de Colina, para finalizar con tu registro debes ingresar el código de seguridad '+
             'en la aplicación. Cuando se verifique su identidad, podrás acceder a la App con tu correo electrónico o '+
             'con una clave de acceso que se te enviará al correo.'
-            +' Tú código de seguridad es: '+codigoSeguridad
-          ];
-          const email = emailLines.join('\r\n').trim();
-          const base64Email = Buffer.from(email).toString('base64');
-          gmail.users.messages.send({
-             userId:"colinagym3@gmail.com",
-             requestBody:{
-                 raw:base64Email
-             }
-           })
+            +'<br><br> Tú código de seguridad es: <b>'+codigoSeguridad+"</b>"
+          }
+          enviarCorreo(detalle);
     }
     
     
 }
 
 function enviarCodigoAcceso(codigoAcceso:any,correoUser:any,user:any){
-    const emailLines = [
-        'From: colinagym3@gmail.com',
-        'To: '+correoUser,
-        'Content-type: text/html;charset=iso-8859-1',
-        'MIME-Version: 1.0',
-        'Subject: Codigo de acceso al gimnasio',
-        '',
-        'Hola '+user.nombre+" "+user.apellido+'. Haz completado exitosamente tu registro en la App de colina gym. Puedes acceder a la aplicación '+
-        'mediante el siguiente código de acceso o con tu correo electrónico. Tu código de acceso es el: '+
-         codigoAcceso
-      ];
+      var detalle={
+        correo:correoUser,
+        asunto:"Código de acceso al gimnasio",
+        cuerpo:'Hola '+user.nombre+" "+user.apellido+'. Haz completado exitosamente tu registro en la App de colina gym. Puedes acceder a la aplicación '+
+        'mediante el siguiente código de acceso o con tu correo electrónico.<br><br>Tu código de acceso es el: <b>'+
+         codigoAcceso+'</b>'
+      }
     
-      const email = emailLines.join('\r\n').trim();
-      const base64Email = Buffer.from(email).toString('base64');
-    
-     gmail.users.messages.send({
-        userId:"colinagym3@gmail.com",
-        requestBody:{
-            raw:base64Email
-        }
-      })
+      enviarCorreo(detalle);
 }
 
 function respuestSolicitud(correoUser:any,user:any,respuesta:any,asunto:any){
@@ -112,37 +181,18 @@ function respuestSolicitud(correoUser:any,user:any,respuesta:any,asunto:any){
         'Hola '+user+ ", " + respuesta
       ];
     
-      const email = emailLines.join('\r\n').trim();
-      const base64Email = Buffer.from(email).toString('base64');
-    
-     gmail.users.messages.send({
-        userId:"colinagym3@gmail.com",
-        requestBody:{
-            raw:base64Email
-        }
-      })
+      enviarCorreo(emailLines);
 }
 
 function recuperarCodigo(correoUser:any,codigo:any){
-    const emailLines = [
-        'From: colinagym3@gmail.com',
-        'To: '+correoUser,
-        'Content-type: text/html;charset=iso-8859-1',
-        'MIME-Version: 1.0',
-        'Subject: Solicitud de cambio de clave de acceso',
-        '',
-        'Hola, solicitaste recuperar tu código. Tu nuevo código de acceso es: ' + codigo
-      ];
+
+      var detalle={
+        correo:correoUser,
+        asunto:" Solicitud de cambio de clave de acceso",
+        cuerpo:'Hola, solicitaste recuperar tu código. Tu nuevo código de acceso es: <b>' + codigo+'</b>'
+      }
     
-      const email = emailLines.join('\r\n').trim();
-      const base64Email = Buffer.from(email).toString('base64');
-    
-     gmail.users.messages.send({
-        userId:"colinagym3@gmail.com",
-        requestBody:{
-            raw:base64Email
-        }
-      })
+      enviarCorreo(detalle);
 }
 
 function adverComentario(correoUser:any,numWarning:any,comentario:any){
@@ -158,15 +208,7 @@ function adverComentario(correoUser:any,numWarning:any,comentario:any){
         'comentarios a las noticias que se publiquen en un futuro.'
       ];
     
-      const email = emailLines.join('\r\n').trim();
-      const base64Email = Buffer.from(email).toString('base64');
-    
-     gmail.users.messages.send({
-        userId:"colinagym3@gmail.com",
-        requestBody:{
-            raw:base64Email
-        }
-      })
+      enviarCorreo(emailLines);
 }
 
 function banearUser(correoUser:any){
@@ -181,16 +223,32 @@ function banearUser(correoUser:any){
         '3 oportunidades, no hubo cambio en tu comportamiento por lo que, tendrás restringido comentar las noticias.'
       ];
     
-      const email = emailLines.join('\r\n').trim();
-      const base64Email = Buffer.from(email).toString('base64');
-    
-     gmail.users.messages.send({
-        userId:"colinagym3@gmail.com",
-        requestBody:{
-            raw:base64Email
-        }
-      })
+      enviarCorreo(emailLines);
 }
 
+function notificarPago(correoUser:any,trans:any){ 
+     let fecha = trans.fechaPago.toLocaleString("es-ES",{month:"long",year:"numeric",day:"numeric",weekday:"long"})
+      var cont={
+        ordenCompra:trans.ordenCompra,
+        usuario:trans.usuario,
+        fechaPago:fecha,
+        monto:trans.monto.toLocaleString("es"),
+        tipoPago:trans.tipoPago,
+        estado:trans.estado
+      }
+      crearPdf(cont).then((res:any)=>{
+        var detalle = {
+            correo:correoUser,
+            asunto:"Notifiación de pago de mensualidad",
+            cuerpo:"En el archivo adjunto está el comprobante de su transacción",
+            multi:[{filename:"comprobanteColinaGym.pdf",content:res.toString("base64"),encoding:"base64"}]
+          }
+         enviarCorreo(detalle);
+      }).catch((error:any)=>{
+        console.log("Error creando el pdf")
+        console.log(error)
+      })
+    
+}
 export default module.exports = {iniciarCliente,enviarCodigoSeguridad,enviarCodigoAcceso,respuestSolicitud,
-    recuperarCodigo,adverComentario,banearUser}
+    recuperarCodigo,adverComentario,banearUser,notificarPago,prueba}

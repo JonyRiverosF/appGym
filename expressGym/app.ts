@@ -34,7 +34,6 @@ app.use(function (req, res, next) {
 });
 app.use(morgan("dev"))
 
-
 app.use('/creacion',registros)
 app.use("/modificar",modificarHorario)
 app.use("/validaciones",validaciones)
