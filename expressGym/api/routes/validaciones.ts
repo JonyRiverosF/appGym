@@ -11,7 +11,7 @@ import correos from "./complementos/correos";
 
 var usuarioModelo = modelos.usuarioModelo
 var horariosElegidosModelo = modelos.horariosElegidosModelo
-var url="http://192.168.0.27:"
+var url="http://192.168.0.4:"
 
 //
 
@@ -85,7 +85,8 @@ router.get("/nya",upload.any(),(req:Request,res:Response)=>{
 
 router.post("/pagoListo",upload.any(),(req:Request,res:Response)=>{
     if(!tok.token){
-        res.status(200).json(tok);
+        let respuesta = tok
+        res.status(200).json({tok:respuesta});
     }else{
 
         const tipoPago = formatoTarjeta(tok);
@@ -102,9 +103,12 @@ router.post("/pagoListo",upload.any(),(req:Request,res:Response)=>{
             nroCard:tok.respuesta.card_detail.card_number
 
         }).then(resp=>{
-            modelos.usuarioModelo.findOneAndUpdate({rut:req.body.rut},{pago:true}).exec().then(respuesta=>{
+            modelos.usuarioModelo.findOneAndUpdate({rut:req.body.rut},{pago:true}).exec().then((respuesta:any)=>{
                 correos.notificarPago(respuesta?.correo,resp)
-                res.status(200).json(tok);
+                if(resp.estado == "Pago exitoso"){
+                    respuesta.pago = true;
+                }
+                res.status(200).json({tok,respuesta});
             }).catch(error=>{
                 console.log("Algo salió mal en pago listo en modelousuario");
                 console.log(error);

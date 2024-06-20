@@ -122,7 +122,7 @@
 
 
 <!--Cartera virtual Cerrar-->   
-<ion-card class="tar" style="text-align: center;">
+<ion-card class="tar" style="text-align: center;" *ngIf="!usuario.pago">
   <ion-card-header>
     <ion-card-title style="color: #ffff;" ><ion-icon name="card-outline"></ion-icon> Webpay</ion-card-title>
   </ion-card-header>
