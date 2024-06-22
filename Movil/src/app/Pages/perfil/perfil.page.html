@@ -17,22 +17,32 @@
   </ion-header>
     
   <div id="main-content">
-<!--Foto-->  
-    <p style="text-align: center;">
-      <ion-card style="text-align: center;">
-        <ion-card-header >
-          <ion-grid>
-            <div class="flip-card">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <img src="assets/icon/maxi.jpg" style="width: 150px;height: 150px;">
+    <!--Foto-->  
+        <p style="text-align: center;">
+          <ion-card style="text-align: center;">
+            <ion-card-header >
+              <ion-grid>
+                <div class="flip-card">
+                  <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                      <img [src]="imagenNueva" alt="ingrese foto" style="width: 150px;height: 139px; border-radius: 11px; color: #ffff;">
+                    </div>
+                    <div class="flip-card-back"> 
+                      <ion-button class="boton" color="warning" (click)="takePicture()"><ion-icon name="image"></ion-icon></ion-button>
+                      <br />
+                      <!--<ion-button class="boton" color="warning" (click)="takePictureDos()"><ion-icon name="image"></ion-icon></ion-button>-->
+                    </div>
+                  </div>
                 </div>
-                <div class="flip-card-back">
-                  <ion-button color="warning" style="margin-top:25%;" ><ion-icon name="camera-outline"></ion-icon></ion-button>
-                </div>
-              </div>
-            </div>
-          </ion-grid>
+              </ion-grid>
+    
+      <!--camara-->
+      <div *ngIf="imagenNueva != '' ">
+        <ion-label style="color:white;" labelPlacement="floating">Vista previa</ion-label>
+        <ion-button *ngIf="guardarCambios" (click)="guardarCambios()" color="warning"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+      </div>    
+      <!--fin camara-->
+      
 
           <!--NOMBRE-->  
             <ion-card-title style="color:white">{{usuario.nombre}} {{usuario.apellido}}</ion-card-title>

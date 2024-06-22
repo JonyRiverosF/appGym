@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-perfil',
@@ -11,7 +12,8 @@ import { ExpressService } from 'src/app/services/express.service';
 
 
 export class PerfilPage implements OnInit {
-
+  imagenNueva: any ="";
+  
   prueaP:boolean=false;
   prueaA:boolean=false;
 
@@ -268,8 +270,35 @@ loading(duracion:any){
      duration: duracion,
    })
  }
- 
 
+  //Método para usar la galería del celular
+  takePicture = async () => {
+    const image2 = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source:CameraSource.Photos
+    });
+    this.imagenNueva= image2.dataUrl;  
+  }
+  
+  //Método para usar la cámara del celular
+  
+  /*takePictureDos = async () => {
+  const image2 = await Camera.getPhoto({
+    quality: 90,
+    allowEditing: false,
+    resultType: CameraResultType.DataUrl,
+    source:CameraSource.Camera
+  });
+  
+    this.imagenNueva= image2.dataUrl;
+  }; */ 
+  
+  guardarCambios(){
+    this.imagenNueva=true;
+  }
+ 
  mostrarH(){
   this.mostrarHorario = true;
  }
