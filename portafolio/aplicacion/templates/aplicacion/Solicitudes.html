@@ -13,6 +13,7 @@
 <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link type="text/css" rel="stylesheet" href="/static/aplicacion/css/inicio.css"/>
+
 <style>
  
   /*Barra Menu*/
@@ -305,11 +306,10 @@ nav > ul > li > ul > li > ul:before {
 
 /*Tablas*/
 
-.btn-fixed {
-    width: 120px; 
-    display: inline-block;
-    text-align: center;
-    
+.btn {
+    min-width: 120px;
+    padding: 10px 15px;
+    font-weight: bold;
 }
 
 .table-responsive {
@@ -442,8 +442,7 @@ th {
             </td>
             <td >
               <p>
-                <br><a href="{% url 'soli' s.id %}" class="btn btn-warning  btn-fixed">Responder</a>
-                <a href="#" class="btn btn-danger  btn-fixed" >Eliminar</a>
+                <br><a href="{% url 'soli' s.id %}" class="btn btn-warning  btn-sm">Responder</a>
               </p>
             </td>
           </tr>
