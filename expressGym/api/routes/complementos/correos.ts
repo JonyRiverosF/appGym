@@ -7,8 +7,8 @@ const accountTransport = require("./account_transport.json");
 import mailcomposer from "nodemailer/lib/mail-composer"
 //Required package
 var pdf = require("pdf-creator-node");
-const URl ="http://192.168.0.27:8100/";
-const xdr = "http://192.168.0.27:3000/"
+const URl ="http://10.155.86.66:8100/";
+const xdr = "http://10.155.86.66:3000/"
 var oauth2Client:any;
 var gmail:any;
 function iniciarCliente(){

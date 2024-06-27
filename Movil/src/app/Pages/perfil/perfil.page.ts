@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { forceUpdate } from 'ionicons/dist/types/stencil-public-runtime';
 
 @Component({
   selector: 'app-perfil',
@@ -96,6 +97,11 @@ export class PerfilPage implements OnInit {
 
   ionViewWillEnter(){
     this.usuario = JSON.parse(String(localStorage.getItem("idUser")))
+    if(this.usuario.imagen != ""){
+      this.imagenNueva = this.api.urlApi+"imagenes/fotoPerfil/"+this.usuario.imagen
+    }else{
+      this.imagenNueva = ""
+    }
     this.fichaMedica = this.apiUrl+"fichasMedicas/"+this.usuario.fichaMedica
     var formulario = new FormData()
     formulario.append("rut",String(this.usuario.rut))
@@ -272,14 +278,19 @@ loading(duracion:any){
  }
 
   //Método para usar la galería del celular
-  takePicture = async () => {
-    const image2 = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl,
-      source:CameraSource.Photos
-    });
-    this.imagenNueva= image2.dataUrl;  
+  takePicture(x:any){
+    var foto = x.target.files[0]
+    this.imagenNueva = URL.createObjectURL(foto)   
+    
+    var formulario = new FormData();
+    formulario.append("foto",foto)
+    formulario.append("rut",this.usuario.rut)
+    this.api.cambiarFoto(formulario).then(res=>res.json()).then(res=>{
+      this.usuario.imagen = res
+      localStorage.clear();localStorage.setItem("idUser",JSON.stringify(this.usuario))
+    })
+
+
   }
   
   //Método para usar la cámara del celular

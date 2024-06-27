@@ -28,21 +28,14 @@
                       <img [src]="imagenNueva" alt="ingrese foto" style="width: 150px;height: 139px; border-radius: 11px; color: #ffff;">
                     </div>
                     <div class="flip-card-back"> 
-                      <ion-button class="boton" color="warning" (click)="takePicture()"><ion-icon name="image"></ion-icon></ion-button>
+                      <input class="boton" (change)="takePicture($event)" color="warning" type="file"><ion-icon name="image"></ion-icon>
                       <br />
                       <!--<ion-button class="boton" color="warning" (click)="takePictureDos()"><ion-icon name="image"></ion-icon></ion-button>-->
                     </div>
                   </div>
                 </div>
               </ion-grid>
-    
-      <!--camara-->
-      <div *ngIf="imagenNueva != '' ">
-        <ion-label style="color:white;" labelPlacement="floating">Vista previa</ion-label>
-        <ion-button *ngIf="guardarCambios" (click)="guardarCambios()" color="warning"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
-      </div>    
-      <!--fin camara-->
-      
+        
 
           <!--NOMBRE-->  
             <ion-card-title style="color:white">{{usuario.nombre}} {{usuario.apellido}}</ion-card-title>

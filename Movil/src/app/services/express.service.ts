@@ -8,10 +8,16 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://192.168.100.232:3000";
+  private  apiUrl="http://10.155.86.66:3000";
 
-  public urlApi = "http://192.168.100.232:3000/creacion/"
+  public urlApi = "http://10.155.86.66:3000/creacion/"
 
+  cambiarFoto(x:any){
+    return fetch(this.apiUrl+"/modificar/cambiarFoto",{
+      method:"PUT",
+      body:x
+    })
+  }
 
   addRecomendaciones(x:any){
     return fetch(this.apiUrl+"/modificar/agregarRecomen",{

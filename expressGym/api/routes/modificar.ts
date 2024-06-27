@@ -7,7 +7,7 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 import modelos from "./modelos";
 import correos from "./complementos/correos";
-
+const url="http://10.155.86.66:3000/creacion/"
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
@@ -923,7 +923,20 @@ router.post("/banearComentario/:id" ,  (req:Request, res:Response)=>{
     });
 })
 
-
+router.put("/cambiarFoto",upload.single("foto"),(req:Request,res:Response)=>{
+    var foto = req.file?.filename
+    fs.rename(directoryPath+foto,"./public/imagenes/fotoPerfil/"+foto+".jpg",function (err){
+        if(err){
+            console.log(err)
+        }else{
+            modelos.usuarioModelo.findOneAndUpdate({rut:req.body.rut},{imagen:foto+".jpg"}).exec()
+            .then(respo=>{
+                res.status(201).json(foto+".jpg")
+            })
+        }
+    })
+   
+})
 
 
 

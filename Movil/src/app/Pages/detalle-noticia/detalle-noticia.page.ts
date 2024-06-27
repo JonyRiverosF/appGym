@@ -40,19 +40,15 @@ export class DetalleNoticiaPage implements OnInit {
       console.log(this.comen)
       this.noticia.foto = this.apiUrl+"imagenes/FotosNoticia/"+this.noticia.foto
       this.noticia.video = this.apiUrl+"videos/"+this.noticia.video
-      for(let i=0;i<this.comen.length;i++){
-        if(this.comen[i].creadorDelComentario.fotoPerfil != ""){
-           this.comen[i].creadorDelComentario.fotoPerfil = this.api.urlApi+"imagenes/fotosPerfil/"+this.comen[i].creadorDelComentario.fotoPerfil
-        }
-    } 
-    this.subComentarios()
-    response.dismiss()   
+      this.subComentarios()
+      response.dismiss()   
   })
   })
  }
   ionViewWillEnter(){
     this.apiUrl = this.api.urlApi
     this.usuario = JSON.parse(String(localStorage.getItem("idUser")) )
+    this.usuario.imagen = this.api.urlApi+"imagenes/fotoPerfil/"+this.usuario.imagen
     this.idNoticia = String(this.activatedRouter.snapshot.paramMap.get('id'))
         this.detalleNoticia()
         //console.log(this.noticia 
