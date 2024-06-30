@@ -4,7 +4,7 @@ from django.urls import path
 #Pantallas Principales
 from .views import pantalla,Solicitudes,soli,Informes,Reportes,ListaCategorias,VistaComentarios,anularComentario,AdvertenciaComentario,CerrarGym
 #Usuarios
-from .views import Registro,ListaUsu,ModificarU,login,formSesion,OlvidasteContra
+from .views import Registro,ListaUsu,ModificarU,login,formSesion,OlvidasteContra,ActivarPagos
 #Noticias
 from .views import CrearNot,ListaNot,ModificarNot,desactivarNoticias,activarNoticias
 #Dietas y Tipo de dietas
@@ -37,6 +37,7 @@ urlpatterns =[
     path("Registro",Registro,name="Registro"),
     path("ListaUsu",ListaUsu,name="ListaUsu"),
     path("ModificarU/<id>",ModificarU,name="ModificarU"),
+    path("ActivarPagos",ActivarPagos,name="ActivarPagos"),
     path("OlvidasteContra",OlvidasteContra,name="OlvidasteContra"),
 
 

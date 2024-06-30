@@ -33,7 +33,7 @@ dietas=""
 noticia=""
 transacciones=""
 
-apiUrl = "http://192.168.1.2:3000"
+apiUrl = "http://192.168.1.9:3000"
 
 mongo = MongoClient("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 
@@ -319,6 +319,14 @@ def ModificarU(request,id):
     }
 
     return render(request,"aplicacion/ModificarU.html", contexto)
+
+def ActivarPagos(request):
+
+    response = requests.put( apiUrl + "/modificar/activarPagos" ) 
+    
+
+    return redirect("ListaUsu")
+
 
 
 

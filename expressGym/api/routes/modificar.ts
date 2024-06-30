@@ -939,7 +939,12 @@ router.put("/cambiarFoto",upload.single("foto"),(req:Request,res:Response)=>{
 })
 
 
-
+router.put("/activarPagos",(req:Request,res:Response)=>{
+    modelos.usuarioModelo.updateMany({pago:true},{pago:false}).exec()
+    .then(respo=>{
+        res.status(201).json(respo)
+    })
+})
  
 
 
