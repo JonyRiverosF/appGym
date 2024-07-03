@@ -475,36 +475,40 @@ td:first-child {
                       {% endfor %}
                   </table>
               </div>
+
               <div class="table-responsive informes bancarios">
                 <table class="table">
                     <thead>
                         <tr>
-                            <td>Mes</td>
-                            <td>Monto</td>
-                            <td>Meta</td>
+                            <th>Mes</th>
+                            <th>Monto</th>
+                            <th>Meta</th>
                         </tr>
                     </thead>
-                    {% for t in Trans %}
                     <tbody>
+                        {% for item in informe_bancario %}
                         <tr>
-                            <td>{{ t.usuario }}</td>
-                            <td>{{ t.monto }}</td>
+                            <td>{{ item.mes }}</td>
+                            <td>{{ item.monto }}</td>
+                            <td>
+                                {% if item.mes == 'june 2024' %}
+                                    {{ meta_fija_junio }}
+                                {% else %}
+                                    {{ item.meta }}
+                                {% endif %}
+                            </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
-                    {% endfor %}
-                    
-                    <tfoot>
-                        <tr>
-                            <td>Monto total de Junio</td>
-                            <td>${{ monto_total }}</td>
-                            <td>${{ meta  }}</td>
-
-                            
-                        </tr>
-                    </tfoot>
-                    
                 </table>
             </div>
+            
+            
+            
+            
+            
+
+
           </div>
           <br>
 

@@ -7,6 +7,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from babel.dates import format_date
 import locale
+from collections import defaultdict
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 mongo=""
@@ -162,14 +165,21 @@ def soli(request,id):
     
     return render(request,"aplicacion/soli.html",contexto)
 
+from datetime import datetime
+from collections import defaultdict
+import locale
+
+from datetime import datetime
+from collections import defaultdict
+import locale
+
 def Informes(request):
 
     Comentarios = comentarios.find({})
     Horarios = horarios.find({"vigencia": True})
-    Trans = transacciones.find({"estado":"Pago exitoso"})
+    Trans = transacciones.find({"estado": "Pago exitoso"}) 
 
     nombre = []
-
     for h in Horarios:
         dias = format_date(h["fecha"], format='full', locale='es_ES')
         for hora in h["horas"]:
@@ -178,25 +188,49 @@ def Informes(request):
         h["dia"] = dias.split(",")[0]
         nombre.append(h)
 
-    monto_total = sum(t["monto"] for t in Trans)
+    montos_por_mes = defaultdict(int)
+    usuarios_por_mes = defaultdict(int)
 
-    total_usuarios = usuarios.count_documents({})
+    for t in Trans:
+        mes = t["fechaPago"].strftime('%B %Y')
+        montos_por_mes[mes] += t["monto"]
 
-    meta = total_usuarios * 14500
+    for mes in montos_por_mes:
+        inicio_mes = datetime.strptime(mes, '%B %Y')
+        fin_mes = inicio_mes + relativedelta(months=1)
+        usuarios_por_mes[mes] = usuarios.count_documents({"fecha_registro": {"$gte": inicio_mes, "$lt": fin_mes}})
 
-    locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')  
-    monto_total = locale.currency(monto_total, symbol='', grouping=True).replace('.', ',') + ' CLP'
-    meta = locale.currency(meta, symbol='', grouping=True).replace('.', ',') + ' CLP'
+    meta_fija_junio = 72500
+
+    total_usuarios_julio = usuarios.count_documents({})
+    meta_ajustada_julio = total_usuarios_julio * 14500
+
+    locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')
+    for mes in montos_por_mes:
+        montos_por_mes[mes] = locale.currency(montos_por_mes[mes], symbol='', grouping=True).replace('.', ',') + ' CLP'
+
+    informe_bancario = []
+    for mes in montos_por_mes:
+        if mes == 'junio 2024':
+            meta = locale.currency(meta_fija_junio, symbol='', grouping=True).replace('.', ',') + ' CLP'
+        else:
+            meta = locale.currency(meta_ajustada_julio, symbol='', grouping=True).replace('.', ',') + ' CLP'
         
+        informe_bancario.append({
+            "mes": mes,
+            "monto": montos_por_mes[mes],
+            "meta": meta
+        })
+
     contexto = {
         "comentarios": Comentarios,
         "horarios": nombre,
-        "Trans": Trans,
-        "monto_total": monto_total,
-        "meta": meta
+        "informe_bancario": informe_bancario,
+        "meta_fija_junio": locale.currency(meta_fija_junio, symbol='', grouping=True).replace('.', ',') + ' CLP'
     }
 
     return render(request, "aplicacion/Informes.html", contexto)
+
 
 
 

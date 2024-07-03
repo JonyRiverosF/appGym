@@ -97,3 +97,6 @@ urlpatterns =[
     path("Reportes",Reportes,name="Reportes"),
     path("ListaCategorias",ListaCategorias,name="ListaCategorias"),
     ]
+
+
+
