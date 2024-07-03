@@ -931,7 +931,34 @@ router.put("/cambiarFoto",upload.single("foto"),(req:Request,res:Response)=>{
         }else{
             modelos.usuarioModelo.findOneAndUpdate({rut:req.body.rut},{imagen:foto+".jpg"}).exec()
             .then(respo=>{
-                res.status(201).json(foto+".jpg")
+                console.log(respo)
+                fs.unlink("./public/imagenes/fotoPerfil/"+respo?.imagen,function (err){
+                    if(err){
+                        console.log(err)
+                    }else{
+                        var imagen;
+                        var name = respo?.nombre+" "+respo?.apellido
+                        if(respo?.imagen == ""){
+                           imagen = "";
+                        }else{
+                            imagen = respo?.imagen
+                        }
+                        console.log(imagen+"--"+name+"--"+req.body.rut)
+                        modelos.comentariosModel.updateMany({
+                            creadorDelComentario:{
+                                id:req.body.rut,
+                                nombre:name,
+                                fotoPerfil:imagen}}
+                            ,{creadorDelComentario:{
+                                id:req.body.rut,
+                                nombre:name,
+                                fotoPerfil:foto+".jpg"}}
+                            ).exec().then(respuesta=>{
+                                console.log(respuesta)
+                                res.status(201).json(foto+".jpg")
+                            })
+                    }
+                })
             })
         }
     })

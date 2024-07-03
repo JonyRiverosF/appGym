@@ -213,6 +213,10 @@ export class PerfilPage implements OnInit {
     this.inhabilitarCalen = false;
     this.horarioSeleccionado.pop();
     this.horarioSeleccionado = this.horarioSeleccionado.slice()
+    if(this.horarioSeleccionado.length == 0){
+      this.horarioSeleccionado = undefined
+      this.contador = 0
+    }
    // console.log(this.horarioSeleccionado)
   }
 

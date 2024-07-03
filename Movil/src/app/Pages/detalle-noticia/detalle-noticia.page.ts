@@ -135,12 +135,13 @@ hola(creadorDelComentario:any,idComentario:any){
 }
  
  publicarComentario(){
+    var imagen = this.usuario.imagen.split("/").pop()
     var form = new FormData();
     form.append("descripcion",this.comentario);
     form.append("noticia",this.idNoticia);
     form.append("usuarioId",String(this.usuario.rut));
     form.append("usuarioName",this.usuario.nombre+" "+this.usuario.apellido);
-    form.append("fotoUsuario",this.usuario.imagen);
+    form.append("fotoUsuario",imagen);
 
     if(this.flag && this.comentario.charAt(0) == "@"){
       form.append("idComentarioPrincipal",this.idComentario);form.append("nombreCreador",this.infoCreadorComent.nombre);

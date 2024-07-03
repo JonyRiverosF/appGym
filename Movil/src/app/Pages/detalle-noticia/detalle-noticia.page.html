@@ -63,9 +63,9 @@
             <ion-list>
               <ion-item color="light">
                 <ion-avatar slot="start">                  
-                  <img *ngIf="x.creadorDelComentario.fotoPerfil == ''" src="assets/icon/maxi.jpg" alt="uwu">
+                  <img *ngIf="x.creadorDelComentario.fotoPerfil == ''" src="/assets/icon/maxi.jpg" alt="uwu">
                 
-                  <img *ngIf="x.creadorDelComentario.fotoPerfil != ''" [src]="x.creadorDelComentario.fotoPerfil" alt="uwu">
+                  <img *ngIf="x.creadorDelComentario.fotoPerfil != ''" [src]="x.creadorDelComentario.fotoPerfil" alt="nya">
                 
                 </ion-avatar>
                 <ion-textarea labelPlacement="floating" [label]="x.creadorDelComentario.nombre" readonly [value]="x.descripcion"></ion-textarea>
