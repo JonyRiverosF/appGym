@@ -25,7 +25,8 @@
                 <div class="flip-card">
                   <div class="flip-card-inner">
                     <div class="flip-card-front">
-                      <img [src]="imagenNueva" alt="ingrese foto" style="width: 150px;height: 139px; border-radius: 11px; color: #ffff;">
+                      <img *ngIf="imagenNueva != ''" [src]="imagenNueva" alt="ingrese foto" style="width: 150px;height: 139px; border-radius: 11px; color: #ffff;">
+                      <img *ngIf="imagenNueva == ''" src="/assets/icon/maxi.jpg" alt="uwu" style="width: 150px;height: 139px; border-radius: 11px; color: #ffff;">
                     </div>
                     <div class="flip-card-back"> 
                       <input class="boton" (change)="takePicture($event)" color="warning" type="file"><ion-icon name="image"></ion-icon>
@@ -132,14 +133,8 @@
 
   <ion-card-content style="color: #ffff;">
     ¿Tienes que pagar? <br> Utiliza tu misma app para pagar.
+    <ion-button (click)="solicitarPago()">Solicitar Pago</ion-button>
   </ion-card-content>
-
-<form ngNoForm name="xd" id="xd" method="post" [action]="act">
-
-      <input type="hidden" [(ngModel)]="token" name="token_ws" id="token_ws">
-      <ion-button color="warning" shape="round" type="submit" (click)="subscribe()">Pagar mes</ion-button>
-
-</form>
 </ion-card>
 
 

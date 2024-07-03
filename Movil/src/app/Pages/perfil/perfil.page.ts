@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { forceUpdate } from 'ionicons/dist/types/stencil-public-runtime';
 
 @Component({
   selector: 'app-perfil',
@@ -47,28 +45,20 @@ export class PerfilPage implements OnInit {
 
   act:string="";token:string=""
   constructor(private menuCtrl: MenuController,private router: Router,private toastController: ToastController,
-    private activatedRouter:ActivatedRoute,private api:ExpressService, private loadingCtrl: LoadingController
-  ) {}
+   private api:ExpressService, private loadingCtrl: LoadingController) {}
 
+  async solicitarPago(){
+   return this.api.solicitarPago(this.usuario._id).then(res=>res.json).then(res=>{
+      console.log(res)
+    })
+  }
   uy(a:any){
     console.log(a)
   }
-   subscribe(){
-    this.api.subscribe().then(res=>res.json()).then(resi=>{
-      console.log(resi)
-      this.act = resi.resi.url
-      this.token = resi.resi.token
-      //window.location.href=resi.ur
-    })
-    
 
-    //WebpayPlus.configureForIntegration("597055555532",'579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C')
-    // Versión 2.x del SDK
-   // var response = await new TransaccionCompleta.Transaction.c(3421, 1234, 24500, "http://10.155.87.137:8100/perfil");   
-}
 
   ionViewDidEnter(){
-    this.subscribe()
+    
     this.apiUrl = this.api.urlApi
     try{
       this.fechaActual = this.fecha.toISOString();
@@ -93,10 +83,19 @@ export class PerfilPage implements OnInit {
     }
   }
 
-
+ async actualizarUser(){
+    this.usuario = JSON.parse(String(localStorage.getItem("idUser")))
+    var form = new FormData();
+    form.append("correo",this.usuario.correo);form.append("codigo",this.usuario.codigo)
+    return this.api.login(form).then(res=>res.json()).then(res=>{
+      this.usuario = res.usuario[0];
+      localStorage.removeItem("idUser");
+      localStorage.setItem("idUser",JSON.stringify(res.usuario[0]));
+    })
+  }
 
   ionViewWillEnter(){
-    this.usuario = JSON.parse(String(localStorage.getItem("idUser")))
+    this.actualizarUser();
     if(this.usuario.imagen != ""){
       this.imagenNueva = this.api.urlApi+"imagenes/fotoPerfil/"+this.usuario.imagen
     }else{

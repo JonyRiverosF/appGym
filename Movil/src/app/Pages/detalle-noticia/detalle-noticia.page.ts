@@ -31,7 +31,7 @@ export class DetalleNoticiaPage implements OnInit {
     private api:ExpressService,private loadingCtrl: LoadingController
   ) {}
 
-  detalleNoticia(){
+  async detalleNoticia(){
     return this.loading(20000).then(async response=>{
     response.present();
     this.api.detalleNoticia(this.idNoticia).then(res=>res.json()).then(res=>{
@@ -48,7 +48,9 @@ export class DetalleNoticiaPage implements OnInit {
   ionViewWillEnter(){
     this.apiUrl = this.api.urlApi
     this.usuario = JSON.parse(String(localStorage.getItem("idUser")) )
-    this.usuario.imagen = this.api.urlApi+"imagenes/fotoPerfil/"+this.usuario.imagen
+    if(this.usuario.imagen != ""){
+      this.usuario.imagen = this.api.urlApi+"imagenes/fotoPerfil/"+this.usuario.imagen
+    }
     this.idNoticia = String(this.activatedRouter.snapshot.paramMap.get('id'))
         this.detalleNoticia()
         //console.log(this.noticia 
@@ -114,6 +116,9 @@ export class DetalleNoticiaPage implements OnInit {
               }else{
                 cont++;
               }
+         }
+         if(this.comen[i].creadorDelComentario.fotoPerfil != ''){
+           this.comen[i].creadorDelComentario.fotoPerfil = this.api.urlApi+"imagenes/fotoPerfil/"+this.comen[i].creadorDelComentario.fotoPerfil
          }
     }
     //console.log(this.comentarios)

@@ -502,7 +502,7 @@ router.post("/registroUsuario",upload.single("fichaMedica"),(req:Request,res:Res
 
 router.post("/login",upload.any(),(req:Request,res:Response)=>{
         modelos.usuarioModelo.find({correo:req.body.correo,codigo:req.body.codigo}).exec().then(resultado=>{
-            console.log(req.body.codigo)
+            //console.log(req.body.codigo)
             if(resultado.length > 0){                
                 res.status(201).json({
                     usuario:resultado

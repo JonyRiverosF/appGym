@@ -11,7 +11,7 @@ import correos from "./complementos/correos";
 
 var usuarioModelo = modelos.usuarioModelo
 var horariosElegidosModelo = modelos.horariosElegidosModelo
-var url="http://10.155.86.66:"
+var url="http://192.168.0.11:"
 
 //
 
@@ -22,7 +22,7 @@ import { WebpayPlus } from 'transbank-sdk'; // ES6 Modules
 import { convertToObject } from "typescript";
 //
 
-
+var usuarioPago:any;
 correos.iniciarCliente()
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
@@ -44,18 +44,26 @@ router.post('/subscribe', upload.any(),async (req:Request, res:Response) => {
      "1223456", "1234", 14500, url+ "3000/validaciones/nya"
    ).then(resi=>{
   //  console.log(resi)
-
-        res.json({resi})
+            res.json({resi})
+        
    })
 });
 
-router.post('/estadoTr', upload.any(),async (req:Request, res:Response) => {
+router.post("/solicitarPago/:id",(req:Request,res:Response)=>{
+    var id = req.params.id;
+    modelos.usuarioModelo.findById(id).exec().then(resp=>{
+        usuarioPago = resp
+        correos.linkPago(resp)
+        res.status(200).json(resp)
+    })    
+})
+/*router.post('/estadoTr', upload.any(),async (req:Request, res:Response) => {
     const tx = new WebpayPlus.Transaction(new Options("597055555532", "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C", "https://webpay3gint.transbank.cl/"));
     const response = await tx.status(req.body.tok).then(resi=>{
     console.log(resi)
     res.json(resi);
    })
-});
+});*/
 
 var tok:any;
 router.get("/nya",upload.any(),(req:Request,res:Response)=>{
@@ -92,8 +100,8 @@ router.post("/pagoListo",upload.any(),(req:Request,res:Response)=>{
         const tipoPago = formatoTarjeta(tok);
         const estado = formatoEstado(tok)
         modelos.modeloTrans.create({
-            rut:req.body.rut,
-            usuario:req.body.nombre,
+            rut:usuarioPago.rut,
+            usuario:usuarioPago.nombre+" "+usuarioPago.apellido,
             ordenCompra:tok.respuesta.buy_order,
             idSesion:tok.respuesta.session_id,
             fechaPago:tok.respuesta.transaction_date,
@@ -103,7 +111,7 @@ router.post("/pagoListo",upload.any(),(req:Request,res:Response)=>{
             nroCard:tok.respuesta.card_detail.card_number
 
         }).then(resp=>{
-            modelos.usuarioModelo.findOneAndUpdate({rut:req.body.rut},{pago:true}).exec().then((respuesta:any)=>{
+            modelos.usuarioModelo.findOneAndUpdate({rut:usuarioPago.rut},{pago:true}).exec().then((respuesta:any)=>{
                 correos.notificarPago(respuesta?.correo,resp)
                 if(resp.estado == "Pago exitoso"){
                     respuesta.pago = true;

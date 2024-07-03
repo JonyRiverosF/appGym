@@ -8,9 +8,9 @@ export class ExpressService {
 
   constructor(private http:HttpClient) { }
 
-  private  apiUrl="http://10.155.86.66:3000";
+  private  apiUrl="http://192.168.0.11:3000";
 
-  public urlApi = "http://10.155.86.66:3000/creacion/"
+  public urlApi = "http://192.168.0.11:3000/creacion/"
 
   cambiarFoto(x:any){
     return fetch(this.apiUrl+"/modificar/cambiarFoto",{
@@ -19,6 +19,11 @@ export class ExpressService {
     })
   }
 
+  solicitarPago(id:any){
+    return fetch(this.apiUrl+"/validaciones/solicitarPago/"+id,{
+      method:"POST"
+    })
+  }
   addRecomendaciones(x:any){
     return fetch(this.apiUrl+"/modificar/agregarRecomen",{
       method:"PUT",
@@ -26,18 +31,17 @@ export class ExpressService {
     })
   }
   //GET
-  pagoList(form:any){
+  pagoList(){
     return fetch(this.apiUrl+"/validaciones/pagoListo",{
-      method:"POST",
-      body:form
+      method:"POST"
     })
   }
   
-  subscribe(){
+  subscribe(x:any){
    
     return fetch(this.apiUrl + '/validaciones/subscribe', {
         method: 'POST',
-
+        body:x
       })
     }
 

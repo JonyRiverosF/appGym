@@ -42,36 +42,9 @@
       <ion-item>
         <ion-input readonly label="Estado" [value]="detalle.status"></ion-input>
       </ion-item>
+      <br>
+      <h4 style="color: white;">El detalle de pago fue enviado a su correo. Terminado el pago, puede volver a la aplicación móvil</h4>
     </ion-card-content>
   </ion-card>
 </ion-content>
 
-<!--Menu footer-->
-<ion-footer id="footer">
-  <ion-toolbar>
-    <ion-tabs>
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button>
-          <ion-icon (click)="irPerfil()" name="person-circle-outline"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button>
-          <ion-icon (click)="irMusculos()" name="barbell-outline"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button>
-          <ion-icon (click)="irNoticias()" name="newspaper-outline"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button>
-          <ion-icon (click)="irDietas()" name="clipboard-outline"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button>
-          <ion-icon (click)="irGuardados()" name="bookmark-outline"></ion-icon>
-        </ion-tab-button>
-
-      </ion-tab-bar>
-    </ion-tabs>
-  </ion-toolbar>
-</ion-footer>

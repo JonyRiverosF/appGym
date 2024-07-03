@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card style="text-align: center;" >
+    <ion-card-header>
+      <ion-card-title>Confirmar Solicitud de pago</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h3 style="color: white;">Al presionar el botón inferior, se le redirigirá al sitio de webpay
+        para continuar con el pago de su mensualidad
+      </h3>
+      <form ngNoForm name="xd" id="xd" method="post" [action]="act" target="_blank">
+
+        <input type="hidden" [(ngModel)]="token" name="token_ws" id="token_ws">
+        <ion-button color="warning" shape="round" type="submit" (click)="subscribe()">Pagar mes</ion-button>
+  
+  </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

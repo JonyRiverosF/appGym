@@ -15,13 +15,10 @@ export class PagoListoPage implements OnInit {
   constructor(private api:ExpressService,private loadingCtrl: LoadingController,private router:Router) { }
  
   verPago(){
-    this.usuario = JSON.parse(String(localStorage.getItem("idUser")))
     this.loading(15000).then(response=>{
       response.present();
-      var form = new FormData();
-      form.append("rut",this.usuario.rut);
-      form.append("nombre",this.usuario.nombre+" "+this.usuario.apellido)
-      this.api.pagoList(form).then(res=>res.json()).then(res=>{
+
+      this.api.pagoList().then(res=>res.json()).then(res=>{
         this.detalle = res.tok.respuesta
         console.log(res)
         console.log(this.detalle)
@@ -40,6 +37,7 @@ export class PagoListoPage implements OnInit {
       })
     })
   }
+  
 
   refrescarUsuario(user:any){
       localStorage.clear();

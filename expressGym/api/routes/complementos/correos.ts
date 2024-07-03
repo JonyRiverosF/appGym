@@ -7,8 +7,10 @@ const accountTransport = require("./account_transport.json");
 import mailcomposer from "nodemailer/lib/mail-composer"
 //Required package
 var pdf = require("pdf-creator-node");
-const URl ="http://10.155.86.66:8100/";
-const xdr = "http://10.155.86.66:3000/"
+
+const URl ="http://192.168.0.11:8100/";
+const xdr = "http://192.168.0.11:3000/"
+
 var oauth2Client:any;
 var gmail:any;
 function iniciarCliente(){
@@ -51,6 +53,16 @@ async function crearPdf(datos:any){
     }
     //Creando el pdf
    return pdf.create(doc,options)
+}
+
+function linkPago(info:any){
+     var detalle={
+        correo:info.correo,
+        asunto:"Envío de link de pago webpay",
+        cuerpo:"Buenas tardes, con el siguiente link usted puede pagar la mensualidad del gimnasio de Colina<br>"+
+               URl+"/pagar-mes/"+info._id
+     }
+     enviarCorreo(detalle)
 }
 function prueba(){
 
@@ -251,4 +263,4 @@ function notificarPago(correoUser:any,trans:any){
     
 }
 export default module.exports = {iniciarCliente,enviarCodigoSeguridad,enviarCodigoAcceso,respuestSolicitud,
-    recuperarCodigo,adverComentario,banearUser,notificarPago,prueba}
+    recuperarCodigo,adverComentario,banearUser,notificarPago,prueba,linkPago}

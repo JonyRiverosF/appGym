@@ -50,9 +50,9 @@
       
         <ion-item color="light">
           <ion-avatar slot="start">
-            <img *ngIf="usuario.imagen == ''" src="assets/icon/maxi.jpg" alt="uwu">
+            <img *ngIf="usuario.imagen == ''" src="/assets/icon/maxi.jpg" alt="uwu">
               
-            <img *ngIf="usuario.imagen != ''" [src]="usuario.imagen" alt="uwu">
+            <img *ngIf="usuario.imagen != ''" [src]="usuario.imagen" alt="nya">
         </ion-avatar>
           <ion-textarea labelPlacement="floating" [(ngModel)]="comentario" label="Escribe un comentario"></ion-textarea>
           <ion-icon (click)="publicarComentario()" name="send-outline"></ion-icon>
