@@ -8,8 +8,8 @@ import mailcomposer from "nodemailer/lib/mail-composer"
 //Required package
 var pdf = require("pdf-creator-node");
 
-const URl ="http://192.168.0.11:8100/";
-const xdr = "http://192.168.0.11:3000/"
+const URl ="http://192.168.0.12:8100/";
+const xdr = "http://192.168.0.12:3000/"
 
 var oauth2Client:any;
 var gmail:any;
@@ -182,18 +182,14 @@ function enviarCodigoAcceso(codigoAcceso:any,correoUser:any,user:any){
       enviarCorreo(detalle);
 }
 
-function respuestSolicitud(correoUser:any,user:any,respuesta:any,asunto:any){
-    const emailLines = [
-        'From: colinagym3@gmail.com',
-        'To: '+correoUser,
-        'Content-type: text/html;charset=iso-8859-1',
-        'MIME-Version: 1.0',
-        'Subject: Respuesta a la solicitud: '+ asunto,
-        '',
-        'Hola '+user+ ", " + respuesta
-      ];
+function respuestSolicitud(correoUser:any,user:any,respuesta:any,subject:any){
+    var detalle={
+        correo:correoUser,
+        asunto: 'Respuesta a la solicitud: '+ subject,
+        cuerpo:'Hola '+user+ ", " + respuesta
+    }
     
-      enviarCorreo(emailLines);
+      enviarCorreo(detalle);
 }
 
 function recuperarCodigo(correoUser:any,codigo:any){
@@ -208,34 +204,25 @@ function recuperarCodigo(correoUser:any,codigo:any){
 }
 
 function adverComentario(correoUser:any,numWarning:any,comentario:any){
-    const emailLines = [
-        'From: colinagym3@gmail.com',
-        'To: '+correoUser,
-        'Content-type: text/html;charset=iso-8859-1',
-        'MIME-Version: 1.0',
-        'Subject: Advertencia de comentario inapropiado',
-        '',
-        'Hola, infringiste las normas de convivencia del gimnasio por medio de tu comentario: ' + '"'+comentario+'"'+
+    var detalle={
+        correo:correoUser,
+        asunto:"Advertencia de comentario inapropiado",
+        cuerpo: 'Hola, infringiste las normas de convivencia del gimnasio por medio de tu comentario: ' + '"'+comentario+'"'+
         ' ,por lo que se te advierte que si repites este comportamiento '+numWarning+' veces más, no podrás realizar '+
         'comentarios a las noticias que se publiquen en un futuro.'
-      ];
+    }
     
-      enviarCorreo(emailLines);
+      enviarCorreo(detalle);
 }
 
 function banearUser(correoUser:any){
-    const emailLines = [
-        'From: colinagym3@gmail.com',
-        'To: '+correoUser,
-        'Content-type: text/html;charset=iso-8859-1',
-        'MIME-Version: 1.0',
-        'Subject: Advertencia de comentario inapropiado',
-        '',
-        'Has sido sancionado permanentemente de la sección de comentarios dentro de las noticias, después de '+
+    var detalle={
+        correo:correoUser,
+        asunto:"Advertencia de comentario inapropiado",
+        cuerpo: 'Has sido sancionado permanentemente de la sección de comentarios dentro de las noticias, después de '+
         '3 oportunidades, no hubo cambio en tu comportamiento por lo que, tendrás restringido comentar las noticias.'
-      ];
-    
-      enviarCorreo(emailLines);
+    }
+      enviarCorreo(detalle);
 }
 
 function notificarPago(correoUser:any,trans:any){ 
