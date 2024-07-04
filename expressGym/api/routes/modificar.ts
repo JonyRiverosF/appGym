@@ -935,7 +935,6 @@ router.put("/cambiarFoto",upload.single("foto"),(req:Request,res:Response)=>{
                 fs.unlink("./public/imagenes/fotoPerfil/"+respo?.imagen,function (err){
                     if(err){
                         console.log(err)
-                    }else{
                         var imagen;
                         var name = respo?.nombre+" "+respo?.apellido
                         if(respo?.imagen == ""){

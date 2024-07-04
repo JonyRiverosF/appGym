@@ -29,7 +29,8 @@
                       <img *ngIf="imagenNueva == ''" src="/assets/icon/maxi.jpg" alt="uwu" style="width: 150px;height: 139px; border-radius: 11px; color: #ffff;">
                     </div>
                     <div class="flip-card-back"> 
-                      <input class="boton" (change)="takePicture($event)" color="warning" type="file"><ion-icon name="image"></ion-icon>
+                      <label for="file-upload" class="custom-file-upload"><ion-icon style="color:black" name="camera-outline"></ion-icon></label>
+                      <input id="file-upload" (change)="takePicture($event)" color="warning" type="file">
                       <br />
                       <!--<ion-button class="boton" color="warning" (click)="takePictureDos()"><ion-icon name="image"></ion-icon></ion-button>-->
                     </div>
@@ -133,7 +134,7 @@
 
   <ion-card-content style="color: #ffff;">
     ¿Tienes que pagar? <br> Utiliza tu misma app para pagar.
-    <ion-button (click)="solicitarPago()">Solicitar Pago</ion-button>
+    <ion-button color="warning" shape="round" (click)="solicitarPago()">Solicitar Pago</ion-button>
   </ion-card-content>
 </ion-card>
 

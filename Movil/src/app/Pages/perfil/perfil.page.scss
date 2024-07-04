@@ -26,6 +26,20 @@ ion-tab-button{
   color:rgb(0, 0, 0);
 }
 
+input[type="file"] {
+  display: none;
+  
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: rgb(253,202,64);
+
+}
+
 .flip-card {
     background-color: transparent;
     width: 150px;
