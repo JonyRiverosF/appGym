@@ -7,7 +7,7 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 import modelos from "./modelos";
 import correos from "./complementos/correos";
-const url="http://192.168.0.11:3000/creacion/"
+const url="http://10.155.87.206:3000/creacion/"
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{
@@ -933,7 +933,6 @@ router.put("/cambiarFoto",upload.single("foto"),(req:Request,res:Response)=>{
             .then(respo=>{
                 console.log(respo)
                 fs.unlink("./public/imagenes/fotoPerfil/"+respo?.imagen,function (err){
-                    if(err){
                         console.log(err)
                         var imagen;
                         var name = respo?.nombre+" "+respo?.apellido
@@ -956,7 +955,7 @@ router.put("/cambiarFoto",upload.single("foto"),(req:Request,res:Response)=>{
                                 console.log(respuesta)
                                 res.status(201).json(foto+".jpg")
                             })
-                    }
+                    
                 })
             })
         }

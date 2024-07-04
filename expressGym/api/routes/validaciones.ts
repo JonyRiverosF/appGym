@@ -11,7 +11,7 @@ import correos from "./complementos/correos";
 
 var usuarioModelo = modelos.usuarioModelo
 var horariosElegidosModelo = modelos.horariosElegidosModelo
-var url="http://192.168.0.11:"
+var url="http://10.155.87.206:"
 
 //
 

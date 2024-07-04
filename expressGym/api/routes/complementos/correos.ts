@@ -8,8 +8,8 @@ import mailcomposer from "nodemailer/lib/mail-composer"
 //Required package
 var pdf = require("pdf-creator-node");
 
-const URl ="http://192.168.0.12:8100/";
-const xdr = "http://192.168.0.12:3000/"
+const URl ="http://10.155.87.206:8100/";
+const xdr = "http://10.155.87.206:3000/"
 
 var oauth2Client:any;
 var gmail:any;
