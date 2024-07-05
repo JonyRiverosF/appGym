@@ -31,12 +31,12 @@
           <ion-row>
             <ion-col size="1"></ion-col>
             <ion-col size="10"> 
-              <a [href]="dieta.foto" target="_blank" type="image/jpg" download="uwu"><ion-button color="warning" shape="round">Descargar</ion-button></a>
               <div *ngIf="!boton"><ion-button color="warning" shape="round" (click)="guardar()">
               <ion-icon name="bookmark-outline"></ion-icon></ion-button></div>
 
               <div *ngIf="boton"><ion-button color="warning" shape="round" (click)="quitarGuardado()">
                 <ion-icon name="bookmark-sharp" ></ion-icon></ion-button></div>
+                <p style="color:white">{{dieta.ficha}}</p>
             </ion-col>
             <ion-col size="1"></ion-col>
           </ion-row>
@@ -53,7 +53,7 @@
 
 
 <!--Menu footer-->
-<ion-footer id="footer">
+<ion-footer id="footer" *ngIf="tipo != 'reco'">
   <ion-toolbar>
     <ion-tabs>
       <ion-tab-bar slot="bottom">

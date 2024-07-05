@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
+import { BarcodeScanner, LensFacing } from '@capacitor-mlkit/barcode-scanning';
 
 @Component({
   selector: 'app-perfil',
@@ -43,18 +44,28 @@ export class PerfilPage implements OnInit {
   fichaMedica:string="";
   apiUrl:string = ""
 
-  act:string="";token:string=""
+  act:string="";token:string="";
+  resultado:any;scanActivo:boolean= false;
   constructor(private menuCtrl: MenuController,private router: Router,private toastController: ToastController,
-   private api:ExpressService, private loadingCtrl: LoadingController) {}
+   private api:ExpressService, private loadingCtrl: LoadingController) {
+
+   }
 
   async solicitarPago(){
    return this.api.solicitarPago(this.usuario._id).then(res=>res.json).then(res=>{
       console.log(res)
     })
   }
-  uy(a:any){
-    console.log(a)
-  }
+  startScan = async () => {
+ 
+  
+    // Start the barcode scanner
+    await BarcodeScanner.scan().then(res=>{
+      this.resultado = res.barcodes[0].rawValue.split(":8100").pop()
+       this.router.navigate([this.resultado])
+       console.log(res.barcodes[0].rawValue)
+    })
+  };
 
 
   ionViewDidEnter(){

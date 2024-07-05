@@ -107,12 +107,12 @@ router.post("/checkOut/:id",(req:Request,res:Response)=>{
                 var flag = ordenarRecom(re);
                 tendencia = flag
                 if(flag[0] != "Cardio"){
-                    await modelos.DietasModelo.find({tipoD:["Calorica","Mantención"]}).exec().then(resp=>{
+                    await modelos.DietasModelo.find({tipoD:["Calorica","Mantención"],estado:"activado"}).exec().then(resp=>{
                        // console.log(resp)
                         dietasRecomendadas = resp
                     })
                 }else{
-                    await modelos.DietasModelo.find({tipoD:["Hipocalorica","Mantención"]}).exec().then(resp=>{
+                    await modelos.DietasModelo.find({tipoD:["Hipocalorica","Mantención"],estado:"activado"}).exec().then(resp=>{
                         //console.log(resp)
                         dietasRecomendadas = resp
                     })

@@ -8,8 +8,8 @@ import mailcomposer from "nodemailer/lib/mail-composer"
 //Required package
 var pdf = require("pdf-creator-node");
 
-const URl ="http://10.155.87.206:8100/";
-const xdr = "http://10.155.87.206:3000/"
+const URl ="http://192.168.0.12:8100/";
+const xdr = "http://192.168.0.12:3000/"
 
 var oauth2Client:any;
 var gmail:any;
@@ -149,7 +149,7 @@ function enviarCodigoSeguridad(codigoSeguridad:string,correoU:string,rut:any,fla
             'en la aplicación. Cuando se verifique su identidad, podrás acceder a la App con tu correo electrónico o '+
             'con una clave de acceso que se te enviará al correo.<br><br> '+
             'Presiona el siguiente link para redirigirlo a la parte final de su registro<br> '+
-            URl+'/confirmar-registro/'+rut
+            URl+'/confirmar-registro/false/'+rut
             +'<br> Tú código de seguridad es: <b>'+codigoSeguridad+'</b>'
           }
           enviarCorreo(detalle);

@@ -47,7 +47,7 @@ export class GuardadosPage implements OnInit {
   verDetalle(x:any){
     switch (x.tipoArchivo){
       case "ejercicio":
-        this.router.navigate(["ejercicio/guardados/"+x.idArchivo])
+        this.router.navigate(["ejercicio/guardados/true/"+x.idArchivo])
         break;
       case "dieta":
         this.router.navigate(["dieta/guardados/"+x.idArchivo])

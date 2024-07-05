@@ -22,26 +22,6 @@ export class EjercicioPage implements OnInit {
 
   comentario:string="";
 
-  comen=[{id:1,
-    nombre:"juan",
-    apellido:"Gana",
-    comentario:"Yo quiero hacer el ejercicio con alguien",
-    img:"assets/icon/maxi.jpg",
-    username:"Juan_Gana",mostrar:false},
-
-    {id:2
-    ,nombre:"Victor",
-    apellido:"Rosendo",
-    comentario:"yo quiero",
-    img:"assets/icon/gym.jpg",
-    username:"Victor_Rosendo",mostrar:false},
-
-    {id:3,
-    nombre:"Maxi",
-    apellido:"Urrejola",
-    comentario:"Quiero hacerlo con ambos (y el ejercicio tambien)",
-    img:"assets/icon/maxi.jpg",
-    username:"Maxi_Urrejola",mostrar:false}]
     
   
     id:string = "";

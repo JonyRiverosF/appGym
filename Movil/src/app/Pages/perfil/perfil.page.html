@@ -55,6 +55,7 @@
                 <ion-button color="warning" (click)="mostrarH()" *ngIf="!mostrarHorario" shape="round">Ver Horario</ion-button>
                 <ion-button color="warning" (click)="esconderH()" *ngIf="mostrarHorario" shape="round">Ocultar Horario</ion-button>
                 <ion-button color="warning" [routerLink]="['/home']" shape="round">Cerrar sesion</ion-button>
+                <ion-button color="warning" shape="round" (click)="startScan()">Escanear QR</ion-button>
               </ion-grid>
             
                     <!--Cerrar sesion--> 
@@ -114,6 +115,7 @@
               </ion-card-content>
             </ion-card>
       </p>
+
   </div>
 
   <ion-card>
@@ -162,7 +164,6 @@
 </ion-menu>
 
 </ion-content>
-
 <!--Menu footer-->
 <ion-footer id="footer">
   <ion-toolbar>

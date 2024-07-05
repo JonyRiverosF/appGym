@@ -219,7 +219,7 @@ export class RegistroUserPage implements OnInit {
           response.dismiss();
           this.loading(2000).then(response=>{
             response.present()
-            this.router.navigate(["/confirmar-registro/"+this.rut],{state:{"infoUsuario":json.insertado}})
+            this.router.navigate(["/confirmar-registro/true/"+this.rut],{state:{"infoUsuario":json.insertado}})
             this.presentAlert("Se ha enviado un código de seguridad al correo "+this.correo+". Debes ingresar "+
             "el código para corroborar tu identidad y finalizar con el registro.")
             response.dismiss()

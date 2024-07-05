@@ -7,7 +7,7 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 import modelos from "./modelos";
 import correos from "./complementos/correos";
-const url="http://10.155.87.206:3000/creacion/"
+const url="http://192.168.0.12:3000/creacion/"
 
 mongoose.connect("mongodb+srv://colinaGym:MaxiPug123@cluster0.ifkpyed.mongodb.net/colinaGym?retryWrites=true&w=majority")
 .then(res=>{

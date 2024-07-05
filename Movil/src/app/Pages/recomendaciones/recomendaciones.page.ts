@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { ExpressService } from 'src/app/services/express.service';
 
+
 @Component({
   selector: 'app-recomendaciones',
   templateUrl: './recomendaciones.page.html',
@@ -17,7 +18,8 @@ export class RecomendacionesPage implements OnInit {
   mostrarVeget:boolean=false;mostrarNormal:boolean=false;
   //
   fotoXd:string="";
-  constructor(private router: Router,private activatedRouter:ActivatedRoute,private api:ExpressService,private loadingCtrl: LoadingController) {
+  constructor(private router: Router,private activatedRouter:ActivatedRoute,
+    private api:ExpressService,private loadingCtrl: LoadingController) {
     
     this.activatedRouter.queryParams.subscribe(param =>{
       if (this.router.getCurrentNavigation()?.extras.state){
@@ -33,6 +35,9 @@ export class RecomendacionesPage implements OnInit {
   awa(x:any){
    this.fotoXd = x;
    this.modal=true;
+  }
+  verDetalle(id:any){
+    this.router.navigate(["/dieta/reco/"+id])
   }
   modal:boolean=false;
   cerrarModal(x:any){

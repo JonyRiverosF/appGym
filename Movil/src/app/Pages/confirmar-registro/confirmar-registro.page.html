@@ -11,7 +11,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card style="text-align: center;">
+  <ion-card style="text-align: center;" *ngIf="!mensajeApp">
     <ion-card-header>
       <ion-card-title>Ingresa tu código de seguridad</ion-card-title>
       <ion-card-subtitle style="color: white;">(Código enviado al correo {{infoUsuario.correo}})</ion-card-subtitle>
@@ -25,6 +25,17 @@
       <br />
       <p style="color:white;">Recuerda revisar la bandeja de spam 
         en la eventualidad de no encontrar el código en la bandeja principal
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <!---->
+  <ion-card style="text-align: center;" *ngIf="mensajeApp">
+    <ion-card-header>
+      <ion-card-title>Registro Completado !!</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p style="color:white;">Usuario registrado exitosamente. Ahora puedes inciar sesión desde tu App móvil con  
+        el código de acceso fue enviado a tu correo electrónico.
       </p>
     </ion-card-content>
   </ion-card>

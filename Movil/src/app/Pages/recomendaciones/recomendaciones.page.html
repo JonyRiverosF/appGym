@@ -33,9 +33,7 @@
         <ion-row  *ngIf="mostrarNormal">
           <ion-col size="6" class="container1" 
           *ngFor="let dieta of normal">
-            <a [href]="dieta.dieta.foto" [target]="dieta.dieta.foto">
-              <img [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
-            </a>
+              <img (click)="verDetalle(dieta.dieta._id)" [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
             <h3 class="center1">{{dieta.dieta.nombre}}</h3>
           </ion-col>        
         </ion-row>
@@ -54,9 +52,8 @@
           <ion-row  *ngIf="mostrarVeggie">
             <ion-col size="6" class="container1" 
             *ngFor="let dieta of veg">
-              <a [href]="dieta.dieta.foto" [target]="dieta.dieta.foto">
-                <img [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
-              </a>
+                <img (click)="verDetalle(dieta.dieta._id)" [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
+              
               <h3 class="center1">{{dieta.dieta.nombre}}</h3>
             </ion-col>        
           </ion-row>
@@ -75,9 +72,7 @@
           <ion-row *ngIf="mostrarVeget">
             <ion-col size="6" class="container1" 
             *ngFor="let dieta of vegeta">
-              <a [href]="dieta.dieta.foto" [target]="dieta.dieta.foto">
-                <img [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
-              </a>
+                <img (click)="verDetalle(dieta.dieta._id)" [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
               <h3 class="center1">{{dieta.dieta.nombre}}</h3>
             </ion-col>        
           </ion-row>
@@ -96,9 +91,7 @@
           <ion-row *ngIf="mostrarCeli">
             <ion-col size="6" class="container1" 
             *ngFor="let dieta of celiaco">
-                <a [href]="dieta.dieta.foto" [target]="dieta.dieta.foto">
-                  <img [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
-                </a>
+                  <img (click)="verDetalle(dieta.dieta._id)" [src]="dieta.dieta.foto" alt="Cinque Terre" style="width: 150px;height: 150px;" class="img1">
                 <h3 class="center1">{{dieta.dieta.nombre}}</h3>
             </ion-col>        
           </ion-row>

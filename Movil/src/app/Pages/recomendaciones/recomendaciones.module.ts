@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { RecomendacionesPageRoutingModule } from './recomendaciones-routing.module';
 
 import { RecomendacionesPage } from './recomendaciones.page';
-
 @NgModule({
   imports: [
     CommonModule,

@@ -17,10 +17,12 @@ export class DietaPage implements OnInit {
   boton:boolean=false;
   dieta:any={};link:any;
   fotoName:string="";
+  tipo:any;
   constructor(private router: Router,private toastController: ToastController,private api:ExpressService,
     private activatedRouter:ActivatedRoute,    private loadingCtrl: LoadingController) { }
   
   ionViewWillEnter(){
+    this.tipo = this.activatedRouter.snapshot.paramMap.get('tipoDieta')
     this.boton = false;
     this.apiUrl = this.api.urlApi
     this.dietaId = String(this.activatedRouter.snapshot.paramMap.get('id'))
@@ -76,10 +78,15 @@ export class DietaPage implements OnInit {
 
 
   regresar(){
-    if(String(this.activatedRouter.snapshot.paramMap.get('tipoDieta')) == "guardados"){
-      this.router.navigate(['guardados'])
-    }else{
-      this.router.navigate(['/tipo-dietas/'+String(this.activatedRouter.snapshot.paramMap.get('tipoDieta'))])
+    switch(this.activatedRouter.snapshot.paramMap.get('tipoDieta')){
+      case "guardados":
+        this.router.navigate(['guardados']);
+        break;
+      case "reco":
+        this.router.navigate(['recomendaciones']);
+        break;
+      default:
+        this.router.navigate(['/tipo-dietas/'+String(this.activatedRouter.snapshot.paramMap.get('tipoDieta'))])
     }
   }
 
