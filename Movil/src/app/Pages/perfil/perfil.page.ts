@@ -48,6 +48,11 @@ export class PerfilPage implements OnInit {
   resultado:any;scanActivo:boolean= false;
   constructor(private menuCtrl: MenuController,private router: Router,private toastController: ToastController,
    private api:ExpressService, private loadingCtrl: LoadingController) {
+      BarcodeScanner.installGoogleBarcodeScannerModule().then(res=>{
+        console.log(res)
+      }).catch(error=>{
+        console.log(error)
+      })
 
    }
 

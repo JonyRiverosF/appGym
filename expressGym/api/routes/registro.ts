@@ -83,21 +83,27 @@ function ordenarRecom(re:any){
 
 router.post("/checkIn/:id",upload.any(),(req:Request,res:Response)=>{
     var rut = req.params.id;
-    modelos.checkInModelo.create({
-        usuario:rut,
-        nombre:req.body.nombre,
-        dia: new Date(),
-        estado:"activo"
-    }).then(respuesta=>{
-        res.status(201).json(respuesta)
-    }).catch(error=>{
-        console.log(error);
-        res.status(500).json({msj:"Algo salió mal"})
+    modelos.checkInModelo.findOne({usuario:rut,estado:"activo"}).exec().then(resp=>{
+        if(resp == null){
+            modelos.checkInModelo.create({
+                usuario:rut,
+                nombre:req.body.nombre,
+                dia: new Date(),
+                estado:"activo"
+            }).then(respuesta=>{
+                res.status(201).json(respuesta)
+            }).catch(error=>{
+                console.log(error);
+                res.status(500).json({msj:"Algo salió mal"})
+            })
+        }else{
+            res.status(201).json({})
+        }
     })
 })
 
 router.post("/checkOut/:id",(req:Request,res:Response)=>{
-    var rut = req.params.id,dietasRecomendadas:any=[]
+    var rut = req.params.id,dietasRecomendadas:any=[];
     modelos.checkOutModelo.create({
         usuario:rut,
         dia:new Date()
