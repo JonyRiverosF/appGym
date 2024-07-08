@@ -316,11 +316,13 @@ th, td {
     padding: 8px;
     border: 1px solid #ddd;
     text-align: center;
+    
 }
 
 th {
     position: sticky;
     top: 0;
+    
     
 }
 
@@ -441,8 +443,8 @@ td:first-child {
                   <table class="table">
                       <thead>
                           <tr>
-                              <td>Nombre</td>
-                              <td>Comentario</td>
+                              <td style="font-weight: bold;">Nombre</td>
+                              <td style="font-weight: bold;">Comentario</td>
                           </tr>
                       </thead>
                       {% for c in comentarios %}
@@ -460,8 +462,8 @@ td:first-child {
                       {% for h in horarios %}
                       <thead>
                           <tr>
-                              <td>Horas</td>
-                              <td>{{ h.dia }}</td>
+                              <td style="font-weight: bold;">Horas</td>
+                              <td style="font-weight: bold;"> {{ h.dia }}</td>
                           </tr>
                       </thead>
                       {% for j in h.horas %}
@@ -491,7 +493,7 @@ td:first-child {
                             <td>{{ item.mes }}</td>
                             <td>{{ item.monto }}</td>
                             <td>
-                                {% if item.mes == 'june 2024' %}
+                                {% if item.mes == 'junio 2024' %}
                                     {{ meta_fija_junio }}
                                 {% else %}
                                     {{ item.meta }}

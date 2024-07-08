@@ -165,14 +165,6 @@ def soli(request,id):
     
     return render(request,"aplicacion/soli.html",contexto)
 
-from datetime import datetime
-from collections import defaultdict
-import locale
-
-from datetime import datetime
-from collections import defaultdict
-import locale
-
 def Informes(request):
 
     Comentarios = comentarios.find({})
