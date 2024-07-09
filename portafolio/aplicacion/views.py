@@ -328,7 +328,7 @@ def Registro(request):
 
 def ListaUsu(request):
 
-    Usuarios = usuarios.find({})
+    Usuarios = usuarios.find({"rol":"1"})
     
     contexto = {
         "usuarios": Usuarios,

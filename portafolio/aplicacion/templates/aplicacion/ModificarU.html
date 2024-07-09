@@ -428,17 +428,7 @@ nav > ul > li > ul > li > ul:before {
 
       <div class="row" style="margin-top: -15px;">
         <div class="col-md-4 col-sm-4">
-          {% if usuarios.imagen != '' %}
-          <div class="grupo">
-              <label for="" ><h5 style="color: #000000;">Foto de perfil actual</h5></label><br>
-              <img id="fotoUsuario" src="{{ usuarios.imagen }}"  alt="Avatar" style="width:150px;height:150px;" onclick="mostrarFoto()">
-              </div>
-
-              <div id="modalFoto" class="modal-foto" >
-                <span class="close" onclick="cerrarModal()" >&times;</span>
-                <img class="modal-foto-content" id="fotoAgrandada" style="margin-top: 130px;">
-              </div>
-        {% endif %}
+          
         </div>
         <div class="col-md-4 col-sm-4">
           <div class="grupo">
